@@ -1,8 +1,7 @@
 # simple-distributed-crawler
 
 这是第四届青训营大数据基础班6806队的简易分布式爬虫系统。
-
-
+详细文档地址：https://wf7xzvrw0y.feishu.cn/docx/doxcndJMTwT7cVDl90m605wUW2c
 
 ## **技术选型**
 
