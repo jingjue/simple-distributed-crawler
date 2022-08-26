@@ -1,0 +1,969 @@
+2022-04-09 11:22:42.288 | ERROR    | base.db.mysql:save:390 - 【mysql保存出错】device
+Traceback (most recent call last):
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1771, in _execute_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x7f1921932790>
+    │    └ <sqlalchemy.dialects.mysql.pymysql.MySQLDialect_pymysql object at 0x7f1919885640>
+    └ <sqlalchemy.engine.base.Connection object at 0x7f18c1f3e670>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 717, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ {'ip': 'test', 'username': 'test', 'password': 'b"Y\\xffo\\xbb[\\xba|?\\xa5\\x17~N\\xefW\\xe1)\\x98\\x1dV\\x04\\x92\\xc2\\xbd...
+    │      │       └ 'INSERT INTO device (ip, username, password, address, port, valid) VALUES (%(ip)s, %(username)s, %(password)s, %(address)s, %...
+    │      └ <function Cursor.execute at 0x7f1919f6d1f0>
+    └ <pymysql.cursors.Cursor object at 0x7f18c36b1c40>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 148, in execute
+    result = self._query(query)
+             │    │      └ 'INSERT INTO device (ip, username, password, address, port, valid) VALUES (\'test\', \'test\', \'b\\"Y\\\\xffo\\\\xbb[\\\\xba...
+             │    └ <function Cursor._query at 0x7f1919f6d670>
+             └ <pymysql.cursors.Cursor object at 0x7f18c36b1c40>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 310, in _query
+    conn.query(q)
+    │    │     └ 'INSERT INTO device (ip, username, password, address, port, valid) VALUES (\'test\', \'test\', \'b\\"Y\\\\xffo\\\\xbb[\\\\xba...
+    │    └ <function Connection.query at 0x7f1919f809d0>
+    └ <pymysql.connections.Connection object at 0x7f1898f92d90>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+    │    │                │    │                             └ False
+    │    │                │    └ <function Connection._read_query_result at 0x7f1919f81040>
+    │    │                └ <pymysql.connections.Connection object at 0x7f1898f92d90>
+    │    └ 0
+    └ <pymysql.connections.Connection object at 0x7f1898f92d90>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 775, in _read_query_result
+    result.read()
+    │      └ <function MySQLResult.read at 0x7f1919f81820>
+    └ <pymysql.connections.MySQLResult object at 0x7f1898f925e0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+                   │    └ None
+                   └ <pymysql.connections.MySQLResult object at 0x7f1898f925e0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+    │      └ <function MysqlPacket.raise_for_error at 0x7f1919f78310>
+    └ <pymysql.protocol.MysqlPacket object at 0x7f1918495a00>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    │   │                     │    └ <member '_data' of 'MysqlPacket' objects>
+    │   │                     └ <pymysql.protocol.MysqlPacket object at 0x7f1918495a00>
+    │   └ <function raise_mysql_exception at 0x7f191a4c0280>
+    └ <module 'pymysql.err' from '/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+          │          │      └ "Incorrect integer value: 'test' for column 'port' at row 1"
+          │          └ 1366
+          └ <class 'pymysql.err.DataError'>
+
+pymysql.err.DataError: (1366, "Incorrect integer value: 'test' for column 'port' at row 1")
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f194084ba60>
+    └ <Thread(Thread-297, started daemon 139743648007936)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f194084b790>
+    └ <Thread(Thread-297, started daemon 139743648007936)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-297, started daemon 139743648007936)>
+    │    │        │    └ (<socket.socket fd=23, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('180.201.163.246', 5000), r...
+    │    │        └ <Thread(Thread-297, started daemon 139743648007936)>
+    │    └ <bound method ThreadingMixIn.process_request_thread of <werkzeug.serving.ThreadedWSGIServer object at 0x7f19185eb280>>
+    └ <Thread(Thread-297, started daemon 139743648007936)>
+  File "/usr/lib/python3.8/socketserver.py", line 683, in process_request_thread
+    self.finish_request(request, client_address)
+    │    │              │        └ ('180.201.152.222', 54878)
+    │    │              └ <socket.socket fd=23, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('180.201.163.246', 5000), ra...
+    │    └ <function BaseServer.finish_request at 0x7f19321d03a0>
+    └ <werkzeug.serving.ThreadedWSGIServer object at 0x7f19185eb280>
+  File "/usr/lib/python3.8/socketserver.py", line 360, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    │    │                   │        │               └ <werkzeug.serving.ThreadedWSGIServer object at 0x7f19185eb280>
+    │    │                   │        └ ('180.201.152.222', 54878)
+    │    │                   └ <socket.socket fd=23, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('180.201.163.246', 5000), ra...
+    │    └ <class 'werkzeug.serving.WSGIRequestHandler'>
+    └ <werkzeug.serving.ThreadedWSGIServer object at 0x7f19185eb280>
+  File "/usr/lib/python3.8/socketserver.py", line 747, in __init__
+    self.handle()
+    │    └ <function WSGIRequestHandler.handle at 0x7f193d78aee0>
+    └ <werkzeug.serving.WSGIRequestHandler object at 0x7f19184747c0>
+
+  File "/usr/local/lib/python3.8/dist-packages/werkzeug/serving.py", line 342, in handle
+    BaseHTTPRequestHandler.handle(self)
+    │                      │      └ <werkzeug.serving.WSGIRequestHandler object at 0x7f19184747c0>
+    │                      └ <function BaseHTTPRequestHandler.handle at 0x7f19219c64c0>
+    └ <class 'http.server.BaseHTTPRequestHandler'>
+
+  File "/usr/lib/python3.8/http/server.py", line 427, in handle
+    self.handle_one_request()
+    │    └ <function WSGIRequestHandler.handle_one_request at 0x7f193d7920d0>
+    └ <werkzeug.serving.WSGIRequestHandler object at 0x7f19184747c0>
+
+  File "/usr/local/lib/python3.8/dist-packages/werkzeug/serving.py", line 374, in handle_one_request
+    self.run_wsgi()
+    │    └ <function WSGIRequestHandler.run_wsgi at 0x7f193d78ae50>
+    └ <werkzeug.serving.WSGIRequestHandler object at 0x7f19184747c0>
+
+  File "/usr/local/lib/python3.8/dist-packages/werkzeug/serving.py", line 319, in run_wsgi
+    execute(self.server.app)
+    │       │    │      └ <werkzeug.debug.DebuggedApplication object at 0x7f1919808f70>
+    │       │    └ <werkzeug.serving.ThreadedWSGIServer object at 0x7f19185eb280>
+    │       └ <werkzeug.serving.WSGIRequestHandler object at 0x7f19184747c0>
+    └ <function WSGIRequestHandler.run_wsgi.<locals>.execute at 0x7f1918480040>
+
+  File "/usr/local/lib/python3.8/dist-packages/werkzeug/serving.py", line 310, in execute
+    for data in application_iter:
+                └ <generator object DebuggedApplication.debug_application at 0x7f191848ce40>
+
+  File "/usr/local/lib/python3.8/dist-packages/werkzeug/debug/__init__.py", line 309, in debug_application
+    app_iter = self.app(environ, start_response)
+               │    │   │        └ <function WSGIRequestHandler.run_wsgi.<locals>.start_response at 0x7f1918480b80>
+               │    │   └ {'wsgi.version': (1, 0), 'wsgi.url_scheme': 'http', 'wsgi.input': <_io.BufferedReader name=23>, 'wsgi.errors': <_io.TextIOWra...
+               │    └ <Flask 'app'>
+               └ <werkzeug.debug.DebuggedApplication object at 0x7f1919808f70>
+
+  File "/usr/local/lib/python3.8/dist-packages/flask/app.py", line 2464, in __call__
+    return self.wsgi_app(environ, start_response)
+           │    │        │        └ <function WSGIRequestHandler.run_wsgi.<locals>.start_response at 0x7f1918480b80>
+           │    │        └ {'wsgi.version': (1, 0), 'wsgi.url_scheme': 'http', 'wsgi.input': <_io.BufferedReader name=23>, 'wsgi.errors': <_io.TextIOWra...
+           │    └ <function Flask.wsgi_app at 0x7f192138aca0>
+           └ <Flask 'app'>
+
+  File "/usr/local/lib/python3.8/dist-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+               │    └ <function Flask.full_dispatch_request at 0x7f192138a3a0>
+               └ <Flask 'app'>
+
+  File "/usr/local/lib/python3.8/dist-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+         │    └ <function Flask.dispatch_request at 0x7f192138a310>
+         └ <Flask 'app'>
+
+  File "/usr/local/lib/python3.8/dist-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+           │    │              │    │           │   └ {}
+           │    │              │    │           └ <Request 'http://180.201.163.246:5000/update_sys_device' [POST]>
+           │    │              │    └ 'update_device'
+           │    │              └ <Rule '/update_sys_device' (POST, HEAD, GET, OPTIONS) -> update_device>
+           │    └ {'static': <bound method _PackageBoundObject.send_static_file of <Flask 'app'>>, 'get_pro_info': <function get_pro_info at 0x...
+           └ <Flask 'app'>
+
+  File "/home/users/Scy/yuqing/spider/app.py", line 168, in update_device
+    return {"code": 200, "add_error": PM.add_devices(add_devices, cover), "rm_error": PM.rm_devices(rm_devices)}
+                                      │  │           │            │                   │  │          └ []
+                                      │  │           │            │                   │  └ <function ProjectManager.rm_devices at 0x7f1919889700>
+                                      │  │           │            │                   └ <monitor.projectManager.ProjectManager object at 0x7f191986f970>
+                                      │  │           │            └ False
+                                      │  │           └ [{'ip': 'test', 'username': 'test', 'password': 'b"Y\\xffo\\xbb[\\xba|?\\xa5\\x17~N\\xefW\\xe1)\\x98\\x1dV\\x04\\x92\\xc2\\xb...
+                                      │  └ <function ProjectManager.add_devices at 0x7f1919889670>
+                                      └ <monitor.projectManager.ProjectManager object at 0x7f191986f970>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 235, in add_devices
+    errors.update(self.add_devices(device, cover))
+    │      │      │    │           │       └ False
+    │      │      │    │           └ {'ip': 'test', 'username': 'test', 'password': 'b"Y\\xffo\\xbb[\\xba|?\\xa5\\x17~N\\xefW\\xe1)\\x98\\x1dV\\x04\\x92\\xc2\\xbd...
+    │      │      │    └ <function ProjectManager.add_devices at 0x7f1919889670>
+    │      │      └ <monitor.projectManager.ProjectManager object at 0x7f191986f970>
+    │      └ <method 'update' of 'dict' objects>
+    └ {}
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 229, in add_devices
+    self.dbslot.mysql.save(Device(**devices))
+    │    │      │     │    │        └ {'ip': 'test', 'username': 'test', 'password': 'b"Y\\xffo\\xbb[\\xba|?\\xa5\\x17~N\\xefW\\xe1)\\x98\\x1dV\\x04\\x92\\xc2\\xbd...
+    │    │      │     │    └ <class 'base.db.mysql.Device'>
+    │    │      │     └ <function Mysql.save at 0x7f191a529820>
+    │    │      └ <base.db.mysql.Mysql object at 0x7f191986f760>
+    │    └ <base.db.dbSlot.Slot object at 0x7f1919885cd0>
+    └ <monitor.projectManager.ProjectManager object at 0x7f191986f970>
+
+> File "/home/users/Scy/yuqing/spider/base/db/mysql.py", line 381, in save
+    self.session.commit()
+    │    │       └ <function Session.commit at 0x7f191a64fa60>
+    │    └ <sqlalchemy.orm.session.Session object at 0x7f1919885be0>
+    └ <base.db.mysql.Mysql object at 0x7f191986f760>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1428, in commit
+    self._transaction.commit(_to_root=self.future)
+    │    │                            │    └ False
+    │    │                            └ <sqlalchemy.orm.session.Session object at 0x7f1919885be0>
+    │    └ None
+    └ <sqlalchemy.orm.session.Session object at 0x7f1919885be0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 829, in commit
+    self._prepare_impl()
+    │    └ <function SessionTransaction._prepare_impl at 0x7f191a6479d0>
+    └ <sqlalchemy.orm.session.SessionTransaction object at 0x7f19184085e0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 808, in _prepare_impl
+    self.session.flush()
+    │    └ None
+    └ <sqlalchemy.orm.session.SessionTransaction object at 0x7f19184085e0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 3298, in flush
+    self._flush(objects)
+    │    │      └ None
+    │    └ <function Session._flush at 0x7f191a64b820>
+    └ <sqlalchemy.orm.session.Session object at 0x7f1919885be0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 3438, in _flush
+    transaction.rollback(_capture_exception=True)
+    │           └ <function SessionTransaction.rollback at 0x7f191a647af0>
+    └ <sqlalchemy.orm.session.SessionTransaction object at 0x7f1918408670>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 70, in __exit__
+    compat.raise_(
+    │      └ <function raise_ at 0x7f191adf0d30>
+    └ <module 'sqlalchemy.util.compat' from '/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/util/compat.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 207, in raise_
+    raise exception
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 3398, in _flush
+    flush_context.execute()
+    │             └ <function UOWTransaction.execute at 0x7f191a641160>
+    └ <sqlalchemy.orm.unitofwork.UOWTransaction object at 0x7f1918408700>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/unitofwork.py", line 456, in execute
+    rec.execute(self)
+    │   │       └ <sqlalchemy.orm.unitofwork.UOWTransaction object at 0x7f1918408700>
+    │   └ <function SaveUpdateAll.execute at 0x7f191a641a60>
+    └ SaveUpdateAll(mapped class Device->device)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/unitofwork.py", line 630, in execute
+    util.preloaded.orm_persistence.save_obj(
+    │    │         │               └ <function save_obj at 0x7f191a62cee0>
+    │    │         └ <module 'sqlalchemy.orm.persistence' from '/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py'>
+    │    └ <sqlalchemy.util._preloaded._ModuleRegistry object at 0x7f191ae1e970>
+    └ <module 'sqlalchemy.util' from '/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/util/__init__.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 242, in save_obj
+    _emit_insert_statements(
+    └ <function _emit_insert_statements at 0x7f191a632550>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 1094, in _emit_insert_statements
+    c = connection._execute_20(
+        │          └ <function Connection._execute_20 at 0x7f191aa30940>
+        └ <sqlalchemy.engine.base.Connection object at 0x7f18c1f3e670>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1583, in _execute_20
+    return meth(self, args_10style, kwargs_10style, execution_options)
+           │    │     │             │               └ {'compiled_cache': {(<sqlalchemy.dialects.mysql.pymysql.MySQLDialect_pymysql object at 0x7f1919885640>, ('0', <class 'sqlalch...
+           │    │     │             └ immutabledict({})
+           │    │     └ ([{'password': 'b"Y\\xffo\\xbb[\\xba|?\\xa5\\x17~N\\xefW\\xe1)\\x98\\x1dV\\x04\\x92\\xc2\\xbd*u]$\\x94\\xce\\xd9\\x0c\\x9e\\x...
+           │    └ <sqlalchemy.engine.base.Connection object at 0x7f18c1f3e670>
+           └ <bound method ClauseElement._execute_on_connection of <sqlalchemy.sql.dml.Insert object at 0x7f19184e7490>>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 323, in _execute_on_connection
+    return connection._execute_clauseelement(
+           │          └ <function Connection._execute_clauseelement at 0x7f191aa30790>
+           └ <sqlalchemy.engine.base.Connection object at 0x7f18c1f3e670>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1452, in _execute_clauseelement
+    ret = self._execute_context(
+          │    └ <function Connection._execute_context at 0x7f191aa30a60>
+          └ <sqlalchemy.engine.base.Connection object at 0x7f18c1f3e670>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1814, in _execute_context
+    self._handle_dbapi_exception(
+    │    └ <function Connection._handle_dbapi_exception at 0x7f191aa30c10>
+    └ <sqlalchemy.engine.base.Connection object at 0x7f18c1f3e670>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1995, in _handle_dbapi_exception
+    util.raise_(
+    │    └ <function raise_ at 0x7f191adf0d30>
+    └ <module 'sqlalchemy.util' from '/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/util/__init__.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 207, in raise_
+    raise exception
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1771, in _execute_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x7f1921932790>
+    │    └ <sqlalchemy.dialects.mysql.pymysql.MySQLDialect_pymysql object at 0x7f1919885640>
+    └ <sqlalchemy.engine.base.Connection object at 0x7f18c1f3e670>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 717, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ {'ip': 'test', 'username': 'test', 'password': 'b"Y\\xffo\\xbb[\\xba|?\\xa5\\x17~N\\xefW\\xe1)\\x98\\x1dV\\x04\\x92\\xc2\\xbd...
+    │      │       └ 'INSERT INTO device (ip, username, password, address, port, valid) VALUES (%(ip)s, %(username)s, %(password)s, %(address)s, %...
+    │      └ <function Cursor.execute at 0x7f1919f6d1f0>
+    └ <pymysql.cursors.Cursor object at 0x7f18c36b1c40>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 148, in execute
+    result = self._query(query)
+             │    │      └ 'INSERT INTO device (ip, username, password, address, port, valid) VALUES (\'test\', \'test\', \'b\\"Y\\\\xffo\\\\xbb[\\\\xba...
+             │    └ <function Cursor._query at 0x7f1919f6d670>
+             └ <pymysql.cursors.Cursor object at 0x7f18c36b1c40>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 310, in _query
+    conn.query(q)
+    │    │     └ 'INSERT INTO device (ip, username, password, address, port, valid) VALUES (\'test\', \'test\', \'b\\"Y\\\\xffo\\\\xbb[\\\\xba...
+    │    └ <function Connection.query at 0x7f1919f809d0>
+    └ <pymysql.connections.Connection object at 0x7f1898f92d90>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+    │    │                │    │                             └ False
+    │    │                │    └ <function Connection._read_query_result at 0x7f1919f81040>
+    │    │                └ <pymysql.connections.Connection object at 0x7f1898f92d90>
+    │    └ 0
+    └ <pymysql.connections.Connection object at 0x7f1898f92d90>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 775, in _read_query_result
+    result.read()
+    │      └ <function MySQLResult.read at 0x7f1919f81820>
+    └ <pymysql.connections.MySQLResult object at 0x7f1898f925e0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+                   │    └ None
+                   └ <pymysql.connections.MySQLResult object at 0x7f1898f925e0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+    │      └ <function MysqlPacket.raise_for_error at 0x7f1919f78310>
+    └ <pymysql.protocol.MysqlPacket object at 0x7f1918495a00>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    │   │                     │    └ <member '_data' of 'MysqlPacket' objects>
+    │   │                     └ <pymysql.protocol.MysqlPacket object at 0x7f1918495a00>
+    │   └ <function raise_mysql_exception at 0x7f191a4c0280>
+    └ <module 'pymysql.err' from '/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+          │          │      └ "Incorrect integer value: 'test' for column 'port' at row 1"
+          │          └ 1366
+          └ <class 'pymysql.err.DataError'>
+
+sqlalchemy.exc.DataError: (pymysql.err.DataError) (1366, "Incorrect integer value: 'test' for column 'port' at row 1")
+[SQL: INSERT INTO device (ip, username, password, address, port, valid) VALUES (%(ip)s, %(username)s, %(password)s, %(address)s, %(port)s, %(valid)s)]
+[parameters: {'ip': 'test', 'username': 'test', 'password': 'b"Y\\xffo\\xbb[\\xba|?\\xa5\\x17~N\\xefW\\xe1)\\x98\\x1dV\\x04\\x92\\xc2\\xbd*u]$\\x94\\xce\\xd9\\x0c\\x9e\\x8f\\xf0\\xa3wP\\x17H\\x16F\\xf5\\x0e\\x8 ... (128 characters truncated) ... \x84\\xc3:\\xe3\\xdbk\\xf3\\xb1k\\xb5\\xff8~\\xa0\\xf3w\\x95\\x14\\xb4(\\xc4\\xbc\\xdc\\xf0\\x01el\\x91\\xbd\'\\x8e\\x9e\\xc7)\\x15\\xb1>@\\xb2\\xda"', 'address': 'test', 'port': 'test', 'valid': 1}]
+(Background on this error at: https://sqlalche.me/e/14/9h9h)
+2022-04-09 11:22:59.524 | ERROR    | base.db.mysql:save:390 - 【mysql保存出错】device
+Traceback (most recent call last):
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1771, in _execute_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x7f1921932790>
+    │    └ <sqlalchemy.dialects.mysql.pymysql.MySQLDialect_pymysql object at 0x7f1919885640>
+    └ <sqlalchemy.engine.base.Connection object at 0x7f19184e73a0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 717, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ {'ip': 'test', 'username': 'test', 'password': "b'a\\xa4Z\\xc5?%|\\x06\\xa2yA\\xf6x\\t\\xacI\\x87\\x9f.\\xbd\\xa5\\xe3\\x81\\...
+    │      │       └ 'INSERT INTO device (ip, username, password, address, port, valid) VALUES (%(ip)s, %(username)s, %(password)s, %(address)s, %...
+    │      └ <function Cursor.execute at 0x7f1919f6d1f0>
+    └ <pymysql.cursors.Cursor object at 0x7f19184e7fd0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 148, in execute
+    result = self._query(query)
+             │    │      └ "INSERT INTO device (ip, username, password, address, port, valid) VALUES ('test', 'test', 'b\\'a\\\\xa4Z\\\\xc5?%|\\\\x06\\\...
+             │    └ <function Cursor._query at 0x7f1919f6d670>
+             └ <pymysql.cursors.Cursor object at 0x7f19184e7fd0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 310, in _query
+    conn.query(q)
+    │    │     └ "INSERT INTO device (ip, username, password, address, port, valid) VALUES ('test', 'test', 'b\\'a\\\\xa4Z\\\\xc5?%|\\\\x06\\\...
+    │    └ <function Connection.query at 0x7f1919f809d0>
+    └ <pymysql.connections.Connection object at 0x7f19184e7580>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+    │    │                │    │                             └ False
+    │    │                │    └ <function Connection._read_query_result at 0x7f1919f81040>
+    │    │                └ <pymysql.connections.Connection object at 0x7f19184e7580>
+    │    └ 0
+    └ <pymysql.connections.Connection object at 0x7f19184e7580>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 775, in _read_query_result
+    result.read()
+    │      └ <function MySQLResult.read at 0x7f1919f81820>
+    └ <pymysql.connections.MySQLResult object at 0x7f18c36b1fd0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+                   │    └ None
+                   └ <pymysql.connections.MySQLResult object at 0x7f18c36b1fd0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+    │      └ <function MysqlPacket.raise_for_error at 0x7f1919f78310>
+    └ <pymysql.protocol.MysqlPacket object at 0x7f18c36b1d30>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    │   │                     │    └ <member '_data' of 'MysqlPacket' objects>
+    │   │                     └ <pymysql.protocol.MysqlPacket object at 0x7f18c36b1d30>
+    │   └ <function raise_mysql_exception at 0x7f191a4c0280>
+    └ <module 'pymysql.err' from '/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+          │          │      └ "Incorrect integer value: 'test' for column 'port' at row 1"
+          │          └ 1366
+          └ <class 'pymysql.err.DataError'>
+
+pymysql.err.DataError: (1366, "Incorrect integer value: 'test' for column 'port' at row 1")
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f194084ba60>
+    └ <Thread(Thread-305, started daemon 139743648007936)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f194084b790>
+    └ <Thread(Thread-305, started daemon 139743648007936)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-305, started daemon 139743648007936)>
+    │    │        │    └ (<socket.socket fd=23, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('180.201.163.246', 5000), r...
+    │    │        └ <Thread(Thread-305, started daemon 139743648007936)>
+    │    └ <bound method ThreadingMixIn.process_request_thread of <werkzeug.serving.ThreadedWSGIServer object at 0x7f19185eb280>>
+    └ <Thread(Thread-305, started daemon 139743648007936)>
+  File "/usr/lib/python3.8/socketserver.py", line 683, in process_request_thread
+    self.finish_request(request, client_address)
+    │    │              │        └ ('180.201.152.222', 60181)
+    │    │              └ <socket.socket fd=23, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('180.201.163.246', 5000), ra...
+    │    └ <function BaseServer.finish_request at 0x7f19321d03a0>
+    └ <werkzeug.serving.ThreadedWSGIServer object at 0x7f19185eb280>
+  File "/usr/lib/python3.8/socketserver.py", line 360, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    │    │                   │        │               └ <werkzeug.serving.ThreadedWSGIServer object at 0x7f19185eb280>
+    │    │                   │        └ ('180.201.152.222', 60181)
+    │    │                   └ <socket.socket fd=23, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('180.201.163.246', 5000), ra...
+    │    └ <class 'werkzeug.serving.WSGIRequestHandler'>
+    └ <werkzeug.serving.ThreadedWSGIServer object at 0x7f19185eb280>
+  File "/usr/lib/python3.8/socketserver.py", line 747, in __init__
+    self.handle()
+    │    └ <function WSGIRequestHandler.handle at 0x7f193d78aee0>
+    └ <werkzeug.serving.WSGIRequestHandler object at 0x7f1918449250>
+
+  File "/usr/local/lib/python3.8/dist-packages/werkzeug/serving.py", line 342, in handle
+    BaseHTTPRequestHandler.handle(self)
+    │                      │      └ <werkzeug.serving.WSGIRequestHandler object at 0x7f1918449250>
+    │                      └ <function BaseHTTPRequestHandler.handle at 0x7f19219c64c0>
+    └ <class 'http.server.BaseHTTPRequestHandler'>
+
+  File "/usr/lib/python3.8/http/server.py", line 427, in handle
+    self.handle_one_request()
+    │    └ <function WSGIRequestHandler.handle_one_request at 0x7f193d7920d0>
+    └ <werkzeug.serving.WSGIRequestHandler object at 0x7f1918449250>
+
+  File "/usr/local/lib/python3.8/dist-packages/werkzeug/serving.py", line 374, in handle_one_request
+    self.run_wsgi()
+    │    └ <function WSGIRequestHandler.run_wsgi at 0x7f193d78ae50>
+    └ <werkzeug.serving.WSGIRequestHandler object at 0x7f1918449250>
+
+  File "/usr/local/lib/python3.8/dist-packages/werkzeug/serving.py", line 319, in run_wsgi
+    execute(self.server.app)
+    │       │    │      └ <werkzeug.debug.DebuggedApplication object at 0x7f1919808f70>
+    │       │    └ <werkzeug.serving.ThreadedWSGIServer object at 0x7f19185eb280>
+    │       └ <werkzeug.serving.WSGIRequestHandler object at 0x7f1918449250>
+    └ <function WSGIRequestHandler.run_wsgi.<locals>.execute at 0x7f191a771040>
+
+  File "/usr/local/lib/python3.8/dist-packages/werkzeug/serving.py", line 310, in execute
+    for data in application_iter:
+                └ <generator object DebuggedApplication.debug_application at 0x7f191a76d120>
+
+  File "/usr/local/lib/python3.8/dist-packages/werkzeug/debug/__init__.py", line 309, in debug_application
+    app_iter = self.app(environ, start_response)
+               │    │   │        └ <function WSGIRequestHandler.run_wsgi.<locals>.start_response at 0x7f191a7609d0>
+               │    │   └ {'wsgi.version': (1, 0), 'wsgi.url_scheme': 'http', 'wsgi.input': <_io.BufferedReader name=23>, 'wsgi.errors': <_io.TextIOWra...
+               │    └ <Flask 'app'>
+               └ <werkzeug.debug.DebuggedApplication object at 0x7f1919808f70>
+
+  File "/usr/local/lib/python3.8/dist-packages/flask/app.py", line 2464, in __call__
+    return self.wsgi_app(environ, start_response)
+           │    │        │        └ <function WSGIRequestHandler.run_wsgi.<locals>.start_response at 0x7f191a7609d0>
+           │    │        └ {'wsgi.version': (1, 0), 'wsgi.url_scheme': 'http', 'wsgi.input': <_io.BufferedReader name=23>, 'wsgi.errors': <_io.TextIOWra...
+           │    └ <function Flask.wsgi_app at 0x7f192138aca0>
+           └ <Flask 'app'>
+
+  File "/usr/local/lib/python3.8/dist-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+               │    └ <function Flask.full_dispatch_request at 0x7f192138a3a0>
+               └ <Flask 'app'>
+
+  File "/usr/local/lib/python3.8/dist-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+         │    └ <function Flask.dispatch_request at 0x7f192138a310>
+         └ <Flask 'app'>
+
+  File "/usr/local/lib/python3.8/dist-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+           │    │              │    │           │   └ {}
+           │    │              │    │           └ <Request 'http://180.201.163.246:5000/update_sys_device' [POST]>
+           │    │              │    └ 'update_device'
+           │    │              └ <Rule '/update_sys_device' (POST, HEAD, GET, OPTIONS) -> update_device>
+           │    └ {'static': <bound method _PackageBoundObject.send_static_file of <Flask 'app'>>, 'get_pro_info': <function get_pro_info at 0x...
+           └ <Flask 'app'>
+
+  File "/home/users/Scy/yuqing/spider/app.py", line 168, in update_device
+    return {"code": 200, "add_error": PM.add_devices(add_devices, cover), "rm_error": PM.rm_devices(rm_devices)}
+                                      │  │           │            │                   │  │          └ []
+                                      │  │           │            │                   │  └ <function ProjectManager.rm_devices at 0x7f1919889700>
+                                      │  │           │            │                   └ <monitor.projectManager.ProjectManager object at 0x7f191986f970>
+                                      │  │           │            └ False
+                                      │  │           └ [{'ip': 'test', 'username': 'test', 'password': "b'a\\xa4Z\\xc5?%|\\x06\\xa2yA\\xf6x\\t\\xacI\\x87\\x9f.\\xbd\\xa5\\xe3\\x81\...
+                                      │  └ <function ProjectManager.add_devices at 0x7f1919889670>
+                                      └ <monitor.projectManager.ProjectManager object at 0x7f191986f970>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 235, in add_devices
+    errors.update(self.add_devices(device, cover))
+    │      │      │    │           │       └ False
+    │      │      │    │           └ {'ip': 'test', 'username': 'test', 'password': "b'a\\xa4Z\\xc5?%|\\x06\\xa2yA\\xf6x\\t\\xacI\\x87\\x9f.\\xbd\\xa5\\xe3\\x81\\...
+    │      │      │    └ <function ProjectManager.add_devices at 0x7f1919889670>
+    │      │      └ <monitor.projectManager.ProjectManager object at 0x7f191986f970>
+    │      └ <method 'update' of 'dict' objects>
+    └ {}
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 229, in add_devices
+    self.dbslot.mysql.save(Device(**devices))
+    │    │      │     │    │        └ {'ip': 'test', 'username': 'test', 'password': "b'a\\xa4Z\\xc5?%|\\x06\\xa2yA\\xf6x\\t\\xacI\\x87\\x9f.\\xbd\\xa5\\xe3\\x81\\...
+    │    │      │     │    └ <class 'base.db.mysql.Device'>
+    │    │      │     └ <function Mysql.save at 0x7f191a529820>
+    │    │      └ <base.db.mysql.Mysql object at 0x7f191986f760>
+    │    └ <base.db.dbSlot.Slot object at 0x7f1919885cd0>
+    └ <monitor.projectManager.ProjectManager object at 0x7f191986f970>
+
+> File "/home/users/Scy/yuqing/spider/base/db/mysql.py", line 381, in save
+    self.session.commit()
+    │    │       └ <function Session.commit at 0x7f191a64fa60>
+    │    └ <sqlalchemy.orm.session.Session object at 0x7f1919885be0>
+    └ <base.db.mysql.Mysql object at 0x7f191986f760>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1428, in commit
+    self._transaction.commit(_to_root=self.future)
+    │    │                            │    └ False
+    │    │                            └ <sqlalchemy.orm.session.Session object at 0x7f1919885be0>
+    │    └ None
+    └ <sqlalchemy.orm.session.Session object at 0x7f1919885be0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 829, in commit
+    self._prepare_impl()
+    │    └ <function SessionTransaction._prepare_impl at 0x7f191a6479d0>
+    └ <sqlalchemy.orm.session.SessionTransaction object at 0x7f1918414490>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 808, in _prepare_impl
+    self.session.flush()
+    │    └ None
+    └ <sqlalchemy.orm.session.SessionTransaction object at 0x7f1918414490>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 3298, in flush
+    self._flush(objects)
+    │    │      └ None
+    │    └ <function Session._flush at 0x7f191a64b820>
+    └ <sqlalchemy.orm.session.Session object at 0x7f1919885be0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 3438, in _flush
+    transaction.rollback(_capture_exception=True)
+    │           └ <function SessionTransaction.rollback at 0x7f191a647af0>
+    └ <sqlalchemy.orm.session.SessionTransaction object at 0x7f1918414ac0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 70, in __exit__
+    compat.raise_(
+    │      └ <function raise_ at 0x7f191adf0d30>
+    └ <module 'sqlalchemy.util.compat' from '/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/util/compat.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 207, in raise_
+    raise exception
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 3398, in _flush
+    flush_context.execute()
+    │             └ <function UOWTransaction.execute at 0x7f191a641160>
+    └ <sqlalchemy.orm.unitofwork.UOWTransaction object at 0x7f19185570d0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/unitofwork.py", line 456, in execute
+    rec.execute(self)
+    │   │       └ <sqlalchemy.orm.unitofwork.UOWTransaction object at 0x7f19185570d0>
+    │   └ <function SaveUpdateAll.execute at 0x7f191a641a60>
+    └ SaveUpdateAll(mapped class Device->device)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/unitofwork.py", line 630, in execute
+    util.preloaded.orm_persistence.save_obj(
+    │    │         │               └ <function save_obj at 0x7f191a62cee0>
+    │    │         └ <module 'sqlalchemy.orm.persistence' from '/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py'>
+    │    └ <sqlalchemy.util._preloaded._ModuleRegistry object at 0x7f191ae1e970>
+    └ <module 'sqlalchemy.util' from '/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/util/__init__.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 242, in save_obj
+    _emit_insert_statements(
+    └ <function _emit_insert_statements at 0x7f191a632550>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 1094, in _emit_insert_statements
+    c = connection._execute_20(
+        │          └ <function Connection._execute_20 at 0x7f191aa30940>
+        └ <sqlalchemy.engine.base.Connection object at 0x7f19184e73a0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1583, in _execute_20
+    return meth(self, args_10style, kwargs_10style, execution_options)
+           │    │     │             │               └ {'compiled_cache': {(<sqlalchemy.dialects.mysql.pymysql.MySQLDialect_pymysql object at 0x7f1919885640>, ('0', <class 'sqlalch...
+           │    │     │             └ immutabledict({})
+           │    │     └ ([{'password': "b'a\\xa4Z\\xc5?%|\\x06\\xa2yA\\xf6x\\t\\xacI\\x87\\x9f.\\xbd\\xa5\\xe3\\x81\\xe8\\x94d\\x8b\\x84\\x92\\xdb\\x...
+           │    └ <sqlalchemy.engine.base.Connection object at 0x7f19184e73a0>
+           └ <bound method ClauseElement._execute_on_connection of <sqlalchemy.sql.dml.Insert object at 0x7f19184e7490>>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 323, in _execute_on_connection
+    return connection._execute_clauseelement(
+           │          └ <function Connection._execute_clauseelement at 0x7f191aa30790>
+           └ <sqlalchemy.engine.base.Connection object at 0x7f19184e73a0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1452, in _execute_clauseelement
+    ret = self._execute_context(
+          │    └ <function Connection._execute_context at 0x7f191aa30a60>
+          └ <sqlalchemy.engine.base.Connection object at 0x7f19184e73a0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1814, in _execute_context
+    self._handle_dbapi_exception(
+    │    └ <function Connection._handle_dbapi_exception at 0x7f191aa30c10>
+    └ <sqlalchemy.engine.base.Connection object at 0x7f19184e73a0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1995, in _handle_dbapi_exception
+    util.raise_(
+    │    └ <function raise_ at 0x7f191adf0d30>
+    └ <module 'sqlalchemy.util' from '/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/util/__init__.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 207, in raise_
+    raise exception
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1771, in _execute_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x7f1921932790>
+    │    └ <sqlalchemy.dialects.mysql.pymysql.MySQLDialect_pymysql object at 0x7f1919885640>
+    └ <sqlalchemy.engine.base.Connection object at 0x7f19184e73a0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 717, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ {'ip': 'test', 'username': 'test', 'password': "b'a\\xa4Z\\xc5?%|\\x06\\xa2yA\\xf6x\\t\\xacI\\x87\\x9f.\\xbd\\xa5\\xe3\\x81\\...
+    │      │       └ 'INSERT INTO device (ip, username, password, address, port, valid) VALUES (%(ip)s, %(username)s, %(password)s, %(address)s, %...
+    │      └ <function Cursor.execute at 0x7f1919f6d1f0>
+    └ <pymysql.cursors.Cursor object at 0x7f19184e7fd0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 148, in execute
+    result = self._query(query)
+             │    │      └ "INSERT INTO device (ip, username, password, address, port, valid) VALUES ('test', 'test', 'b\\'a\\\\xa4Z\\\\xc5?%|\\\\x06\\\...
+             │    └ <function Cursor._query at 0x7f1919f6d670>
+             └ <pymysql.cursors.Cursor object at 0x7f19184e7fd0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 310, in _query
+    conn.query(q)
+    │    │     └ "INSERT INTO device (ip, username, password, address, port, valid) VALUES ('test', 'test', 'b\\'a\\\\xa4Z\\\\xc5?%|\\\\x06\\\...
+    │    └ <function Connection.query at 0x7f1919f809d0>
+    └ <pymysql.connections.Connection object at 0x7f19184e7580>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+    │    │                │    │                             └ False
+    │    │                │    └ <function Connection._read_query_result at 0x7f1919f81040>
+    │    │                └ <pymysql.connections.Connection object at 0x7f19184e7580>
+    │    └ 0
+    └ <pymysql.connections.Connection object at 0x7f19184e7580>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 775, in _read_query_result
+    result.read()
+    │      └ <function MySQLResult.read at 0x7f1919f81820>
+    └ <pymysql.connections.MySQLResult object at 0x7f18c36b1fd0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+                   │    └ None
+                   └ <pymysql.connections.MySQLResult object at 0x7f18c36b1fd0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+    │      └ <function MysqlPacket.raise_for_error at 0x7f1919f78310>
+    └ <pymysql.protocol.MysqlPacket object at 0x7f18c36b1d30>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    │   │                     │    └ <member '_data' of 'MysqlPacket' objects>
+    │   │                     └ <pymysql.protocol.MysqlPacket object at 0x7f18c36b1d30>
+    │   └ <function raise_mysql_exception at 0x7f191a4c0280>
+    └ <module 'pymysql.err' from '/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+          │          │      └ "Incorrect integer value: 'test' for column 'port' at row 1"
+          │          └ 1366
+          └ <class 'pymysql.err.DataError'>
+
+sqlalchemy.exc.DataError: (pymysql.err.DataError) (1366, "Incorrect integer value: 'test' for column 'port' at row 1")
+[SQL: INSERT INTO device (ip, username, password, address, port, valid) VALUES (%(ip)s, %(username)s, %(password)s, %(address)s, %(port)s, %(valid)s)]
+[parameters: {'ip': 'test', 'username': 'test', 'password': "b'a\\xa4Z\\xc5?%|\\x06\\xa2yA\\xf6x\\t\\xacI\\x87\\x9f.\\xbd\\xa5\\xe3\\x81\\xe8\\x94d\\x8b\\x84\\x92\\xdb\\x1fY\\xa3\\x89\\xc2m\\xaa\\xca\\x8b\\x94j ... (165 characters truncated) ... 3\\xf1\\xf40\\xe5\\x83\\r\\x11\\x08nO\\xf0\\xa7\\xc60\\x95^\\xd9\\xe2\\xd4\\xeb\\x95\\xf0\\xdci\\x82\\x85>\\x90\\x9a<X\\xd6\\x1e\\xfa\\xc6\\xdc\\xe3'", 'address': 'test', 'port': 'test', 'valid': 1}]
+(Background on this error at: https://sqlalche.me/e/14/9h9h)
+2022-04-09 11:23:59.376 | ERROR    | base.db.mysql:save:390 - 【mysql保存出错】device
+Traceback (most recent call last):
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1771, in _execute_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x7f1921932790>
+    │    └ <sqlalchemy.dialects.mysql.pymysql.MySQLDialect_pymysql object at 0x7f1919885640>
+    └ <sqlalchemy.engine.base.Connection object at 0x7f1918449460>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 717, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ {'ip': 'test', 'username': 'test', 'password': "b'\\x1a\\xa1\\n\\xd5\\xb9Nu\\xd4\\xfe4\\t\\xca\\x91\\xa3\\xb4\\xa4\\x07\\xf2\...
+    │      │       └ 'INSERT INTO device (ip, username, password, address, port, valid) VALUES (%(ip)s, %(username)s, %(password)s, %(address)s, %...
+    │      └ <function Cursor.execute at 0x7f1919f6d1f0>
+    └ <pymysql.cursors.Cursor object at 0x7f1918414df0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 148, in execute
+    result = self._query(query)
+             │    │      └ "INSERT INTO device (ip, username, password, address, port, valid) VALUES ('test', 'test', 'b\\'\\\\x1a\\\\xa1\\\\n\\\\xd5\\\...
+             │    └ <function Cursor._query at 0x7f1919f6d670>
+             └ <pymysql.cursors.Cursor object at 0x7f1918414df0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 310, in _query
+    conn.query(q)
+    │    │     └ "INSERT INTO device (ip, username, password, address, port, valid) VALUES ('test', 'test', 'b\\'\\\\x1a\\\\xa1\\\\n\\\\xd5\\\...
+    │    └ <function Connection.query at 0x7f1919f809d0>
+    └ <pymysql.connections.Connection object at 0x7f1919869f40>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+    │    │                │    │                             └ False
+    │    │                │    └ <function Connection._read_query_result at 0x7f1919f81040>
+    │    │                └ <pymysql.connections.Connection object at 0x7f1919869f40>
+    │    └ 0
+    └ <pymysql.connections.Connection object at 0x7f1919869f40>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 775, in _read_query_result
+    result.read()
+    │      └ <function MySQLResult.read at 0x7f1919f81820>
+    └ <pymysql.connections.MySQLResult object at 0x7f18c36b1d60>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+                   │    └ None
+                   └ <pymysql.connections.MySQLResult object at 0x7f18c36b1d60>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+    │      └ <function MysqlPacket.raise_for_error at 0x7f1919f78310>
+    └ <pymysql.protocol.MysqlPacket object at 0x7f1918414250>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    │   │                     │    └ <member '_data' of 'MysqlPacket' objects>
+    │   │                     └ <pymysql.protocol.MysqlPacket object at 0x7f1918414250>
+    │   └ <function raise_mysql_exception at 0x7f191a4c0280>
+    └ <module 'pymysql.err' from '/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+          │          │      └ "Incorrect integer value: 'test' for column 'port' at row 1"
+          │          └ 1366
+          └ <class 'pymysql.err.DataError'>
+
+pymysql.err.DataError: (1366, "Incorrect integer value: 'test' for column 'port' at row 1")
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f194084ba60>
+    └ <Thread(Thread-314, started daemon 139743648007936)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f194084b790>
+    └ <Thread(Thread-314, started daemon 139743648007936)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-314, started daemon 139743648007936)>
+    │    │        │    └ (<socket.socket fd=23, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('180.201.163.246', 5000), r...
+    │    │        └ <Thread(Thread-314, started daemon 139743648007936)>
+    │    └ <bound method ThreadingMixIn.process_request_thread of <werkzeug.serving.ThreadedWSGIServer object at 0x7f19185eb280>>
+    └ <Thread(Thread-314, started daemon 139743648007936)>
+  File "/usr/lib/python3.8/socketserver.py", line 683, in process_request_thread
+    self.finish_request(request, client_address)
+    │    │              │        └ ('180.201.152.222', 60249)
+    │    │              └ <socket.socket fd=23, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('180.201.163.246', 5000), ra...
+    │    └ <function BaseServer.finish_request at 0x7f19321d03a0>
+    └ <werkzeug.serving.ThreadedWSGIServer object at 0x7f19185eb280>
+  File "/usr/lib/python3.8/socketserver.py", line 360, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    │    │                   │        │               └ <werkzeug.serving.ThreadedWSGIServer object at 0x7f19185eb280>
+    │    │                   │        └ ('180.201.152.222', 60249)
+    │    │                   └ <socket.socket fd=23, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('180.201.163.246', 5000), ra...
+    │    └ <class 'werkzeug.serving.WSGIRequestHandler'>
+    └ <werkzeug.serving.ThreadedWSGIServer object at 0x7f19185eb280>
+  File "/usr/lib/python3.8/socketserver.py", line 747, in __init__
+    self.handle()
+    │    └ <function WSGIRequestHandler.handle at 0x7f193d78aee0>
+    └ <werkzeug.serving.WSGIRequestHandler object at 0x7f1918593d00>
+
+  File "/usr/local/lib/python3.8/dist-packages/werkzeug/serving.py", line 342, in handle
+    BaseHTTPRequestHandler.handle(self)
+    │                      │      └ <werkzeug.serving.WSGIRequestHandler object at 0x7f1918593d00>
+    │                      └ <function BaseHTTPRequestHandler.handle at 0x7f19219c64c0>
+    └ <class 'http.server.BaseHTTPRequestHandler'>
+
+  File "/usr/lib/python3.8/http/server.py", line 427, in handle
+    self.handle_one_request()
+    │    └ <function WSGIRequestHandler.handle_one_request at 0x7f193d7920d0>
+    └ <werkzeug.serving.WSGIRequestHandler object at 0x7f1918593d00>
+
+  File "/usr/local/lib/python3.8/dist-packages/werkzeug/serving.py", line 374, in handle_one_request
+    self.run_wsgi()
+    │    └ <function WSGIRequestHandler.run_wsgi at 0x7f193d78ae50>
+    └ <werkzeug.serving.WSGIRequestHandler object at 0x7f1918593d00>
+
+  File "/usr/local/lib/python3.8/dist-packages/werkzeug/serving.py", line 319, in run_wsgi
+    execute(self.server.app)
+    │       │    │      └ <werkzeug.debug.DebuggedApplication object at 0x7f1919808f70>
+    │       │    └ <werkzeug.serving.ThreadedWSGIServer object at 0x7f19185eb280>
+    │       └ <werkzeug.serving.WSGIRequestHandler object at 0x7f1918593d00>
+    └ <function WSGIRequestHandler.run_wsgi.<locals>.execute at 0x7f18c0469f70>
+
+  File "/usr/local/lib/python3.8/dist-packages/werkzeug/serving.py", line 310, in execute
+    for data in application_iter:
+                └ <generator object DebuggedApplication.debug_application at 0x7f191a76d190>
+
+  File "/usr/local/lib/python3.8/dist-packages/werkzeug/debug/__init__.py", line 309, in debug_application
+    app_iter = self.app(environ, start_response)
+               │    │   │        └ <function WSGIRequestHandler.run_wsgi.<locals>.start_response at 0x7f18c0469790>
+               │    │   └ {'wsgi.version': (1, 0), 'wsgi.url_scheme': 'http', 'wsgi.input': <_io.BufferedReader name=23>, 'wsgi.errors': <_io.TextIOWra...
+               │    └ <Flask 'app'>
+               └ <werkzeug.debug.DebuggedApplication object at 0x7f1919808f70>
+
+  File "/usr/local/lib/python3.8/dist-packages/flask/app.py", line 2464, in __call__
+    return self.wsgi_app(environ, start_response)
+           │    │        │        └ <function WSGIRequestHandler.run_wsgi.<locals>.start_response at 0x7f18c0469790>
+           │    │        └ {'wsgi.version': (1, 0), 'wsgi.url_scheme': 'http', 'wsgi.input': <_io.BufferedReader name=23>, 'wsgi.errors': <_io.TextIOWra...
+           │    └ <function Flask.wsgi_app at 0x7f192138aca0>
+           └ <Flask 'app'>
+
+  File "/usr/local/lib/python3.8/dist-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+               │    └ <function Flask.full_dispatch_request at 0x7f192138a3a0>
+               └ <Flask 'app'>
+
+  File "/usr/local/lib/python3.8/dist-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+         │    └ <function Flask.dispatch_request at 0x7f192138a310>
+         └ <Flask 'app'>
+
+  File "/usr/local/lib/python3.8/dist-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+           │    │              │    │           │   └ {}
+           │    │              │    │           └ <Request 'http://180.201.163.246:5000/update_sys_device' [POST]>
+           │    │              │    └ 'update_device'
+           │    │              └ <Rule '/update_sys_device' (POST, HEAD, GET, OPTIONS) -> update_device>
+           │    └ {'static': <bound method _PackageBoundObject.send_static_file of <Flask 'app'>>, 'get_pro_info': <function get_pro_info at 0x...
+           └ <Flask 'app'>
+
+  File "/home/users/Scy/yuqing/spider/app.py", line 168, in update_device
+    return {"code": 200, "add_error": PM.add_devices(add_devices, cover), "rm_error": PM.rm_devices(rm_devices)}
+                                      │  │           │            │                   │  │          └ []
+                                      │  │           │            │                   │  └ <function ProjectManager.rm_devices at 0x7f1919889700>
+                                      │  │           │            │                   └ <monitor.projectManager.ProjectManager object at 0x7f191986f970>
+                                      │  │           │            └ False
+                                      │  │           └ [{'ip': 'test', 'username': 'test', 'password': "b'\\x1a\\xa1\\n\\xd5\\xb9Nu\\xd4\\xfe4\\t\\xca\\x91\\xa3\\xb4\\xa4\\x07\\xf2...
+                                      │  └ <function ProjectManager.add_devices at 0x7f1919889670>
+                                      └ <monitor.projectManager.ProjectManager object at 0x7f191986f970>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 235, in add_devices
+    errors.update(self.add_devices(device, cover))
+    │      │      │    │           │       └ False
+    │      │      │    │           └ {'ip': 'test', 'username': 'test', 'password': "b'\\x1a\\xa1\\n\\xd5\\xb9Nu\\xd4\\xfe4\\t\\xca\\x91\\xa3\\xb4\\xa4\\x07\\xf2\...
+    │      │      │    └ <function ProjectManager.add_devices at 0x7f1919889670>
+    │      │      └ <monitor.projectManager.ProjectManager object at 0x7f191986f970>
+    │      └ <method 'update' of 'dict' objects>
+    └ {}
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 229, in add_devices
+    self.dbslot.mysql.save(Device(**devices))
+    │    │      │     │    │        └ {'ip': 'test', 'username': 'test', 'password': "b'\\x1a\\xa1\\n\\xd5\\xb9Nu\\xd4\\xfe4\\t\\xca\\x91\\xa3\\xb4\\xa4\\x07\\xf2\...
+    │    │      │     │    └ <class 'base.db.mysql.Device'>
+    │    │      │     └ <function Mysql.save at 0x7f191a529820>
+    │    │      └ <base.db.mysql.Mysql object at 0x7f191986f760>
+    │    └ <base.db.dbSlot.Slot object at 0x7f1919885cd0>
+    └ <monitor.projectManager.ProjectManager object at 0x7f191986f970>
+
+> File "/home/users/Scy/yuqing/spider/base/db/mysql.py", line 381, in save
+    self.session.commit()
+    │    │       └ <function Session.commit at 0x7f191a64fa60>
+    │    └ <sqlalchemy.orm.session.Session object at 0x7f1919885be0>
+    └ <base.db.mysql.Mysql object at 0x7f191986f760>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1428, in commit
+    self._transaction.commit(_to_root=self.future)
+    │    │                            │    └ False
+    │    │                            └ <sqlalchemy.orm.session.Session object at 0x7f1919885be0>
+    │    └ None
+    └ <sqlalchemy.orm.session.Session object at 0x7f1919885be0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 829, in commit
+    self._prepare_impl()
+    │    └ <function SessionTransaction._prepare_impl at 0x7f191a6479d0>
+    └ <sqlalchemy.orm.session.SessionTransaction object at 0x7f19184b0e50>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 808, in _prepare_impl
+    self.session.flush()
+    │    └ None
+    └ <sqlalchemy.orm.session.SessionTransaction object at 0x7f19184b0e50>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 3298, in flush
+    self._flush(objects)
+    │    │      └ None
+    │    └ <function Session._flush at 0x7f191a64b820>
+    └ <sqlalchemy.orm.session.Session object at 0x7f1919885be0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 3438, in _flush
+    transaction.rollback(_capture_exception=True)
+    │           └ <function SessionTransaction.rollback at 0x7f191a647af0>
+    └ <sqlalchemy.orm.session.SessionTransaction object at 0x7f19184b0040>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 70, in __exit__
+    compat.raise_(
+    │      └ <function raise_ at 0x7f191adf0d30>
+    └ <module 'sqlalchemy.util.compat' from '/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/util/compat.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 207, in raise_
+    raise exception
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 3398, in _flush
+    flush_context.execute()
+    │             └ <function UOWTransaction.execute at 0x7f191a641160>
+    └ <sqlalchemy.orm.unitofwork.UOWTransaction object at 0x7f18c36b1f10>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/unitofwork.py", line 456, in execute
+    rec.execute(self)
+    │   │       └ <sqlalchemy.orm.unitofwork.UOWTransaction object at 0x7f18c36b1f10>
+    │   └ <function SaveUpdateAll.execute at 0x7f191a641a60>
+    └ SaveUpdateAll(mapped class Device->device)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/unitofwork.py", line 630, in execute
+    util.preloaded.orm_persistence.save_obj(
+    │    │         │               └ <function save_obj at 0x7f191a62cee0>
+    │    │         └ <module 'sqlalchemy.orm.persistence' from '/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py'>
+    │    └ <sqlalchemy.util._preloaded._ModuleRegistry object at 0x7f191ae1e970>
+    └ <module 'sqlalchemy.util' from '/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/util/__init__.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 242, in save_obj
+    _emit_insert_statements(
+    └ <function _emit_insert_statements at 0x7f191a632550>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 1094, in _emit_insert_statements
+    c = connection._execute_20(
+        │          └ <function Connection._execute_20 at 0x7f191aa30940>
+        └ <sqlalchemy.engine.base.Connection object at 0x7f1918449460>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1583, in _execute_20
+    return meth(self, args_10style, kwargs_10style, execution_options)
+           │    │     │             │               └ {'compiled_cache': {(<sqlalchemy.dialects.mysql.pymysql.MySQLDialect_pymysql object at 0x7f1919885640>, ('0', <class 'sqlalch...
+           │    │     │             └ immutabledict({})
+           │    │     └ ([{'password': "b'\\x1a\\xa1\\n\\xd5\\xb9Nu\\xd4\\xfe4\\t\\xca\\x91\\xa3\\xb4\\xa4\\x07\\xf2\\xf3,l[\\x14\\xa4\\xf7\\xaf\\xff...
+           │    └ <sqlalchemy.engine.base.Connection object at 0x7f1918449460>
+           └ <bound method ClauseElement._execute_on_connection of <sqlalchemy.sql.dml.Insert object at 0x7f19184e7490>>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 323, in _execute_on_connection
+    return connection._execute_clauseelement(
+           │          └ <function Connection._execute_clauseelement at 0x7f191aa30790>
+           └ <sqlalchemy.engine.base.Connection object at 0x7f1918449460>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1452, in _execute_clauseelement
+    ret = self._execute_context(
+          │    └ <function Connection._execute_context at 0x7f191aa30a60>
+          └ <sqlalchemy.engine.base.Connection object at 0x7f1918449460>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1814, in _execute_context
+    self._handle_dbapi_exception(
+    │    └ <function Connection._handle_dbapi_exception at 0x7f191aa30c10>
+    └ <sqlalchemy.engine.base.Connection object at 0x7f1918449460>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1995, in _handle_dbapi_exception
+    util.raise_(
+    │    └ <function raise_ at 0x7f191adf0d30>
+    └ <module 'sqlalchemy.util' from '/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/util/__init__.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 207, in raise_
+    raise exception
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1771, in _execute_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x7f1921932790>
+    │    └ <sqlalchemy.dialects.mysql.pymysql.MySQLDialect_pymysql object at 0x7f1919885640>
+    └ <sqlalchemy.engine.base.Connection object at 0x7f1918449460>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 717, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ {'ip': 'test', 'username': 'test', 'password': "b'\\x1a\\xa1\\n\\xd5\\xb9Nu\\xd4\\xfe4\\t\\xca\\x91\\xa3\\xb4\\xa4\\x07\\xf2\...
+    │      │       └ 'INSERT INTO device (ip, username, password, address, port, valid) VALUES (%(ip)s, %(username)s, %(password)s, %(address)s, %...
+    │      └ <function Cursor.execute at 0x7f1919f6d1f0>
+    └ <pymysql.cursors.Cursor object at 0x7f1918414df0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 148, in execute
+    result = self._query(query)
+             │    │      └ "INSERT INTO device (ip, username, password, address, port, valid) VALUES ('test', 'test', 'b\\'\\\\x1a\\\\xa1\\\\n\\\\xd5\\\...
+             │    └ <function Cursor._query at 0x7f1919f6d670>
+             └ <pymysql.cursors.Cursor object at 0x7f1918414df0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 310, in _query
+    conn.query(q)
+    │    │     └ "INSERT INTO device (ip, username, password, address, port, valid) VALUES ('test', 'test', 'b\\'\\\\x1a\\\\xa1\\\\n\\\\xd5\\\...
+    │    └ <function Connection.query at 0x7f1919f809d0>
+    └ <pymysql.connections.Connection object at 0x7f1919869f40>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+    │    │                │    │                             └ False
+    │    │                │    └ <function Connection._read_query_result at 0x7f1919f81040>
+    │    │                └ <pymysql.connections.Connection object at 0x7f1919869f40>
+    │    └ 0
+    └ <pymysql.connections.Connection object at 0x7f1919869f40>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 775, in _read_query_result
+    result.read()
+    │      └ <function MySQLResult.read at 0x7f1919f81820>
+    └ <pymysql.connections.MySQLResult object at 0x7f18c36b1d60>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+                   │    └ None
+                   └ <pymysql.connections.MySQLResult object at 0x7f18c36b1d60>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+    │      └ <function MysqlPacket.raise_for_error at 0x7f1919f78310>
+    └ <pymysql.protocol.MysqlPacket object at 0x7f1918414250>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    │   │                     │    └ <member '_data' of 'MysqlPacket' objects>
+    │   │                     └ <pymysql.protocol.MysqlPacket object at 0x7f1918414250>
+    │   └ <function raise_mysql_exception at 0x7f191a4c0280>
+    └ <module 'pymysql.err' from '/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+          │          │      └ "Incorrect integer value: 'test' for column 'port' at row 1"
+          │          └ 1366
+          └ <class 'pymysql.err.DataError'>
+
+sqlalchemy.exc.DataError: (pymysql.err.DataError) (1366, "Incorrect integer value: 'test' for column 'port' at row 1")
+[SQL: INSERT INTO device (ip, username, password, address, port, valid) VALUES (%(ip)s, %(username)s, %(password)s, %(address)s, %(port)s, %(valid)s)]
+[parameters: {'ip': 'test', 'username': 'test', 'password': "b'\\x1a\\xa1\\n\\xd5\\xb9Nu\\xd4\\xfe4\\t\\xca\\x91\\xa3\\xb4\\xa4\\x07\\xf2\\xf3,l[\\x14\\xa4\\xf7\\xaf\\xff*\\x0fEw\\xed\\x9f\\xd6\\xaa4\\xd4\\xf6P ... (183 characters truncated) ... h\\xd5(\\x14\\x16x\\x96\\xd1\\x14L\\xf8\\x16\\xcc\\xca\\xaf\\xcd{{\\x81\\x14\\xc9n\\xc3z\\x07^P\\xf2r\\x18\\x0b\\x8d\\x8as\\xdc\\xd5\\xbc]\\x18\\x11'", 'address': 'test', 'port': 'test', 'valid': 1}]
+(Background on this error at: https://sqlalche.me/e/14/9h9h)

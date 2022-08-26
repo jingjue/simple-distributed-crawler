@@ -1,0 +1,2130 @@
+2022-05-06 10:03:21.345 | ERROR    | monitor.searchSpiders.toutiao:get_request_from_keyword:62 - E 头条检索'latin-1' codec can't encode characters in position 304-305: ordinal not in range(256)
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f7e03468a60>
+    └ <Thread(Thread-8, started daemon 140174483609344)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f7e03468790>
+    └ <Thread(Thread-8, started daemon 140174483609344)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-8, started daemon 140174483609344)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-8, started daemon 140174483609344)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f7ceb8e1070>>
+    └ <Thread(Thread-8, started daemon 140174483609344)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 781, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7f7ceb94fdc0>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+    └ <monitor.projectManager.ProjectManager object at 0x7f7ceb8e1070>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7f7ceb678a90>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7f7ce9ca6220>
+    │    │                                │              │         └ '守护人民生命安全和身体健康'
+    │    │                                │              └ '头条'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7f7ceb94fe50>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 135, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7f7de38d1550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7f7ce9ca6220>
+               │    │                        │         └ '守护人民生命安全和身体健康'
+               │    │                        └ '头条'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7f7ceb94ff70>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 192, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7f7ceb575250>
+                   │    │       │                                  │        │           └ '守护人民生命安全和身体健康'
+                   │    │       │                                  │        └ <string.Template object at 0x7f7ce8bcef70>
+                   │    │       │                                  └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'sec-ch-ua': "'Chromium';v='92', ' Not A;Brand';v='99', 'Google Ch...
+                   │    │       └ '头条'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7f7ceb56f1f0>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/toutiao.py", line 47, in get_request_from_keyword
+    response = requests.get(url, headers=headers, params=params, cookies=cookies, timeout=10)
+               │        │   │            │               │               └ {'tt_webid': '7011123276119787038', '_S_DPR': '1.25', '_S_IPAD': '0', 'MONITOR_WEB_ID': '7011123276119787038', '_S_WIN_WH': '...
+               │        │   │            │               └ (('keyword', '烈士纪念日'), ('pd', 'synthesis'), ('source', 'pagination'), ('dvpf', 'pc'), ('aid', '4916'), ('page_num', '3'), ('s...
+               │        │   │            └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'sec-ch-ua': "'Chromium';v='92', ' Not A;Brand';v='99', 'Google Ch...
+               │        │   └ 'https://so.toutiao.com/search?keyword=守护人民生命安全和身体健康&pd=synthesis&source=pagination&dvpf=pc&aid=4916&page_num=0&search_id=202...
+               │        └ <function get at 0x7f7de121b280>
+               └ <module 'requests' from '/home/chase/.local/lib/python3.8/site-packages/requests/__init__.py'>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/api.py", line 75, in get
+    return request('get', url, params=params, **kwargs)
+           │              │           │         └ {'headers': {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'sec-ch-ua': "'Chromium';v='92', ' Not A;Brand';v='99'...
+           │              │           └ (('keyword', '烈士纪念日'), ('pd', 'synthesis'), ('source', 'pagination'), ('dvpf', 'pc'), ('aid', '4916'), ('page_num', '3'), ('s...
+           │              └ 'https://so.toutiao.com/search?keyword=守护人民生命安全和身体健康&pd=synthesis&source=pagination&dvpf=pc&aid=4916&page_num=0&search_id=202...
+           └ <function request at 0x7f7de12870d0>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/api.py", line 61, in request
+    return session.request(method=method, url=url, **kwargs)
+           │       │              │           │      └ {'params': (('keyword', '烈士纪念日'), ('pd', 'synthesis'), ('source', 'pagination'), ('dvpf', 'pc'), ('aid', '4916'), ('page_num'...
+           │       │              │           └ 'https://so.toutiao.com/search?keyword=守护人民生命安全和身体健康&pd=synthesis&source=pagination&dvpf=pc&aid=4916&page_num=0&search_id=202...
+           │       │              └ 'get'
+           │       └ <function Session.request at 0x7f7de121a9d0>
+           └ <requests.sessions.Session object at 0x7f7cc8ff09d0>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/sessions.py", line 542, in request
+    resp = self.send(prep, **send_kwargs)
+           │    │    │       └ {'timeout': 10, 'allow_redirects': True, 'verify': True, 'proxies': OrderedDict(), 'stream': False, 'cert': None}
+           │    │    └ <PreparedRequest [GET]>
+           │    └ <function Session.send at 0x7f7de121ae50>
+           └ <requests.sessions.Session object at 0x7f7cc8ff09d0>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/sessions.py", line 655, in send
+    r = adapter.send(request, **kwargs)
+        │       │    │          └ {'timeout': 10, 'verify': True, 'proxies': OrderedDict(), 'stream': False, 'cert': None}
+        │       │    └ <PreparedRequest [GET]>
+        │       └ <function HTTPAdapter.send at 0x7f7de121a310>
+        └ <requests.adapters.HTTPAdapter object at 0x7f7cc8ff03d0>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/adapters.py", line 439, in send
+    resp = conn.urlopen(
+           │    └ <function HTTPConnectionPool.urlopen at 0x7f7de13f38b0>
+           └ <urllib3.connectionpool.HTTPSConnectionPool object at 0x7f7ce8c05190>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connectionpool.py", line 699, in urlopen
+    httplib_response = self._make_request(
+                       │    └ <function HTTPConnectionPool._make_request at 0x7f7de13f3670>
+                       └ <urllib3.connectionpool.HTTPSConnectionPool object at 0x7f7ce8c05190>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connectionpool.py", line 394, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+    │    │       │       │      └ {'body': None, 'headers': {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Ch...
+    │    │       │       └ '/search?keyword=%E5%AE%88%E6%8A%A4%E4%BA%BA%E6%B0%91%E7%94%9F%E5%91%BD%E5%AE%89%E5%85%A8%E5%92%8C%E8%BA%AB%E4%BD%93%E5%81%A5...
+    │    │       └ 'GET'
+    │    └ <function HTTPConnection.request at 0x7f7de13e4040>
+    └ <urllib3.connection.HTTPSConnection object at 0x7f7ce8132c70>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connection.py", line 239, in request
+    super(HTTPConnection, self).request(method, url, body=body, headers=headers)
+          │               │             │       │         │             └ {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/...
+          │               │             │       │         └ None
+          │               │             │       └ '/search?keyword=%E5%AE%88%E6%8A%A4%E4%BA%BA%E6%B0%91%E7%94%9F%E5%91%BD%E5%AE%89%E5%85%A8%E5%92%8C%E8%BA%AB%E4%BD%93%E5%81%A5...
+          │               │             └ 'GET'
+          │               └ <urllib3.connection.HTTPSConnection object at 0x7f7ce8132c70>
+          └ <class 'urllib3.connection.HTTPConnection'>
+  File "/usr/lib/python3.8/http/client.py", line 1256, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+    │    │             │       │    │     │        └ False
+    │    │             │       │    │     └ {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/...
+    │    │             │       │    └ None
+    │    │             │       └ '/search?keyword=%E5%AE%88%E6%8A%A4%E4%BA%BA%E6%B0%91%E7%94%9F%E5%91%BD%E5%AE%89%E5%85%A8%E5%92%8C%E8%BA%AB%E4%BD%93%E5%81%A5...
+    │    │             └ 'GET'
+    │    └ <function HTTPConnection._send_request at 0x7f7de4693310>
+    └ <urllib3.connection.HTTPSConnection object at 0x7f7ce8132c70>
+  File "/usr/lib/python3.8/http/client.py", line 1297, in _send_request
+    self.putheader(hdr, value)
+    │    │         │    └ '__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16ir...
+    │    │         └ 'cookie'
+    │    └ <function HTTPConnection.putheader at 0x7f7de13e3f70>
+    └ <urllib3.connection.HTTPSConnection object at 0x7f7ce8132c70>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connection.py", line 224, in putheader
+    _HTTPConnection.putheader(self, header, *values)
+    │               │         │     │        └ ('__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16i...
+    │               │         │     └ 'cookie'
+    │               │         └ <urllib3.connection.HTTPSConnection object at 0x7f7ce8132c70>
+    │               └ <function HTTPConnection.putheader at 0x7f7de4693160>
+    └ <class 'http.client.HTTPConnection'>
+  File "/usr/lib/python3.8/http/client.py", line 1229, in putheader
+    values[i] = one_value.encode('latin-1')
+    │      │    │         └ <method 'encode' of 'str' objects>
+    │      │    └ '__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16ir...
+    │      └ 0
+    └ ['__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16i...
+
+UnicodeEncodeError: 'latin-1' codec can't encode characters in position 304-305: ordinal not in range(256)
+2022-05-06 10:03:21.384 | ERROR    | monitor.searchSpiders.toutiao:get_request_from_keyword:62 - E 头条检索'latin-1' codec can't encode characters in position 304-305: ordinal not in range(256)
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f7e03468a60>
+    └ <Thread(Thread-29, started daemon 140173966829312)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f7e03468790>
+    └ <Thread(Thread-29, started daemon 140173966829312)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-29, started daemon 140173966829312)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-29, started daemon 140173966829312)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f7ceb8e1070>>
+    └ <Thread(Thread-29, started daemon 140173966829312)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 781, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7f7ceb94fdc0>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+    └ <monitor.projectManager.ProjectManager object at 0x7f7ceb8e1070>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7f7ceb678a90>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7f7ce9ca6e80>
+    │    │                                │              │         └ '为构建人类命运共同体汇聚起“蓝色力量”'
+    │    │                                │              └ '头条'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7f7ceb94fe50>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 135, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7f7de38d1550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7f7ce9ca6e80>
+               │    │                        │         └ '为构建人类命运共同体汇聚起“蓝色力量”'
+               │    │                        └ '头条'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7f7ceb94ff70>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 192, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7f7cc8ff06d0>
+                   │    │       │                                  │        │           └ '为构建人类命运共同体汇聚起“蓝色力量”'
+                   │    │       │                                  │        └ <string.Template object at 0x7f7ce8bf7fd0>
+                   │    │       │                                  └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'sec-ch-ua': "'Chromium';v='92', ' Not A;Brand';v='99', 'Google Ch...
+                   │    │       └ '头条'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7f7ceb56f1f0>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/toutiao.py", line 47, in get_request_from_keyword
+    response = requests.get(url, headers=headers, params=params, cookies=cookies, timeout=10)
+               │        │   │            │               │               └ {'tt_webid': '7011123276119787038', '_S_DPR': '1.25', '_S_IPAD': '0', 'MONITOR_WEB_ID': '7011123276119787038', '_S_WIN_WH': '...
+               │        │   │            │               └ (('keyword', '烈士纪念日'), ('pd', 'synthesis'), ('source', 'pagination'), ('dvpf', 'pc'), ('aid', '4916'), ('page_num', '3'), ('s...
+               │        │   │            └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'sec-ch-ua': "'Chromium';v='92', ' Not A;Brand';v='99', 'Google Ch...
+               │        │   └ 'https://so.toutiao.com/search?keyword=为构建人类命运共同体汇聚起“蓝色力量”&pd=synthesis&source=pagination&dvpf=pc&aid=4916&page_num=0&search_...
+               │        └ <function get at 0x7f7de121b280>
+               └ <module 'requests' from '/home/chase/.local/lib/python3.8/site-packages/requests/__init__.py'>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/api.py", line 75, in get
+    return request('get', url, params=params, **kwargs)
+           │              │           │         └ {'headers': {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'sec-ch-ua': "'Chromium';v='92', ' Not A;Brand';v='99'...
+           │              │           └ (('keyword', '烈士纪念日'), ('pd', 'synthesis'), ('source', 'pagination'), ('dvpf', 'pc'), ('aid', '4916'), ('page_num', '3'), ('s...
+           │              └ 'https://so.toutiao.com/search?keyword=为构建人类命运共同体汇聚起“蓝色力量”&pd=synthesis&source=pagination&dvpf=pc&aid=4916&page_num=0&search_...
+           └ <function request at 0x7f7de12870d0>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/api.py", line 61, in request
+    return session.request(method=method, url=url, **kwargs)
+           │       │              │           │      └ {'params': (('keyword', '烈士纪念日'), ('pd', 'synthesis'), ('source', 'pagination'), ('dvpf', 'pc'), ('aid', '4916'), ('page_num'...
+           │       │              │           └ 'https://so.toutiao.com/search?keyword=为构建人类命运共同体汇聚起“蓝色力量”&pd=synthesis&source=pagination&dvpf=pc&aid=4916&page_num=0&search_...
+           │       │              └ 'get'
+           │       └ <function Session.request at 0x7f7de121a9d0>
+           └ <requests.sessions.Session object at 0x7f7ce8c05d00>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/sessions.py", line 542, in request
+    resp = self.send(prep, **send_kwargs)
+           │    │    │       └ {'timeout': 10, 'allow_redirects': True, 'verify': True, 'proxies': OrderedDict(), 'stream': False, 'cert': None}
+           │    │    └ <PreparedRequest [GET]>
+           │    └ <function Session.send at 0x7f7de121ae50>
+           └ <requests.sessions.Session object at 0x7f7ce8c05d00>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/sessions.py", line 655, in send
+    r = adapter.send(request, **kwargs)
+        │       │    │          └ {'timeout': 10, 'verify': True, 'proxies': OrderedDict(), 'stream': False, 'cert': None}
+        │       │    └ <PreparedRequest [GET]>
+        │       └ <function HTTPAdapter.send at 0x7f7de121a310>
+        └ <requests.adapters.HTTPAdapter object at 0x7f7ce8b9d370>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/adapters.py", line 439, in send
+    resp = conn.urlopen(
+           │    └ <function HTTPConnectionPool.urlopen at 0x7f7de13f38b0>
+           └ <urllib3.connectionpool.HTTPSConnectionPool object at 0x7f7ceb6b3220>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connectionpool.py", line 699, in urlopen
+    httplib_response = self._make_request(
+                       │    └ <function HTTPConnectionPool._make_request at 0x7f7de13f3670>
+                       └ <urllib3.connectionpool.HTTPSConnectionPool object at 0x7f7ceb6b3220>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connectionpool.py", line 394, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+    │    │       │       │      └ {'body': None, 'headers': {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Ch...
+    │    │       │       └ '/search?keyword=%E4%B8%BA%E6%9E%84%E5%BB%BA%E4%BA%BA%E7%B1%BB%E5%91%BD%E8%BF%90%E5%85%B1%E5%90%8C%E4%BD%93%E6%B1%87%E8%81%9A...
+    │    │       └ 'GET'
+    │    └ <function HTTPConnection.request at 0x7f7de13e4040>
+    └ <urllib3.connection.HTTPSConnection object at 0x7f7ce81825b0>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connection.py", line 239, in request
+    super(HTTPConnection, self).request(method, url, body=body, headers=headers)
+          │               │             │       │         │             └ {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/...
+          │               │             │       │         └ None
+          │               │             │       └ '/search?keyword=%E4%B8%BA%E6%9E%84%E5%BB%BA%E4%BA%BA%E7%B1%BB%E5%91%BD%E8%BF%90%E5%85%B1%E5%90%8C%E4%BD%93%E6%B1%87%E8%81%9A...
+          │               │             └ 'GET'
+          │               └ <urllib3.connection.HTTPSConnection object at 0x7f7ce81825b0>
+          └ <class 'urllib3.connection.HTTPConnection'>
+  File "/usr/lib/python3.8/http/client.py", line 1256, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+    │    │             │       │    │     │        └ False
+    │    │             │       │    │     └ {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/...
+    │    │             │       │    └ None
+    │    │             │       └ '/search?keyword=%E4%B8%BA%E6%9E%84%E5%BB%BA%E4%BA%BA%E7%B1%BB%E5%91%BD%E8%BF%90%E5%85%B1%E5%90%8C%E4%BD%93%E6%B1%87%E8%81%9A...
+    │    │             └ 'GET'
+    │    └ <function HTTPConnection._send_request at 0x7f7de4693310>
+    └ <urllib3.connection.HTTPSConnection object at 0x7f7ce81825b0>
+  File "/usr/lib/python3.8/http/client.py", line 1297, in _send_request
+    self.putheader(hdr, value)
+    │    │         │    └ '__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16ir...
+    │    │         └ 'cookie'
+    │    └ <function HTTPConnection.putheader at 0x7f7de13e3f70>
+    └ <urllib3.connection.HTTPSConnection object at 0x7f7ce81825b0>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connection.py", line 224, in putheader
+    _HTTPConnection.putheader(self, header, *values)
+    │               │         │     │        └ ('__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16i...
+    │               │         │     └ 'cookie'
+    │               │         └ <urllib3.connection.HTTPSConnection object at 0x7f7ce81825b0>
+    │               └ <function HTTPConnection.putheader at 0x7f7de4693160>
+    └ <class 'http.client.HTTPConnection'>
+  File "/usr/lib/python3.8/http/client.py", line 1229, in putheader
+    values[i] = one_value.encode('latin-1')
+    │      │    │         └ <method 'encode' of 'str' objects>
+    │      │    └ '__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16ir...
+    │      └ 0
+    └ ['__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16i...
+
+UnicodeEncodeError: 'latin-1' codec can't encode characters in position 304-305: ordinal not in range(256)
+2022-05-06 10:03:21.391 | ERROR    | monitor.searchSpiders.toutiao:get_request_from_keyword:62 - E 头条检索'latin-1' codec can't encode characters in position 304-305: ordinal not in range(256)
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f7e03468a60>
+    └ <Thread(Thread-34, started daemon 140173958436608)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f7e03468790>
+    └ <Thread(Thread-34, started daemon 140173958436608)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-34, started daemon 140173958436608)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-34, started daemon 140173958436608)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f7ceb8e1070>>
+    └ <Thread(Thread-34, started daemon 140173958436608)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 781, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7f7ceb94fdc0>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+    └ <monitor.projectManager.ProjectManager object at 0x7f7ceb8e1070>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7f7ceb678a90>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7f7ce8bb9d30>
+    │    │                                │              │         └ '深挖问题根源提升抓建质量'
+    │    │                                │              └ '头条'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7f7ceb94fe50>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 135, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7f7de38d1550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7f7ce8bb9d30>
+               │    │                        │         └ '深挖问题根源提升抓建质量'
+               │    │                        └ '头条'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7f7ceb94ff70>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 192, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7f7ce8bf7f40>
+                   │    │       │                                  │        │           └ '深挖问题根源提升抓建质量'
+                   │    │       │                                  │        └ <string.Template object at 0x7f7ce8b9dc40>
+                   │    │       │                                  └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'sec-ch-ua': "'Chromium';v='92', ' Not A;Brand';v='99', 'Google Ch...
+                   │    │       └ '头条'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7f7ceb56f1f0>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/toutiao.py", line 47, in get_request_from_keyword
+    response = requests.get(url, headers=headers, params=params, cookies=cookies, timeout=10)
+               │        │   │            │               │               └ {'tt_webid': '7011123276119787038', '_S_DPR': '1.25', '_S_IPAD': '0', 'MONITOR_WEB_ID': '7011123276119787038', '_S_WIN_WH': '...
+               │        │   │            │               └ (('keyword', '烈士纪念日'), ('pd', 'synthesis'), ('source', 'pagination'), ('dvpf', 'pc'), ('aid', '4916'), ('page_num', '3'), ('s...
+               │        │   │            └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'sec-ch-ua': "'Chromium';v='92', ' Not A;Brand';v='99', 'Google Ch...
+               │        │   └ 'https://so.toutiao.com/search?keyword=深挖问题根源提升抓建质量&pd=synthesis&source=pagination&dvpf=pc&aid=4916&page_num=0&search_id=2021...
+               │        └ <function get at 0x7f7de121b280>
+               └ <module 'requests' from '/home/chase/.local/lib/python3.8/site-packages/requests/__init__.py'>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/api.py", line 75, in get
+    return request('get', url, params=params, **kwargs)
+           │              │           │         └ {'headers': {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'sec-ch-ua': "'Chromium';v='92', ' Not A;Brand';v='99'...
+           │              │           └ (('keyword', '烈士纪念日'), ('pd', 'synthesis'), ('source', 'pagination'), ('dvpf', 'pc'), ('aid', '4916'), ('page_num', '3'), ('s...
+           │              └ 'https://so.toutiao.com/search?keyword=深挖问题根源提升抓建质量&pd=synthesis&source=pagination&dvpf=pc&aid=4916&page_num=0&search_id=2021...
+           └ <function request at 0x7f7de12870d0>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/api.py", line 61, in request
+    return session.request(method=method, url=url, **kwargs)
+           │       │              │           │      └ {'params': (('keyword', '烈士纪念日'), ('pd', 'synthesis'), ('source', 'pagination'), ('dvpf', 'pc'), ('aid', '4916'), ('page_num'...
+           │       │              │           └ 'https://so.toutiao.com/search?keyword=深挖问题根源提升抓建质量&pd=synthesis&source=pagination&dvpf=pc&aid=4916&page_num=0&search_id=2021...
+           │       │              └ 'get'
+           │       └ <function Session.request at 0x7f7de121a9d0>
+           └ <requests.sessions.Session object at 0x7f7ce8132cd0>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/sessions.py", line 542, in request
+    resp = self.send(prep, **send_kwargs)
+           │    │    │       └ {'timeout': 10, 'allow_redirects': True, 'verify': True, 'proxies': OrderedDict(), 'stream': False, 'cert': None}
+           │    │    └ <PreparedRequest [GET]>
+           │    └ <function Session.send at 0x7f7de121ae50>
+           └ <requests.sessions.Session object at 0x7f7ce8132cd0>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/sessions.py", line 655, in send
+    r = adapter.send(request, **kwargs)
+        │       │    │          └ {'timeout': 10, 'verify': True, 'proxies': OrderedDict(), 'stream': False, 'cert': None}
+        │       │    └ <PreparedRequest [GET]>
+        │       └ <function HTTPAdapter.send at 0x7f7de121a310>
+        └ <requests.adapters.HTTPAdapter object at 0x7f7ce8132850>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/adapters.py", line 439, in send
+    resp = conn.urlopen(
+           │    └ <function HTTPConnectionPool.urlopen at 0x7f7de13f38b0>
+           └ <urllib3.connectionpool.HTTPSConnectionPool object at 0x7f7ce8ae5730>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connectionpool.py", line 699, in urlopen
+    httplib_response = self._make_request(
+                       │    └ <function HTTPConnectionPool._make_request at 0x7f7de13f3670>
+                       └ <urllib3.connectionpool.HTTPSConnectionPool object at 0x7f7ce8ae5730>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connectionpool.py", line 394, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+    │    │       │       │      └ {'body': None, 'headers': {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Ch...
+    │    │       │       └ '/search?keyword=%E6%B7%B1%E6%8C%96%E9%97%AE%E9%A2%98%E6%A0%B9%E6%BA%90%E6%8F%90%E5%8D%87%E6%8A%93%E5%BB%BA%E8%B4%A8%E9%87%8F...
+    │    │       └ 'GET'
+    │    └ <function HTTPConnection.request at 0x7f7de13e4040>
+    └ <urllib3.connection.HTTPSConnection object at 0x7f7ce81327c0>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connection.py", line 239, in request
+    super(HTTPConnection, self).request(method, url, body=body, headers=headers)
+          │               │             │       │         │             └ {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/...
+          │               │             │       │         └ None
+          │               │             │       └ '/search?keyword=%E6%B7%B1%E6%8C%96%E9%97%AE%E9%A2%98%E6%A0%B9%E6%BA%90%E6%8F%90%E5%8D%87%E6%8A%93%E5%BB%BA%E8%B4%A8%E9%87%8F...
+          │               │             └ 'GET'
+          │               └ <urllib3.connection.HTTPSConnection object at 0x7f7ce81327c0>
+          └ <class 'urllib3.connection.HTTPConnection'>
+  File "/usr/lib/python3.8/http/client.py", line 1256, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+    │    │             │       │    │     │        └ False
+    │    │             │       │    │     └ {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/...
+    │    │             │       │    └ None
+    │    │             │       └ '/search?keyword=%E6%B7%B1%E6%8C%96%E9%97%AE%E9%A2%98%E6%A0%B9%E6%BA%90%E6%8F%90%E5%8D%87%E6%8A%93%E5%BB%BA%E8%B4%A8%E9%87%8F...
+    │    │             └ 'GET'
+    │    └ <function HTTPConnection._send_request at 0x7f7de4693310>
+    └ <urllib3.connection.HTTPSConnection object at 0x7f7ce81327c0>
+  File "/usr/lib/python3.8/http/client.py", line 1297, in _send_request
+    self.putheader(hdr, value)
+    │    │         │    └ '__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16ir...
+    │    │         └ 'cookie'
+    │    └ <function HTTPConnection.putheader at 0x7f7de13e3f70>
+    └ <urllib3.connection.HTTPSConnection object at 0x7f7ce81327c0>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connection.py", line 224, in putheader
+    _HTTPConnection.putheader(self, header, *values)
+    │               │         │     │        └ ('__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16i...
+    │               │         │     └ 'cookie'
+    │               │         └ <urllib3.connection.HTTPSConnection object at 0x7f7ce81327c0>
+    │               └ <function HTTPConnection.putheader at 0x7f7de4693160>
+    └ <class 'http.client.HTTPConnection'>
+  File "/usr/lib/python3.8/http/client.py", line 1229, in putheader
+    values[i] = one_value.encode('latin-1')
+    │      │    │         └ <method 'encode' of 'str' objects>
+    │      │    └ '__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16ir...
+    │      └ 0
+    └ ['__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16i...
+
+UnicodeEncodeError: 'latin-1' codec can't encode characters in position 304-305: ordinal not in range(256)
+2022-05-06 10:03:21.403 | ERROR    | monitor.searchSpiders.toutiao:get_request_from_keyword:62 - E 头条检索'latin-1' codec can't encode characters in position 304-305: ordinal not in range(256)
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f7e03468a60>
+    └ <Thread(Thread-26, started daemon 140173975222016)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f7e03468790>
+    └ <Thread(Thread-26, started daemon 140173975222016)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-26, started daemon 140173975222016)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-26, started daemon 140173975222016)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f7ceb8e1070>>
+    └ <Thread(Thread-26, started daemon 140173975222016)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 781, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7f7ceb94fdc0>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+    └ <monitor.projectManager.ProjectManager object at 0x7f7ceb8e1070>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7f7ceb678a90>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7f7ce8bc41f0>
+    │    │                                │              │         └ '长春人生产生活怎么样'
+    │    │                                │              └ '头条'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7f7ceb94fe50>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 135, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7f7de38d1550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7f7ce8bc41f0>
+               │    │                        │         └ '长春人生产生活怎么样'
+               │    │                        └ '头条'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7f7ceb94ff70>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 192, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7f7ce8c058e0>
+                   │    │       │                                  │        │           └ '长春人生产生活怎么样'
+                   │    │       │                                  │        └ <string.Template object at 0x7f7cc8ff0340>
+                   │    │       │                                  └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'sec-ch-ua': "'Chromium';v='92', ' Not A;Brand';v='99', 'Google Ch...
+                   │    │       └ '头条'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7f7ceb56f1f0>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/toutiao.py", line 47, in get_request_from_keyword
+    response = requests.get(url, headers=headers, params=params, cookies=cookies, timeout=10)
+               │        │   │            │               │               └ {'tt_webid': '7011123276119787038', '_S_DPR': '1.25', '_S_IPAD': '0', 'MONITOR_WEB_ID': '7011123276119787038', '_S_WIN_WH': '...
+               │        │   │            │               └ (('keyword', '烈士纪念日'), ('pd', 'synthesis'), ('source', 'pagination'), ('dvpf', 'pc'), ('aid', '4916'), ('page_num', '3'), ('s...
+               │        │   │            └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'sec-ch-ua': "'Chromium';v='92', ' Not A;Brand';v='99', 'Google Ch...
+               │        │   └ 'https://so.toutiao.com/search?keyword=长春人生产生活怎么样&pd=synthesis&source=pagination&dvpf=pc&aid=4916&page_num=0&search_id=202110...
+               │        └ <function get at 0x7f7de121b280>
+               └ <module 'requests' from '/home/chase/.local/lib/python3.8/site-packages/requests/__init__.py'>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/api.py", line 75, in get
+    return request('get', url, params=params, **kwargs)
+           │              │           │         └ {'headers': {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'sec-ch-ua': "'Chromium';v='92', ' Not A;Brand';v='99'...
+           │              │           └ (('keyword', '烈士纪念日'), ('pd', 'synthesis'), ('source', 'pagination'), ('dvpf', 'pc'), ('aid', '4916'), ('page_num', '3'), ('s...
+           │              └ 'https://so.toutiao.com/search?keyword=长春人生产生活怎么样&pd=synthesis&source=pagination&dvpf=pc&aid=4916&page_num=0&search_id=202110...
+           └ <function request at 0x7f7de12870d0>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/api.py", line 61, in request
+    return session.request(method=method, url=url, **kwargs)
+           │       │              │           │      └ {'params': (('keyword', '烈士纪念日'), ('pd', 'synthesis'), ('source', 'pagination'), ('dvpf', 'pc'), ('aid', '4916'), ('page_num'...
+           │       │              │           └ 'https://so.toutiao.com/search?keyword=长春人生产生活怎么样&pd=synthesis&source=pagination&dvpf=pc&aid=4916&page_num=0&search_id=202110...
+           │       │              └ 'get'
+           │       └ <function Session.request at 0x7f7de121a9d0>
+           └ <requests.sessions.Session object at 0x7f7ce81325b0>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/sessions.py", line 542, in request
+    resp = self.send(prep, **send_kwargs)
+           │    │    │       └ {'timeout': 10, 'allow_redirects': True, 'verify': True, 'proxies': OrderedDict(), 'stream': False, 'cert': None}
+           │    │    └ <PreparedRequest [GET]>
+           │    └ <function Session.send at 0x7f7de121ae50>
+           └ <requests.sessions.Session object at 0x7f7ce81325b0>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/sessions.py", line 655, in send
+    r = adapter.send(request, **kwargs)
+        │       │    │          └ {'timeout': 10, 'verify': True, 'proxies': OrderedDict(), 'stream': False, 'cert': None}
+        │       │    └ <PreparedRequest [GET]>
+        │       └ <function HTTPAdapter.send at 0x7f7de121a310>
+        └ <requests.adapters.HTTPAdapter object at 0x7f7ce8132a90>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/adapters.py", line 439, in send
+    resp = conn.urlopen(
+           │    └ <function HTTPConnectionPool.urlopen at 0x7f7de13f38b0>
+           └ <urllib3.connectionpool.HTTPSConnectionPool object at 0x7f7ce8c05490>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connectionpool.py", line 699, in urlopen
+    httplib_response = self._make_request(
+                       │    └ <function HTTPConnectionPool._make_request at 0x7f7de13f3670>
+                       └ <urllib3.connectionpool.HTTPSConnectionPool object at 0x7f7ce8c05490>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connectionpool.py", line 394, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+    │    │       │       │      └ {'body': None, 'headers': {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Ch...
+    │    │       │       └ '/search?keyword=%E9%95%BF%E6%98%A5%E4%BA%BA%E7%94%9F%E4%BA%A7%E7%94%9F%E6%B4%BB%E6%80%8E%E4%B9%88%E6%A0%B7&pd=synthesis&sour...
+    │    │       └ 'GET'
+    │    └ <function HTTPConnection.request at 0x7f7de13e4040>
+    └ <urllib3.connection.HTTPSConnection object at 0x7f7ce8bf7a00>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connection.py", line 239, in request
+    super(HTTPConnection, self).request(method, url, body=body, headers=headers)
+          │               │             │       │         │             └ {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/...
+          │               │             │       │         └ None
+          │               │             │       └ '/search?keyword=%E9%95%BF%E6%98%A5%E4%BA%BA%E7%94%9F%E4%BA%A7%E7%94%9F%E6%B4%BB%E6%80%8E%E4%B9%88%E6%A0%B7&pd=synthesis&sour...
+          │               │             └ 'GET'
+          │               └ <urllib3.connection.HTTPSConnection object at 0x7f7ce8bf7a00>
+          └ <class 'urllib3.connection.HTTPConnection'>
+  File "/usr/lib/python3.8/http/client.py", line 1256, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+    │    │             │       │    │     │        └ False
+    │    │             │       │    │     └ {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/...
+    │    │             │       │    └ None
+    │    │             │       └ '/search?keyword=%E9%95%BF%E6%98%A5%E4%BA%BA%E7%94%9F%E4%BA%A7%E7%94%9F%E6%B4%BB%E6%80%8E%E4%B9%88%E6%A0%B7&pd=synthesis&sour...
+    │    │             └ 'GET'
+    │    └ <function HTTPConnection._send_request at 0x7f7de4693310>
+    └ <urllib3.connection.HTTPSConnection object at 0x7f7ce8bf7a00>
+  File "/usr/lib/python3.8/http/client.py", line 1297, in _send_request
+    self.putheader(hdr, value)
+    │    │         │    └ '__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16ir...
+    │    │         └ 'cookie'
+    │    └ <function HTTPConnection.putheader at 0x7f7de13e3f70>
+    └ <urllib3.connection.HTTPSConnection object at 0x7f7ce8bf7a00>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connection.py", line 224, in putheader
+    _HTTPConnection.putheader(self, header, *values)
+    │               │         │     │        └ ('__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16i...
+    │               │         │     └ 'cookie'
+    │               │         └ <urllib3.connection.HTTPSConnection object at 0x7f7ce8bf7a00>
+    │               └ <function HTTPConnection.putheader at 0x7f7de4693160>
+    └ <class 'http.client.HTTPConnection'>
+  File "/usr/lib/python3.8/http/client.py", line 1229, in putheader
+    values[i] = one_value.encode('latin-1')
+    │      │    │         └ <method 'encode' of 'str' objects>
+    │      │    └ '__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16ir...
+    │      └ 0
+    └ ['__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16i...
+
+UnicodeEncodeError: 'latin-1' codec can't encode characters in position 304-305: ordinal not in range(256)
+2022-05-06 10:03:21.437 | ERROR    | monitor.searchSpiders.toutiao:get_request_from_keyword:62 - E 头条检索'latin-1' codec can't encode characters in position 304-305: ordinal not in range(256)
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f7e03468a60>
+    └ <Thread(Thread-43, started daemon 140173923297024)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f7e03468790>
+    └ <Thread(Thread-43, started daemon 140173923297024)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-43, started daemon 140173923297024)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-43, started daemon 140173923297024)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f7ceb8e1070>>
+    └ <Thread(Thread-43, started daemon 140173923297024)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 781, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7f7ceb94fdc0>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+    └ <monitor.projectManager.ProjectManager object at 0x7f7ceb8e1070>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7f7ceb678a90>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7f7ce8b787f0>
+    │    │                                │              │         └ '拜登要求美国国会批准330亿美元补充资金用于援助乌克兰'
+    │    │                                │              └ '头条'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7f7ceb94fe50>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 135, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7f7de38d1550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7f7ce8b787f0>
+               │    │                        │         └ '拜登要求美国国会批准330亿美元补充资金用于援助乌克兰'
+               │    │                        └ '头条'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7f7ceb94ff70>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 192, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7f7cea4efb50>
+                   │    │       │                                  │        │           └ '拜登要求美国国会批准330亿美元补充资金用于援助乌克兰'
+                   │    │       │                                  │        └ <string.Template object at 0x7f7ce9ca6910>
+                   │    │       │                                  └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'sec-ch-ua': "'Chromium';v='92', ' Not A;Brand';v='99', 'Google Ch...
+                   │    │       └ '头条'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7f7ceb56f1f0>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/toutiao.py", line 47, in get_request_from_keyword
+    response = requests.get(url, headers=headers, params=params, cookies=cookies, timeout=10)
+               │        │   │            │               │               └ {'tt_webid': '7011123276119787038', '_S_DPR': '1.25', '_S_IPAD': '0', 'MONITOR_WEB_ID': '7011123276119787038', '_S_WIN_WH': '...
+               │        │   │            │               └ (('keyword', '烈士纪念日'), ('pd', 'synthesis'), ('source', 'pagination'), ('dvpf', 'pc'), ('aid', '4916'), ('page_num', '3'), ('s...
+               │        │   │            └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'sec-ch-ua': "'Chromium';v='92', ' Not A;Brand';v='99', 'Google Ch...
+               │        │   └ 'https://so.toutiao.com/search?keyword=拜登要求美国国会批准330亿美元补充资金用于援助乌克兰&pd=synthesis&source=pagination&dvpf=pc&aid=4916&page_num=0...
+               │        └ <function get at 0x7f7de121b280>
+               └ <module 'requests' from '/home/chase/.local/lib/python3.8/site-packages/requests/__init__.py'>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/api.py", line 75, in get
+    return request('get', url, params=params, **kwargs)
+           │              │           │         └ {'headers': {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'sec-ch-ua': "'Chromium';v='92', ' Not A;Brand';v='99'...
+           │              │           └ (('keyword', '烈士纪念日'), ('pd', 'synthesis'), ('source', 'pagination'), ('dvpf', 'pc'), ('aid', '4916'), ('page_num', '3'), ('s...
+           │              └ 'https://so.toutiao.com/search?keyword=拜登要求美国国会批准330亿美元补充资金用于援助乌克兰&pd=synthesis&source=pagination&dvpf=pc&aid=4916&page_num=0...
+           └ <function request at 0x7f7de12870d0>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/api.py", line 61, in request
+    return session.request(method=method, url=url, **kwargs)
+           │       │              │           │      └ {'params': (('keyword', '烈士纪念日'), ('pd', 'synthesis'), ('source', 'pagination'), ('dvpf', 'pc'), ('aid', '4916'), ('page_num'...
+           │       │              │           └ 'https://so.toutiao.com/search?keyword=拜登要求美国国会批准330亿美元补充资金用于援助乌克兰&pd=synthesis&source=pagination&dvpf=pc&aid=4916&page_num=0...
+           │       │              └ 'get'
+           │       └ <function Session.request at 0x7f7de121a9d0>
+           └ <requests.sessions.Session object at 0x7f7ce8bf7e80>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/sessions.py", line 542, in request
+    resp = self.send(prep, **send_kwargs)
+           │    │    │       └ {'timeout': 10, 'allow_redirects': True, 'verify': True, 'proxies': OrderedDict(), 'stream': False, 'cert': None}
+           │    │    └ <PreparedRequest [GET]>
+           │    └ <function Session.send at 0x7f7de121ae50>
+           └ <requests.sessions.Session object at 0x7f7ce8bf7e80>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/sessions.py", line 655, in send
+    r = adapter.send(request, **kwargs)
+        │       │    │          └ {'timeout': 10, 'verify': True, 'proxies': OrderedDict(), 'stream': False, 'cert': None}
+        │       │    └ <PreparedRequest [GET]>
+        │       └ <function HTTPAdapter.send at 0x7f7de121a310>
+        └ <requests.adapters.HTTPAdapter object at 0x7f7cc8ff0d90>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/adapters.py", line 439, in send
+    resp = conn.urlopen(
+           │    └ <function HTTPConnectionPool.urlopen at 0x7f7de13f38b0>
+           └ <urllib3.connectionpool.HTTPSConnectionPool object at 0x7f7ce8132370>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connectionpool.py", line 699, in urlopen
+    httplib_response = self._make_request(
+                       │    └ <function HTTPConnectionPool._make_request at 0x7f7de13f3670>
+                       └ <urllib3.connectionpool.HTTPSConnectionPool object at 0x7f7ce8132370>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connectionpool.py", line 394, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+    │    │       │       │      └ {'body': None, 'headers': {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Ch...
+    │    │       │       └ '/search?keyword=%E6%8B%9C%E7%99%BB%E8%A6%81%E6%B1%82%E7%BE%8E%E5%9B%BD%E5%9B%BD%E4%BC%9A%E6%89%B9%E5%87%86330%E4%BA%BF%E7%BE...
+    │    │       └ 'GET'
+    │    └ <function HTTPConnection.request at 0x7f7de13e4040>
+    └ <urllib3.connection.HTTPSConnection object at 0x7f7ce8c081f0>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connection.py", line 239, in request
+    super(HTTPConnection, self).request(method, url, body=body, headers=headers)
+          │               │             │       │         │             └ {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/...
+          │               │             │       │         └ None
+          │               │             │       └ '/search?keyword=%E6%8B%9C%E7%99%BB%E8%A6%81%E6%B1%82%E7%BE%8E%E5%9B%BD%E5%9B%BD%E4%BC%9A%E6%89%B9%E5%87%86330%E4%BA%BF%E7%BE...
+          │               │             └ 'GET'
+          │               └ <urllib3.connection.HTTPSConnection object at 0x7f7ce8c081f0>
+          └ <class 'urllib3.connection.HTTPConnection'>
+  File "/usr/lib/python3.8/http/client.py", line 1256, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+    │    │             │       │    │     │        └ False
+    │    │             │       │    │     └ {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/...
+    │    │             │       │    └ None
+    │    │             │       └ '/search?keyword=%E6%8B%9C%E7%99%BB%E8%A6%81%E6%B1%82%E7%BE%8E%E5%9B%BD%E5%9B%BD%E4%BC%9A%E6%89%B9%E5%87%86330%E4%BA%BF%E7%BE...
+    │    │             └ 'GET'
+    │    └ <function HTTPConnection._send_request at 0x7f7de4693310>
+    └ <urllib3.connection.HTTPSConnection object at 0x7f7ce8c081f0>
+  File "/usr/lib/python3.8/http/client.py", line 1297, in _send_request
+    self.putheader(hdr, value)
+    │    │         │    └ '__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16ir...
+    │    │         └ 'cookie'
+    │    └ <function HTTPConnection.putheader at 0x7f7de13e3f70>
+    └ <urllib3.connection.HTTPSConnection object at 0x7f7ce8c081f0>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connection.py", line 224, in putheader
+    _HTTPConnection.putheader(self, header, *values)
+    │               │         │     │        └ ('__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16i...
+    │               │         │     └ 'cookie'
+    │               │         └ <urllib3.connection.HTTPSConnection object at 0x7f7ce8c081f0>
+    │               └ <function HTTPConnection.putheader at 0x7f7de4693160>
+    └ <class 'http.client.HTTPConnection'>
+  File "/usr/lib/python3.8/http/client.py", line 1229, in putheader
+    values[i] = one_value.encode('latin-1')
+    │      │    │         └ <method 'encode' of 'str' objects>
+    │      │    └ '__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16ir...
+    │      └ 0
+    └ ['__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16i...
+
+UnicodeEncodeError: 'latin-1' codec can't encode characters in position 304-305: ordinal not in range(256)
+2022-05-06 10:03:21.451 | ERROR    | monitor.searchSpiders.toutiao:get_request_from_keyword:62 - E 头条检索'latin-1' codec can't encode characters in position 304-305: ordinal not in range(256)
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f7e03468a60>
+    └ <Thread(Thread-13, started daemon 140174474839808)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f7e03468790>
+    └ <Thread(Thread-13, started daemon 140174474839808)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-13, started daemon 140174474839808)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-13, started daemon 140174474839808)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f7ceb8e1070>>
+    └ <Thread(Thread-13, started daemon 140174474839808)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 781, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7f7ceb94fdc0>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+    └ <monitor.projectManager.ProjectManager object at 0x7f7ceb8e1070>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7f7ceb678a90>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7f7ce9c99c70>
+    │    │                                │              │         └ '上海青浦：疫苗小分队进村服务老年人接种'
+    │    │                                │              └ '头条'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7f7ceb94fe50>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 135, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7f7de38d1550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7f7ce9c99c70>
+               │    │                        │         └ '上海青浦：疫苗小分队进村服务老年人接种'
+               │    │                        └ '头条'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7f7ceb94ff70>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 192, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7f7cc8ff02e0>
+                   │    │       │                                  │        │           └ '上海青浦：疫苗小分队进村服务老年人接种'
+                   │    │       │                                  │        └ <string.Template object at 0x7f7cc8ff03a0>
+                   │    │       │                                  └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'sec-ch-ua': "'Chromium';v='92', ' Not A;Brand';v='99', 'Google Ch...
+                   │    │       └ '头条'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7f7ceb56f1f0>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/toutiao.py", line 47, in get_request_from_keyword
+    response = requests.get(url, headers=headers, params=params, cookies=cookies, timeout=10)
+               │        │   │            │               │               └ {'tt_webid': '7011123276119787038', '_S_DPR': '1.25', '_S_IPAD': '0', 'MONITOR_WEB_ID': '7011123276119787038', '_S_WIN_WH': '...
+               │        │   │            │               └ (('keyword', '烈士纪念日'), ('pd', 'synthesis'), ('source', 'pagination'), ('dvpf', 'pc'), ('aid', '4916'), ('page_num', '3'), ('s...
+               │        │   │            └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'sec-ch-ua': "'Chromium';v='92', ' Not A;Brand';v='99', 'Google Ch...
+               │        │   └ 'https://so.toutiao.com/search?keyword=上海青浦：疫苗小分队进村服务老年人接种&pd=synthesis&source=pagination&dvpf=pc&aid=4916&page_num=0&search_...
+               │        └ <function get at 0x7f7de121b280>
+               └ <module 'requests' from '/home/chase/.local/lib/python3.8/site-packages/requests/__init__.py'>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/api.py", line 75, in get
+    return request('get', url, params=params, **kwargs)
+           │              │           │         └ {'headers': {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'sec-ch-ua': "'Chromium';v='92', ' Not A;Brand';v='99'...
+           │              │           └ (('keyword', '烈士纪念日'), ('pd', 'synthesis'), ('source', 'pagination'), ('dvpf', 'pc'), ('aid', '4916'), ('page_num', '3'), ('s...
+           │              └ 'https://so.toutiao.com/search?keyword=上海青浦：疫苗小分队进村服务老年人接种&pd=synthesis&source=pagination&dvpf=pc&aid=4916&page_num=0&search_...
+           └ <function request at 0x7f7de12870d0>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/api.py", line 61, in request
+    return session.request(method=method, url=url, **kwargs)
+           │       │              │           │      └ {'params': (('keyword', '烈士纪念日'), ('pd', 'synthesis'), ('source', 'pagination'), ('dvpf', 'pc'), ('aid', '4916'), ('page_num'...
+           │       │              │           └ 'https://so.toutiao.com/search?keyword=上海青浦：疫苗小分队进村服务老年人接种&pd=synthesis&source=pagination&dvpf=pc&aid=4916&page_num=0&search_...
+           │       │              └ 'get'
+           │       └ <function Session.request at 0x7f7de121a9d0>
+           └ <requests.sessions.Session object at 0x7f7ce8c057f0>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/sessions.py", line 542, in request
+    resp = self.send(prep, **send_kwargs)
+           │    │    │       └ {'timeout': 10, 'allow_redirects': True, 'verify': True, 'proxies': OrderedDict(), 'stream': False, 'cert': None}
+           │    │    └ <PreparedRequest [GET]>
+           │    └ <function Session.send at 0x7f7de121ae50>
+           └ <requests.sessions.Session object at 0x7f7ce8c057f0>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/sessions.py", line 655, in send
+    r = adapter.send(request, **kwargs)
+        │       │    │          └ {'timeout': 10, 'verify': True, 'proxies': OrderedDict(), 'stream': False, 'cert': None}
+        │       │    └ <PreparedRequest [GET]>
+        │       └ <function HTTPAdapter.send at 0x7f7de121a310>
+        └ <requests.adapters.HTTPAdapter object at 0x7f7ce8bf74c0>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/adapters.py", line 439, in send
+    resp = conn.urlopen(
+           │    └ <function HTTPConnectionPool.urlopen at 0x7f7de13f38b0>
+           └ <urllib3.connectionpool.HTTPSConnectionPool object at 0x7f7ce8c08220>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connectionpool.py", line 699, in urlopen
+    httplib_response = self._make_request(
+                       │    └ <function HTTPConnectionPool._make_request at 0x7f7de13f3670>
+                       └ <urllib3.connectionpool.HTTPSConnectionPool object at 0x7f7ce8c08220>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connectionpool.py", line 394, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+    │    │       │       │      └ {'body': None, 'headers': {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Ch...
+    │    │       │       └ '/search?keyword=%E4%B8%8A%E6%B5%B7%E9%9D%92%E6%B5%A6%EF%BC%9A%E7%96%AB%E8%8B%97%E5%B0%8F%E5%88%86%E9%98%9F%E8%BF%9B%E6%9D%91...
+    │    │       └ 'GET'
+    │    └ <function HTTPConnection.request at 0x7f7de13e4040>
+    └ <urllib3.connection.HTTPSConnection object at 0x7f7ce8180d30>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connection.py", line 239, in request
+    super(HTTPConnection, self).request(method, url, body=body, headers=headers)
+          │               │             │       │         │             └ {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/...
+          │               │             │       │         └ None
+          │               │             │       └ '/search?keyword=%E4%B8%8A%E6%B5%B7%E9%9D%92%E6%B5%A6%EF%BC%9A%E7%96%AB%E8%8B%97%E5%B0%8F%E5%88%86%E9%98%9F%E8%BF%9B%E6%9D%91...
+          │               │             └ 'GET'
+          │               └ <urllib3.connection.HTTPSConnection object at 0x7f7ce8180d30>
+          └ <class 'urllib3.connection.HTTPConnection'>
+  File "/usr/lib/python3.8/http/client.py", line 1256, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+    │    │             │       │    │     │        └ False
+    │    │             │       │    │     └ {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/...
+    │    │             │       │    └ None
+    │    │             │       └ '/search?keyword=%E4%B8%8A%E6%B5%B7%E9%9D%92%E6%B5%A6%EF%BC%9A%E7%96%AB%E8%8B%97%E5%B0%8F%E5%88%86%E9%98%9F%E8%BF%9B%E6%9D%91...
+    │    │             └ 'GET'
+    │    └ <function HTTPConnection._send_request at 0x7f7de4693310>
+    └ <urllib3.connection.HTTPSConnection object at 0x7f7ce8180d30>
+  File "/usr/lib/python3.8/http/client.py", line 1297, in _send_request
+    self.putheader(hdr, value)
+    │    │         │    └ '__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16ir...
+    │    │         └ 'cookie'
+    │    └ <function HTTPConnection.putheader at 0x7f7de13e3f70>
+    └ <urllib3.connection.HTTPSConnection object at 0x7f7ce8180d30>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connection.py", line 224, in putheader
+    _HTTPConnection.putheader(self, header, *values)
+    │               │         │     │        └ ('__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16i...
+    │               │         │     └ 'cookie'
+    │               │         └ <urllib3.connection.HTTPSConnection object at 0x7f7ce8180d30>
+    │               └ <function HTTPConnection.putheader at 0x7f7de4693160>
+    └ <class 'http.client.HTTPConnection'>
+  File "/usr/lib/python3.8/http/client.py", line 1229, in putheader
+    values[i] = one_value.encode('latin-1')
+    │      │    │         └ <method 'encode' of 'str' objects>
+    │      │    └ '__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16ir...
+    │      └ 0
+    └ ['__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16i...
+
+UnicodeEncodeError: 'latin-1' codec can't encode characters in position 304-305: ordinal not in range(256)
+2022-05-06 10:03:21.461 | ERROR    | monitor.searchSpiders.toutiao:get_request_from_keyword:62 - E 头条检索'latin-1' codec can't encode characters in position 304-305: ordinal not in range(256)
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f7e03468a60>
+    └ <Thread(Thread-39, started daemon 140173950043904)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f7e03468790>
+    └ <Thread(Thread-39, started daemon 140173950043904)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-39, started daemon 140173950043904)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-39, started daemon 140173950043904)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f7ceb8e1070>>
+    └ <Thread(Thread-39, started daemon 140173950043904)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 781, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7f7ceb94fdc0>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+    └ <monitor.projectManager.ProjectManager object at 0x7f7ceb8e1070>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7f7ceb678a90>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7f7ce8b9ddc0>
+    │    │                                │              │         └ '意大利新增新冠肺炎确诊病例18896例 累计确诊超16…'
+    │    │                                │              └ '头条'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7f7ceb94fe50>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 135, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7f7de38d1550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7f7ce8b9ddc0>
+               │    │                        │         └ '意大利新增新冠肺炎确诊病例18896例 累计确诊超16…'
+               │    │                        └ '头条'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7f7ceb94ff70>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 192, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7f7ce8ae5e20>
+                   │    │       │                                  │        │           └ '意大利新增新冠肺炎确诊病例18896例 累计确诊超16…'
+                   │    │       │                                  │        └ <string.Template object at 0x7f7ceb678e50>
+                   │    │       │                                  └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'sec-ch-ua': "'Chromium';v='92', ' Not A;Brand';v='99', 'Google Ch...
+                   │    │       └ '头条'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7f7ceb56f1f0>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/toutiao.py", line 47, in get_request_from_keyword
+    response = requests.get(url, headers=headers, params=params, cookies=cookies, timeout=10)
+               │        │   │            │               │               └ {'tt_webid': '7011123276119787038', '_S_DPR': '1.25', '_S_IPAD': '0', 'MONITOR_WEB_ID': '7011123276119787038', '_S_WIN_WH': '...
+               │        │   │            │               └ (('keyword', '烈士纪念日'), ('pd', 'synthesis'), ('source', 'pagination'), ('dvpf', 'pc'), ('aid', '4916'), ('page_num', '3'), ('s...
+               │        │   │            └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'sec-ch-ua': "'Chromium';v='92', ' Not A;Brand';v='99', 'Google Ch...
+               │        │   └ 'https://so.toutiao.com/search?keyword=意大利新增新冠肺炎确诊病例18896例 累计确诊超16…&pd=synthesis&source=pagination&dvpf=pc&aid=4916&page_num=...
+               │        └ <function get at 0x7f7de121b280>
+               └ <module 'requests' from '/home/chase/.local/lib/python3.8/site-packages/requests/__init__.py'>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/api.py", line 75, in get
+    return request('get', url, params=params, **kwargs)
+           │              │           │         └ {'headers': {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'sec-ch-ua': "'Chromium';v='92', ' Not A;Brand';v='99'...
+           │              │           └ (('keyword', '烈士纪念日'), ('pd', 'synthesis'), ('source', 'pagination'), ('dvpf', 'pc'), ('aid', '4916'), ('page_num', '3'), ('s...
+           │              └ 'https://so.toutiao.com/search?keyword=意大利新增新冠肺炎确诊病例18896例 累计确诊超16…&pd=synthesis&source=pagination&dvpf=pc&aid=4916&page_num=...
+           └ <function request at 0x7f7de12870d0>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/api.py", line 61, in request
+    return session.request(method=method, url=url, **kwargs)
+           │       │              │           │      └ {'params': (('keyword', '烈士纪念日'), ('pd', 'synthesis'), ('source', 'pagination'), ('dvpf', 'pc'), ('aid', '4916'), ('page_num'...
+           │       │              │           └ 'https://so.toutiao.com/search?keyword=意大利新增新冠肺炎确诊病例18896例 累计确诊超16…&pd=synthesis&source=pagination&dvpf=pc&aid=4916&page_num=...
+           │       │              └ 'get'
+           │       └ <function Session.request at 0x7f7de121a9d0>
+           └ <requests.sessions.Session object at 0x7f7ce8c087c0>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/sessions.py", line 542, in request
+    resp = self.send(prep, **send_kwargs)
+           │    │    │       └ {'timeout': 10, 'allow_redirects': True, 'verify': True, 'proxies': OrderedDict(), 'stream': False, 'cert': None}
+           │    │    └ <PreparedRequest [GET]>
+           │    └ <function Session.send at 0x7f7de121ae50>
+           └ <requests.sessions.Session object at 0x7f7ce8c087c0>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/sessions.py", line 655, in send
+    r = adapter.send(request, **kwargs)
+        │       │    │          └ {'timeout': 10, 'verify': True, 'proxies': OrderedDict(), 'stream': False, 'cert': None}
+        │       │    └ <PreparedRequest [GET]>
+        │       └ <function HTTPAdapter.send at 0x7f7de121a310>
+        └ <requests.adapters.HTTPAdapter object at 0x7f7ce8c08f70>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/adapters.py", line 439, in send
+    resp = conn.urlopen(
+           │    └ <function HTTPConnectionPool.urlopen at 0x7f7de13f38b0>
+           └ <urllib3.connectionpool.HTTPSConnectionPool object at 0x7f7ce81804f0>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connectionpool.py", line 699, in urlopen
+    httplib_response = self._make_request(
+                       │    └ <function HTTPConnectionPool._make_request at 0x7f7de13f3670>
+                       └ <urllib3.connectionpool.HTTPSConnectionPool object at 0x7f7ce81804f0>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connectionpool.py", line 394, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+    │    │       │       │      └ {'body': None, 'headers': {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Ch...
+    │    │       │       └ '/search?keyword=%E6%84%8F%E5%A4%A7%E5%88%A9%E6%96%B0%E5%A2%9E%E6%96%B0%E5%86%A0%E8%82%BA%E7%82%8E%E7%A1%AE%E8%AF%8A%E7%97%85...
+    │    │       └ 'GET'
+    │    └ <function HTTPConnection.request at 0x7f7de13e4040>
+    └ <urllib3.connection.HTTPSConnection object at 0x7f7cc8f2f4c0>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connection.py", line 239, in request
+    super(HTTPConnection, self).request(method, url, body=body, headers=headers)
+          │               │             │       │         │             └ {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/...
+          │               │             │       │         └ None
+          │               │             │       └ '/search?keyword=%E6%84%8F%E5%A4%A7%E5%88%A9%E6%96%B0%E5%A2%9E%E6%96%B0%E5%86%A0%E8%82%BA%E7%82%8E%E7%A1%AE%E8%AF%8A%E7%97%85...
+          │               │             └ 'GET'
+          │               └ <urllib3.connection.HTTPSConnection object at 0x7f7cc8f2f4c0>
+          └ <class 'urllib3.connection.HTTPConnection'>
+  File "/usr/lib/python3.8/http/client.py", line 1256, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+    │    │             │       │    │     │        └ False
+    │    │             │       │    │     └ {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/...
+    │    │             │       │    └ None
+    │    │             │       └ '/search?keyword=%E6%84%8F%E5%A4%A7%E5%88%A9%E6%96%B0%E5%A2%9E%E6%96%B0%E5%86%A0%E8%82%BA%E7%82%8E%E7%A1%AE%E8%AF%8A%E7%97%85...
+    │    │             └ 'GET'
+    │    └ <function HTTPConnection._send_request at 0x7f7de4693310>
+    └ <urllib3.connection.HTTPSConnection object at 0x7f7cc8f2f4c0>
+  File "/usr/lib/python3.8/http/client.py", line 1297, in _send_request
+    self.putheader(hdr, value)
+    │    │         │    └ '__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16ir...
+    │    │         └ 'cookie'
+    │    └ <function HTTPConnection.putheader at 0x7f7de13e3f70>
+    └ <urllib3.connection.HTTPSConnection object at 0x7f7cc8f2f4c0>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connection.py", line 224, in putheader
+    _HTTPConnection.putheader(self, header, *values)
+    │               │         │     │        └ ('__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16i...
+    │               │         │     └ 'cookie'
+    │               │         └ <urllib3.connection.HTTPSConnection object at 0x7f7cc8f2f4c0>
+    │               └ <function HTTPConnection.putheader at 0x7f7de4693160>
+    └ <class 'http.client.HTTPConnection'>
+  File "/usr/lib/python3.8/http/client.py", line 1229, in putheader
+    values[i] = one_value.encode('latin-1')
+    │      │    │         └ <method 'encode' of 'str' objects>
+    │      │    └ '__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16ir...
+    │      └ 0
+    └ ['__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16i...
+
+UnicodeEncodeError: 'latin-1' codec can't encode characters in position 304-305: ordinal not in range(256)
+2022-05-06 10:03:21.495 | ERROR    | monitor.searchSpiders.toutiao:get_request_from_keyword:62 - E 头条检索'latin-1' codec can't encode characters in position 304-305: ordinal not in range(256)
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f7e03468a60>
+    └ <Thread(Thread-52, started daemon 140173371242240)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f7e03468790>
+    └ <Thread(Thread-52, started daemon 140173371242240)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-52, started daemon 140173371242240)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-52, started daemon 140173371242240)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f7ceb8e1070>>
+    └ <Thread(Thread-52, started daemon 140173371242240)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 781, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7f7ceb94fdc0>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+    └ <monitor.projectManager.ProjectManager object at 0x7f7ceb8e1070>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7f7ceb678a90>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7f7ce8bda400>
+    │    │                                │              │         └ '欧足联：禁止俄足球俱乐部参加欧锦赛等赛事'
+    │    │                                │              └ '头条'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7f7ceb94fe50>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 135, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7f7de38d1550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7f7ce8bda400>
+               │    │                        │         └ '欧足联：禁止俄足球俱乐部参加欧锦赛等赛事'
+               │    │                        └ '头条'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7f7ceb94ff70>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 192, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7f7ce8c08c70>
+                   │    │       │                                  │        │           └ '欧足联：禁止俄足球俱乐部参加欧锦赛等赛事'
+                   │    │       │                                  │        └ <string.Template object at 0x7f7ce8bf73d0>
+                   │    │       │                                  └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'sec-ch-ua': "'Chromium';v='92', ' Not A;Brand';v='99', 'Google Ch...
+                   │    │       └ '头条'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7f7ceb56f1f0>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/toutiao.py", line 47, in get_request_from_keyword
+    response = requests.get(url, headers=headers, params=params, cookies=cookies, timeout=10)
+               │        │   │            │               │               └ {'tt_webid': '7011123276119787038', '_S_DPR': '1.25', '_S_IPAD': '0', 'MONITOR_WEB_ID': '7011123276119787038', '_S_WIN_WH': '...
+               │        │   │            │               └ (('keyword', '烈士纪念日'), ('pd', 'synthesis'), ('source', 'pagination'), ('dvpf', 'pc'), ('aid', '4916'), ('page_num', '3'), ('s...
+               │        │   │            └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'sec-ch-ua': "'Chromium';v='92', ' Not A;Brand';v='99', 'Google Ch...
+               │        │   └ 'https://so.toutiao.com/search?keyword=欧足联：禁止俄足球俱乐部参加欧锦赛等赛事&pd=synthesis&source=pagination&dvpf=pc&aid=4916&page_num=0&search...
+               │        └ <function get at 0x7f7de121b280>
+               └ <module 'requests' from '/home/chase/.local/lib/python3.8/site-packages/requests/__init__.py'>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/api.py", line 75, in get
+    return request('get', url, params=params, **kwargs)
+           │              │           │         └ {'headers': {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'sec-ch-ua': "'Chromium';v='92', ' Not A;Brand';v='99'...
+           │              │           └ (('keyword', '烈士纪念日'), ('pd', 'synthesis'), ('source', 'pagination'), ('dvpf', 'pc'), ('aid', '4916'), ('page_num', '3'), ('s...
+           │              └ 'https://so.toutiao.com/search?keyword=欧足联：禁止俄足球俱乐部参加欧锦赛等赛事&pd=synthesis&source=pagination&dvpf=pc&aid=4916&page_num=0&search...
+           └ <function request at 0x7f7de12870d0>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/api.py", line 61, in request
+    return session.request(method=method, url=url, **kwargs)
+           │       │              │           │      └ {'params': (('keyword', '烈士纪念日'), ('pd', 'synthesis'), ('source', 'pagination'), ('dvpf', 'pc'), ('aid', '4916'), ('page_num'...
+           │       │              │           └ 'https://so.toutiao.com/search?keyword=欧足联：禁止俄足球俱乐部参加欧锦赛等赛事&pd=synthesis&source=pagination&dvpf=pc&aid=4916&page_num=0&search...
+           │       │              └ 'get'
+           │       └ <function Session.request at 0x7f7de121a9d0>
+           └ <requests.sessions.Session object at 0x7f7ce8c05340>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/sessions.py", line 542, in request
+    resp = self.send(prep, **send_kwargs)
+           │    │    │       └ {'timeout': 10, 'allow_redirects': True, 'verify': True, 'proxies': OrderedDict(), 'stream': False, 'cert': None}
+           │    │    └ <PreparedRequest [GET]>
+           │    └ <function Session.send at 0x7f7de121ae50>
+           └ <requests.sessions.Session object at 0x7f7ce8c05340>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/sessions.py", line 655, in send
+    r = adapter.send(request, **kwargs)
+        │       │    │          └ {'timeout': 10, 'verify': True, 'proxies': OrderedDict(), 'stream': False, 'cert': None}
+        │       │    └ <PreparedRequest [GET]>
+        │       └ <function HTTPAdapter.send at 0x7f7de121a310>
+        └ <requests.adapters.HTTPAdapter object at 0x7f7ce8182940>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/adapters.py", line 439, in send
+    resp = conn.urlopen(
+           │    └ <function HTTPConnectionPool.urlopen at 0x7f7de13f38b0>
+           └ <urllib3.connectionpool.HTTPSConnectionPool object at 0x7f7ce8bb94c0>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connectionpool.py", line 699, in urlopen
+    httplib_response = self._make_request(
+                       │    └ <function HTTPConnectionPool._make_request at 0x7f7de13f3670>
+                       └ <urllib3.connectionpool.HTTPSConnectionPool object at 0x7f7ce8bb94c0>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connectionpool.py", line 394, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+    │    │       │       │      └ {'body': None, 'headers': {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Ch...
+    │    │       │       └ '/search?keyword=%E6%AC%A7%E8%B6%B3%E8%81%94%EF%BC%9A%E7%A6%81%E6%AD%A2%E4%BF%84%E8%B6%B3%E7%90%83%E4%BF%B1%E4%B9%90%E9%83%A8...
+    │    │       └ 'GET'
+    │    └ <function HTTPConnection.request at 0x7f7de13e4040>
+    └ <urllib3.connection.HTTPSConnection object at 0x7f7ce813f490>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connection.py", line 239, in request
+    super(HTTPConnection, self).request(method, url, body=body, headers=headers)
+          │               │             │       │         │             └ {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/...
+          │               │             │       │         └ None
+          │               │             │       └ '/search?keyword=%E6%AC%A7%E8%B6%B3%E8%81%94%EF%BC%9A%E7%A6%81%E6%AD%A2%E4%BF%84%E8%B6%B3%E7%90%83%E4%BF%B1%E4%B9%90%E9%83%A8...
+          │               │             └ 'GET'
+          │               └ <urllib3.connection.HTTPSConnection object at 0x7f7ce813f490>
+          └ <class 'urllib3.connection.HTTPConnection'>
+  File "/usr/lib/python3.8/http/client.py", line 1256, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+    │    │             │       │    │     │        └ False
+    │    │             │       │    │     └ {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/...
+    │    │             │       │    └ None
+    │    │             │       └ '/search?keyword=%E6%AC%A7%E8%B6%B3%E8%81%94%EF%BC%9A%E7%A6%81%E6%AD%A2%E4%BF%84%E8%B6%B3%E7%90%83%E4%BF%B1%E4%B9%90%E9%83%A8...
+    │    │             └ 'GET'
+    │    └ <function HTTPConnection._send_request at 0x7f7de4693310>
+    └ <urllib3.connection.HTTPSConnection object at 0x7f7ce813f490>
+  File "/usr/lib/python3.8/http/client.py", line 1297, in _send_request
+    self.putheader(hdr, value)
+    │    │         │    └ '__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16ir...
+    │    │         └ 'cookie'
+    │    └ <function HTTPConnection.putheader at 0x7f7de13e3f70>
+    └ <urllib3.connection.HTTPSConnection object at 0x7f7ce813f490>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connection.py", line 224, in putheader
+    _HTTPConnection.putheader(self, header, *values)
+    │               │         │     │        └ ('__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16i...
+    │               │         │     └ 'cookie'
+    │               │         └ <urllib3.connection.HTTPSConnection object at 0x7f7ce813f490>
+    │               └ <function HTTPConnection.putheader at 0x7f7de4693160>
+    └ <class 'http.client.HTTPConnection'>
+  File "/usr/lib/python3.8/http/client.py", line 1229, in putheader
+    values[i] = one_value.encode('latin-1')
+    │      │    │         └ <method 'encode' of 'str' objects>
+    │      │    └ '__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16ir...
+    │      └ 0
+    └ ['__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16i...
+
+UnicodeEncodeError: 'latin-1' codec can't encode characters in position 304-305: ordinal not in range(256)
+2022-05-06 10:03:21.504 | ERROR    | monitor.searchSpiders.toutiao:get_request_from_keyword:62 - E 头条检索'latin-1' codec can't encode characters in position 304-305: ordinal not in range(256)
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f7e03468a60>
+    └ <Thread(Thread-57, started daemon 140173362849536)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f7e03468790>
+    └ <Thread(Thread-57, started daemon 140173362849536)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-57, started daemon 140173362849536)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-57, started daemon 140173362849536)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f7ceb8e1070>>
+    └ <Thread(Thread-57, started daemon 140173362849536)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 781, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7f7ceb94fdc0>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+    └ <monitor.projectManager.ProjectManager object at 0x7f7ceb8e1070>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7f7ceb678a90>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7f7cc8674520>
+    │    │                                │              │         └ '中国赴黎巴嫩维和部队完成联黎部队“天使救援”演习'
+    │    │                                │              └ '头条'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7f7ceb94fe50>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 135, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7f7de38d1550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7f7cc8674520>
+               │    │                        │         └ '中国赴黎巴嫩维和部队完成联黎部队“天使救援”演习'
+               │    │                        └ '头条'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7f7ceb94ff70>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 192, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7f7ce8180e80>
+                   │    │       │                                  │        │           └ '中国赴黎巴嫩维和部队完成联黎部队“天使救援”演习'
+                   │    │       │                                  │        └ <string.Template object at 0x7f7ceb8e1af0>
+                   │    │       │                                  └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'sec-ch-ua': "'Chromium';v='92', ' Not A;Brand';v='99', 'Google Ch...
+                   │    │       └ '头条'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7f7ceb56f1f0>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/toutiao.py", line 47, in get_request_from_keyword
+    response = requests.get(url, headers=headers, params=params, cookies=cookies, timeout=10)
+               │        │   │            │               │               └ {'tt_webid': '7011123276119787038', '_S_DPR': '1.25', '_S_IPAD': '0', 'MONITOR_WEB_ID': '7011123276119787038', '_S_WIN_WH': '...
+               │        │   │            │               └ (('keyword', '烈士纪念日'), ('pd', 'synthesis'), ('source', 'pagination'), ('dvpf', 'pc'), ('aid', '4916'), ('page_num', '3'), ('s...
+               │        │   │            └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'sec-ch-ua': "'Chromium';v='92', ' Not A;Brand';v='99', 'Google Ch...
+               │        │   └ 'https://so.toutiao.com/search?keyword=中国赴黎巴嫩维和部队完成联黎部队“天使救援”演习&pd=synthesis&source=pagination&dvpf=pc&aid=4916&page_num=0&se...
+               │        └ <function get at 0x7f7de121b280>
+               └ <module 'requests' from '/home/chase/.local/lib/python3.8/site-packages/requests/__init__.py'>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/api.py", line 75, in get
+    return request('get', url, params=params, **kwargs)
+           │              │           │         └ {'headers': {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'sec-ch-ua': "'Chromium';v='92', ' Not A;Brand';v='99'...
+           │              │           └ (('keyword', '烈士纪念日'), ('pd', 'synthesis'), ('source', 'pagination'), ('dvpf', 'pc'), ('aid', '4916'), ('page_num', '3'), ('s...
+           │              └ 'https://so.toutiao.com/search?keyword=中国赴黎巴嫩维和部队完成联黎部队“天使救援”演习&pd=synthesis&source=pagination&dvpf=pc&aid=4916&page_num=0&se...
+           └ <function request at 0x7f7de12870d0>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/api.py", line 61, in request
+    return session.request(method=method, url=url, **kwargs)
+           │       │              │           │      └ {'params': (('keyword', '烈士纪念日'), ('pd', 'synthesis'), ('source', 'pagination'), ('dvpf', 'pc'), ('aid', '4916'), ('page_num'...
+           │       │              │           └ 'https://so.toutiao.com/search?keyword=中国赴黎巴嫩维和部队完成联黎部队“天使救援”演习&pd=synthesis&source=pagination&dvpf=pc&aid=4916&page_num=0&se...
+           │       │              └ 'get'
+           │       └ <function Session.request at 0x7f7de121a9d0>
+           └ <requests.sessions.Session object at 0x7f7cea4dde50>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/sessions.py", line 542, in request
+    resp = self.send(prep, **send_kwargs)
+           │    │    │       └ {'timeout': 10, 'allow_redirects': True, 'verify': True, 'proxies': OrderedDict(), 'stream': False, 'cert': None}
+           │    │    └ <PreparedRequest [GET]>
+           │    └ <function Session.send at 0x7f7de121ae50>
+           └ <requests.sessions.Session object at 0x7f7cea4dde50>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/sessions.py", line 655, in send
+    r = adapter.send(request, **kwargs)
+        │       │    │          └ {'timeout': 10, 'verify': True, 'proxies': OrderedDict(), 'stream': False, 'cert': None}
+        │       │    └ <PreparedRequest [GET]>
+        │       └ <function HTTPAdapter.send at 0x7f7de121a310>
+        └ <requests.adapters.HTTPAdapter object at 0x7f7ce8bb9430>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/adapters.py", line 439, in send
+    resp = conn.urlopen(
+           │    └ <function HTTPConnectionPool.urlopen at 0x7f7de13f38b0>
+           └ <urllib3.connectionpool.HTTPSConnectionPool object at 0x7f7ceb5ca310>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connectionpool.py", line 699, in urlopen
+    httplib_response = self._make_request(
+                       │    └ <function HTTPConnectionPool._make_request at 0x7f7de13f3670>
+                       └ <urllib3.connectionpool.HTTPSConnectionPool object at 0x7f7ceb5ca310>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connectionpool.py", line 394, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+    │    │       │       │      └ {'body': None, 'headers': {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Ch...
+    │    │       │       └ '/search?keyword=%E4%B8%AD%E5%9B%BD%E8%B5%B4%E9%BB%8E%E5%B7%B4%E5%AB%A9%E7%BB%B4%E5%92%8C%E9%83%A8%E9%98%9F%E5%AE%8C%E6%88%90...
+    │    │       └ 'GET'
+    │    └ <function HTTPConnection.request at 0x7f7de13e4040>
+    └ <urllib3.connection.HTTPSConnection object at 0x7f7ce8bb90d0>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connection.py", line 239, in request
+    super(HTTPConnection, self).request(method, url, body=body, headers=headers)
+          │               │             │       │         │             └ {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/...
+          │               │             │       │         └ None
+          │               │             │       └ '/search?keyword=%E4%B8%AD%E5%9B%BD%E8%B5%B4%E9%BB%8E%E5%B7%B4%E5%AB%A9%E7%BB%B4%E5%92%8C%E9%83%A8%E9%98%9F%E5%AE%8C%E6%88%90...
+          │               │             └ 'GET'
+          │               └ <urllib3.connection.HTTPSConnection object at 0x7f7ce8bb90d0>
+          └ <class 'urllib3.connection.HTTPConnection'>
+  File "/usr/lib/python3.8/http/client.py", line 1256, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+    │    │             │       │    │     │        └ False
+    │    │             │       │    │     └ {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/...
+    │    │             │       │    └ None
+    │    │             │       └ '/search?keyword=%E4%B8%AD%E5%9B%BD%E8%B5%B4%E9%BB%8E%E5%B7%B4%E5%AB%A9%E7%BB%B4%E5%92%8C%E9%83%A8%E9%98%9F%E5%AE%8C%E6%88%90...
+    │    │             └ 'GET'
+    │    └ <function HTTPConnection._send_request at 0x7f7de4693310>
+    └ <urllib3.connection.HTTPSConnection object at 0x7f7ce8bb90d0>
+  File "/usr/lib/python3.8/http/client.py", line 1297, in _send_request
+    self.putheader(hdr, value)
+    │    │         │    └ '__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16ir...
+    │    │         └ 'cookie'
+    │    └ <function HTTPConnection.putheader at 0x7f7de13e3f70>
+    └ <urllib3.connection.HTTPSConnection object at 0x7f7ce8bb90d0>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connection.py", line 224, in putheader
+    _HTTPConnection.putheader(self, header, *values)
+    │               │         │     │        └ ('__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16i...
+    │               │         │     └ 'cookie'
+    │               │         └ <urllib3.connection.HTTPSConnection object at 0x7f7ce8bb90d0>
+    │               └ <function HTTPConnection.putheader at 0x7f7de4693160>
+    └ <class 'http.client.HTTPConnection'>
+  File "/usr/lib/python3.8/http/client.py", line 1229, in putheader
+    values[i] = one_value.encode('latin-1')
+    │      │    │         └ <method 'encode' of 'str' objects>
+    │      │    └ '__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16ir...
+    │      └ 0
+    └ ['__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16i...
+
+UnicodeEncodeError: 'latin-1' codec can't encode characters in position 304-305: ordinal not in range(256)
+2022-05-06 10:03:21.516 | ERROR    | monitor.searchSpiders.toutiao:get_request_from_keyword:62 - E 头条检索'latin-1' codec can't encode characters in position 304-305: ordinal not in range(256)
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f7e03468a60>
+    └ <Thread(Thread-47, started daemon 140173933258496)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f7e03468790>
+    └ <Thread(Thread-47, started daemon 140173933258496)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-47, started daemon 140173933258496)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-47, started daemon 140173933258496)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f7ceb8e1070>>
+    └ <Thread(Thread-47, started daemon 140173933258496)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 781, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7f7ceb94fdc0>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+    └ <monitor.projectManager.ProjectManager object at 0x7f7ceb8e1070>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7f7ceb678a90>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7f7ce8afe880>
+    │    │                                │              │         └ '匈牙利官员：匈方立场不变 反对对俄能源禁运'
+    │    │                                │              └ '头条'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7f7ceb94fe50>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 135, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7f7de38d1550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7f7ce8afe880>
+               │    │                        │         └ '匈牙利官员：匈方立场不变 反对对俄能源禁运'
+               │    │                        └ '头条'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7f7ceb94ff70>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 192, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7f7ce8b9da30>
+                   │    │       │                                  │        │           └ '匈牙利官员：匈方立场不变 反对对俄能源禁运'
+                   │    │       │                                  │        └ <string.Template object at 0x7f7ce8c05280>
+                   │    │       │                                  └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'sec-ch-ua': "'Chromium';v='92', ' Not A;Brand';v='99', 'Google Ch...
+                   │    │       └ '头条'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7f7ceb56f1f0>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/toutiao.py", line 47, in get_request_from_keyword
+    response = requests.get(url, headers=headers, params=params, cookies=cookies, timeout=10)
+               │        │   │            │               │               └ {'tt_webid': '7011123276119787038', '_S_DPR': '1.25', '_S_IPAD': '0', 'MONITOR_WEB_ID': '7011123276119787038', '_S_WIN_WH': '...
+               │        │   │            │               └ (('keyword', '烈士纪念日'), ('pd', 'synthesis'), ('source', 'pagination'), ('dvpf', 'pc'), ('aid', '4916'), ('page_num', '3'), ('s...
+               │        │   │            └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'sec-ch-ua': "'Chromium';v='92', ' Not A;Brand';v='99', 'Google Ch...
+               │        │   └ 'https://so.toutiao.com/search?keyword=匈牙利官员：匈方立场不变 反对对俄能源禁运&pd=synthesis&source=pagination&dvpf=pc&aid=4916&page_num=0&searc...
+               │        └ <function get at 0x7f7de121b280>
+               └ <module 'requests' from '/home/chase/.local/lib/python3.8/site-packages/requests/__init__.py'>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/api.py", line 75, in get
+    return request('get', url, params=params, **kwargs)
+           │              │           │         └ {'headers': {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'sec-ch-ua': "'Chromium';v='92', ' Not A;Brand';v='99'...
+           │              │           └ (('keyword', '烈士纪念日'), ('pd', 'synthesis'), ('source', 'pagination'), ('dvpf', 'pc'), ('aid', '4916'), ('page_num', '3'), ('s...
+           │              └ 'https://so.toutiao.com/search?keyword=匈牙利官员：匈方立场不变 反对对俄能源禁运&pd=synthesis&source=pagination&dvpf=pc&aid=4916&page_num=0&searc...
+           └ <function request at 0x7f7de12870d0>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/api.py", line 61, in request
+    return session.request(method=method, url=url, **kwargs)
+           │       │              │           │      └ {'params': (('keyword', '烈士纪念日'), ('pd', 'synthesis'), ('source', 'pagination'), ('dvpf', 'pc'), ('aid', '4916'), ('page_num'...
+           │       │              │           └ 'https://so.toutiao.com/search?keyword=匈牙利官员：匈方立场不变 反对对俄能源禁运&pd=synthesis&source=pagination&dvpf=pc&aid=4916&page_num=0&searc...
+           │       │              └ 'get'
+           │       └ <function Session.request at 0x7f7de121a9d0>
+           └ <requests.sessions.Session object at 0x7f7ce8bf7220>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/sessions.py", line 542, in request
+    resp = self.send(prep, **send_kwargs)
+           │    │    │       └ {'timeout': 10, 'allow_redirects': True, 'verify': True, 'proxies': OrderedDict(), 'stream': False, 'cert': None}
+           │    │    └ <PreparedRequest [GET]>
+           │    └ <function Session.send at 0x7f7de121ae50>
+           └ <requests.sessions.Session object at 0x7f7ce8bf7220>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/sessions.py", line 655, in send
+    r = adapter.send(request, **kwargs)
+        │       │    │          └ {'timeout': 10, 'verify': True, 'proxies': OrderedDict(), 'stream': False, 'cert': None}
+        │       │    └ <PreparedRequest [GET]>
+        │       └ <function HTTPAdapter.send at 0x7f7de121a310>
+        └ <requests.adapters.HTTPAdapter object at 0x7f7ceb5d4760>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/adapters.py", line 439, in send
+    resp = conn.urlopen(
+           │    └ <function HTTPConnectionPool.urlopen at 0x7f7de13f38b0>
+           └ <urllib3.connectionpool.HTTPSConnectionPool object at 0x7f7ce81803d0>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connectionpool.py", line 699, in urlopen
+    httplib_response = self._make_request(
+                       │    └ <function HTTPConnectionPool._make_request at 0x7f7de13f3670>
+                       └ <urllib3.connectionpool.HTTPSConnectionPool object at 0x7f7ce81803d0>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connectionpool.py", line 394, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+    │    │       │       │      └ {'body': None, 'headers': {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Ch...
+    │    │       │       └ '/search?keyword=%E5%8C%88%E7%89%99%E5%88%A9%E5%AE%98%E5%91%98%EF%BC%9A%E5%8C%88%E6%96%B9%E7%AB%8B%E5%9C%BA%E4%B8%8D%E5%8F%98...
+    │    │       └ 'GET'
+    │    └ <function HTTPConnection.request at 0x7f7de13e4040>
+    └ <urllib3.connection.HTTPSConnection object at 0x7f7ce813f0d0>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connection.py", line 239, in request
+    super(HTTPConnection, self).request(method, url, body=body, headers=headers)
+          │               │             │       │         │             └ {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/...
+          │               │             │       │         └ None
+          │               │             │       └ '/search?keyword=%E5%8C%88%E7%89%99%E5%88%A9%E5%AE%98%E5%91%98%EF%BC%9A%E5%8C%88%E6%96%B9%E7%AB%8B%E5%9C%BA%E4%B8%8D%E5%8F%98...
+          │               │             └ 'GET'
+          │               └ <urllib3.connection.HTTPSConnection object at 0x7f7ce813f0d0>
+          └ <class 'urllib3.connection.HTTPConnection'>
+  File "/usr/lib/python3.8/http/client.py", line 1256, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+    │    │             │       │    │     │        └ False
+    │    │             │       │    │     └ {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/...
+    │    │             │       │    └ None
+    │    │             │       └ '/search?keyword=%E5%8C%88%E7%89%99%E5%88%A9%E5%AE%98%E5%91%98%EF%BC%9A%E5%8C%88%E6%96%B9%E7%AB%8B%E5%9C%BA%E4%B8%8D%E5%8F%98...
+    │    │             └ 'GET'
+    │    └ <function HTTPConnection._send_request at 0x7f7de4693310>
+    └ <urllib3.connection.HTTPSConnection object at 0x7f7ce813f0d0>
+  File "/usr/lib/python3.8/http/client.py", line 1297, in _send_request
+    self.putheader(hdr, value)
+    │    │         │    └ '__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16ir...
+    │    │         └ 'cookie'
+    │    └ <function HTTPConnection.putheader at 0x7f7de13e3f70>
+    └ <urllib3.connection.HTTPSConnection object at 0x7f7ce813f0d0>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connection.py", line 224, in putheader
+    _HTTPConnection.putheader(self, header, *values)
+    │               │         │     │        └ ('__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16i...
+    │               │         │     └ 'cookie'
+    │               │         └ <urllib3.connection.HTTPSConnection object at 0x7f7ce813f0d0>
+    │               └ <function HTTPConnection.putheader at 0x7f7de4693160>
+    └ <class 'http.client.HTTPConnection'>
+  File "/usr/lib/python3.8/http/client.py", line 1229, in putheader
+    values[i] = one_value.encode('latin-1')
+    │      │    │         └ <method 'encode' of 'str' objects>
+    │      │    └ '__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16ir...
+    │      └ 0
+    └ ['__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16i...
+
+UnicodeEncodeError: 'latin-1' codec can't encode characters in position 304-305: ordinal not in range(256)
+2022-05-06 10:03:21.547 | ERROR    | monitor.searchSpiders.toutiao:get_request_from_keyword:62 - E 头条检索'latin-1' codec can't encode characters in position 304-305: ordinal not in range(256)
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f7e03468a60>
+    └ <Thread(Thread-3, started daemon 140174500656896)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f7e03468790>
+    └ <Thread(Thread-3, started daemon 140174500656896)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-3, started daemon 140174500656896)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-3, started daemon 140174500656896)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f7ceb8e1070>>
+    └ <Thread(Thread-3, started daemon 140174500656896)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 781, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7f7ceb94fdc0>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+    └ <monitor.projectManager.ProjectManager object at 0x7f7ceb8e1070>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7f7ceb678a90>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7f7ceb538d00>
+    │    │                                │              │         └ '推进无障碍阅读 “《马拉喀什条约》在中国的实施与展望”论坛举办'
+    │    │                                │              └ '头条'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7f7ceb94fe50>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 135, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7f7de38d1550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7f7ceb538d00>
+               │    │                        │         └ '推进无障碍阅读 “《马拉喀什条约》在中国的实施与展望”论坛举办'
+               │    │                        └ '头条'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7f7ceb94ff70>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 192, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7f7ce8182580>
+                   │    │       │                                  │        │           └ '推进无障碍阅读 “《马拉喀什条约》在中国的实施与展望”论坛举办'
+                   │    │       │                                  │        └ <string.Template object at 0x7f7ce8bcefa0>
+                   │    │       │                                  └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'sec-ch-ua': "'Chromium';v='92', ' Not A;Brand';v='99', 'Google Ch...
+                   │    │       └ '头条'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7f7ceb56f1f0>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/toutiao.py", line 47, in get_request_from_keyword
+    response = requests.get(url, headers=headers, params=params, cookies=cookies, timeout=10)
+               │        │   │            │               │               └ {'tt_webid': '7011123276119787038', '_S_DPR': '1.25', '_S_IPAD': '0', 'MONITOR_WEB_ID': '7011123276119787038', '_S_WIN_WH': '...
+               │        │   │            │               └ (('keyword', '烈士纪念日'), ('pd', 'synthesis'), ('source', 'pagination'), ('dvpf', 'pc'), ('aid', '4916'), ('page_num', '3'), ('s...
+               │        │   │            └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'sec-ch-ua': "'Chromium';v='92', ' Not A;Brand';v='99', 'Google Ch...
+               │        │   └ 'https://so.toutiao.com/search?keyword=推进无障碍阅读 “《马拉喀什条约》在中国的实施与展望”论坛举办&pd=synthesis&source=pagination&dvpf=pc&aid=4916&page_n...
+               │        └ <function get at 0x7f7de121b280>
+               └ <module 'requests' from '/home/chase/.local/lib/python3.8/site-packages/requests/__init__.py'>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/api.py", line 75, in get
+    return request('get', url, params=params, **kwargs)
+           │              │           │         └ {'headers': {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'sec-ch-ua': "'Chromium';v='92', ' Not A;Brand';v='99'...
+           │              │           └ (('keyword', '烈士纪念日'), ('pd', 'synthesis'), ('source', 'pagination'), ('dvpf', 'pc'), ('aid', '4916'), ('page_num', '3'), ('s...
+           │              └ 'https://so.toutiao.com/search?keyword=推进无障碍阅读 “《马拉喀什条约》在中国的实施与展望”论坛举办&pd=synthesis&source=pagination&dvpf=pc&aid=4916&page_n...
+           └ <function request at 0x7f7de12870d0>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/api.py", line 61, in request
+    return session.request(method=method, url=url, **kwargs)
+           │       │              │           │      └ {'params': (('keyword', '烈士纪念日'), ('pd', 'synthesis'), ('source', 'pagination'), ('dvpf', 'pc'), ('aid', '4916'), ('page_num'...
+           │       │              │           └ 'https://so.toutiao.com/search?keyword=推进无障碍阅读 “《马拉喀什条约》在中国的实施与展望”论坛举办&pd=synthesis&source=pagination&dvpf=pc&aid=4916&page_n...
+           │       │              └ 'get'
+           │       └ <function Session.request at 0x7f7de121a9d0>
+           └ <requests.sessions.Session object at 0x7f7df2edb9a0>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/sessions.py", line 542, in request
+    resp = self.send(prep, **send_kwargs)
+           │    │    │       └ {'timeout': 10, 'allow_redirects': True, 'verify': True, 'proxies': OrderedDict(), 'stream': False, 'cert': None}
+           │    │    └ <PreparedRequest [GET]>
+           │    └ <function Session.send at 0x7f7de121ae50>
+           └ <requests.sessions.Session object at 0x7f7df2edb9a0>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/sessions.py", line 655, in send
+    r = adapter.send(request, **kwargs)
+        │       │    │          └ {'timeout': 10, 'verify': True, 'proxies': OrderedDict(), 'stream': False, 'cert': None}
+        │       │    └ <PreparedRequest [GET]>
+        │       └ <function HTTPAdapter.send at 0x7f7de121a310>
+        └ <requests.adapters.HTTPAdapter object at 0x7f7ce81828e0>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/adapters.py", line 439, in send
+    resp = conn.urlopen(
+           │    └ <function HTTPConnectionPool.urlopen at 0x7f7de13f38b0>
+           └ <urllib3.connectionpool.HTTPSConnectionPool object at 0x7f7cc8ff0e50>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connectionpool.py", line 699, in urlopen
+    httplib_response = self._make_request(
+                       │    └ <function HTTPConnectionPool._make_request at 0x7f7de13f3670>
+                       └ <urllib3.connectionpool.HTTPSConnectionPool object at 0x7f7cc8ff0e50>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connectionpool.py", line 394, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+    │    │       │       │      └ {'body': None, 'headers': {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Ch...
+    │    │       │       └ '/search?keyword=%E6%8E%A8%E8%BF%9B%E6%97%A0%E9%9A%9C%E7%A2%8D%E9%98%85%E8%AF%BB%20%E2%80%9C%E3%80%8A%E9%A9%AC%E6%8B%89%E5%96...
+    │    │       └ 'GET'
+    │    └ <function HTTPConnection.request at 0x7f7de13e4040>
+    └ <urllib3.connection.HTTPSConnection object at 0x7f7cc8f83430>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connection.py", line 239, in request
+    super(HTTPConnection, self).request(method, url, body=body, headers=headers)
+          │               │             │       │         │             └ {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/...
+          │               │             │       │         └ None
+          │               │             │       └ '/search?keyword=%E6%8E%A8%E8%BF%9B%E6%97%A0%E9%9A%9C%E7%A2%8D%E9%98%85%E8%AF%BB%20%E2%80%9C%E3%80%8A%E9%A9%AC%E6%8B%89%E5%96...
+          │               │             └ 'GET'
+          │               └ <urllib3.connection.HTTPSConnection object at 0x7f7cc8f83430>
+          └ <class 'urllib3.connection.HTTPConnection'>
+  File "/usr/lib/python3.8/http/client.py", line 1256, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+    │    │             │       │    │     │        └ False
+    │    │             │       │    │     └ {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/...
+    │    │             │       │    └ None
+    │    │             │       └ '/search?keyword=%E6%8E%A8%E8%BF%9B%E6%97%A0%E9%9A%9C%E7%A2%8D%E9%98%85%E8%AF%BB%20%E2%80%9C%E3%80%8A%E9%A9%AC%E6%8B%89%E5%96...
+    │    │             └ 'GET'
+    │    └ <function HTTPConnection._send_request at 0x7f7de4693310>
+    └ <urllib3.connection.HTTPSConnection object at 0x7f7cc8f83430>
+  File "/usr/lib/python3.8/http/client.py", line 1297, in _send_request
+    self.putheader(hdr, value)
+    │    │         │    └ '__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16ir...
+    │    │         └ 'cookie'
+    │    └ <function HTTPConnection.putheader at 0x7f7de13e3f70>
+    └ <urllib3.connection.HTTPSConnection object at 0x7f7cc8f83430>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connection.py", line 224, in putheader
+    _HTTPConnection.putheader(self, header, *values)
+    │               │         │     │        └ ('__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16i...
+    │               │         │     └ 'cookie'
+    │               │         └ <urllib3.connection.HTTPSConnection object at 0x7f7cc8f83430>
+    │               └ <function HTTPConnection.putheader at 0x7f7de4693160>
+    └ <class 'http.client.HTTPConnection'>
+  File "/usr/lib/python3.8/http/client.py", line 1229, in putheader
+    values[i] = one_value.encode('latin-1')
+    │      │    │         └ <method 'encode' of 'str' objects>
+    │      │    └ '__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16ir...
+    │      └ 0
+    └ ['__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16i...
+
+UnicodeEncodeError: 'latin-1' codec can't encode characters in position 304-305: ordinal not in range(256)
+2022-05-06 10:03:21.592 | ERROR    | monitor.searchSpiders.toutiao:get_request_from_keyword:62 - E 头条检索'latin-1' codec can't encode characters in position 304-305: ordinal not in range(256)
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f7e03468a60>
+    └ <Thread(Thread-21, started daemon 140174455662336)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f7e03468790>
+    └ <Thread(Thread-21, started daemon 140174455662336)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-21, started daemon 140174455662336)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-21, started daemon 140174455662336)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f7ceb8e1070>>
+    └ <Thread(Thread-21, started daemon 140174455662336)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 781, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7f7ceb94fdc0>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+    └ <monitor.projectManager.ProjectManager object at 0x7f7ceb8e1070>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7f7ceb678a90>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7f7ce8bf74f0>
+    │    │                                │              │         └ '让住房公积金制度惠及更多灵活就业人员（民生服务港）'
+    │    │                                │              └ '头条'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7f7ceb94fe50>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 135, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7f7de38d1550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7f7ce8bf74f0>
+               │    │                        │         └ '让住房公积金制度惠及更多灵活就业人员（民生服务港）'
+               │    │                        └ '头条'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7f7ceb94ff70>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 192, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7f7ce8bcebe0>
+                   │    │       │                                  │        │           └ '让住房公积金制度惠及更多灵活就业人员（民生服务港）'
+                   │    │       │                                  │        └ <string.Template object at 0x7f7ceb563730>
+                   │    │       │                                  └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'sec-ch-ua': "'Chromium';v='92', ' Not A;Brand';v='99', 'Google Ch...
+                   │    │       └ '头条'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7f7ceb56f1f0>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/toutiao.py", line 47, in get_request_from_keyword
+    response = requests.get(url, headers=headers, params=params, cookies=cookies, timeout=10)
+               │        │   │            │               │               └ {'tt_webid': '7011123276119787038', '_S_DPR': '1.25', '_S_IPAD': '0', 'MONITOR_WEB_ID': '7011123276119787038', '_S_WIN_WH': '...
+               │        │   │            │               └ (('keyword', '烈士纪念日'), ('pd', 'synthesis'), ('source', 'pagination'), ('dvpf', 'pc'), ('aid', '4916'), ('page_num', '3'), ('s...
+               │        │   │            └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'sec-ch-ua': "'Chromium';v='92', ' Not A;Brand';v='99', 'Google Ch...
+               │        │   └ 'https://so.toutiao.com/search?keyword=让住房公积金制度惠及更多灵活就业人员（民生服务港）&pd=synthesis&source=pagination&dvpf=pc&aid=4916&page_num=0&s...
+               │        └ <function get at 0x7f7de121b280>
+               └ <module 'requests' from '/home/chase/.local/lib/python3.8/site-packages/requests/__init__.py'>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/api.py", line 75, in get
+    return request('get', url, params=params, **kwargs)
+           │              │           │         └ {'headers': {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'sec-ch-ua': "'Chromium';v='92', ' Not A;Brand';v='99'...
+           │              │           └ (('keyword', '烈士纪念日'), ('pd', 'synthesis'), ('source', 'pagination'), ('dvpf', 'pc'), ('aid', '4916'), ('page_num', '3'), ('s...
+           │              └ 'https://so.toutiao.com/search?keyword=让住房公积金制度惠及更多灵活就业人员（民生服务港）&pd=synthesis&source=pagination&dvpf=pc&aid=4916&page_num=0&s...
+           └ <function request at 0x7f7de12870d0>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/api.py", line 61, in request
+    return session.request(method=method, url=url, **kwargs)
+           │       │              │           │      └ {'params': (('keyword', '烈士纪念日'), ('pd', 'synthesis'), ('source', 'pagination'), ('dvpf', 'pc'), ('aid', '4916'), ('page_num'...
+           │       │              │           └ 'https://so.toutiao.com/search?keyword=让住房公积金制度惠及更多灵活就业人员（民生服务港）&pd=synthesis&source=pagination&dvpf=pc&aid=4916&page_num=0&s...
+           │       │              └ 'get'
+           │       └ <function Session.request at 0x7f7de121a9d0>
+           └ <requests.sessions.Session object at 0x7f7ceb538b80>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/sessions.py", line 542, in request
+    resp = self.send(prep, **send_kwargs)
+           │    │    │       └ {'timeout': 10, 'allow_redirects': True, 'verify': True, 'proxies': OrderedDict(), 'stream': False, 'cert': None}
+           │    │    └ <PreparedRequest [GET]>
+           │    └ <function Session.send at 0x7f7de121ae50>
+           └ <requests.sessions.Session object at 0x7f7ceb538b80>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/sessions.py", line 655, in send
+    r = adapter.send(request, **kwargs)
+        │       │    │          └ {'timeout': 10, 'verify': True, 'proxies': OrderedDict(), 'stream': False, 'cert': None}
+        │       │    └ <PreparedRequest [GET]>
+        │       └ <function HTTPAdapter.send at 0x7f7de121a310>
+        └ <requests.adapters.HTTPAdapter object at 0x7f7cc8f830a0>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/adapters.py", line 439, in send
+    resp = conn.urlopen(
+           │    └ <function HTTPConnectionPool.urlopen at 0x7f7de13f38b0>
+           └ <urllib3.connectionpool.HTTPSConnectionPool object at 0x7f7cc8f68fd0>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connectionpool.py", line 699, in urlopen
+    httplib_response = self._make_request(
+                       │    └ <function HTTPConnectionPool._make_request at 0x7f7de13f3670>
+                       └ <urllib3.connectionpool.HTTPSConnectionPool object at 0x7f7cc8f68fd0>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connectionpool.py", line 394, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+    │    │       │       │      └ {'body': None, 'headers': {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Ch...
+    │    │       │       └ '/search?keyword=%E8%AE%A9%E4%BD%8F%E6%88%BF%E5%85%AC%E7%A7%AF%E9%87%91%E5%88%B6%E5%BA%A6%E6%83%A0%E5%8F%8A%E6%9B%B4%E5%A4%9A...
+    │    │       └ 'GET'
+    │    └ <function HTTPConnection.request at 0x7f7de13e4040>
+    └ <urllib3.connection.HTTPSConnection object at 0x7f7cc8f121c0>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connection.py", line 239, in request
+    super(HTTPConnection, self).request(method, url, body=body, headers=headers)
+          │               │             │       │         │             └ {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/...
+          │               │             │       │         └ None
+          │               │             │       └ '/search?keyword=%E8%AE%A9%E4%BD%8F%E6%88%BF%E5%85%AC%E7%A7%AF%E9%87%91%E5%88%B6%E5%BA%A6%E6%83%A0%E5%8F%8A%E6%9B%B4%E5%A4%9A...
+          │               │             └ 'GET'
+          │               └ <urllib3.connection.HTTPSConnection object at 0x7f7cc8f121c0>
+          └ <class 'urllib3.connection.HTTPConnection'>
+  File "/usr/lib/python3.8/http/client.py", line 1256, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+    │    │             │       │    │     │        └ False
+    │    │             │       │    │     └ {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/...
+    │    │             │       │    └ None
+    │    │             │       └ '/search?keyword=%E8%AE%A9%E4%BD%8F%E6%88%BF%E5%85%AC%E7%A7%AF%E9%87%91%E5%88%B6%E5%BA%A6%E6%83%A0%E5%8F%8A%E6%9B%B4%E5%A4%9A...
+    │    │             └ 'GET'
+    │    └ <function HTTPConnection._send_request at 0x7f7de4693310>
+    └ <urllib3.connection.HTTPSConnection object at 0x7f7cc8f121c0>
+  File "/usr/lib/python3.8/http/client.py", line 1297, in _send_request
+    self.putheader(hdr, value)
+    │    │         │    └ '__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16ir...
+    │    │         └ 'cookie'
+    │    └ <function HTTPConnection.putheader at 0x7f7de13e3f70>
+    └ <urllib3.connection.HTTPSConnection object at 0x7f7cc8f121c0>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connection.py", line 224, in putheader
+    _HTTPConnection.putheader(self, header, *values)
+    │               │         │     │        └ ('__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16i...
+    │               │         │     └ 'cookie'
+    │               │         └ <urllib3.connection.HTTPSConnection object at 0x7f7cc8f121c0>
+    │               └ <function HTTPConnection.putheader at 0x7f7de4693160>
+    └ <class 'http.client.HTTPConnection'>
+  File "/usr/lib/python3.8/http/client.py", line 1229, in putheader
+    values[i] = one_value.encode('latin-1')
+    │      │    │         └ <method 'encode' of 'str' objects>
+    │      │    └ '__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16ir...
+    │      └ 0
+    └ ['__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16i...
+
+UnicodeEncodeError: 'latin-1' codec can't encode characters in position 304-305: ordinal not in range(256)
+2022-05-06 10:03:21.597 | ERROR    | monitor.searchSpiders.toutiao:get_request_from_keyword:62 - E 头条检索'latin-1' codec can't encode characters in position 304-305: ordinal not in range(256)
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f7e03468a60>
+    └ <Thread(Thread-16, started daemon 140174466184960)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f7e03468790>
+    └ <Thread(Thread-16, started daemon 140174466184960)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-16, started daemon 140174466184960)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-16, started daemon 140174466184960)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f7ceb8e1070>>
+    └ <Thread(Thread-16, started daemon 140174466184960)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 781, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7f7ceb94fdc0>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+    └ <monitor.projectManager.ProjectManager object at 0x7f7ceb8e1070>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7f7ceb678a90>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7f7ce9c92b80>
+    │    │                                │              │         └ '今年首期全国人大代表学习班“云上”开班'
+    │    │                                │              └ '头条'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7f7ceb94fe50>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 135, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7f7de38d1550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7f7ce9c92b80>
+               │    │                        │         └ '今年首期全国人大代表学习班“云上”开班'
+               │    │                        └ '头条'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7f7ceb94ff70>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 192, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7f7ce8c089d0>
+                   │    │       │                                  │        │           └ '今年首期全国人大代表学习班“云上”开班'
+                   │    │       │                                  │        └ <string.Template object at 0x7f7ceb575280>
+                   │    │       │                                  └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'sec-ch-ua': "'Chromium';v='92', ' Not A;Brand';v='99', 'Google Ch...
+                   │    │       └ '头条'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7f7ceb56f1f0>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/toutiao.py", line 47, in get_request_from_keyword
+    response = requests.get(url, headers=headers, params=params, cookies=cookies, timeout=10)
+               │        │   │            │               │               └ {'tt_webid': '7011123276119787038', '_S_DPR': '1.25', '_S_IPAD': '0', 'MONITOR_WEB_ID': '7011123276119787038', '_S_WIN_WH': '...
+               │        │   │            │               └ (('keyword', '烈士纪念日'), ('pd', 'synthesis'), ('source', 'pagination'), ('dvpf', 'pc'), ('aid', '4916'), ('page_num', '3'), ('s...
+               │        │   │            └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'sec-ch-ua': "'Chromium';v='92', ' Not A;Brand';v='99', 'Google Ch...
+               │        │   └ 'https://so.toutiao.com/search?keyword=今年首期全国人大代表学习班“云上”开班&pd=synthesis&source=pagination&dvpf=pc&aid=4916&page_num=0&search_...
+               │        └ <function get at 0x7f7de121b280>
+               └ <module 'requests' from '/home/chase/.local/lib/python3.8/site-packages/requests/__init__.py'>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/api.py", line 75, in get
+    return request('get', url, params=params, **kwargs)
+           │              │           │         └ {'headers': {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'sec-ch-ua': "'Chromium';v='92', ' Not A;Brand';v='99'...
+           │              │           └ (('keyword', '烈士纪念日'), ('pd', 'synthesis'), ('source', 'pagination'), ('dvpf', 'pc'), ('aid', '4916'), ('page_num', '3'), ('s...
+           │              └ 'https://so.toutiao.com/search?keyword=今年首期全国人大代表学习班“云上”开班&pd=synthesis&source=pagination&dvpf=pc&aid=4916&page_num=0&search_...
+           └ <function request at 0x7f7de12870d0>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/api.py", line 61, in request
+    return session.request(method=method, url=url, **kwargs)
+           │       │              │           │      └ {'params': (('keyword', '烈士纪念日'), ('pd', 'synthesis'), ('source', 'pagination'), ('dvpf', 'pc'), ('aid', '4916'), ('page_num'...
+           │       │              │           └ 'https://so.toutiao.com/search?keyword=今年首期全国人大代表学习班“云上”开班&pd=synthesis&source=pagination&dvpf=pc&aid=4916&page_num=0&search_...
+           │       │              └ 'get'
+           │       └ <function Session.request at 0x7f7de121a9d0>
+           └ <requests.sessions.Session object at 0x7f7ce8ae5a60>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/sessions.py", line 542, in request
+    resp = self.send(prep, **send_kwargs)
+           │    │    │       └ {'timeout': 10, 'allow_redirects': True, 'verify': True, 'proxies': OrderedDict(), 'stream': False, 'cert': None}
+           │    │    └ <PreparedRequest [GET]>
+           │    └ <function Session.send at 0x7f7de121ae50>
+           └ <requests.sessions.Session object at 0x7f7ce8ae5a60>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/sessions.py", line 655, in send
+    r = adapter.send(request, **kwargs)
+        │       │    │          └ {'timeout': 10, 'verify': True, 'proxies': OrderedDict(), 'stream': False, 'cert': None}
+        │       │    └ <PreparedRequest [GET]>
+        │       └ <function HTTPAdapter.send at 0x7f7de121a310>
+        └ <requests.adapters.HTTPAdapter object at 0x7f7cc8666160>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/adapters.py", line 439, in send
+    resp = conn.urlopen(
+           │    └ <function HTTPConnectionPool.urlopen at 0x7f7de13f38b0>
+           └ <urllib3.connectionpool.HTTPSConnectionPool object at 0x7f7cc8f68a30>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connectionpool.py", line 699, in urlopen
+    httplib_response = self._make_request(
+                       │    └ <function HTTPConnectionPool._make_request at 0x7f7de13f3670>
+                       └ <urllib3.connectionpool.HTTPSConnectionPool object at 0x7f7cc8f68a30>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connectionpool.py", line 394, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+    │    │       │       │      └ {'body': None, 'headers': {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Ch...
+    │    │       │       └ '/search?keyword=%E4%BB%8A%E5%B9%B4%E9%A6%96%E6%9C%9F%E5%85%A8%E5%9B%BD%E4%BA%BA%E5%A4%A7%E4%BB%A3%E8%A1%A8%E5%AD%A6%E4%B9%A0...
+    │    │       └ 'GET'
+    │    └ <function HTTPConnection.request at 0x7f7de13e4040>
+    └ <urllib3.connection.HTTPSConnection object at 0x7f7cc8f6e190>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connection.py", line 239, in request
+    super(HTTPConnection, self).request(method, url, body=body, headers=headers)
+          │               │             │       │         │             └ {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/...
+          │               │             │       │         └ None
+          │               │             │       └ '/search?keyword=%E4%BB%8A%E5%B9%B4%E9%A6%96%E6%9C%9F%E5%85%A8%E5%9B%BD%E4%BA%BA%E5%A4%A7%E4%BB%A3%E8%A1%A8%E5%AD%A6%E4%B9%A0...
+          │               │             └ 'GET'
+          │               └ <urllib3.connection.HTTPSConnection object at 0x7f7cc8f6e190>
+          └ <class 'urllib3.connection.HTTPConnection'>
+  File "/usr/lib/python3.8/http/client.py", line 1256, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+    │    │             │       │    │     │        └ False
+    │    │             │       │    │     └ {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/...
+    │    │             │       │    └ None
+    │    │             │       └ '/search?keyword=%E4%BB%8A%E5%B9%B4%E9%A6%96%E6%9C%9F%E5%85%A8%E5%9B%BD%E4%BA%BA%E5%A4%A7%E4%BB%A3%E8%A1%A8%E5%AD%A6%E4%B9%A0...
+    │    │             └ 'GET'
+    │    └ <function HTTPConnection._send_request at 0x7f7de4693310>
+    └ <urllib3.connection.HTTPSConnection object at 0x7f7cc8f6e190>
+  File "/usr/lib/python3.8/http/client.py", line 1297, in _send_request
+    self.putheader(hdr, value)
+    │    │         │    └ '__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16ir...
+    │    │         └ 'cookie'
+    │    └ <function HTTPConnection.putheader at 0x7f7de13e3f70>
+    └ <urllib3.connection.HTTPSConnection object at 0x7f7cc8f6e190>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connection.py", line 224, in putheader
+    _HTTPConnection.putheader(self, header, *values)
+    │               │         │     │        └ ('__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16i...
+    │               │         │     └ 'cookie'
+    │               │         └ <urllib3.connection.HTTPSConnection object at 0x7f7cc8f6e190>
+    │               └ <function HTTPConnection.putheader at 0x7f7de4693160>
+    └ <class 'http.client.HTTPConnection'>
+  File "/usr/lib/python3.8/http/client.py", line 1229, in putheader
+    values[i] = one_value.encode('latin-1')
+    │      │    │         └ <method 'encode' of 'str' objects>
+    │      │    └ '__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16ir...
+    │      └ 0
+    └ ['__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16i...
+
+UnicodeEncodeError: 'latin-1' codec can't encode characters in position 304-305: ordinal not in range(256)
+2022-05-06 10:03:21.615 | ERROR    | monitor.searchSpiders.toutiao:get_request_from_keyword:62 - E 头条检索'latin-1' codec can't encode characters in position 304-305: ordinal not in range(256)
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f7e03468a60>
+    └ <Thread(Thread-34, started daemon 140173958436608)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f7e03468790>
+    └ <Thread(Thread-34, started daemon 140173958436608)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-34, started daemon 140173958436608)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-34, started daemon 140173958436608)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f7ceb8e1070>>
+    └ <Thread(Thread-34, started daemon 140173958436608)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 781, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7f7ceb94fdc0>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+    └ <monitor.projectManager.ProjectManager object at 0x7f7ceb8e1070>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7f7ceb678a90>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7f7ce8bb9d30>
+    │    │                                │              │         └ '坚持就是胜利，坚持一定胜利'
+    │    │                                │              └ '头条'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7f7ceb94fe50>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 135, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7f7de38d1550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7f7ce8bb9d30>
+               │    │                        │         └ '坚持就是胜利，坚持一定胜利'
+               │    │                        └ '头条'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7f7ceb94ff70>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 192, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7f7ce8bce9d0>
+                   │    │       │                                  │        │           └ '坚持就是胜利，坚持一定胜利'
+                   │    │       │                                  │        └ <string.Template object at 0x7f7ce8bce7f0>
+                   │    │       │                                  └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'sec-ch-ua': "'Chromium';v='92', ' Not A;Brand';v='99', 'Google Ch...
+                   │    │       └ '头条'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7f7ceb56f1f0>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/toutiao.py", line 47, in get_request_from_keyword
+    response = requests.get(url, headers=headers, params=params, cookies=cookies, timeout=10)
+               │        │   │            │               │               └ {'tt_webid': '7011123276119787038', '_S_DPR': '1.25', '_S_IPAD': '0', 'MONITOR_WEB_ID': '7011123276119787038', '_S_WIN_WH': '...
+               │        │   │            │               └ (('keyword', '烈士纪念日'), ('pd', 'synthesis'), ('source', 'pagination'), ('dvpf', 'pc'), ('aid', '4916'), ('page_num', '3'), ('s...
+               │        │   │            └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'sec-ch-ua': "'Chromium';v='92', ' Not A;Brand';v='99', 'Google Ch...
+               │        │   └ 'https://so.toutiao.com/search?keyword=坚持就是胜利，坚持一定胜利&pd=synthesis&source=pagination&dvpf=pc&aid=4916&page_num=0&search_id=202...
+               │        └ <function get at 0x7f7de121b280>
+               └ <module 'requests' from '/home/chase/.local/lib/python3.8/site-packages/requests/__init__.py'>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/api.py", line 75, in get
+    return request('get', url, params=params, **kwargs)
+           │              │           │         └ {'headers': {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'sec-ch-ua': "'Chromium';v='92', ' Not A;Brand';v='99'...
+           │              │           └ (('keyword', '烈士纪念日'), ('pd', 'synthesis'), ('source', 'pagination'), ('dvpf', 'pc'), ('aid', '4916'), ('page_num', '3'), ('s...
+           │              └ 'https://so.toutiao.com/search?keyword=坚持就是胜利，坚持一定胜利&pd=synthesis&source=pagination&dvpf=pc&aid=4916&page_num=0&search_id=202...
+           └ <function request at 0x7f7de12870d0>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/api.py", line 61, in request
+    return session.request(method=method, url=url, **kwargs)
+           │       │              │           │      └ {'params': (('keyword', '烈士纪念日'), ('pd', 'synthesis'), ('source', 'pagination'), ('dvpf', 'pc'), ('aid', '4916'), ('page_num'...
+           │       │              │           └ 'https://so.toutiao.com/search?keyword=坚持就是胜利，坚持一定胜利&pd=synthesis&source=pagination&dvpf=pc&aid=4916&page_num=0&search_id=202...
+           │       │              └ 'get'
+           │       └ <function Session.request at 0x7f7de121a9d0>
+           └ <requests.sessions.Session object at 0x7f7ce81805e0>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/sessions.py", line 542, in request
+    resp = self.send(prep, **send_kwargs)
+           │    │    │       └ {'timeout': 10, 'allow_redirects': True, 'verify': True, 'proxies': OrderedDict(), 'stream': False, 'cert': None}
+           │    │    └ <PreparedRequest [GET]>
+           │    └ <function Session.send at 0x7f7de121ae50>
+           └ <requests.sessions.Session object at 0x7f7ce81805e0>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/sessions.py", line 655, in send
+    r = adapter.send(request, **kwargs)
+        │       │    │          └ {'timeout': 10, 'verify': True, 'proxies': OrderedDict(), 'stream': False, 'cert': None}
+        │       │    └ <PreparedRequest [GET]>
+        │       └ <function HTTPAdapter.send at 0x7f7de121a310>
+        └ <requests.adapters.HTTPAdapter object at 0x7f7cc8f686a0>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/adapters.py", line 439, in send
+    resp = conn.urlopen(
+           │    └ <function HTTPConnectionPool.urlopen at 0x7f7de13f38b0>
+           └ <urllib3.connectionpool.HTTPSConnectionPool object at 0x7f7cc8f683d0>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connectionpool.py", line 699, in urlopen
+    httplib_response = self._make_request(
+                       │    └ <function HTTPConnectionPool._make_request at 0x7f7de13f3670>
+                       └ <urllib3.connectionpool.HTTPSConnectionPool object at 0x7f7cc8f683d0>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connectionpool.py", line 394, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+    │    │       │       │      └ {'body': None, 'headers': {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Ch...
+    │    │       │       └ '/search?keyword=%E5%9D%9A%E6%8C%81%E5%B0%B1%E6%98%AF%E8%83%9C%E5%88%A9%EF%BC%8C%E5%9D%9A%E6%8C%81%E4%B8%80%E5%AE%9A%E8%83%9C...
+    │    │       └ 'GET'
+    │    └ <function HTTPConnection.request at 0x7f7de13e4040>
+    └ <urllib3.connection.HTTPSConnection object at 0x7f7ce81415e0>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connection.py", line 239, in request
+    super(HTTPConnection, self).request(method, url, body=body, headers=headers)
+          │               │             │       │         │             └ {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/...
+          │               │             │       │         └ None
+          │               │             │       └ '/search?keyword=%E5%9D%9A%E6%8C%81%E5%B0%B1%E6%98%AF%E8%83%9C%E5%88%A9%EF%BC%8C%E5%9D%9A%E6%8C%81%E4%B8%80%E5%AE%9A%E8%83%9C...
+          │               │             └ 'GET'
+          │               └ <urllib3.connection.HTTPSConnection object at 0x7f7ce81415e0>
+          └ <class 'urllib3.connection.HTTPConnection'>
+  File "/usr/lib/python3.8/http/client.py", line 1256, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+    │    │             │       │    │     │        └ False
+    │    │             │       │    │     └ {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/...
+    │    │             │       │    └ None
+    │    │             │       └ '/search?keyword=%E5%9D%9A%E6%8C%81%E5%B0%B1%E6%98%AF%E8%83%9C%E5%88%A9%EF%BC%8C%E5%9D%9A%E6%8C%81%E4%B8%80%E5%AE%9A%E8%83%9C...
+    │    │             └ 'GET'
+    │    └ <function HTTPConnection._send_request at 0x7f7de4693310>
+    └ <urllib3.connection.HTTPSConnection object at 0x7f7ce81415e0>
+  File "/usr/lib/python3.8/http/client.py", line 1297, in _send_request
+    self.putheader(hdr, value)
+    │    │         │    └ '__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16ir...
+    │    │         └ 'cookie'
+    │    └ <function HTTPConnection.putheader at 0x7f7de13e3f70>
+    └ <urllib3.connection.HTTPSConnection object at 0x7f7ce81415e0>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connection.py", line 224, in putheader
+    _HTTPConnection.putheader(self, header, *values)
+    │               │         │     │        └ ('__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16i...
+    │               │         │     └ 'cookie'
+    │               │         └ <urllib3.connection.HTTPSConnection object at 0x7f7ce81415e0>
+    │               └ <function HTTPConnection.putheader at 0x7f7de4693160>
+    └ <class 'http.client.HTTPConnection'>
+  File "/usr/lib/python3.8/http/client.py", line 1229, in putheader
+    values[i] = one_value.encode('latin-1')
+    │      │    │         └ <method 'encode' of 'str' objects>
+    │      │    └ '__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16ir...
+    │      └ 0
+    └ ['__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16i...
+
+UnicodeEncodeError: 'latin-1' codec can't encode characters in position 304-305: ordinal not in range(256)
+2022-05-06 10:03:21.642 | ERROR    | monitor.searchSpiders.toutiao:get_request_from_keyword:62 - E 头条检索'latin-1' codec can't encode characters in position 304-305: ordinal not in range(256)
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f7e03468a60>
+    └ <Thread(Thread-8, started daemon 140174483609344)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f7e03468790>
+    └ <Thread(Thread-8, started daemon 140174483609344)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-8, started daemon 140174483609344)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-8, started daemon 140174483609344)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f7ceb8e1070>>
+    └ <Thread(Thread-8, started daemon 140174483609344)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 781, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7f7ceb94fdc0>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+    └ <monitor.projectManager.ProjectManager object at 0x7f7ceb8e1070>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7f7ceb678a90>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7f7ce9ca6220>
+    │    │                                │              │         └ '只因不吹“侦查哨”宾馆老板坐上被告席'
+    │    │                                │              └ '头条'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7f7ceb94fe50>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 135, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7f7de38d1550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7f7ce9ca6220>
+               │    │                        │         └ '只因不吹“侦查哨”宾馆老板坐上被告席'
+               │    │                        └ '头条'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7f7ceb94ff70>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 192, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7f7cc8f83550>
+                   │    │       │                                  │        │           └ '只因不吹“侦查哨”宾馆老板坐上被告席'
+                   │    │       │                                  │        └ <string.Template object at 0x7f7ce8c08a30>
+                   │    │       │                                  └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'sec-ch-ua': "'Chromium';v='92', ' Not A;Brand';v='99', 'Google Ch...
+                   │    │       └ '头条'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7f7ceb56f1f0>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7f7ceb56f610>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/toutiao.py", line 47, in get_request_from_keyword
+    response = requests.get(url, headers=headers, params=params, cookies=cookies, timeout=10)
+               │        │   │            │               │               └ {'tt_webid': '7011123276119787038', '_S_DPR': '1.25', '_S_IPAD': '0', 'MONITOR_WEB_ID': '7011123276119787038', '_S_WIN_WH': '...
+               │        │   │            │               └ (('keyword', '烈士纪念日'), ('pd', 'synthesis'), ('source', 'pagination'), ('dvpf', 'pc'), ('aid', '4916'), ('page_num', '3'), ('s...
+               │        │   │            └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'sec-ch-ua': "'Chromium';v='92', ' Not A;Brand';v='99', 'Google Ch...
+               │        │   └ 'https://so.toutiao.com/search?keyword=只因不吹“侦查哨”宾馆老板坐上被告席&pd=synthesis&source=pagination&dvpf=pc&aid=4916&page_num=0&search_i...
+               │        └ <function get at 0x7f7de121b280>
+               └ <module 'requests' from '/home/chase/.local/lib/python3.8/site-packages/requests/__init__.py'>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/api.py", line 75, in get
+    return request('get', url, params=params, **kwargs)
+           │              │           │         └ {'headers': {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'sec-ch-ua': "'Chromium';v='92', ' Not A;Brand';v='99'...
+           │              │           └ (('keyword', '烈士纪念日'), ('pd', 'synthesis'), ('source', 'pagination'), ('dvpf', 'pc'), ('aid', '4916'), ('page_num', '3'), ('s...
+           │              └ 'https://so.toutiao.com/search?keyword=只因不吹“侦查哨”宾馆老板坐上被告席&pd=synthesis&source=pagination&dvpf=pc&aid=4916&page_num=0&search_i...
+           └ <function request at 0x7f7de12870d0>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/api.py", line 61, in request
+    return session.request(method=method, url=url, **kwargs)
+           │       │              │           │      └ {'params': (('keyword', '烈士纪念日'), ('pd', 'synthesis'), ('source', 'pagination'), ('dvpf', 'pc'), ('aid', '4916'), ('page_num'...
+           │       │              │           └ 'https://so.toutiao.com/search?keyword=只因不吹“侦查哨”宾馆老板坐上被告席&pd=synthesis&source=pagination&dvpf=pc&aid=4916&page_num=0&search_i...
+           │       │              └ 'get'
+           │       └ <function Session.request at 0x7f7de121a9d0>
+           └ <requests.sessions.Session object at 0x7f7ce8bb9fd0>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/sessions.py", line 542, in request
+    resp = self.send(prep, **send_kwargs)
+           │    │    │       └ {'timeout': 10, 'allow_redirects': True, 'verify': True, 'proxies': OrderedDict(), 'stream': False, 'cert': None}
+           │    │    └ <PreparedRequest [GET]>
+           │    └ <function Session.send at 0x7f7de121ae50>
+           └ <requests.sessions.Session object at 0x7f7ce8bb9fd0>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/sessions.py", line 655, in send
+    r = adapter.send(request, **kwargs)
+        │       │    │          └ {'timeout': 10, 'verify': True, 'proxies': OrderedDict(), 'stream': False, 'cert': None}
+        │       │    └ <PreparedRequest [GET]>
+        │       └ <function HTTPAdapter.send at 0x7f7de121a310>
+        └ <requests.adapters.HTTPAdapter object at 0x7f7cc8f6ed90>
+  File "/home/chase/.local/lib/python3.8/site-packages/requests/adapters.py", line 439, in send
+    resp = conn.urlopen(
+           │    └ <function HTTPConnectionPool.urlopen at 0x7f7de13f38b0>
+           └ <urllib3.connectionpool.HTTPSConnectionPool object at 0x7f7cc8f12190>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connectionpool.py", line 699, in urlopen
+    httplib_response = self._make_request(
+                       │    └ <function HTTPConnectionPool._make_request at 0x7f7de13f3670>
+                       └ <urllib3.connectionpool.HTTPSConnectionPool object at 0x7f7cc8f12190>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connectionpool.py", line 394, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+    │    │       │       │      └ {'body': None, 'headers': {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Ch...
+    │    │       │       └ '/search?keyword=%E5%8F%AA%E5%9B%A0%E4%B8%8D%E5%90%B9%E2%80%9C%E4%BE%A6%E6%9F%A5%E5%93%A8%E2%80%9D%E5%AE%BE%E9%A6%86%E8%80%81...
+    │    │       └ 'GET'
+    │    └ <function HTTPConnection.request at 0x7f7de13e4040>
+    └ <urllib3.connection.HTTPSConnection object at 0x7f7cc8f6e5e0>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connection.py", line 239, in request
+    super(HTTPConnection, self).request(method, url, body=body, headers=headers)
+          │               │             │       │         │             └ {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/...
+          │               │             │       │         └ None
+          │               │             │       └ '/search?keyword=%E5%8F%AA%E5%9B%A0%E4%B8%8D%E5%90%B9%E2%80%9C%E4%BE%A6%E6%9F%A5%E5%93%A8%E2%80%9D%E5%AE%BE%E9%A6%86%E8%80%81...
+          │               │             └ 'GET'
+          │               └ <urllib3.connection.HTTPSConnection object at 0x7f7cc8f6e5e0>
+          └ <class 'urllib3.connection.HTTPConnection'>
+  File "/usr/lib/python3.8/http/client.py", line 1256, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+    │    │             │       │    │     │        └ False
+    │    │             │       │    │     └ {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/...
+    │    │             │       │    └ None
+    │    │             │       └ '/search?keyword=%E5%8F%AA%E5%9B%A0%E4%B8%8D%E5%90%B9%E2%80%9C%E4%BE%A6%E6%9F%A5%E5%93%A8%E2%80%9D%E5%AE%BE%E9%A6%86%E8%80%81...
+    │    │             └ 'GET'
+    │    └ <function HTTPConnection._send_request at 0x7f7de4693310>
+    └ <urllib3.connection.HTTPSConnection object at 0x7f7cc8f6e5e0>
+  File "/usr/lib/python3.8/http/client.py", line 1297, in _send_request
+    self.putheader(hdr, value)
+    │    │         │    └ '__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16ir...
+    │    │         └ 'cookie'
+    │    └ <function HTTPConnection.putheader at 0x7f7de13e3f70>
+    └ <urllib3.connection.HTTPSConnection object at 0x7f7cc8f6e5e0>
+  File "/home/chase/.local/lib/python3.8/site-packages/urllib3/connection.py", line 224, in putheader
+    _HTTPConnection.putheader(self, header, *values)
+    │               │         │     │        └ ('__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16i...
+    │               │         │     └ 'cookie'
+    │               │         └ <urllib3.connection.HTTPSConnection object at 0x7f7cc8f6e5e0>
+    │               └ <function HTTPConnection.putheader at 0x7f7de4693160>
+    └ <class 'http.client.HTTPConnection'>
+  File "/usr/lib/python3.8/http/client.py", line 1229, in putheader
+    values[i] = one_value.encode('latin-1')
+    │      │    │         └ <method 'encode' of 'str' objects>
+    │      │    └ '__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16ir...
+    │      └ 0
+    └ ['__ac_nonce=062747e8c00e5c95da24; msToken=MDL7RXSZxUCDGD-A1NGK05fFpeTEn6f3QgaRXOoGWxptmdYbkCUrXTcKGgbK5YKeLUJ9UCjZImZPoZJ16i...
+
+UnicodeEncodeError: 'latin-1' codec can't encode characters in position 304-305: ordinal not in range(256)

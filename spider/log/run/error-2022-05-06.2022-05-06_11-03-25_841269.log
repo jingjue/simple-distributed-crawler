@@ -1,0 +1,2416 @@
+2022-05-06 11:03:25.830 | ERROR    | monitor.searchSpiders.people:get_request_from_keyword:38 - E 人民网错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f5255d0ea60>
+    └ <Thread(Thread-3, started daemon 139986906867456)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f5255d0e790>
+    └ <Thread(Thread-3, started daemon 139986906867456)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-3, started daemon 139986906867456)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-3, started daemon 139986906867456)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f513e1ec370>>
+    └ <Thread(Thread-3, started daemon 139986906867456)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 781, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7f513e1eddc0>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f513ddf8430>
+    └ <monitor.projectManager.ProjectManager object at 0x7f513e1ec370>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7f513df16fa0>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7f513ddf3280>
+    │    │                                │              │         └ '俄罗斯将举行纪念卫国战争胜利77周年的阅兵活动'
+    │    │                                │              └ '人民网'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7f513e1ede50>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f513ddf8430>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 135, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7f52361a2550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7f513ddf3280>
+               │    │                        │         └ '俄罗斯将举行纪念卫国战争胜利77周年的阅兵活动'
+               │    │                        └ '人民网'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7f513e1edf70>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7f513ddf8430>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 192, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7f513c569280>
+                   │    │       │                                  │        │           └ '俄罗斯将举行纪念卫国战争胜利77周年的阅兵活动'
+                   │    │       │                                  │        └ <string.Template object at 0x7f513ddc0eb0>
+                   │    │       │                                  └ {'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8', 'Accept-Encoding': 'gzip, deflate', 'Accept-La...
+                   │    │       └ '人民网'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7f513ddf8340>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7f513ddf8430>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/people.py", line 24, in get_request_from_keyword
+    all_search_page = data["pages"]
+                      └ None
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-06 11:04:52.768 | ERROR    | __main__:get_request_from_keyword:38 - E 人民网错误'str' object has no attribute 'substitute'
+Traceback (most recent call last):
+
+  File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/people.py", line 53, in <module>
+    for i in a.get_request_from_keyword(headers, search_url, '石油'):
+             │ │                        │        └ 'http://search.people.cn/search-platform/front/search'
+             │ │                        └ {'Accept': 'application/json, text/plain, */*', 'Accept-Language': 'zh-CN,zh;q=0.9', 'Connection': 'keep-alive', 'Origin': 'h...
+             │ └ <function People_search.get_request_from_keyword at 0x7f67d68aa310>
+             └ <__main__.People_search object at 0x7f67f7ff8ca0>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/people.py", line 22, in get_request_from_keyword
+    response = requests.post(search_url.substitute(), json=data, headers=headers)
+               │        │    │                             │             └ {'Accept': 'application/json, text/plain, */*', 'Accept-Language': 'zh-CN,zh;q=0.9', 'Connection': 'keep-alive', 'Origin': 'h...
+               │        │    │                             └ {'key': '石油', 'page': 1, 'limit': 10, 'hasTitle': True, 'hasContent': True, 'isFuzzy': True, 'type': 0, 'sortType': 2, 'start...
+               │        │    └ 'http://search.people.cn/search-platform/front/search'
+               │        └ <function post at 0x7f67d8f759d0>
+               └ <module 'requests' from '/home/chase/.local/lib/python3.8/site-packages/requests/__init__.py'>
+
+AttributeError: 'str' object has no attribute 'substitute'
+2022-05-06 11:05:07.832 | ERROR    | __main__:get_request_from_keyword:38 - E 人民网错误'str' object has no attribute 'substitute'
+Traceback (most recent call last):
+
+  File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/people.py", line 53, in <module>
+    for i in a.get_request_from_keyword(headers, search_url, '石油'):
+             │ │                        │        └ 'http://search.people.cn/search-platform/front/search'
+             │ │                        └ {'Accept': 'application/json, text/plain, */*', 'Accept-Language': 'zh-CN,zh;q=0.9', 'Connection': 'keep-alive', 'Origin': 'h...
+             │ └ <function People_search.get_request_from_keyword at 0x7fd406412310>
+             └ <__main__.People_search object at 0x7fd427ba0ca0>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/people.py", line 22, in get_request_from_keyword
+    response = requests.post(search_url.substitute(), json=data, headers=headers)
+               │        │    │                             │             └ {'Accept': 'application/json, text/plain, */*', 'Accept-Language': 'zh-CN,zh;q=0.9', 'Connection': 'keep-alive', 'Origin': 'h...
+               │        │    │                             └ {'key': '石油', 'page': 1, 'limit': 10, 'hasTitle': True, 'hasContent': True, 'isFuzzy': True, 'type': 0, 'sortType': 2, 'start...
+               │        │    └ 'http://search.people.cn/search-platform/front/search'
+               │        └ <function post at 0x7fd408add9d0>
+               └ <module 'requests' from '/home/chase/.local/lib/python3.8/site-packages/requests/__init__.py'>
+
+AttributeError: 'str' object has no attribute 'substitute'
+2022-05-06 11:06:52.734 | ERROR    | __main__:get_request_from_keyword:39 - E 人民网错误'str' object has no attribute 'substitute'
+Traceback (most recent call last):
+
+  File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/people.py", line 54, in <module>
+    for i in a.get_request_from_keyword(headers, search_url, '石油'):
+             │ │                        │        └ 'http://search.people.cn/search-platform/front/search'
+             │ │                        └ {'Accept': 'application/json, text/plain, */*', 'Accept-Language': 'zh-CN,zh;q=0.9', 'Connection': 'keep-alive', 'Origin': 'h...
+             │ └ <function People_search.get_request_from_keyword at 0x7f7dceab5f70>
+             └ <__main__.People_search object at 0x7f7df70cdca0>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/people.py", line 23, in get_request_from_keyword
+    response = requests.post(search_url.substitute(), json=data, headers=headers)
+               │        │    │                             │             └ {'Accept': 'application/json, text/plain, */*', 'Accept-Language': 'zh-CN,zh;q=0.9', 'Connection': 'keep-alive', 'Origin': 'h...
+               │        │    │                             └ {'key': '石油', 'page': 1, 'limit': 10, 'hasTitle': True, 'hasContent': True, 'isFuzzy': True, 'type': 0, 'sortType': 2, 'start...
+               │        │    └ 'http://search.people.cn/search-platform/front/search'
+               │        └ <function post at 0x7f7dd804c9d0>
+               └ <module 'requests' from '/home/chase/.local/lib/python3.8/site-packages/requests/__init__.py'>
+
+AttributeError: 'str' object has no attribute 'substitute'
+2022-05-06 11:07:07.571 | ERROR    | __main__:get_request_from_keyword:39 - E 人民网错误'str' object has no attribute 'substitute'
+Traceback (most recent call last):
+
+  File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/people.py", line 54, in <module>
+    for i in a.get_request_from_keyword(headers, search_url, '石油'):
+             │ │                        │        └ 'http://search.people.cn/search-platform/front/search'
+             │ │                        └ {'Accept': 'application/json, text/plain, */*', 'Accept-Language': 'zh-CN,zh;q=0.9', 'Connection': 'keep-alive', 'Origin': 'h...
+             │ └ <function People_search.get_request_from_keyword at 0x7efd2356ef70>
+             └ <__main__.People_search object at 0x7efd4bb87ca0>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/people.py", line 23, in get_request_from_keyword
+    response = requests.post(search_url.substitute(), json=data, headers=headers)
+               │        │    │                             │             └ {'Accept': 'application/json, text/plain, */*', 'Accept-Language': 'zh-CN,zh;q=0.9', 'Connection': 'keep-alive', 'Origin': 'h...
+               │        │    │                             └ {'key': '石油', 'page': 1, 'limit': 10, 'hasTitle': True, 'hasContent': True, 'isFuzzy': True, 'type': 0, 'sortType': 2, 'start...
+               │        │    └ 'http://search.people.cn/search-platform/front/search'
+               │        └ <function post at 0x7efd2cb069d0>
+               └ <module 'requests' from '/home/chase/.local/lib/python3.8/site-packages/requests/__init__.py'>
+
+AttributeError: 'str' object has no attribute 'substitute'
+2022-05-06 11:10:07.545 | ERROR    | monitor.searchSpiders.people:get_request_from_keyword:38 - E 人民网错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7fb031d9ca60>
+    └ <Thread(Thread-3, started daemon 140390030599936)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7fb031d9c790>
+    └ <Thread(Thread-3, started daemon 140390030599936)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-3, started daemon 140390030599936)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-3, started daemon 140390030599936)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>>
+    └ <Thread(Thread-3, started daemon 140390030599936)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 781, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7faf1a2b3dc0>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+    └ <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7faf19fc0c70>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7faf19ea3310>
+    │    │                                │              │         └ '高原古城变身“高原花城”'
+    │    │                                │              └ '人民网'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7faf1a2b3e50>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 135, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7fb01221e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7faf19ea3310>
+               │    │                        │         └ '高原古城变身“高原花城”'
+               │    │                        └ '人民网'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7faf1a2b3f70>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 192, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7faf19e8fb20>
+                   │    │       │                                  │        │           └ '高原古城变身“高原花城”'
+                   │    │       │                                  │        └ <string.Template object at 0x7faf19f34e80>
+                   │    │       │                                  └ {'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8', 'Accept-Encoding': 'gzip, deflate', 'Accept-La...
+                   │    │       └ '人民网'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7faf19f247f0>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/people.py", line 24, in get_request_from_keyword
+    all_search_page = data["pages"]
+                      └ None
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-06 11:10:10.793 | ERROR    | monitor.searchSpiders.people:get_request_from_keyword:38 - E 人民网错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7fb031d9ca60>
+    └ <Thread(Thread-3, started daemon 140390030599936)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7fb031d9c790>
+    └ <Thread(Thread-3, started daemon 140390030599936)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-3, started daemon 140390030599936)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-3, started daemon 140390030599936)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>>
+    └ <Thread(Thread-3, started daemon 140390030599936)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 781, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7faf1a2b3dc0>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+    └ <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7faf19fc0c70>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7faf19ea3310>
+    │    │                                │              │         └ '以色列中部发生袭击事件至少3死4伤'
+    │    │                                │              └ '人民网'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7faf1a2b3e50>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 135, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7fb01221e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7faf19ea3310>
+               │    │                        │         └ '以色列中部发生袭击事件至少3死4伤'
+               │    │                        └ '人民网'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7faf1a2b3f70>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 192, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7faf19e80a60>
+                   │    │       │                                  │        │           └ '以色列中部发生袭击事件至少3死4伤'
+                   │    │       │                                  │        └ <string.Template object at 0x7fb01221aa00>
+                   │    │       │                                  └ {'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8', 'Accept-Encoding': 'gzip, deflate', 'Accept-La...
+                   │    │       └ '人民网'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7faf19f247f0>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/people.py", line 24, in get_request_from_keyword
+    all_search_page = data["pages"]
+                      └ None
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-06 11:10:14.001 | ERROR    | monitor.searchSpiders.people:get_request_from_keyword:38 - E 人民网错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7fb031d9ca60>
+    └ <Thread(Thread-3, started daemon 140390030599936)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7fb031d9c790>
+    └ <Thread(Thread-3, started daemon 140390030599936)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-3, started daemon 140390030599936)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-3, started daemon 140390030599936)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>>
+    └ <Thread(Thread-3, started daemon 140390030599936)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 781, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7faf1a2b3dc0>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+    └ <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7faf19fc0c70>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7faf19ea3310>
+    │    │                                │              │         └ '俄罗斯别尔哥罗德州两村庄遭乌军炮击 乌总统说不同意与俄…'
+    │    │                                │              └ '人民网'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7faf1a2b3e50>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 135, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7fb01221e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7faf19ea3310>
+               │    │                        │         └ '俄罗斯别尔哥罗德州两村庄遭乌军炮击 乌总统说不同意与俄…'
+               │    │                        └ '人民网'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7faf1a2b3f70>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 192, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7faf18e401f0>
+                   │    │       │                                  │        │           └ '俄罗斯别尔哥罗德州两村庄遭乌军炮击 乌总统说不同意与俄…'
+                   │    │       │                                  │        └ <string.Template object at 0x7faf19f96e80>
+                   │    │       │                                  └ {'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8', 'Accept-Encoding': 'gzip, deflate', 'Accept-La...
+                   │    │       └ '人民网'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7faf19f247f0>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/people.py", line 24, in get_request_from_keyword
+    all_search_page = data["pages"]
+                      └ None
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-06 11:10:17.206 | ERROR    | monitor.searchSpiders.people:get_request_from_keyword:38 - E 人民网错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7fb031d9ca60>
+    └ <Thread(Thread-3, started daemon 140390030599936)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7fb031d9c790>
+    └ <Thread(Thread-3, started daemon 140390030599936)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-3, started daemon 140390030599936)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-3, started daemon 140390030599936)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>>
+    └ <Thread(Thread-3, started daemon 140390030599936)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 781, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7faf1a2b3dc0>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+    └ <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7faf19fc0c70>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7faf19ea3310>
+    │    │                                │              │         └ '内蒙古兴安军地共建“爱民生态林”'
+    │    │                                │              └ '人民网'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7faf1a2b3e50>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 135, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7fb01221e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7faf19ea3310>
+               │    │                        │         └ '内蒙古兴安军地共建“爱民生态林”'
+               │    │                        └ '人民网'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7faf1a2b3f70>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 192, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7faf18e40ee0>
+                   │    │       │                                  │        │           └ '内蒙古兴安军地共建“爱民生态林”'
+                   │    │       │                                  │        └ <string.Template object at 0x7faf19e80d90>
+                   │    │       │                                  └ {'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8', 'Accept-Encoding': 'gzip, deflate', 'Accept-La...
+                   │    │       └ '人民网'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7faf19f247f0>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/people.py", line 24, in get_request_from_keyword
+    all_search_page = data["pages"]
+                      └ None
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-06 11:10:20.405 | ERROR    | monitor.searchSpiders.people:get_request_from_keyword:38 - E 人民网错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7fb031d9ca60>
+    └ <Thread(Thread-3, started daemon 140390030599936)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7fb031d9c790>
+    └ <Thread(Thread-3, started daemon 140390030599936)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-3, started daemon 140390030599936)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-3, started daemon 140390030599936)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>>
+    └ <Thread(Thread-3, started daemon 140390030599936)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 781, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7faf1a2b3dc0>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+    └ <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7faf19fc0c70>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7faf19ea3310>
+    │    │                                │              │         └ '美政府机构瞒报疑似“病毒溢出”事件（深度观察）'
+    │    │                                │              └ '人民网'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7faf1a2b3e50>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 135, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7fb01221e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7faf19ea3310>
+               │    │                        │         └ '美政府机构瞒报疑似“病毒溢出”事件（深度观察）'
+               │    │                        └ '人民网'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7faf1a2b3f70>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 192, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7faf18e409d0>
+                   │    │       │                                  │        │           └ '美政府机构瞒报疑似“病毒溢出”事件（深度观察）'
+                   │    │       │                                  │        └ <string.Template object at 0x7faf19e805b0>
+                   │    │       │                                  └ {'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8', 'Accept-Encoding': 'gzip, deflate', 'Accept-La...
+                   │    │       └ '人民网'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7faf19f247f0>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/people.py", line 24, in get_request_from_keyword
+    all_search_page = data["pages"]
+                      └ None
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-06 11:10:23.613 | ERROR    | monitor.searchSpiders.people:get_request_from_keyword:38 - E 人民网错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7fb031d9ca60>
+    └ <Thread(Thread-3, started daemon 140390030599936)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7fb031d9c790>
+    └ <Thread(Thread-3, started daemon 140390030599936)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-3, started daemon 140390030599936)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-3, started daemon 140390030599936)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>>
+    └ <Thread(Thread-3, started daemon 140390030599936)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 781, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7faf1a2b3dc0>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+    └ <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7faf19fc0c70>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7faf19ea3310>
+    │    │                                │              │         └ '海军航空大学某基地组织飞行训练'
+    │    │                                │              └ '人民网'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7faf1a2b3e50>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 135, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7fb01221e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7faf19ea3310>
+               │    │                        │         └ '海军航空大学某基地组织飞行训练'
+               │    │                        └ '人民网'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7faf1a2b3f70>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 192, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7faf19e80a60>
+                   │    │       │                                  │        │           └ '海军航空大学某基地组织飞行训练'
+                   │    │       │                                  │        └ <string.Template object at 0x7faf19e80580>
+                   │    │       │                                  └ {'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8', 'Accept-Encoding': 'gzip, deflate', 'Accept-La...
+                   │    │       └ '人民网'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7faf19f247f0>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/people.py", line 24, in get_request_from_keyword
+    all_search_page = data["pages"]
+                      └ None
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-06 11:10:24.444 | ERROR    | monitor.searchSpiders.people:get_request_from_keyword:38 - E 人民网错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7fb031d9ca60>
+    └ <Thread(Thread-8, started daemon 140390013552384)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7fb031d9c790>
+    └ <Thread(Thread-8, started daemon 140390013552384)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-8, started daemon 140390013552384)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-8, started daemon 140390013552384)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>>
+    └ <Thread(Thread-8, started daemon 140390013552384)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 781, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7faf1a2b3dc0>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+    └ <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7faf19fc0c70>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7faf18602580>
+    │    │                                │              │         └ '高原古城变身“高原花城”'
+    │    │                                │              └ '人民网'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7faf1a2b3e50>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 135, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7fb01221e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7faf18602580>
+               │    │                        │         └ '高原古城变身“高原花城”'
+               │    │                        └ '人民网'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7faf1a2b3f70>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 192, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7faf18602340>
+                   │    │       │                                  │        │           └ '高原古城变身“高原花城”'
+                   │    │       │                                  │        └ <string.Template object at 0x7faf18602c40>
+                   │    │       │                                  └ {'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8', 'Accept-Encoding': 'gzip, deflate', 'Accept-La...
+                   │    │       └ '人民网'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7faf19f247f0>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/people.py", line 24, in get_request_from_keyword
+    all_search_page = data["pages"]
+                      └ None
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-06 11:10:26.809 | ERROR    | monitor.searchSpiders.people:get_request_from_keyword:38 - E 人民网错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7fb031d9ca60>
+    └ <Thread(Thread-3, started daemon 140390030599936)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7fb031d9c790>
+    └ <Thread(Thread-3, started daemon 140390030599936)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-3, started daemon 140390030599936)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-3, started daemon 140390030599936)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>>
+    └ <Thread(Thread-3, started daemon 140390030599936)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 781, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7faf1a2b3dc0>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+    └ <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7faf19fc0c70>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7faf19ea3310>
+    │    │                                │              │         └ '湖南长沙居民自建房倒塌事故造成53人遇难'
+    │    │                                │              └ '人民网'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7faf1a2b3e50>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 135, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7fb01221e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7faf19ea3310>
+               │    │                        │         └ '湖南长沙居民自建房倒塌事故造成53人遇难'
+               │    │                        └ '人民网'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7faf1a2b3f70>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 192, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7faf18e403a0>
+                   │    │       │                                  │        │           └ '湖南长沙居民自建房倒塌事故造成53人遇难'
+                   │    │       │                                  │        └ <string.Template object at 0x7faf19ea3610>
+                   │    │       │                                  └ {'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8', 'Accept-Encoding': 'gzip, deflate', 'Accept-La...
+                   │    │       └ '人民网'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7faf19f247f0>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/people.py", line 24, in get_request_from_keyword
+    all_search_page = data["pages"]
+                      └ None
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-06 11:10:27.649 | ERROR    | monitor.searchSpiders.people:get_request_from_keyword:38 - E 人民网错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7fb031d9ca60>
+    └ <Thread(Thread-8, started daemon 140390013552384)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7fb031d9c790>
+    └ <Thread(Thread-8, started daemon 140390013552384)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-8, started daemon 140390013552384)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-8, started daemon 140390013552384)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>>
+    └ <Thread(Thread-8, started daemon 140390013552384)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 781, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7faf1a2b3dc0>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+    └ <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7faf19fc0c70>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7faf18602580>
+    │    │                                │              │         └ '以色列中部发生袭击事件至少3死4伤'
+    │    │                                │              └ '人民网'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7faf1a2b3e50>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 135, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7fb01221e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7faf18602580>
+               │    │                        │         └ '以色列中部发生袭击事件至少3死4伤'
+               │    │                        └ '人民网'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7faf1a2b3f70>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 192, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7faf18602be0>
+                   │    │       │                                  │        │           └ '以色列中部发生袭击事件至少3死4伤'
+                   │    │       │                                  │        └ <string.Template object at 0x7faf19ea3b50>
+                   │    │       │                                  └ {'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8', 'Accept-Encoding': 'gzip, deflate', 'Accept-La...
+                   │    │       └ '人民网'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7faf19f247f0>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/people.py", line 24, in get_request_from_keyword
+    all_search_page = data["pages"]
+                      └ None
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-06 11:10:30.017 | ERROR    | monitor.searchSpiders.people:get_request_from_keyword:38 - E 人民网错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7fb031d9ca60>
+    └ <Thread(Thread-3, started daemon 140390030599936)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7fb031d9c790>
+    └ <Thread(Thread-3, started daemon 140390030599936)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-3, started daemon 140390030599936)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-3, started daemon 140390030599936)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>>
+    └ <Thread(Thread-3, started daemon 140390030599936)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 781, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7faf1a2b3dc0>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+    └ <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7faf19fc0c70>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7faf19ea3310>
+    │    │                                │              │         └ '土耳其4月CPI同比涨幅近70%'
+    │    │                                │              └ '人民网'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7faf1a2b3e50>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 135, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7fb01221e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7faf19ea3310>
+               │    │                        │         └ '土耳其4月CPI同比涨幅近70%'
+               │    │                        └ '人民网'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7faf1a2b3f70>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 192, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7faf18602b20>
+                   │    │       │                                  │        │           └ '土耳其4月CPI同比涨幅近70%'
+                   │    │       │                                  │        └ <string.Template object at 0x7faf186025e0>
+                   │    │       │                                  └ {'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8', 'Accept-Encoding': 'gzip, deflate', 'Accept-La...
+                   │    │       └ '人民网'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7faf19f247f0>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/people.py", line 24, in get_request_from_keyword
+    all_search_page = data["pages"]
+                      └ None
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-06 11:10:31.062 | ERROR    | monitor.searchSpiders.people:get_request_from_keyword:38 - E 人民网错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7fb031d9ca60>
+    └ <Thread(Thread-8, started daemon 140390013552384)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7fb031d9c790>
+    └ <Thread(Thread-8, started daemon 140390013552384)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-8, started daemon 140390013552384)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-8, started daemon 140390013552384)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>>
+    └ <Thread(Thread-8, started daemon 140390013552384)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 781, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7faf1a2b3dc0>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+    └ <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7faf19fc0c70>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7faf18602580>
+    │    │                                │              │         └ '俄罗斯别尔哥罗德州两村庄遭乌军炮击 乌总统说不同意与俄…'
+    │    │                                │              └ '人民网'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7faf1a2b3e50>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 135, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7fb01221e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7faf18602580>
+               │    │                        │         └ '俄罗斯别尔哥罗德州两村庄遭乌军炮击 乌总统说不同意与俄…'
+               │    │                        └ '人民网'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7faf1a2b3f70>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 192, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7faf18602af0>
+                   │    │       │                                  │        │           └ '俄罗斯别尔哥罗德州两村庄遭乌军炮击 乌总统说不同意与俄…'
+                   │    │       │                                  │        └ <string.Template object at 0x7faf19eb4fa0>
+                   │    │       │                                  └ {'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8', 'Accept-Encoding': 'gzip, deflate', 'Accept-La...
+                   │    │       └ '人民网'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7faf19f247f0>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/people.py", line 24, in get_request_from_keyword
+    all_search_page = data["pages"]
+                      └ None
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-06 11:10:33.260 | ERROR    | monitor.searchSpiders.people:get_request_from_keyword:38 - E 人民网错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7fb031d9ca60>
+    └ <Thread(Thread-3, started daemon 140390030599936)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7fb031d9c790>
+    └ <Thread(Thread-3, started daemon 140390030599936)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-3, started daemon 140390030599936)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-3, started daemon 140390030599936)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>>
+    └ <Thread(Thread-3, started daemon 140390030599936)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 781, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7faf1a2b3dc0>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+    └ <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7faf19fc0c70>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7faf19ea3310>
+    │    │                                │              │         └ '美军加大微电子领域研发投资'
+    │    │                                │              └ '人民网'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7faf1a2b3e50>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 135, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7fb01221e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7faf19ea3310>
+               │    │                        │         └ '美军加大微电子领域研发投资'
+               │    │                        └ '人民网'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7faf1a2b3f70>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 192, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7faf1860eca0>
+                   │    │       │                                  │        │           └ '美军加大微电子领域研发投资'
+                   │    │       │                                  │        └ <string.Template object at 0x7faf1860ed00>
+                   │    │       │                                  └ {'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8', 'Accept-Encoding': 'gzip, deflate', 'Accept-La...
+                   │    │       └ '人民网'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7faf19f247f0>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/people.py", line 24, in get_request_from_keyword
+    all_search_page = data["pages"]
+                      └ None
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-06 11:10:34.303 | ERROR    | monitor.searchSpiders.people:get_request_from_keyword:38 - E 人民网错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7fb031d9ca60>
+    └ <Thread(Thread-8, started daemon 140390013552384)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7fb031d9c790>
+    └ <Thread(Thread-8, started daemon 140390013552384)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-8, started daemon 140390013552384)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-8, started daemon 140390013552384)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>>
+    └ <Thread(Thread-8, started daemon 140390013552384)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 781, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7faf1a2b3dc0>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+    └ <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7faf19fc0c70>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7faf18602580>
+    │    │                                │              │         └ '内蒙古兴安军地共建“爱民生态林”'
+    │    │                                │              └ '人民网'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7faf1a2b3e50>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 135, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7fb01221e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7faf18602580>
+               │    │                        │         └ '内蒙古兴安军地共建“爱民生态林”'
+               │    │                        └ '人民网'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7faf1a2b3f70>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 192, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7faf1860e400>
+                   │    │       │                                  │        │           └ '内蒙古兴安军地共建“爱民生态林”'
+                   │    │       │                                  │        └ <string.Template object at 0x7faf19e80d90>
+                   │    │       │                                  └ {'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8', 'Accept-Encoding': 'gzip, deflate', 'Accept-La...
+                   │    │       └ '人民网'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7faf19f247f0>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/people.py", line 24, in get_request_from_keyword
+    all_search_page = data["pages"]
+                      └ None
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-06 11:10:36.488 | ERROR    | monitor.searchSpiders.people:get_request_from_keyword:38 - E 人民网错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7fb031d9ca60>
+    └ <Thread(Thread-3, started daemon 140390030599936)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7fb031d9c790>
+    └ <Thread(Thread-3, started daemon 140390030599936)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-3, started daemon 140390030599936)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-3, started daemon 140390030599936)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>>
+    └ <Thread(Thread-3, started daemon 140390030599936)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 781, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7faf1a2b3dc0>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+    └ <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7faf19fc0c70>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7faf19ea3310>
+    │    │                                │              │         └ '今年首期全国人大代表学习班“云上”开班'
+    │    │                                │              └ '人民网'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7faf1a2b3e50>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 135, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7fb01221e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7faf19ea3310>
+               │    │                        │         └ '今年首期全国人大代表学习班“云上”开班'
+               │    │                        └ '人民网'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7faf1a2b3f70>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 192, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7faf186024c0>
+                   │    │       │                                  │        │           └ '今年首期全国人大代表学习班“云上”开班'
+                   │    │       │                                  │        └ <string.Template object at 0x7faf18602760>
+                   │    │       │                                  └ {'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8', 'Accept-Encoding': 'gzip, deflate', 'Accept-La...
+                   │    │       └ '人民网'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7faf19f247f0>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/people.py", line 24, in get_request_from_keyword
+    all_search_page = data["pages"]
+                      └ None
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-06 11:10:37.561 | ERROR    | monitor.searchSpiders.people:get_request_from_keyword:38 - E 人民网错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7fb031d9ca60>
+    └ <Thread(Thread-8, started daemon 140390013552384)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7fb031d9c790>
+    └ <Thread(Thread-8, started daemon 140390013552384)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-8, started daemon 140390013552384)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-8, started daemon 140390013552384)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>>
+    └ <Thread(Thread-8, started daemon 140390013552384)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 781, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7faf1a2b3dc0>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+    └ <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7faf19fc0c70>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7faf18602580>
+    │    │                                │              │         └ '海军航空大学某基地组织飞行训练'
+    │    │                                │              └ '人民网'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7faf1a2b3e50>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 135, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7fb01221e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7faf18602580>
+               │    │                        │         └ '海军航空大学某基地组织飞行训练'
+               │    │                        └ '人民网'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7faf1a2b3f70>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 192, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7faf18e40220>
+                   │    │       │                                  │        │           └ '海军航空大学某基地组织飞行训练'
+                   │    │       │                                  │        └ <string.Template object at 0x7faf18e40700>
+                   │    │       │                                  └ {'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8', 'Accept-Encoding': 'gzip, deflate', 'Accept-La...
+                   │    │       └ '人民网'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7faf19f247f0>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/people.py", line 24, in get_request_from_keyword
+    all_search_page = data["pages"]
+                      └ None
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-06 11:10:39.702 | ERROR    | monitor.searchSpiders.people:get_request_from_keyword:38 - E 人民网错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7fb031d9ca60>
+    └ <Thread(Thread-3, started daemon 140390030599936)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7fb031d9c790>
+    └ <Thread(Thread-3, started daemon 140390030599936)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-3, started daemon 140390030599936)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-3, started daemon 140390030599936)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>>
+    └ <Thread(Thread-3, started daemon 140390030599936)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 781, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7faf1a2b3dc0>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+    └ <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7faf19fc0c70>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7faf19ea3310>
+    │    │                                │              │         └ '奋力奔跑，书写新时代的青春答卷 '
+    │    │                                │              └ '人民网'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7faf1a2b3e50>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 135, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7fb01221e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7faf19ea3310>
+               │    │                        │         └ '奋力奔跑，书写新时代的青春答卷 '
+               │    │                        └ '人民网'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7faf1a2b3f70>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 192, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7faf18e688e0>
+                   │    │       │                                  │        │           └ '奋力奔跑，书写新时代的青春答卷 '
+                   │    │       │                                  │        └ <string.Template object at 0x7faf19e80580>
+                   │    │       │                                  └ {'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8', 'Accept-Encoding': 'gzip, deflate', 'Accept-La...
+                   │    │       └ '人民网'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7faf19f247f0>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/people.py", line 24, in get_request_from_keyword
+    all_search_page = data["pages"]
+                      └ None
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-06 11:10:40.828 | ERROR    | monitor.searchSpiders.people:get_request_from_keyword:38 - E 人民网错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7fb031d9ca60>
+    └ <Thread(Thread-8, started daemon 140390013552384)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7fb031d9c790>
+    └ <Thread(Thread-8, started daemon 140390013552384)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-8, started daemon 140390013552384)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-8, started daemon 140390013552384)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>>
+    └ <Thread(Thread-8, started daemon 140390013552384)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 781, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7faf1a2b3dc0>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+    └ <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7faf19fc0c70>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7faf18602580>
+    │    │                                │              │         └ '湖南长沙居民自建房倒塌事故造成53人遇难'
+    │    │                                │              └ '人民网'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7faf1a2b3e50>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 135, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7fb01221e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7faf18602580>
+               │    │                        │         └ '湖南长沙居民自建房倒塌事故造成53人遇难'
+               │    │                        └ '人民网'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7faf1a2b3f70>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 192, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7faf18e68310>
+                   │    │       │                                  │        │           └ '湖南长沙居民自建房倒塌事故造成53人遇难'
+                   │    │       │                                  │        └ <string.Template object at 0x7fb01221aa00>
+                   │    │       │                                  └ {'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8', 'Accept-Encoding': 'gzip, deflate', 'Accept-La...
+                   │    │       └ '人民网'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7faf19f247f0>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/people.py", line 24, in get_request_from_keyword
+    all_search_page = data["pages"]
+                      └ None
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-06 11:10:41.444 | ERROR    | monitor.searchSpiders.people:get_request_from_keyword:38 - E 人民网错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7fb031d9ca60>
+    └ <Thread(Thread-13, started daemon 140389663110912)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7fb031d9c790>
+    └ <Thread(Thread-13, started daemon 140389663110912)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-13, started daemon 140389663110912)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-13, started daemon 140389663110912)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>>
+    └ <Thread(Thread-13, started daemon 140389663110912)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 781, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7faf1a2b3dc0>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+    └ <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7faf19fc0c70>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7faf18e40d00>
+    │    │                                │              │         └ '高原古城变身“高原花城”'
+    │    │                                │              └ '人民网'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7faf1a2b3e50>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 135, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7fb01221e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7faf18e40d00>
+               │    │                        │         └ '高原古城变身“高原花城”'
+               │    │                        └ '人民网'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7faf1a2b3f70>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 192, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7faf1860ee20>
+                   │    │       │                                  │        │           └ '高原古城变身“高原花城”'
+                   │    │       │                                  │        └ <string.Template object at 0x7faf1860e7f0>
+                   │    │       │                                  └ {'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8', 'Accept-Encoding': 'gzip, deflate', 'Accept-La...
+                   │    │       └ '人民网'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7faf19f247f0>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/people.py", line 24, in get_request_from_keyword
+    all_search_page = data["pages"]
+                      └ None
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-06 11:10:42.926 | ERROR    | monitor.searchSpiders.people:get_request_from_keyword:38 - E 人民网错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7fb031d9ca60>
+    └ <Thread(Thread-3, started daemon 140390030599936)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7fb031d9c790>
+    └ <Thread(Thread-3, started daemon 140390030599936)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-3, started daemon 140390030599936)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-3, started daemon 140390030599936)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>>
+    └ <Thread(Thread-3, started daemon 140390030599936)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 781, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7faf1a2b3dc0>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+    └ <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7faf19fc0c70>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7faf19ea3310>
+    │    │                                │              │         └ '公安部发布A级通缉令公开通缉六名重大拐卖妇女儿童犯罪在逃人员'
+    │    │                                │              └ '人民网'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7faf1a2b3e50>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 135, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7fb01221e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7faf19ea3310>
+               │    │                        │         └ '公安部发布A级通缉令公开通缉六名重大拐卖妇女儿童犯罪在逃人员'
+               │    │                        └ '人民网'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7faf1a2b3f70>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 192, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7faf19e804f0>
+                   │    │       │                                  │        │           └ '公安部发布A级通缉令公开通缉六名重大拐卖妇女儿童犯罪在逃人员'
+                   │    │       │                                  │        └ <string.Template object at 0x7faf19ea3a00>
+                   │    │       │                                  └ {'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8', 'Accept-Encoding': 'gzip, deflate', 'Accept-La...
+                   │    │       └ '人民网'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7faf19f247f0>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/people.py", line 24, in get_request_from_keyword
+    all_search_page = data["pages"]
+                      └ None
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-06 11:10:44.074 | ERROR    | monitor.searchSpiders.people:get_request_from_keyword:38 - E 人民网错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7fb031d9ca60>
+    └ <Thread(Thread-8, started daemon 140390013552384)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7fb031d9c790>
+    └ <Thread(Thread-8, started daemon 140390013552384)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-8, started daemon 140390013552384)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-8, started daemon 140390013552384)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>>
+    └ <Thread(Thread-8, started daemon 140390013552384)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 781, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7faf1a2b3dc0>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+    └ <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7faf19fc0c70>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7faf18602580>
+    │    │                                │              │         └ '土耳其4月CPI同比涨幅近70%'
+    │    │                                │              └ '人民网'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7faf1a2b3e50>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 135, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7fb01221e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7faf18602580>
+               │    │                        │         └ '土耳其4月CPI同比涨幅近70%'
+               │    │                        └ '人民网'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7faf1a2b3f70>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 192, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7faf1860e280>
+                   │    │       │                                  │        │           └ '土耳其4月CPI同比涨幅近70%'
+                   │    │       │                                  │        └ <string.Template object at 0x7faf19ea3c10>
+                   │    │       │                                  └ {'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8', 'Accept-Encoding': 'gzip, deflate', 'Accept-La...
+                   │    │       └ '人民网'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7faf19f247f0>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/people.py", line 24, in get_request_from_keyword
+    all_search_page = data["pages"]
+                      └ None
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-06 11:10:44.636 | ERROR    | monitor.searchSpiders.people:get_request_from_keyword:38 - E 人民网错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7fb031d9ca60>
+    └ <Thread(Thread-13, started daemon 140389663110912)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7fb031d9c790>
+    └ <Thread(Thread-13, started daemon 140389663110912)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-13, started daemon 140389663110912)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-13, started daemon 140389663110912)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>>
+    └ <Thread(Thread-13, started daemon 140389663110912)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 781, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7faf1a2b3dc0>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+    └ <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7faf19fc0c70>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7faf18e40d00>
+    │    │                                │              │         └ '以色列中部发生袭击事件至少3死4伤'
+    │    │                                │              └ '人民网'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7faf1a2b3e50>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 135, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7fb01221e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7faf18e40d00>
+               │    │                        │         └ '以色列中部发生袭击事件至少3死4伤'
+               │    │                        └ '人民网'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7faf1a2b3f70>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 192, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7faf18e402e0>
+                   │    │       │                                  │        │           └ '以色列中部发生袭击事件至少3死4伤'
+                   │    │       │                                  │        └ <string.Template object at 0x7faf18e40c10>
+                   │    │       │                                  └ {'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8', 'Accept-Encoding': 'gzip, deflate', 'Accept-La...
+                   │    │       └ '人民网'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7faf19f247f0>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/people.py", line 24, in get_request_from_keyword
+    all_search_page = data["pages"]
+                      └ None
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-06 11:10:46.195 | ERROR    | monitor.searchSpiders.people:get_request_from_keyword:38 - E 人民网错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7fb031d9ca60>
+    └ <Thread(Thread-3, started daemon 140390030599936)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7fb031d9c790>
+    └ <Thread(Thread-3, started daemon 140390030599936)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-3, started daemon 140390030599936)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-3, started daemon 140390030599936)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>>
+    └ <Thread(Thread-3, started daemon 140390030599936)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 781, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7faf1a2b3dc0>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+    └ <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7faf19fc0c70>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7faf19ea3310>
+    │    │                                │              │         └ '第74集团军某旅炮兵分队开展实弹射击演练'
+    │    │                                │              └ '人民网'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7faf1a2b3e50>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 135, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7fb01221e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7faf19ea3310>
+               │    │                        │         └ '第74集团军某旅炮兵分队开展实弹射击演练'
+               │    │                        └ '人民网'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7faf1a2b3f70>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 192, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7faf1860e670>
+                   │    │       │                                  │        │           └ '第74集团军某旅炮兵分队开展实弹射击演练'
+                   │    │       │                                  │        └ <string.Template object at 0x7faf1860e970>
+                   │    │       │                                  └ {'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8', 'Accept-Encoding': 'gzip, deflate', 'Accept-La...
+                   │    │       └ '人民网'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7faf19f247f0>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/people.py", line 24, in get_request_from_keyword
+    all_search_page = data["pages"]
+                      └ None
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-06 11:10:47.271 | ERROR    | monitor.searchSpiders.people:get_request_from_keyword:38 - E 人民网错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7fb031d9ca60>
+    └ <Thread(Thread-8, started daemon 140390013552384)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7fb031d9c790>
+    └ <Thread(Thread-8, started daemon 140390013552384)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-8, started daemon 140390013552384)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-8, started daemon 140390013552384)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>>
+    └ <Thread(Thread-8, started daemon 140390013552384)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 781, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7faf1a2b3dc0>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+    └ <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7faf19fc0c70>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7faf18602580>
+    │    │                                │              │         └ '美军加大微电子领域研发投资'
+    │    │                                │              └ '人民网'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7faf1a2b3e50>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 135, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7fb01221e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7faf18602580>
+               │    │                        │         └ '美军加大微电子领域研发投资'
+               │    │                        └ '人民网'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7faf1a2b3f70>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 192, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7faf18602670>
+                   │    │       │                                  │        │           └ '美军加大微电子领域研发投资'
+                   │    │       │                                  │        └ <string.Template object at 0x7faf18602e80>
+                   │    │       │                                  └ {'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8', 'Accept-Encoding': 'gzip, deflate', 'Accept-La...
+                   │    │       └ '人民网'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7faf19f247f0>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/people.py", line 24, in get_request_from_keyword
+    all_search_page = data["pages"]
+                      └ None
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-06 11:10:47.904 | ERROR    | monitor.searchSpiders.people:get_request_from_keyword:38 - E 人民网错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7fb031d9ca60>
+    └ <Thread(Thread-13, started daemon 140389663110912)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7fb031d9c790>
+    └ <Thread(Thread-13, started daemon 140389663110912)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-13, started daemon 140389663110912)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-13, started daemon 140389663110912)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>>
+    └ <Thread(Thread-13, started daemon 140389663110912)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 781, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7faf1a2b3dc0>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+    └ <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7faf19fc0c70>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7faf18e40d00>
+    │    │                                │              │         └ '俄罗斯别尔哥罗德州两村庄遭乌军炮击 乌总统说不同意与俄…'
+    │    │                                │              └ '人民网'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7faf1a2b3e50>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 135, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7fb01221e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7faf18e40d00>
+               │    │                        │         └ '俄罗斯别尔哥罗德州两村庄遭乌军炮击 乌总统说不同意与俄…'
+               │    │                        └ '人民网'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7faf1a2b3f70>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 192, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7faf1860afa0>
+                   │    │       │                                  │        │           └ '俄罗斯别尔哥罗德州两村庄遭乌军炮击 乌总统说不同意与俄…'
+                   │    │       │                                  │        └ <string.Template object at 0x7faf19ea3eb0>
+                   │    │       │                                  └ {'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8', 'Accept-Encoding': 'gzip, deflate', 'Accept-La...
+                   │    │       └ '人民网'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7faf19f247f0>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/people.py", line 24, in get_request_from_keyword
+    all_search_page = data["pages"]
+                      └ None
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-06 11:10:49.484 | ERROR    | monitor.searchSpiders.people:get_request_from_keyword:38 - E 人民网错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7fb031d9ca60>
+    └ <Thread(Thread-3, started daemon 140390030599936)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7fb031d9c790>
+    └ <Thread(Thread-3, started daemon 140390030599936)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-3, started daemon 140390030599936)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-3, started daemon 140390030599936)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>>
+    └ <Thread(Thread-3, started daemon 140390030599936)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 781, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7faf1a2b3dc0>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+    └ <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7faf19fc0c70>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7faf19ea3310>
+    │    │                                │              │         └ '日本五一黄金周长假不限制出游 浅草和清水寺的人流量增长…'
+    │    │                                │              └ '人民网'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7faf1a2b3e50>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 135, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7fb01221e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7faf19ea3310>
+               │    │                        │         └ '日本五一黄金周长假不限制出游 浅草和清水寺的人流量增长…'
+               │    │                        └ '人民网'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7faf1a2b3f70>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 192, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7faf1860ecd0>
+                   │    │       │                                  │        │           └ '日本五一黄金周长假不限制出游 浅草和清水寺的人流量增长…'
+                   │    │       │                                  │        └ <string.Template object at 0x7faf1860e280>
+                   │    │       │                                  └ {'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8', 'Accept-Encoding': 'gzip, deflate', 'Accept-La...
+                   │    │       └ '人民网'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7faf19f247f0>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/people.py", line 24, in get_request_from_keyword
+    all_search_page = data["pages"]
+                      └ None
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-06 11:10:50.535 | ERROR    | monitor.searchSpiders.people:get_request_from_keyword:38 - E 人民网错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7fb031d9ca60>
+    └ <Thread(Thread-8, started daemon 140390013552384)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7fb031d9c790>
+    └ <Thread(Thread-8, started daemon 140390013552384)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-8, started daemon 140390013552384)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-8, started daemon 140390013552384)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>>
+    └ <Thread(Thread-8, started daemon 140390013552384)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 781, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7faf1a2b3dc0>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+    └ <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7faf19fc0c70>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7faf18602580>
+    │    │                                │              │         └ '今年首期全国人大代表学习班“云上”开班'
+    │    │                                │              └ '人民网'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7faf1a2b3e50>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 135, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7fb01221e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7faf18602580>
+               │    │                        │         └ '今年首期全国人大代表学习班“云上”开班'
+               │    │                        └ '人民网'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7faf1a2b3f70>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 192, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7faf1860a790>
+                   │    │       │                                  │        │           └ '今年首期全国人大代表学习班“云上”开班'
+                   │    │       │                                  │        └ <string.Template object at 0x7faf1860e940>
+                   │    │       │                                  └ {'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8', 'Accept-Encoding': 'gzip, deflate', 'Accept-La...
+                   │    │       └ '人民网'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7faf19f247f0>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/people.py", line 24, in get_request_from_keyword
+    all_search_page = data["pages"]
+                      └ None
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-06 11:10:51.178 | ERROR    | monitor.searchSpiders.people:get_request_from_keyword:38 - E 人民网错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7fb031d9ca60>
+    └ <Thread(Thread-13, started daemon 140389663110912)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7fb031d9c790>
+    └ <Thread(Thread-13, started daemon 140389663110912)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-13, started daemon 140389663110912)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-13, started daemon 140389663110912)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>>
+    └ <Thread(Thread-13, started daemon 140389663110912)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 781, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7faf1a2b3dc0>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+    └ <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7faf19fc0c70>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7faf18e40d00>
+    │    │                                │              │         └ '内蒙古兴安军地共建“爱民生态林”'
+    │    │                                │              └ '人民网'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7faf1a2b3e50>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 135, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7fb01221e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7faf18e40d00>
+               │    │                        │         └ '内蒙古兴安军地共建“爱民生态林”'
+               │    │                        └ '人民网'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7faf1a2b3f70>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 192, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7faf18e40c10>
+                   │    │       │                                  │        │           └ '内蒙古兴安军地共建“爱民生态林”'
+                   │    │       │                                  │        └ <string.Template object at 0x7faf19ea3a30>
+                   │    │       │                                  └ {'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8', 'Accept-Encoding': 'gzip, deflate', 'Accept-La...
+                   │    │       └ '人民网'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7faf19f247f0>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/people.py", line 24, in get_request_from_keyword
+    all_search_page = data["pages"]
+                      └ None
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-06 11:10:52.752 | ERROR    | monitor.searchSpiders.people:get_request_from_keyword:38 - E 人民网错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7fb031d9ca60>
+    └ <Thread(Thread-3, started daemon 140390030599936)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7fb031d9c790>
+    └ <Thread(Thread-3, started daemon 140390030599936)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-3, started daemon 140390030599936)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-3, started daemon 140390030599936)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>>
+    └ <Thread(Thread-3, started daemon 140390030599936)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 781, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7faf1a2b3dc0>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+    └ <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7faf19fc0c70>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7faf19ea3310>
+    │    │                                │              │         └ '钻漏洞非法牟利、虚增中间商赚差价……最高检典型案例揭示职务侵占犯罪这些特点'
+    │    │                                │              └ '人民网'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7faf1a2b3e50>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 135, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7fb01221e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7faf19ea3310>
+               │    │                        │         └ '钻漏洞非法牟利、虚增中间商赚差价……最高检典型案例揭示职务侵占犯罪这些特点'
+               │    │                        └ '人民网'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7faf1a2b3f70>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 192, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7faf185b3b50>
+                   │    │       │                                  │        │           └ '钻漏洞非法牟利、虚增中间商赚差价……最高检典型案例揭示职务侵占犯罪这些特点'
+                   │    │       │                                  │        └ <string.Template object at 0x7faf185b32b0>
+                   │    │       │                                  └ {'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8', 'Accept-Encoding': 'gzip, deflate', 'Accept-La...
+                   │    │       └ '人民网'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7faf19f247f0>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/people.py", line 24, in get_request_from_keyword
+    all_search_page = data["pages"]
+                      └ None
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-06 11:10:53.810 | ERROR    | monitor.searchSpiders.people:get_request_from_keyword:38 - E 人民网错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7fb031d9ca60>
+    └ <Thread(Thread-8, started daemon 140390013552384)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7fb031d9c790>
+    └ <Thread(Thread-8, started daemon 140390013552384)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-8, started daemon 140390013552384)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-8, started daemon 140390013552384)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>>
+    └ <Thread(Thread-8, started daemon 140390013552384)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 781, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7faf1a2b3dc0>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+    └ <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7faf19fc0c70>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7faf18602580>
+    │    │                                │              │         └ '奋力奔跑，书写新时代的青春答卷 '
+    │    │                                │              └ '人民网'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7faf1a2b3e50>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 135, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7fb01221e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7faf18602580>
+               │    │                        │         └ '奋力奔跑，书写新时代的青春答卷 '
+               │    │                        └ '人民网'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7faf1a2b3f70>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 192, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7faf185a48e0>
+                   │    │       │                                  │        │           └ '奋力奔跑，书写新时代的青春答卷 '
+                   │    │       │                                  │        └ <string.Template object at 0x7faf19ea3880>
+                   │    │       │                                  └ {'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8', 'Accept-Encoding': 'gzip, deflate', 'Accept-La...
+                   │    │       └ '人民网'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7faf19f247f0>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/people.py", line 24, in get_request_from_keyword
+    all_search_page = data["pages"]
+                      └ None
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-06 11:10:54.453 | ERROR    | monitor.searchSpiders.people:get_request_from_keyword:38 - E 人民网错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7fb031d9ca60>
+    └ <Thread(Thread-13, started daemon 140389663110912)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7fb031d9c790>
+    └ <Thread(Thread-13, started daemon 140389663110912)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-13, started daemon 140389663110912)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-13, started daemon 140389663110912)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>>
+    └ <Thread(Thread-13, started daemon 140389663110912)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 781, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7faf1a2b3dc0>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+    └ <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7faf19fc0c70>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7faf18e40d00>
+    │    │                                │              │         └ '美政府机构瞒报疑似“病毒溢出”事件（深度观察）'
+    │    │                                │              └ '人民网'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7faf1a2b3e50>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 135, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7fb01221e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7faf18e40d00>
+               │    │                        │         └ '美政府机构瞒报疑似“病毒溢出”事件（深度观察）'
+               │    │                        └ '人民网'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7faf1a2b3f70>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 192, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7faf185ad670>
+                   │    │       │                                  │        │           └ '美政府机构瞒报疑似“病毒溢出”事件（深度观察）'
+                   │    │       │                                  │        └ <string.Template object at 0x7faf185ad760>
+                   │    │       │                                  └ {'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8', 'Accept-Encoding': 'gzip, deflate', 'Accept-La...
+                   │    │       └ '人民网'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7faf19f247f0>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/people.py", line 24, in get_request_from_keyword
+    all_search_page = data["pages"]
+                      └ None
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-06 11:10:56.061 | ERROR    | monitor.searchSpiders.people:get_request_from_keyword:38 - E 人民网错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7fb031d9ca60>
+    └ <Thread(Thread-3, started daemon 140390030599936)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7fb031d9c790>
+    └ <Thread(Thread-3, started daemon 140390030599936)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-3, started daemon 140390030599936)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-3, started daemon 140390030599936)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>>
+    └ <Thread(Thread-3, started daemon 140390030599936)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 781, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7faf1a2b3dc0>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+    └ <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7faf19fc0c70>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7faf19ea3310>
+    │    │                                │              │         └ '襄阳樊城区法院：“预告处罚”破解执行僵局'
+    │    │                                │              └ '人民网'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7faf1a2b3e50>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 135, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7fb01221e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7faf19ea3310>
+               │    │                        │         └ '襄阳樊城区法院：“预告处罚”破解执行僵局'
+               │    │                        └ '人民网'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7faf1a2b3f70>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 192, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7faf19eb4fa0>
+                   │    │       │                                  │        │           └ '襄阳樊城区法院：“预告处罚”破解执行僵局'
+                   │    │       │                                  │        └ <string.Template object at 0x7faf18e68fa0>
+                   │    │       │                                  └ {'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8', 'Accept-Encoding': 'gzip, deflate', 'Accept-La...
+                   │    │       └ '人民网'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7faf19f247f0>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/people.py", line 24, in get_request_from_keyword
+    all_search_page = data["pages"]
+                      └ None
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-06 11:10:57.081 | ERROR    | monitor.searchSpiders.people:get_request_from_keyword:38 - E 人民网错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7fb031d9ca60>
+    └ <Thread(Thread-8, started daemon 140390013552384)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7fb031d9c790>
+    └ <Thread(Thread-8, started daemon 140390013552384)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-8, started daemon 140390013552384)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-8, started daemon 140390013552384)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>>
+    └ <Thread(Thread-8, started daemon 140390013552384)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 781, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7faf1a2b3dc0>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+    └ <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7faf19fc0c70>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7faf18602580>
+    │    │                                │              │         └ '公安部发布A级通缉令公开通缉六名重大拐卖妇女儿童犯罪在逃人员'
+    │    │                                │              └ '人民网'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7faf1a2b3e50>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 135, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7fb01221e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7faf18602580>
+               │    │                        │         └ '公安部发布A级通缉令公开通缉六名重大拐卖妇女儿童犯罪在逃人员'
+               │    │                        └ '人民网'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7faf1a2b3f70>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 192, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7faf18e680d0>
+                   │    │       │                                  │        │           └ '公安部发布A级通缉令公开通缉六名重大拐卖妇女儿童犯罪在逃人员'
+                   │    │       │                                  │        └ <string.Template object at 0x7faf18602760>
+                   │    │       │                                  └ {'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8', 'Accept-Encoding': 'gzip, deflate', 'Accept-La...
+                   │    │       └ '人民网'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7faf19f247f0>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/people.py", line 24, in get_request_from_keyword
+    all_search_page = data["pages"]
+                      └ None
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-06 11:10:57.656 | ERROR    | monitor.searchSpiders.people:get_request_from_keyword:38 - E 人民网错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7fb031d9ca60>
+    └ <Thread(Thread-13, started daemon 140389663110912)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7fb031d9c790>
+    └ <Thread(Thread-13, started daemon 140389663110912)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-13, started daemon 140389663110912)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-13, started daemon 140389663110912)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>>
+    └ <Thread(Thread-13, started daemon 140389663110912)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 781, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7faf1a2b3dc0>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+    └ <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7faf19fc0c70>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7faf18e40d00>
+    │    │                                │              │         └ '湖南长沙居民自建房倒塌事故造成53人遇难'
+    │    │                                │              └ '人民网'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7faf1a2b3e50>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 135, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7fb01221e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7faf18e40d00>
+               │    │                        │         └ '湖南长沙居民自建房倒塌事故造成53人遇难'
+               │    │                        └ '人民网'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7faf1a2b3f70>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 192, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7faf18e68ca0>
+                   │    │       │                                  │        │           └ '湖南长沙居民自建房倒塌事故造成53人遇难'
+                   │    │       │                                  │        └ <string.Template object at 0x7faf1860af70>
+                   │    │       │                                  └ {'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8', 'Accept-Encoding': 'gzip, deflate', 'Accept-La...
+                   │    │       └ '人民网'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7faf19f247f0>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/people.py", line 24, in get_request_from_keyword
+    all_search_page = data["pages"]
+                      └ None
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-06 11:10:58.439 | ERROR    | monitor.searchSpiders.people:get_request_from_keyword:38 - E 人民网错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7fb031d9ca60>
+    └ <Thread(Thread-16, started daemon 140389654718208)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7fb031d9c790>
+    └ <Thread(Thread-16, started daemon 140389654718208)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-16, started daemon 140389654718208)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-16, started daemon 140389654718208)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>>
+    └ <Thread(Thread-16, started daemon 140389654718208)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 781, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7faf1a2b3dc0>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+    └ <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7faf19fc0c70>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7faf18553460>
+    │    │                                │              │         └ '高原古城变身“高原花城”'
+    │    │                                │              └ '人民网'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7faf1a2b3e50>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 135, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7fb01221e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7faf18553460>
+               │    │                        │         └ '高原古城变身“高原花城”'
+               │    │                        └ '人民网'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7faf1a2b3f70>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 192, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7faf18553700>
+                   │    │       │                                  │        │           └ '高原古城变身“高原花城”'
+                   │    │       │                                  │        └ <string.Template object at 0x7faf1860a130>
+                   │    │       │                                  └ {'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8', 'Accept-Encoding': 'gzip, deflate', 'Accept-La...
+                   │    │       └ '人民网'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7faf19f247f0>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/people.py", line 24, in get_request_from_keyword
+    all_search_page = data["pages"]
+                      └ None
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-06 11:10:59.318 | ERROR    | monitor.searchSpiders.people:get_request_from_keyword:38 - E 人民网错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7fb031d9ca60>
+    └ <Thread(Thread-3, started daemon 140390030599936)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7fb031d9c790>
+    └ <Thread(Thread-3, started daemon 140390030599936)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-3, started daemon 140390030599936)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-3, started daemon 140390030599936)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>>
+    └ <Thread(Thread-3, started daemon 140390030599936)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 781, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7faf1a2b3dc0>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+    └ <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7faf19fc0c70>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7faf19ea3310>
+    │    │                                │              │         └ '立夏农事忙'
+    │    │                                │              └ '人民网'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7faf1a2b3e50>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 135, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7fb01221e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7faf19ea3310>
+               │    │                        │         └ '立夏农事忙'
+               │    │                        └ '人民网'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7faf1a2b3f70>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 192, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7faf185bebb0>
+                   │    │       │                                  │        │           └ '立夏农事忙'
+                   │    │       │                                  │        └ <string.Template object at 0x7faf186023d0>
+                   │    │       │                                  └ {'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8', 'Accept-Encoding': 'gzip, deflate', 'Accept-La...
+                   │    │       └ '人民网'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7faf19f247f0>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/people.py", line 24, in get_request_from_keyword
+    all_search_page = data["pages"]
+                      └ None
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-06 11:11:00.330 | ERROR    | monitor.searchSpiders.people:get_request_from_keyword:38 - E 人民网错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7fb031d9ca60>
+    └ <Thread(Thread-8, started daemon 140390013552384)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7fb031d9c790>
+    └ <Thread(Thread-8, started daemon 140390013552384)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-8, started daemon 140390013552384)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-8, started daemon 140390013552384)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>>
+    └ <Thread(Thread-8, started daemon 140390013552384)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 781, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7faf1a2b3dc0>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+    └ <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7faf19fc0c70>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7faf18602580>
+    │    │                                │              │         └ '第74集团军某旅炮兵分队开展实弹射击演练'
+    │    │                                │              └ '人民网'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7faf1a2b3e50>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 135, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7fb01221e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7faf18602580>
+               │    │                        │         └ '第74集团军某旅炮兵分队开展实弹射击演练'
+               │    │                        └ '人民网'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7faf1a2b3f70>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 192, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7faf185538b0>
+                   │    │       │                                  │        │           └ '第74集团军某旅炮兵分队开展实弹射击演练'
+                   │    │       │                                  │        └ <string.Template object at 0x7faf185538e0>
+                   │    │       │                                  └ {'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8', 'Accept-Encoding': 'gzip, deflate', 'Accept-La...
+                   │    │       └ '人民网'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7faf19f247f0>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/people.py", line 24, in get_request_from_keyword
+    all_search_page = data["pages"]
+                      └ None
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-06 11:11:01.086 | ERROR    | monitor.searchSpiders.people:get_request_from_keyword:38 - E 人民网错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7fb031d9ca60>
+    └ <Thread(Thread-13, started daemon 140389663110912)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7fb031d9c790>
+    └ <Thread(Thread-13, started daemon 140389663110912)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-13, started daemon 140389663110912)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-13, started daemon 140389663110912)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>>
+    └ <Thread(Thread-13, started daemon 140389663110912)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 781, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7faf1a2b3dc0>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+    └ <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7faf19fc0c70>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7faf18e40d00>
+    │    │                                │              │         └ '土耳其4月CPI同比涨幅近70%'
+    │    │                                │              └ '人民网'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7faf1a2b3e50>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 135, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7fb01221e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7faf18e40d00>
+               │    │                        │         └ '土耳其4月CPI同比涨幅近70%'
+               │    │                        └ '人民网'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7faf1a2b3f70>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 192, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7faf18e402e0>
+                   │    │       │                                  │        │           └ '土耳其4月CPI同比涨幅近70%'
+                   │    │       │                                  │        └ <string.Template object at 0x7faf185a47c0>
+                   │    │       │                                  └ {'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8', 'Accept-Encoding': 'gzip, deflate', 'Accept-La...
+                   │    │       └ '人民网'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7faf19f247f0>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/people.py", line 24, in get_request_from_keyword
+    all_search_page = data["pages"]
+                      └ None
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-06 11:11:01.713 | ERROR    | monitor.searchSpiders.people:get_request_from_keyword:38 - E 人民网错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7fb031d9ca60>
+    └ <Thread(Thread-16, started daemon 140389654718208)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7fb031d9c790>
+    └ <Thread(Thread-16, started daemon 140389654718208)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-16, started daemon 140389654718208)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-16, started daemon 140389654718208)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>>
+    └ <Thread(Thread-16, started daemon 140389654718208)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 781, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7faf1a2b3dc0>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+    └ <monitor.projectManager.ProjectManager object at 0x7faf1a2af2b0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7faf19fc0c70>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7faf18553460>
+    │    │                                │              │         └ '以色列中部发生袭击事件至少3死4伤'
+    │    │                                │              └ '人民网'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7faf1a2b3e50>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 135, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7fb01221e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7faf18553460>
+               │    │                        │         └ '以色列中部发生袭击事件至少3死4伤'
+               │    │                        └ '人民网'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7faf1a2b3f70>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 192, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7faf1855b9a0>
+                   │    │       │                                  │        │           └ '以色列中部发生袭击事件至少3死4伤'
+                   │    │       │                                  │        └ <string.Template object at 0x7faf1855ba00>
+                   │    │       │                                  └ {'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8', 'Accept-Encoding': 'gzip, deflate', 'Accept-La...
+                   │    │       └ '人民网'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7faf19f247f0>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7faf19f348e0>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/people.py", line 24, in get_request_from_keyword
+    all_search_page = data["pages"]
+                      └ None
+
+TypeError: 'NoneType' object is not subscriptable

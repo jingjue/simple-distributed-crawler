@@ -1,0 +1,326 @@
+# -*-coding:utf-8-*- 、
+# Team : upcedu.nlp
+# Author：dongshou
+# Date ：2021/9/22 下午3:32
+# Describe ：
+# import logging
+# logging.getLogger("requests").setLevel(logging.ERROR)
+import importlib
+import os
+
+import configparser
+import jieba
+import pandas as pd
+import scrapy
+from loguru import logger
+
+from base.Exception import NoHeaderError
+from base.loadconfig import Config
+from base.utils import get_host_ip, load_txt
+from base.utils.time import build_path, get_delta_time, get_last_time, get_time, str_to_datetime, get_date, to_datetime
+from conf.default import Default_interval_time
+from core.spiders import RedisSpider
+from base.db.dbSlot import dbslot
+import inspect
+
+from spiders.settings import REDIS_HOST
+from spiders.spiders import BaseSpider
+
+root = os.path.dirname(os.path.realpath(__file__))
+
+conf = configparser.ConfigParser()
+conf.read('/home/chase/storage/CT/pycharmproject/spiders/scrapy.cfg')
+
+
+class HotSearch(RedisSpider):
+    name = "hotsearch"
+
+    # redis_key = conf.get("deploy", 'project')
+    redis_key = "hotsearch"
+
+    def __init__(self, all_spiders=None, **kwargs):
+        # kwargs.pop('_job')
+        super(HotSearch, self).__init__()
+        self.params = Config().load_config("SPIDER")
+        # 当spider_config 为[]时，默认加载全部爬虫
+        self.spider_config = self.get_spiders_from_config()
+        self.spider_num_limit = eval(self.params["num_limit"])  # 每个爬虫每个关键字的数量限制
+        self.all_s = []  # 全部爬虫
+
+        if isinstance(all_spiders, list):
+            self.all_spiders = all_spiders
+        elif isinstance(all_spiders, RedisSpider):
+            self.all_spiders = [all_spiders]
+        elif all_spiders == None:
+            self.all_spiders = []
+            self.register_spider()
+
+        self.register_parse()  # 注册parse函数
+        self.all_keywords = []
+        self.dbslot = dbslot
+        self.last_time = self.get_last_time()  # 上一次hotsearch运行的时间
+        self._open_spider()
+
+
+    def get_spiders_from_config(self):
+        return eval(self.params["Spiders"])
+
+    def refresh_spiders_config_from_redis(self):
+        """
+        从redis中动态加载需要启动的爬虫，用户可以动态选择运行那些平台的爬虫
+        :return:
+        """
+        spider_config = self.dbslot.redis.get("spider:spiders_config")
+        if spider_config:
+            self.spider_config = spider_config
+
+    def get_last_time(self):
+        last_time = self.dbslot.redis.get("hotsearch:last_time")
+        if not last_time:
+            return get_last_time(Default_interval_time + 1)
+        else:
+            return str_to_datetime(last_time)
+
+    def update_last_time(self):
+        self.last_time = get_date()
+        self.dbslot.redis.set("hotsearch:last_time", self.last_time)
+
+    def register_spider(self):
+        for file in os.listdir(root):
+            if "__init__" in file or not file.endswith('.py'):
+                continue
+            x = importlib.import_module(f"spiders.spiders.{file.split('.')[0]}")
+            for name, cls in inspect.getmembers(x, inspect.isclass):
+                if BaseSpider in cls.__mro__ and name != "BaseSpider":
+                    self.all_s.append(cls())
+                    if cls.name in self.spider_config:
+                        self.all_spiders.append(cls())
+
+    def register_parse(self):
+        for spider in self.all_spiders:
+            for name, method in inspect.getmembers(spider, inspect.ismethod):
+                if "parse" in name :
+                    print(f"{spider.name}_{name}")
+                    self.__dict__[f"{spider.name}_{name}"] = method
+
+    def _open_spider(self):
+        """
+        初始化各个子爬虫
+        :param setting:
+        :return:
+        """
+        for spider in self.all_spiders:
+            spider._open(slot=self.dbslot, that=self)
+
+    def add_spider(self, spider):
+        if isinstance(spider, RedisSpider):
+            self.all_spiders.append(spider)
+        elif isinstance(spider, list):
+            self.all_spiders.extend(spider)
+
+    def make_requests_from_url(self, data):
+        """
+        只有第一次从redis中取数据时，才会调用该方法，以后从redis取数据时，会执行scrapy_redis.queue.PriorityQueue.pop()方法，
+        其执行request_from_dict()将redis中的数据转为request
+        从redis中取出数据，并重新封装成request
+        :param data:{url,keyword,callback,platform}
+        :return:
+        """
+        if len(self.spider_config) == 1 and self.spider_config[0] == "weibo_user":
+            return self.all_spiders[0].make_request_from_uid(data)
+        else:
+            try:
+                meta = data.get("meta", "None")
+                callback_func_name = meta["name"] + "_" + meta["callback"]
+                headers = self.get_spider_by_name(meta["name"]).headers
+                if not headers or not callback_func_name:
+                    raise NoHeaderError(data)
+                data.pop("headers")
+                data.pop("callback")
+                return scrapy.Request(callback=getattr(self, callback_func_name), headers=headers, **data)
+            except:
+                return
+
+    def get_spider_by_name(self, name):
+        for spider in self.all_spiders:
+            if spider.name == name:
+                return spider
+
+    def get_keyowrds(self):
+        """
+        获取各大平台热搜表
+        :return:
+        """
+        for spider in self.all_spiders:
+            try:
+                self.all_keywords.extend(spider.hot_search())
+            except:
+                logger.error(f"【hotsearch】{spider.name}")
+        return self.save_keyword()
+
+    def save_keyword(self):
+        """
+        该函数实现两个功能，1保存当前爬取的关键字，2.对国防，政治类的标题进行区分，并连续爬取该事件
+        :return:
+        """
+        data = pd.DataFrame({"keyword": self.all_keywords})
+        data.to_csv(build_path(), encoding='utf-8-sig')  # 编码格式必须为 utf-8-sig 不能为 utf-8
+        logger.info(f"【hotsearch】保存keyword")
+
+        # 获取时政热点和国家安全
+        hot_words = set(load_txt(os.path.join(os.path.dirname(os.path.dirname(root)), 'src', 'hot_words.txt')))
+
+        # 对标题进行分解，获取与国防安全，时政热点相关的标题
+        continue_titles = []
+        for title in self.all_keywords:
+            title_seg = set(jieba.cut(title))
+            keyword = title_seg & hot_words
+            if keyword:
+                continue_titles.append(title)
+                # self.dbslot.redis.insert("spider:continue_titles", title + "/" + date)
+        return continue_titles
+
+    def refresh_cookie(self, platform):
+        """
+        根据平台名称来获取cookie
+        :param platform:
+        :return:
+        """
+        for spider in self.all_spiders:
+            if spider.name == platform:
+                return spider.refresh_cookie()
+
+    def get_request_from_keyword(self, keywords):
+        """
+        总
+        :return:
+        """
+        for keyword in keywords:
+            for spider in self.all_spiders:
+                try:
+                    request_num = 0
+                    for request in spider.get_request_from_keyword(keyword):
+                        if isinstance(request, scrapy.Request):
+                            request.callback = getattr(self, f"{spider.name}_{request.meta['callback']}")
+                            self.enqueue_request(request)
+                            request_num += 1
+                            if request_num > self.spider_num_limit.get(spider.name, float('inf')):
+                                break
+                except RuntimeError:
+                    continue
+                except:
+                    logger.exception(f"【hotsearch】 {spider.name},")
+
+    def load_keyword_from_text(self, dir):
+        with open(dir) as f:
+            for key in f.readlines():
+                self.all_keywords.append(key.strip())
+
+    def filter_spider_by_key(self):
+        for i in range(len(self.all_spiders) - 1, -1, -1):
+            if not self.all_spiders[i].flag_search:
+                self.all_spiders.pop(i)
+
+    def crawl_by_text(self, dir="/home/users/CT/数据集/舆情/classification/军事.txt"):
+        self.load_keyword_from_text(dir)
+        self.filter_spider_by_key()
+        self.get_request_from_keyword(self.all_keywords)
+
+    def enqueue_request(self, request):
+        """
+        将request保存到redis中去
+        :param request:
+        :return:
+        """
+        self.crawler.engine.crawl(request, self)  #
+        logger.info(f"【保存url】url：{request.url}")
+
+    def isMaster(self):
+        """
+        判断是否是Master机器
+        :return:
+        """
+        return get_host_ip() == REDIS_HOST
+
+    def dingshi_run(self):
+        """
+        定时启动爬虫
+        :return:
+        """
+        if get_delta_time(self.last_time) >= Default_interval_time and self.isMaster():
+            # logger.info("定时启动热点爬虫")
+            # self.init_first_search()
+            # # self.hot_search()
+            # self.load_keyword_from_text()
+            # self.update_last_time()  # 更新
+            # # self.crawl_by_text()
+            # logger.info("热点爬虫加载完毕")
+            self.crawl_by_text('/home/users/CT/pycharmproject/spiders/events/乌克兰.txt')
+
+    def init_first_search(self):
+        """
+            初始化每个爬虫的初次查询标识
+            :return:
+        """
+        for spider in self.all_spiders:
+            spider.first_search = True
+
+    def add_keyword(self, keyword):
+        self.all_keywords.append(keyword)
+
+    def hot_search(self):
+        # 获取当天热搜，并返回在关键词库中的信息,保存到redis中,和保存到redis中的title进行去重处理
+        continue_titles = self.get_keyowrds()
+        all_titles = []
+        # 确定热搜列表
+        last_titles = self.dbslot.redis.get_list("spider:continue_titles")
+        last_title_dict = {}
+        date = get_time()
+        if last_titles:
+            for last_title in last_titles:
+                title, last_date = last_title.split("/")
+                if (date - to_datetime(last_date)).days <= self.params["continue_day"]:
+                    all_titles.append(title)
+                    last_title_dict[title] = to_datetime(last_date)
+                else:
+                    # 删除redis中超过指定日期的title
+                    self.dbslot.redis.rm_value("spider:continue_titles", 0, last_title)
+        # 合并redis中的title
+        # 1.更新title的日期,同时合并title
+        for title in continue_titles:
+            last_title_dict[title] = date
+        # 2.构造需要的数据
+        now_title = [key + "/" + str(value) for key, value in last_title_dict.items()]
+        # 3.更新title
+        self.dbslot.redis.insert("spider:continue_titles", now_title)
+        all_titles += self.all_keywords
+
+        self.get_request_from_keyword(all_titles)
+
+    def parse(self, response, **kwargs):
+        """
+        【已解决】
+        不知道那里产生的bug，存在部分request请求没有指定callback函数，
+        error 产生的response meta为：{'platform': 'weibo', 'keyword': '山西严重洪涝灾害已致175万余人受灾', 'callback': 'parse_signal_page', 'uid': 1293376545, 'weibo_id': 'KC6jrkyby', 'father': '1498396803/KC5Kk9vdX', 'name': 'weibo', 'depth': 1, 'download_timeownload_slot': 'weibo.com', 'download_latency': 0.2812509536743164}
+            callback属性为空
+        分析：
+            scrapy.request存在两种产生途径 （1）热点发现；（2）解析过程中产生的链接，问题出现在这，callback指定没加平台名
+        以下为偷懒的解决办法
+        :param response:
+        :param kwargs:
+        :return:
+        """
+        parse_func_name = response.meta.get("name") + "_" + response.meta.get("callback")
+        return getattr(self, parse_func_name)(response, **kwargs)
+
+
+if __name__ == '__main__':
+    spider = HotSearch()
+    spider.register_spider()
+    spider.register_parse()
+    # print(root)
+    # print(getattr(spider, "weibo_parse")("tstfa"))
+    # spider.all_spiders[0].get_request_from_keyword("test")
+    # spider.start_requests()
+    # spider.start_requests()
+    # spdiers = weibo_hotSearch()

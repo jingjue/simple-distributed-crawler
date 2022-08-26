@@ -1,0 +1,2472 @@
+2022-05-13 18:11:52.088 | ERROR    | base.db.mysql:update:390 - 【mysql更新数据出错】
+Traceback (most recent call last):
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1771, in _execute_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x7f31f38f75e0>
+    │    └ <sqlalchemy.dialects.mysql.pymysql.MySQLDialect_pymysql object at 0x7f3103ffde20>
+    └ <sqlalchemy.engine.base.Connection object at 0x7f3102299520>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 717, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ {'server_id': '180.201.163.246:6800', 'ip': '180.201.163.246', 'username': 'chase', 'password': '3845843833753113838326891166...
+    │      │       └ 'UPDATE device SET server_id=%(server_id)s, ip=%(ip)s, username=%(username)s, password=%(password)s, address=%(address)s, por...
+    │      └ <function Cursor.execute at 0x7f31f354cdc0>
+    └ <pymysql.cursors.Cursor object at 0x7f30b8612880>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 148, in execute
+    result = self._query(query)
+             │    │      └ "UPDATE device SET server_id='180.201.163.246:6800', ip='180.201.163.246', username='chase', password='3845843833753113838326...
+             │    └ <function Cursor._query at 0x7f31f34d7280>
+             └ <pymysql.cursors.Cursor object at 0x7f30b8612880>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 310, in _query
+    conn.query(q)
+    │    │     └ "UPDATE device SET server_id='180.201.163.246:6800', ip='180.201.163.246', username='chase', password='3845843833753113838326...
+    │    └ <function Connection.query at 0x7f31f34e5670>
+    └ <pymysql.connections.Connection object at 0x7f30b8563ca0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+    │    │                │    │                             └ False
+    │    │                │    └ <function Connection._read_query_result at 0x7f31f34e5ca0>
+    │    │                └ <pymysql.connections.Connection object at 0x7f30b8563ca0>
+    │    └ 1
+    └ <pymysql.connections.Connection object at 0x7f30b8563ca0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 775, in _read_query_result
+    result.read()
+    │      └ <function MySQLResult.read at 0x7f31f34e64c0>
+    └ <pymysql.connections.MySQLResult object at 0x7f30d8490b80>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+                   │    └ None
+                   └ <pymysql.connections.MySQLResult object at 0x7f30d8490b80>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+    │      └ <function MysqlPacket.raise_for_error at 0x7f31f34ddee0>
+    └ <pymysql.protocol.MysqlPacket object at 0x7f310004fe20>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    │   │                     │    └ <member '_data' of 'MysqlPacket' objects>
+    │   │                     └ <pymysql.protocol.MysqlPacket object at 0x7f310004fe20>
+    │   └ <function raise_mysql_exception at 0x7f31f358c670>
+    └ <module 'pymysql.err' from '/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+          │          │      └ "Duplicate entry '180.201.163.246:6800' for key 'device.PRIMARY'"
+          │          └ 1062
+          └ <class 'pymysql.err.IntegrityError'>
+
+pymysql.err.IntegrityError: (1062, "Duplicate entry '180.201.163.246:6800' for key 'device.PRIMARY'")
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f321bf29a60>
+    └ <Thread(Thread-1061, started daemon 139840401745664)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f321bf29790>
+    └ <Thread(Thread-1061, started daemon 139840401745664)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-1061, started daemon 139840401745664)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-1061, started daemon 139840401745664)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f31042e52e0>>
+    └ <Thread(Thread-1061, started daemon 139840401745664)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 799, in get_request_from_keywords_hot
+    self.start_finished_spider_every_interval(project_names)
+    │    │                                    └ ['default', 'test']
+    │    └ <function ProjectManager.start_finished_spider_every_interval at 0x7f3104005280>
+    └ <monitor.projectManager.ProjectManager object at 0x7f31042e52e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 784, in start_finished_spider_every_interval
+    self[name].start_spider()
+    │    └ 'default'
+    └ <monitor.projectManager.ProjectManager object at 0x7f31042e52e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 366, in start_spider
+    self.update_device_valid(device)
+    │    │                   └ <monitor.deviceManager.DeviceC object at 0x7f3104029220>
+    │    └ <function Project.update_device_valid at 0x7f3104003280>
+    └ <monitor.projectManager.Project object at 0x7f3104029460>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 421, in update_device_valid
+    self.database_manager.mysql.update(Device(**device.to_item()))
+    │    │                │     │      │        │      └ <function DeviceC.to_item at 0x7f31f34ed310>
+    │    │                │     │      │        └ <monitor.deviceManager.DeviceC object at 0x7f3104029220>
+    │    │                │     │      └ <class 'base.db.mysql.Device'>
+    │    │                │     └ <function Mysql.update at 0x7f31f35f4790>
+    │    │                └ <base.db.mysql.Mysql object at 0x7f3103ffdfd0>
+    │    └ <base.db.dbSlot.Slot object at 0x7f3103ffdf10>
+    └ <monitor.projectManager.Project object at 0x7f3104029460>
+
+> File "/home/users/Scy/yuqing/spider/base/db/mysql.py", line 375, in update
+    row.update(new)
+    │   │      └ {'server_id': '180.201.163.246:6800', 'ip': '180.201.163.246', 'username': 'chase', 'password': '3845843833753113838326891166...
+    │   └ <function Query.update at 0x7f31f37333a0>
+    └ <sqlalchemy.orm.query.Query object at 0x7f3102299670>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3221, in update
+    result = self.session.execute(
+             │    │       └ <function Session.execute at 0x7f31f370faf0>
+             │    └ <sqlalchemy.orm.session.Session object at 0x7f3101c9e430>
+             └ <sqlalchemy.orm.query.Query object at 0x7f3102299670>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1689, in execute
+    result = conn._execute_20(statement, params or {}, execution_options)
+             │    │           │          │             └ immutabledict({'synchronize_session': 'evaluate', '_sa_orm_update_options': default_update_options(_matched_objects=[], _reso...
+             │    │           │          └ immutabledict({})
+             │    │           └ <sqlalchemy.sql.annotation.AnnotatedUpdate object at 0x7f30b80b9520>
+             │    └ <function Connection._execute_20 at 0x7f31f39bc790>
+             └ <sqlalchemy.engine.base.Connection object at 0x7f3102299520>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1583, in _execute_20
+    return meth(self, args_10style, kwargs_10style, execution_options)
+           │    │     │             │               └ immutabledict({'synchronize_session': 'evaluate', '_sa_orm_update_options': default_update_options(_matched_objects=[], _reso...
+           │    │     │             └ immutabledict({})
+           │    │     └ ({},)
+           │    └ <sqlalchemy.engine.base.Connection object at 0x7f3102299520>
+           └ <bound method ClauseElement._execute_on_connection of <sqlalchemy.sql.annotation.AnnotatedUpdate object at 0x7f30b80b9520>>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 323, in _execute_on_connection
+    return connection._execute_clauseelement(
+           │          └ <function Connection._execute_clauseelement at 0x7f31f39bc5e0>
+           └ <sqlalchemy.engine.base.Connection object at 0x7f3102299520>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1452, in _execute_clauseelement
+    ret = self._execute_context(
+          │    └ <function Connection._execute_context at 0x7f31f39bc8b0>
+          └ <sqlalchemy.engine.base.Connection object at 0x7f3102299520>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1814, in _execute_context
+    self._handle_dbapi_exception(
+    │    └ <function Connection._handle_dbapi_exception at 0x7f31f39bca60>
+    └ <sqlalchemy.engine.base.Connection object at 0x7f3102299520>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1995, in _handle_dbapi_exception
+    util.raise_(
+    │    └ <function raise_ at 0x7f31f3d7ea60>
+    └ <module 'sqlalchemy.util' from '/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/util/__init__.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 207, in raise_
+    raise exception
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1771, in _execute_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x7f31f38f75e0>
+    │    └ <sqlalchemy.dialects.mysql.pymysql.MySQLDialect_pymysql object at 0x7f3103ffde20>
+    └ <sqlalchemy.engine.base.Connection object at 0x7f3102299520>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 717, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ {'server_id': '180.201.163.246:6800', 'ip': '180.201.163.246', 'username': 'chase', 'password': '3845843833753113838326891166...
+    │      │       └ 'UPDATE device SET server_id=%(server_id)s, ip=%(ip)s, username=%(username)s, password=%(password)s, address=%(address)s, por...
+    │      └ <function Cursor.execute at 0x7f31f354cdc0>
+    └ <pymysql.cursors.Cursor object at 0x7f30b8612880>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 148, in execute
+    result = self._query(query)
+             │    │      └ "UPDATE device SET server_id='180.201.163.246:6800', ip='180.201.163.246', username='chase', password='3845843833753113838326...
+             │    └ <function Cursor._query at 0x7f31f34d7280>
+             └ <pymysql.cursors.Cursor object at 0x7f30b8612880>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 310, in _query
+    conn.query(q)
+    │    │     └ "UPDATE device SET server_id='180.201.163.246:6800', ip='180.201.163.246', username='chase', password='3845843833753113838326...
+    │    └ <function Connection.query at 0x7f31f34e5670>
+    └ <pymysql.connections.Connection object at 0x7f30b8563ca0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+    │    │                │    │                             └ False
+    │    │                │    └ <function Connection._read_query_result at 0x7f31f34e5ca0>
+    │    │                └ <pymysql.connections.Connection object at 0x7f30b8563ca0>
+    │    └ 1
+    └ <pymysql.connections.Connection object at 0x7f30b8563ca0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 775, in _read_query_result
+    result.read()
+    │      └ <function MySQLResult.read at 0x7f31f34e64c0>
+    └ <pymysql.connections.MySQLResult object at 0x7f30d8490b80>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+                   │    └ None
+                   └ <pymysql.connections.MySQLResult object at 0x7f30d8490b80>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+    │      └ <function MysqlPacket.raise_for_error at 0x7f31f34ddee0>
+    └ <pymysql.protocol.MysqlPacket object at 0x7f310004fe20>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    │   │                     │    └ <member '_data' of 'MysqlPacket' objects>
+    │   │                     └ <pymysql.protocol.MysqlPacket object at 0x7f310004fe20>
+    │   └ <function raise_mysql_exception at 0x7f31f358c670>
+    └ <module 'pymysql.err' from '/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+          │          │      └ "Duplicate entry '180.201.163.246:6800' for key 'device.PRIMARY'"
+          │          └ 1062
+          └ <class 'pymysql.err.IntegrityError'>
+
+sqlalchemy.exc.IntegrityError: (pymysql.err.IntegrityError) (1062, "Duplicate entry '180.201.163.246:6800' for key 'device.PRIMARY'")
+[SQL: UPDATE device SET server_id=%(server_id)s, ip=%(ip)s, username=%(username)s, password=%(password)s, address=%(address)s, port=%(port)s, valid=%(valid)s WHERE device.ip = %(ip_1)s]
+[parameters: {'server_id': '180.201.163.246:6800', 'ip': '180.201.163.246', 'username': 'chase', 'password': '38458438337531138383268911660660555265311535996002356274644854336826584607657091117803985594001237293946647955054385125196536324384019380343569414526 ... (9 characters truncated) ... 48484690402534046620259790228982541126413173624434841568481544982151797682398434675353060841974783577861335509014643613416483480324266144062714316466', 'address': '/home/users/CT/pycharmproject/spiders/', 'port': 6800, 'valid': 1, 'ip_1': '180.201.163.246'}]
+(Background on this error at: https://sqlalche.me/e/14/gkpj)
+2022-05-13 18:12:10.099 | ERROR    | base.db.mysql:update:390 - 【mysql更新数据出错】
+Traceback (most recent call last):
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1771, in _execute_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x7f31f38f75e0>
+    │    └ <sqlalchemy.dialects.mysql.pymysql.MySQLDialect_pymysql object at 0x7f3103ffde20>
+    └ <sqlalchemy.engine.base.Connection object at 0x7f30982e9dc0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 717, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ {'server_id': '180.201.163.246:6800', 'ip': '180.201.163.246', 'username': 'chase', 'password': '9415340424139602118550729951...
+    │      │       └ 'UPDATE device SET server_id=%(server_id)s, ip=%(ip)s, username=%(username)s, password=%(password)s, address=%(address)s, por...
+    │      └ <function Cursor.execute at 0x7f31f354cdc0>
+    └ <pymysql.cursors.Cursor object at 0x7f3102291a60>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 148, in execute
+    result = self._query(query)
+             │    │      └ "UPDATE device SET server_id='180.201.163.246:6800', ip='180.201.163.246', username='chase', password='9415340424139602118550...
+             │    └ <function Cursor._query at 0x7f31f34d7280>
+             └ <pymysql.cursors.Cursor object at 0x7f3102291a60>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 310, in _query
+    conn.query(q)
+    │    │     └ "UPDATE device SET server_id='180.201.163.246:6800', ip='180.201.163.246', username='chase', password='9415340424139602118550...
+    │    └ <function Connection.query at 0x7f31f34e5670>
+    └ <pymysql.connections.Connection object at 0x7f30b860f820>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+    │    │                │    │                             └ False
+    │    │                │    └ <function Connection._read_query_result at 0x7f31f34e5ca0>
+    │    │                └ <pymysql.connections.Connection object at 0x7f30b860f820>
+    │    └ 1
+    └ <pymysql.connections.Connection object at 0x7f30b860f820>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 775, in _read_query_result
+    result.read()
+    │      └ <function MySQLResult.read at 0x7f31f34e64c0>
+    └ <pymysql.connections.MySQLResult object at 0x7f310228b760>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+                   │    └ None
+                   └ <pymysql.connections.MySQLResult object at 0x7f310228b760>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+    │      └ <function MysqlPacket.raise_for_error at 0x7f31f34ddee0>
+    └ <pymysql.protocol.MysqlPacket object at 0x7f3102299730>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    │   │                     │    └ <member '_data' of 'MysqlPacket' objects>
+    │   │                     └ <pymysql.protocol.MysqlPacket object at 0x7f3102299730>
+    │   └ <function raise_mysql_exception at 0x7f31f358c670>
+    └ <module 'pymysql.err' from '/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+          │          │      └ "Duplicate entry '180.201.163.246:6800' for key 'device.PRIMARY'"
+          │          └ 1062
+          └ <class 'pymysql.err.IntegrityError'>
+
+pymysql.err.IntegrityError: (1062, "Duplicate entry '180.201.163.246:6800' for key 'device.PRIMARY'")
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f321bf29a60>
+    └ <Thread(Thread-1066, started daemon 139840359782144)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f321bf29790>
+    └ <Thread(Thread-1066, started daemon 139840359782144)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-1066, started daemon 139840359782144)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-1066, started daemon 139840359782144)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f31042e52e0>>
+    └ <Thread(Thread-1066, started daemon 139840359782144)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 799, in get_request_from_keywords_hot
+    self.start_finished_spider_every_interval(project_names)
+    │    │                                    └ ['default', 'test']
+    │    └ <function ProjectManager.start_finished_spider_every_interval at 0x7f3104005280>
+    └ <monitor.projectManager.ProjectManager object at 0x7f31042e52e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 784, in start_finished_spider_every_interval
+    self[name].start_spider()
+    │    └ 'default'
+    └ <monitor.projectManager.ProjectManager object at 0x7f31042e52e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 366, in start_spider
+    self.update_device_valid(device)
+    │    │                   └ <monitor.deviceManager.DeviceC object at 0x7f3104029220>
+    │    └ <function Project.update_device_valid at 0x7f3104003280>
+    └ <monitor.projectManager.Project object at 0x7f3104029460>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 421, in update_device_valid
+    self.database_manager.mysql.update(Device(**device.to_item()))
+    │    │                │     │      │        │      └ <function DeviceC.to_item at 0x7f31f34ed310>
+    │    │                │     │      │        └ <monitor.deviceManager.DeviceC object at 0x7f3104029220>
+    │    │                │     │      └ <class 'base.db.mysql.Device'>
+    │    │                │     └ <function Mysql.update at 0x7f31f35f4790>
+    │    │                └ <base.db.mysql.Mysql object at 0x7f3103ffdfd0>
+    │    └ <base.db.dbSlot.Slot object at 0x7f3103ffdf10>
+    └ <monitor.projectManager.Project object at 0x7f3104029460>
+
+> File "/home/users/Scy/yuqing/spider/base/db/mysql.py", line 375, in update
+    row.update(new)
+    │   │      └ {'server_id': '180.201.163.246:6800', 'ip': '180.201.163.246', 'username': 'chase', 'password': '9415340424139602118550729951...
+    │   └ <function Query.update at 0x7f31f37333a0>
+    └ <sqlalchemy.orm.query.Query object at 0x7f30982e9b80>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3221, in update
+    result = self.session.execute(
+             │    │       └ <function Session.execute at 0x7f31f370faf0>
+             │    └ <sqlalchemy.orm.session.Session object at 0x7f30982e9a90>
+             └ <sqlalchemy.orm.query.Query object at 0x7f30982e9b80>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1689, in execute
+    result = conn._execute_20(statement, params or {}, execution_options)
+             │    │           │          │             └ immutabledict({'synchronize_session': 'evaluate', '_sa_orm_update_options': default_update_options(_matched_objects=[], _reso...
+             │    │           │          └ immutabledict({})
+             │    │           └ <sqlalchemy.sql.annotation.AnnotatedUpdate object at 0x7f3102291fd0>
+             │    └ <function Connection._execute_20 at 0x7f31f39bc790>
+             └ <sqlalchemy.engine.base.Connection object at 0x7f30982e9dc0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1583, in _execute_20
+    return meth(self, args_10style, kwargs_10style, execution_options)
+           │    │     │             │               └ immutabledict({'synchronize_session': 'evaluate', '_sa_orm_update_options': default_update_options(_matched_objects=[], _reso...
+           │    │     │             └ immutabledict({})
+           │    │     └ ({},)
+           │    └ <sqlalchemy.engine.base.Connection object at 0x7f30982e9dc0>
+           └ <bound method ClauseElement._execute_on_connection of <sqlalchemy.sql.annotation.AnnotatedUpdate object at 0x7f3102291fd0>>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 323, in _execute_on_connection
+    return connection._execute_clauseelement(
+           │          └ <function Connection._execute_clauseelement at 0x7f31f39bc5e0>
+           └ <sqlalchemy.engine.base.Connection object at 0x7f30982e9dc0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1452, in _execute_clauseelement
+    ret = self._execute_context(
+          │    └ <function Connection._execute_context at 0x7f31f39bc8b0>
+          └ <sqlalchemy.engine.base.Connection object at 0x7f30982e9dc0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1814, in _execute_context
+    self._handle_dbapi_exception(
+    │    └ <function Connection._handle_dbapi_exception at 0x7f31f39bca60>
+    └ <sqlalchemy.engine.base.Connection object at 0x7f30982e9dc0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1995, in _handle_dbapi_exception
+    util.raise_(
+    │    └ <function raise_ at 0x7f31f3d7ea60>
+    └ <module 'sqlalchemy.util' from '/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/util/__init__.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 207, in raise_
+    raise exception
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1771, in _execute_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x7f31f38f75e0>
+    │    └ <sqlalchemy.dialects.mysql.pymysql.MySQLDialect_pymysql object at 0x7f3103ffde20>
+    └ <sqlalchemy.engine.base.Connection object at 0x7f30982e9dc0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 717, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ {'server_id': '180.201.163.246:6800', 'ip': '180.201.163.246', 'username': 'chase', 'password': '9415340424139602118550729951...
+    │      │       └ 'UPDATE device SET server_id=%(server_id)s, ip=%(ip)s, username=%(username)s, password=%(password)s, address=%(address)s, por...
+    │      └ <function Cursor.execute at 0x7f31f354cdc0>
+    └ <pymysql.cursors.Cursor object at 0x7f3102291a60>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 148, in execute
+    result = self._query(query)
+             │    │      └ "UPDATE device SET server_id='180.201.163.246:6800', ip='180.201.163.246', username='chase', password='9415340424139602118550...
+             │    └ <function Cursor._query at 0x7f31f34d7280>
+             └ <pymysql.cursors.Cursor object at 0x7f3102291a60>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 310, in _query
+    conn.query(q)
+    │    │     └ "UPDATE device SET server_id='180.201.163.246:6800', ip='180.201.163.246', username='chase', password='9415340424139602118550...
+    │    └ <function Connection.query at 0x7f31f34e5670>
+    └ <pymysql.connections.Connection object at 0x7f30b860f820>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+    │    │                │    │                             └ False
+    │    │                │    └ <function Connection._read_query_result at 0x7f31f34e5ca0>
+    │    │                └ <pymysql.connections.Connection object at 0x7f30b860f820>
+    │    └ 1
+    └ <pymysql.connections.Connection object at 0x7f30b860f820>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 775, in _read_query_result
+    result.read()
+    │      └ <function MySQLResult.read at 0x7f31f34e64c0>
+    └ <pymysql.connections.MySQLResult object at 0x7f310228b760>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+                   │    └ None
+                   └ <pymysql.connections.MySQLResult object at 0x7f310228b760>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+    │      └ <function MysqlPacket.raise_for_error at 0x7f31f34ddee0>
+    └ <pymysql.protocol.MysqlPacket object at 0x7f3102299730>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    │   │                     │    └ <member '_data' of 'MysqlPacket' objects>
+    │   │                     └ <pymysql.protocol.MysqlPacket object at 0x7f3102299730>
+    │   └ <function raise_mysql_exception at 0x7f31f358c670>
+    └ <module 'pymysql.err' from '/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+          │          │      └ "Duplicate entry '180.201.163.246:6800' for key 'device.PRIMARY'"
+          │          └ 1062
+          └ <class 'pymysql.err.IntegrityError'>
+
+sqlalchemy.exc.IntegrityError: (pymysql.err.IntegrityError) (1062, "Duplicate entry '180.201.163.246:6800' for key 'device.PRIMARY'")
+[SQL: UPDATE device SET server_id=%(server_id)s, ip=%(ip)s, username=%(username)s, password=%(password)s, address=%(address)s, port=%(port)s, valid=%(valid)s WHERE device.ip = %(ip_1)s]
+[parameters: {'server_id': '180.201.163.246:6800', 'ip': '180.201.163.246', 'username': 'chase', 'password': '94153404241396021185507299513558682563014536309125768427849143054121953214700172258579186436451252569128458399857656337296153247511143418795704405656 ... (10 characters truncated) ... 27686406646320640493021698157604626456742170148632238174741193933687481992594577693477638777004616397110416577290653387331173578841005135340468114388', 'address': '/home/users/CT/pycharmproject/spiders/', 'port': 6800, 'valid': 1, 'ip_1': '180.201.163.246'}]
+(Background on this error at: https://sqlalche.me/e/14/gkpj)
+2022-05-13 18:12:28.197 | ERROR    | base.db.mysql:update:390 - 【mysql更新数据出错】
+Traceback (most recent call last):
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1771, in _execute_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x7f31f38f75e0>
+    │    └ <sqlalchemy.dialects.mysql.pymysql.MySQLDialect_pymysql object at 0x7f3103ffde20>
+    └ <sqlalchemy.engine.base.Connection object at 0x7f31f9308130>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 717, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ {'server_id': '180.201.163.246:6800', 'ip': '180.201.163.246', 'username': 'chase', 'password': '5998315749785541162214636919...
+    │      │       └ 'UPDATE device SET server_id=%(server_id)s, ip=%(ip)s, username=%(username)s, password=%(password)s, address=%(address)s, por...
+    │      └ <function Cursor.execute at 0x7f31f354cdc0>
+    └ <pymysql.cursors.Cursor object at 0x7f30982e90a0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 148, in execute
+    result = self._query(query)
+             │    │      └ "UPDATE device SET server_id='180.201.163.246:6800', ip='180.201.163.246', username='chase', password='5998315749785541162214...
+             │    └ <function Cursor._query at 0x7f31f34d7280>
+             └ <pymysql.cursors.Cursor object at 0x7f30982e90a0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 310, in _query
+    conn.query(q)
+    │    │     └ "UPDATE device SET server_id='180.201.163.246:6800', ip='180.201.163.246', username='chase', password='5998315749785541162214...
+    │    └ <function Connection.query at 0x7f31f34e5670>
+    └ <pymysql.connections.Connection object at 0x7f3100156ee0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+    │    │                │    │                             └ False
+    │    │                │    └ <function Connection._read_query_result at 0x7f31f34e5ca0>
+    │    │                └ <pymysql.connections.Connection object at 0x7f3100156ee0>
+    │    └ 1
+    └ <pymysql.connections.Connection object at 0x7f3100156ee0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 775, in _read_query_result
+    result.read()
+    │      └ <function MySQLResult.read at 0x7f31f34e64c0>
+    └ <pymysql.connections.MySQLResult object at 0x7f30b82e06a0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+                   │    └ None
+                   └ <pymysql.connections.MySQLResult object at 0x7f30b82e06a0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+    │      └ <function MysqlPacket.raise_for_error at 0x7f31f34ddee0>
+    └ <pymysql.protocol.MysqlPacket object at 0x7f310004fe20>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    │   │                     │    └ <member '_data' of 'MysqlPacket' objects>
+    │   │                     └ <pymysql.protocol.MysqlPacket object at 0x7f310004fe20>
+    │   └ <function raise_mysql_exception at 0x7f31f358c670>
+    └ <module 'pymysql.err' from '/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+          │          │      └ "Duplicate entry '180.201.163.246:6800' for key 'device.PRIMARY'"
+          │          └ 1062
+          └ <class 'pymysql.err.IntegrityError'>
+
+pymysql.err.IntegrityError: (1062, "Duplicate entry '180.201.163.246:6800' for key 'device.PRIMARY'")
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f321bf29a60>
+    └ <Thread(Thread-1071, started daemon 139840351389440)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f321bf29790>
+    └ <Thread(Thread-1071, started daemon 139840351389440)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-1071, started daemon 139840351389440)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-1071, started daemon 139840351389440)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f31042e52e0>>
+    └ <Thread(Thread-1071, started daemon 139840351389440)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 799, in get_request_from_keywords_hot
+    self.start_finished_spider_every_interval(project_names)
+    │    │                                    └ ['default', 'test']
+    │    └ <function ProjectManager.start_finished_spider_every_interval at 0x7f3104005280>
+    └ <monitor.projectManager.ProjectManager object at 0x7f31042e52e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 784, in start_finished_spider_every_interval
+    self[name].start_spider()
+    │    └ 'default'
+    └ <monitor.projectManager.ProjectManager object at 0x7f31042e52e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 366, in start_spider
+    self.update_device_valid(device)
+    │    │                   └ <monitor.deviceManager.DeviceC object at 0x7f3104029220>
+    │    └ <function Project.update_device_valid at 0x7f3104003280>
+    └ <monitor.projectManager.Project object at 0x7f3104029460>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 421, in update_device_valid
+    self.database_manager.mysql.update(Device(**device.to_item()))
+    │    │                │     │      │        │      └ <function DeviceC.to_item at 0x7f31f34ed310>
+    │    │                │     │      │        └ <monitor.deviceManager.DeviceC object at 0x7f3104029220>
+    │    │                │     │      └ <class 'base.db.mysql.Device'>
+    │    │                │     └ <function Mysql.update at 0x7f31f35f4790>
+    │    │                └ <base.db.mysql.Mysql object at 0x7f3103ffdfd0>
+    │    └ <base.db.dbSlot.Slot object at 0x7f3103ffdf10>
+    └ <monitor.projectManager.Project object at 0x7f3104029460>
+
+> File "/home/users/Scy/yuqing/spider/base/db/mysql.py", line 375, in update
+    row.update(new)
+    │   │      └ {'server_id': '180.201.163.246:6800', 'ip': '180.201.163.246', 'username': 'chase', 'password': '5998315749785541162214636919...
+    │   └ <function Query.update at 0x7f31f37333a0>
+    └ <sqlalchemy.orm.query.Query object at 0x7f30d812fdc0>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3221, in update
+    result = self.session.execute(
+             │    │       └ <function Session.execute at 0x7f31f370faf0>
+             │    └ <sqlalchemy.orm.session.Session object at 0x7f3102259400>
+             └ <sqlalchemy.orm.query.Query object at 0x7f30d812fdc0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1689, in execute
+    result = conn._execute_20(statement, params or {}, execution_options)
+             │    │           │          │             └ immutabledict({'synchronize_session': 'evaluate', '_sa_orm_update_options': default_update_options(_matched_objects=[], _reso...
+             │    │           │          └ immutabledict({})
+             │    │           └ <sqlalchemy.sql.annotation.AnnotatedUpdate object at 0x7f30d860be80>
+             │    └ <function Connection._execute_20 at 0x7f31f39bc790>
+             └ <sqlalchemy.engine.base.Connection object at 0x7f31f9308130>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1583, in _execute_20
+    return meth(self, args_10style, kwargs_10style, execution_options)
+           │    │     │             │               └ immutabledict({'synchronize_session': 'evaluate', '_sa_orm_update_options': default_update_options(_matched_objects=[], _reso...
+           │    │     │             └ immutabledict({})
+           │    │     └ ({},)
+           │    └ <sqlalchemy.engine.base.Connection object at 0x7f31f9308130>
+           └ <bound method ClauseElement._execute_on_connection of <sqlalchemy.sql.annotation.AnnotatedUpdate object at 0x7f30d860be80>>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 323, in _execute_on_connection
+    return connection._execute_clauseelement(
+           │          └ <function Connection._execute_clauseelement at 0x7f31f39bc5e0>
+           └ <sqlalchemy.engine.base.Connection object at 0x7f31f9308130>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1452, in _execute_clauseelement
+    ret = self._execute_context(
+          │    └ <function Connection._execute_context at 0x7f31f39bc8b0>
+          └ <sqlalchemy.engine.base.Connection object at 0x7f31f9308130>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1814, in _execute_context
+    self._handle_dbapi_exception(
+    │    └ <function Connection._handle_dbapi_exception at 0x7f31f39bca60>
+    └ <sqlalchemy.engine.base.Connection object at 0x7f31f9308130>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1995, in _handle_dbapi_exception
+    util.raise_(
+    │    └ <function raise_ at 0x7f31f3d7ea60>
+    └ <module 'sqlalchemy.util' from '/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/util/__init__.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 207, in raise_
+    raise exception
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1771, in _execute_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x7f31f38f75e0>
+    │    └ <sqlalchemy.dialects.mysql.pymysql.MySQLDialect_pymysql object at 0x7f3103ffde20>
+    └ <sqlalchemy.engine.base.Connection object at 0x7f31f9308130>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 717, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ {'server_id': '180.201.163.246:6800', 'ip': '180.201.163.246', 'username': 'chase', 'password': '5998315749785541162214636919...
+    │      │       └ 'UPDATE device SET server_id=%(server_id)s, ip=%(ip)s, username=%(username)s, password=%(password)s, address=%(address)s, por...
+    │      └ <function Cursor.execute at 0x7f31f354cdc0>
+    └ <pymysql.cursors.Cursor object at 0x7f30982e90a0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 148, in execute
+    result = self._query(query)
+             │    │      └ "UPDATE device SET server_id='180.201.163.246:6800', ip='180.201.163.246', username='chase', password='5998315749785541162214...
+             │    └ <function Cursor._query at 0x7f31f34d7280>
+             └ <pymysql.cursors.Cursor object at 0x7f30982e90a0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 310, in _query
+    conn.query(q)
+    │    │     └ "UPDATE device SET server_id='180.201.163.246:6800', ip='180.201.163.246', username='chase', password='5998315749785541162214...
+    │    └ <function Connection.query at 0x7f31f34e5670>
+    └ <pymysql.connections.Connection object at 0x7f3100156ee0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+    │    │                │    │                             └ False
+    │    │                │    └ <function Connection._read_query_result at 0x7f31f34e5ca0>
+    │    │                └ <pymysql.connections.Connection object at 0x7f3100156ee0>
+    │    └ 1
+    └ <pymysql.connections.Connection object at 0x7f3100156ee0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 775, in _read_query_result
+    result.read()
+    │      └ <function MySQLResult.read at 0x7f31f34e64c0>
+    └ <pymysql.connections.MySQLResult object at 0x7f30b82e06a0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+                   │    └ None
+                   └ <pymysql.connections.MySQLResult object at 0x7f30b82e06a0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+    │      └ <function MysqlPacket.raise_for_error at 0x7f31f34ddee0>
+    └ <pymysql.protocol.MysqlPacket object at 0x7f310004fe20>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    │   │                     │    └ <member '_data' of 'MysqlPacket' objects>
+    │   │                     └ <pymysql.protocol.MysqlPacket object at 0x7f310004fe20>
+    │   └ <function raise_mysql_exception at 0x7f31f358c670>
+    └ <module 'pymysql.err' from '/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+          │          │      └ "Duplicate entry '180.201.163.246:6800' for key 'device.PRIMARY'"
+          │          └ 1062
+          └ <class 'pymysql.err.IntegrityError'>
+
+sqlalchemy.exc.IntegrityError: (pymysql.err.IntegrityError) (1062, "Duplicate entry '180.201.163.246:6800' for key 'device.PRIMARY'")
+[SQL: UPDATE device SET server_id=%(server_id)s, ip=%(ip)s, username=%(username)s, password=%(password)s, address=%(address)s, port=%(port)s, valid=%(valid)s WHERE device.ip = %(ip_1)s]
+[parameters: {'server_id': '180.201.163.246:6800', 'ip': '180.201.163.246', 'username': 'chase', 'password': '59983157497855411622146369198915337632751871288827698312433029037320126385804441998953800878078257213494256507918520429630275576181717377382076228207 ... (10 characters truncated) ... 10550889663431780050782169657633878228952665632064569359304148629778916977535336198835014011914977813281641569814694830108686631472935608056679667580', 'address': '/home/users/CT/pycharmproject/spiders/', 'port': 6800, 'valid': 1, 'ip_1': '180.201.163.246'}]
+(Background on this error at: https://sqlalche.me/e/14/gkpj)
+2022-05-13 18:12:46.251 | ERROR    | base.db.mysql:update:390 - 【mysql更新数据出错】
+Traceback (most recent call last):
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1771, in _execute_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x7f31f38f75e0>
+    │    └ <sqlalchemy.dialects.mysql.pymysql.MySQLDialect_pymysql object at 0x7f3103ffde20>
+    └ <sqlalchemy.engine.base.Connection object at 0x7f30d856ad30>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 717, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ {'server_id': '180.201.163.246:6800', 'ip': '180.201.163.246', 'username': 'chase', 'password': '6000918523285129476894489059...
+    │      │       └ 'UPDATE device SET server_id=%(server_id)s, ip=%(ip)s, username=%(username)s, password=%(password)s, address=%(address)s, por...
+    │      └ <function Cursor.execute at 0x7f31f354cdc0>
+    └ <pymysql.cursors.Cursor object at 0x7f30d82b88b0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 148, in execute
+    result = self._query(query)
+             │    │      └ "UPDATE device SET server_id='180.201.163.246:6800', ip='180.201.163.246', username='chase', password='6000918523285129476894...
+             │    └ <function Cursor._query at 0x7f31f34d7280>
+             └ <pymysql.cursors.Cursor object at 0x7f30d82b88b0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 310, in _query
+    conn.query(q)
+    │    │     └ "UPDATE device SET server_id='180.201.163.246:6800', ip='180.201.163.246', username='chase', password='6000918523285129476894...
+    │    └ <function Connection.query at 0x7f31f34e5670>
+    └ <pymysql.connections.Connection object at 0x7f3101c8f220>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+    │    │                │    │                             └ False
+    │    │                │    └ <function Connection._read_query_result at 0x7f31f34e5ca0>
+    │    │                └ <pymysql.connections.Connection object at 0x7f3101c8f220>
+    │    └ 1
+    └ <pymysql.connections.Connection object at 0x7f3101c8f220>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 775, in _read_query_result
+    result.read()
+    │      └ <function MySQLResult.read at 0x7f31f34e64c0>
+    └ <pymysql.connections.MySQLResult object at 0x7f30b82e5ac0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+                   │    └ None
+                   └ <pymysql.connections.MySQLResult object at 0x7f30b82e5ac0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+    │      └ <function MysqlPacket.raise_for_error at 0x7f31f34ddee0>
+    └ <pymysql.protocol.MysqlPacket object at 0x7f30d83bfa60>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    │   │                     │    └ <member '_data' of 'MysqlPacket' objects>
+    │   │                     └ <pymysql.protocol.MysqlPacket object at 0x7f30d83bfa60>
+    │   └ <function raise_mysql_exception at 0x7f31f358c670>
+    └ <module 'pymysql.err' from '/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+          │          │      └ "Duplicate entry '180.201.163.246:6800' for key 'device.PRIMARY'"
+          │          └ 1062
+          └ <class 'pymysql.err.IntegrityError'>
+
+pymysql.err.IntegrityError: (1062, "Duplicate entry '180.201.163.246:6800' for key 'device.PRIMARY'")
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f321bf29a60>
+    └ <Thread(Thread-1076, started daemon 139840334604032)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f321bf29790>
+    └ <Thread(Thread-1076, started daemon 139840334604032)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-1076, started daemon 139840334604032)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-1076, started daemon 139840334604032)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f31042e52e0>>
+    └ <Thread(Thread-1076, started daemon 139840334604032)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 799, in get_request_from_keywords_hot
+    self.start_finished_spider_every_interval(project_names)
+    │    │                                    └ ['default', 'test']
+    │    └ <function ProjectManager.start_finished_spider_every_interval at 0x7f3104005280>
+    └ <monitor.projectManager.ProjectManager object at 0x7f31042e52e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 784, in start_finished_spider_every_interval
+    self[name].start_spider()
+    │    └ 'default'
+    └ <monitor.projectManager.ProjectManager object at 0x7f31042e52e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 366, in start_spider
+    self.update_device_valid(device)
+    │    │                   └ <monitor.deviceManager.DeviceC object at 0x7f3104029220>
+    │    └ <function Project.update_device_valid at 0x7f3104003280>
+    └ <monitor.projectManager.Project object at 0x7f3104029460>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 421, in update_device_valid
+    self.database_manager.mysql.update(Device(**device.to_item()))
+    │    │                │     │      │        │      └ <function DeviceC.to_item at 0x7f31f34ed310>
+    │    │                │     │      │        └ <monitor.deviceManager.DeviceC object at 0x7f3104029220>
+    │    │                │     │      └ <class 'base.db.mysql.Device'>
+    │    │                │     └ <function Mysql.update at 0x7f31f35f4790>
+    │    │                └ <base.db.mysql.Mysql object at 0x7f3103ffdfd0>
+    │    └ <base.db.dbSlot.Slot object at 0x7f3103ffdf10>
+    └ <monitor.projectManager.Project object at 0x7f3104029460>
+
+> File "/home/users/Scy/yuqing/spider/base/db/mysql.py", line 375, in update
+    row.update(new)
+    │   │      └ {'server_id': '180.201.163.246:6800', 'ip': '180.201.163.246', 'username': 'chase', 'password': '6000918523285129476894489059...
+    │   └ <function Query.update at 0x7f31f37333a0>
+    └ <sqlalchemy.orm.query.Query object at 0x7f31f919c7f0>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3221, in update
+    result = self.session.execute(
+             │    │       └ <function Session.execute at 0x7f31f370faf0>
+             │    └ <sqlalchemy.orm.session.Session object at 0x7f30986a3700>
+             └ <sqlalchemy.orm.query.Query object at 0x7f31f919c7f0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1689, in execute
+    result = conn._execute_20(statement, params or {}, execution_options)
+             │    │           │          │             └ immutabledict({'synchronize_session': 'evaluate', '_sa_orm_update_options': default_update_options(_matched_objects=[], _reso...
+             │    │           │          └ immutabledict({})
+             │    │           └ <sqlalchemy.sql.annotation.AnnotatedUpdate object at 0x7f30d82b8880>
+             │    └ <function Connection._execute_20 at 0x7f31f39bc790>
+             └ <sqlalchemy.engine.base.Connection object at 0x7f30d856ad30>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1583, in _execute_20
+    return meth(self, args_10style, kwargs_10style, execution_options)
+           │    │     │             │               └ immutabledict({'synchronize_session': 'evaluate', '_sa_orm_update_options': default_update_options(_matched_objects=[], _reso...
+           │    │     │             └ immutabledict({})
+           │    │     └ ({},)
+           │    └ <sqlalchemy.engine.base.Connection object at 0x7f30d856ad30>
+           └ <bound method ClauseElement._execute_on_connection of <sqlalchemy.sql.annotation.AnnotatedUpdate object at 0x7f30d82b8880>>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 323, in _execute_on_connection
+    return connection._execute_clauseelement(
+           │          └ <function Connection._execute_clauseelement at 0x7f31f39bc5e0>
+           └ <sqlalchemy.engine.base.Connection object at 0x7f30d856ad30>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1452, in _execute_clauseelement
+    ret = self._execute_context(
+          │    └ <function Connection._execute_context at 0x7f31f39bc8b0>
+          └ <sqlalchemy.engine.base.Connection object at 0x7f30d856ad30>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1814, in _execute_context
+    self._handle_dbapi_exception(
+    │    └ <function Connection._handle_dbapi_exception at 0x7f31f39bca60>
+    └ <sqlalchemy.engine.base.Connection object at 0x7f30d856ad30>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1995, in _handle_dbapi_exception
+    util.raise_(
+    │    └ <function raise_ at 0x7f31f3d7ea60>
+    └ <module 'sqlalchemy.util' from '/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/util/__init__.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 207, in raise_
+    raise exception
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1771, in _execute_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x7f31f38f75e0>
+    │    └ <sqlalchemy.dialects.mysql.pymysql.MySQLDialect_pymysql object at 0x7f3103ffde20>
+    └ <sqlalchemy.engine.base.Connection object at 0x7f30d856ad30>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 717, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ {'server_id': '180.201.163.246:6800', 'ip': '180.201.163.246', 'username': 'chase', 'password': '6000918523285129476894489059...
+    │      │       └ 'UPDATE device SET server_id=%(server_id)s, ip=%(ip)s, username=%(username)s, password=%(password)s, address=%(address)s, por...
+    │      └ <function Cursor.execute at 0x7f31f354cdc0>
+    └ <pymysql.cursors.Cursor object at 0x7f30d82b88b0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 148, in execute
+    result = self._query(query)
+             │    │      └ "UPDATE device SET server_id='180.201.163.246:6800', ip='180.201.163.246', username='chase', password='6000918523285129476894...
+             │    └ <function Cursor._query at 0x7f31f34d7280>
+             └ <pymysql.cursors.Cursor object at 0x7f30d82b88b0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 310, in _query
+    conn.query(q)
+    │    │     └ "UPDATE device SET server_id='180.201.163.246:6800', ip='180.201.163.246', username='chase', password='6000918523285129476894...
+    │    └ <function Connection.query at 0x7f31f34e5670>
+    └ <pymysql.connections.Connection object at 0x7f3101c8f220>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+    │    │                │    │                             └ False
+    │    │                │    └ <function Connection._read_query_result at 0x7f31f34e5ca0>
+    │    │                └ <pymysql.connections.Connection object at 0x7f3101c8f220>
+    │    └ 1
+    └ <pymysql.connections.Connection object at 0x7f3101c8f220>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 775, in _read_query_result
+    result.read()
+    │      └ <function MySQLResult.read at 0x7f31f34e64c0>
+    └ <pymysql.connections.MySQLResult object at 0x7f30b82e5ac0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+                   │    └ None
+                   └ <pymysql.connections.MySQLResult object at 0x7f30b82e5ac0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+    │      └ <function MysqlPacket.raise_for_error at 0x7f31f34ddee0>
+    └ <pymysql.protocol.MysqlPacket object at 0x7f30d83bfa60>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    │   │                     │    └ <member '_data' of 'MysqlPacket' objects>
+    │   │                     └ <pymysql.protocol.MysqlPacket object at 0x7f30d83bfa60>
+    │   └ <function raise_mysql_exception at 0x7f31f358c670>
+    └ <module 'pymysql.err' from '/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+          │          │      └ "Duplicate entry '180.201.163.246:6800' for key 'device.PRIMARY'"
+          │          └ 1062
+          └ <class 'pymysql.err.IntegrityError'>
+
+sqlalchemy.exc.IntegrityError: (pymysql.err.IntegrityError) (1062, "Duplicate entry '180.201.163.246:6800' for key 'device.PRIMARY'")
+[SQL: UPDATE device SET server_id=%(server_id)s, ip=%(ip)s, username=%(username)s, password=%(password)s, address=%(address)s, port=%(port)s, valid=%(valid)s WHERE device.ip = %(ip_1)s]
+[parameters: {'server_id': '180.201.163.246:6800', 'ip': '180.201.163.246', 'username': 'chase', 'password': '60009185232851294768944890595749642756216544200102759622051361071891627123664676924299126958987432219947102712192072445742115735198569342997454412826 ... (10 characters truncated) ... 82859530724255828426867507488810425494891843490397451501928965621746796570092329827755501629865508003505650933658822968995423278971338259890688956577', 'address': '/home/users/CT/pycharmproject/spiders/', 'port': 6800, 'valid': 1, 'ip_1': '180.201.163.246'}]
+(Background on this error at: https://sqlalche.me/e/14/gkpj)
+2022-05-13 18:13:04.255 | ERROR    | base.db.mysql:update:390 - 【mysql更新数据出错】
+Traceback (most recent call last):
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1771, in _execute_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x7f31f38f75e0>
+    │    └ <sqlalchemy.dialects.mysql.pymysql.MySQLDialect_pymysql object at 0x7f3103ffde20>
+    └ <sqlalchemy.engine.base.Connection object at 0x7f30d8178970>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 717, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ {'server_id': '180.201.163.246:6800', 'ip': '180.201.163.246', 'username': 'chase', 'password': '1012608137107665350250583678...
+    │      │       └ 'UPDATE device SET server_id=%(server_id)s, ip=%(ip)s, username=%(username)s, password=%(password)s, address=%(address)s, por...
+    │      └ <function Cursor.execute at 0x7f31f354cdc0>
+    └ <pymysql.cursors.Cursor object at 0x7f30b8127f70>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 148, in execute
+    result = self._query(query)
+             │    │      └ "UPDATE device SET server_id='180.201.163.246:6800', ip='180.201.163.246', username='chase', password='1012608137107665350250...
+             │    └ <function Cursor._query at 0x7f31f34d7280>
+             └ <pymysql.cursors.Cursor object at 0x7f30b8127f70>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 310, in _query
+    conn.query(q)
+    │    │     └ "UPDATE device SET server_id='180.201.163.246:6800', ip='180.201.163.246', username='chase', password='1012608137107665350250...
+    │    └ <function Connection.query at 0x7f31f34e5670>
+    └ <pymysql.connections.Connection object at 0x7f30b8621dc0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+    │    │                │    │                             └ False
+    │    │                │    └ <function Connection._read_query_result at 0x7f31f34e5ca0>
+    │    │                └ <pymysql.connections.Connection object at 0x7f30b8621dc0>
+    │    └ 1
+    └ <pymysql.connections.Connection object at 0x7f30b8621dc0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 775, in _read_query_result
+    result.read()
+    │      └ <function MySQLResult.read at 0x7f31f34e64c0>
+    └ <pymysql.connections.MySQLResult object at 0x7f3100176bb0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+                   │    └ None
+                   └ <pymysql.connections.MySQLResult object at 0x7f3100176bb0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+    │      └ <function MysqlPacket.raise_for_error at 0x7f31f34ddee0>
+    └ <pymysql.protocol.MysqlPacket object at 0x7f30d859e700>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    │   │                     │    └ <member '_data' of 'MysqlPacket' objects>
+    │   │                     └ <pymysql.protocol.MysqlPacket object at 0x7f30d859e700>
+    │   └ <function raise_mysql_exception at 0x7f31f358c670>
+    └ <module 'pymysql.err' from '/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+          │          │      └ "Duplicate entry '180.201.163.246:6800' for key 'device.PRIMARY'"
+          │          └ 1062
+          └ <class 'pymysql.err.IntegrityError'>
+
+pymysql.err.IntegrityError: (1062, "Duplicate entry '180.201.163.246:6800' for key 'device.PRIMARY'")
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f321bf29a60>
+    └ <Thread(Thread-1080, started daemon 139840317818624)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f321bf29790>
+    └ <Thread(Thread-1080, started daemon 139840317818624)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-1080, started daemon 139840317818624)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-1080, started daemon 139840317818624)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f31042e52e0>>
+    └ <Thread(Thread-1080, started daemon 139840317818624)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 799, in get_request_from_keywords_hot
+    self.start_finished_spider_every_interval(project_names)
+    │    │                                    └ ['default', 'test']
+    │    └ <function ProjectManager.start_finished_spider_every_interval at 0x7f3104005280>
+    └ <monitor.projectManager.ProjectManager object at 0x7f31042e52e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 784, in start_finished_spider_every_interval
+    self[name].start_spider()
+    │    └ 'default'
+    └ <monitor.projectManager.ProjectManager object at 0x7f31042e52e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 366, in start_spider
+    self.update_device_valid(device)
+    │    │                   └ <monitor.deviceManager.DeviceC object at 0x7f3104029220>
+    │    └ <function Project.update_device_valid at 0x7f3104003280>
+    └ <monitor.projectManager.Project object at 0x7f3104029460>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 421, in update_device_valid
+    self.database_manager.mysql.update(Device(**device.to_item()))
+    │    │                │     │      │        │      └ <function DeviceC.to_item at 0x7f31f34ed310>
+    │    │                │     │      │        └ <monitor.deviceManager.DeviceC object at 0x7f3104029220>
+    │    │                │     │      └ <class 'base.db.mysql.Device'>
+    │    │                │     └ <function Mysql.update at 0x7f31f35f4790>
+    │    │                └ <base.db.mysql.Mysql object at 0x7f3103ffdfd0>
+    │    └ <base.db.dbSlot.Slot object at 0x7f3103ffdf10>
+    └ <monitor.projectManager.Project object at 0x7f3104029460>
+
+> File "/home/users/Scy/yuqing/spider/base/db/mysql.py", line 375, in update
+    row.update(new)
+    │   │      └ {'server_id': '180.201.163.246:6800', 'ip': '180.201.163.246', 'username': 'chase', 'password': '1012608137107665350250583678...
+    │   └ <function Query.update at 0x7f31f37333a0>
+    └ <sqlalchemy.orm.query.Query object at 0x7f30b8705be0>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3221, in update
+    result = self.session.execute(
+             │    │       └ <function Session.execute at 0x7f31f370faf0>
+             │    └ <sqlalchemy.orm.session.Session object at 0x7f30983f6af0>
+             └ <sqlalchemy.orm.query.Query object at 0x7f30b8705be0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1689, in execute
+    result = conn._execute_20(statement, params or {}, execution_options)
+             │    │           │          │             └ immutabledict({'synchronize_session': 'evaluate', '_sa_orm_update_options': default_update_options(_matched_objects=[], _reso...
+             │    │           │          └ immutabledict({})
+             │    │           └ <sqlalchemy.sql.annotation.AnnotatedUpdate object at 0x7f30d8069160>
+             │    └ <function Connection._execute_20 at 0x7f31f39bc790>
+             └ <sqlalchemy.engine.base.Connection object at 0x7f30d8178970>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1583, in _execute_20
+    return meth(self, args_10style, kwargs_10style, execution_options)
+           │    │     │             │               └ immutabledict({'synchronize_session': 'evaluate', '_sa_orm_update_options': default_update_options(_matched_objects=[], _reso...
+           │    │     │             └ immutabledict({})
+           │    │     └ ({},)
+           │    └ <sqlalchemy.engine.base.Connection object at 0x7f30d8178970>
+           └ <bound method ClauseElement._execute_on_connection of <sqlalchemy.sql.annotation.AnnotatedUpdate object at 0x7f30d8069160>>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 323, in _execute_on_connection
+    return connection._execute_clauseelement(
+           │          └ <function Connection._execute_clauseelement at 0x7f31f39bc5e0>
+           └ <sqlalchemy.engine.base.Connection object at 0x7f30d8178970>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1452, in _execute_clauseelement
+    ret = self._execute_context(
+          │    └ <function Connection._execute_context at 0x7f31f39bc8b0>
+          └ <sqlalchemy.engine.base.Connection object at 0x7f30d8178970>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1814, in _execute_context
+    self._handle_dbapi_exception(
+    │    └ <function Connection._handle_dbapi_exception at 0x7f31f39bca60>
+    └ <sqlalchemy.engine.base.Connection object at 0x7f30d8178970>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1995, in _handle_dbapi_exception
+    util.raise_(
+    │    └ <function raise_ at 0x7f31f3d7ea60>
+    └ <module 'sqlalchemy.util' from '/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/util/__init__.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 207, in raise_
+    raise exception
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1771, in _execute_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x7f31f38f75e0>
+    │    └ <sqlalchemy.dialects.mysql.pymysql.MySQLDialect_pymysql object at 0x7f3103ffde20>
+    └ <sqlalchemy.engine.base.Connection object at 0x7f30d8178970>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 717, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ {'server_id': '180.201.163.246:6800', 'ip': '180.201.163.246', 'username': 'chase', 'password': '1012608137107665350250583678...
+    │      │       └ 'UPDATE device SET server_id=%(server_id)s, ip=%(ip)s, username=%(username)s, password=%(password)s, address=%(address)s, por...
+    │      └ <function Cursor.execute at 0x7f31f354cdc0>
+    └ <pymysql.cursors.Cursor object at 0x7f30b8127f70>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 148, in execute
+    result = self._query(query)
+             │    │      └ "UPDATE device SET server_id='180.201.163.246:6800', ip='180.201.163.246', username='chase', password='1012608137107665350250...
+             │    └ <function Cursor._query at 0x7f31f34d7280>
+             └ <pymysql.cursors.Cursor object at 0x7f30b8127f70>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 310, in _query
+    conn.query(q)
+    │    │     └ "UPDATE device SET server_id='180.201.163.246:6800', ip='180.201.163.246', username='chase', password='1012608137107665350250...
+    │    └ <function Connection.query at 0x7f31f34e5670>
+    └ <pymysql.connections.Connection object at 0x7f30b8621dc0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+    │    │                │    │                             └ False
+    │    │                │    └ <function Connection._read_query_result at 0x7f31f34e5ca0>
+    │    │                └ <pymysql.connections.Connection object at 0x7f30b8621dc0>
+    │    └ 1
+    └ <pymysql.connections.Connection object at 0x7f30b8621dc0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 775, in _read_query_result
+    result.read()
+    │      └ <function MySQLResult.read at 0x7f31f34e64c0>
+    └ <pymysql.connections.MySQLResult object at 0x7f3100176bb0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+                   │    └ None
+                   └ <pymysql.connections.MySQLResult object at 0x7f3100176bb0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+    │      └ <function MysqlPacket.raise_for_error at 0x7f31f34ddee0>
+    └ <pymysql.protocol.MysqlPacket object at 0x7f30d859e700>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    │   │                     │    └ <member '_data' of 'MysqlPacket' objects>
+    │   │                     └ <pymysql.protocol.MysqlPacket object at 0x7f30d859e700>
+    │   └ <function raise_mysql_exception at 0x7f31f358c670>
+    └ <module 'pymysql.err' from '/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+          │          │      └ "Duplicate entry '180.201.163.246:6800' for key 'device.PRIMARY'"
+          │          └ 1062
+          └ <class 'pymysql.err.IntegrityError'>
+
+sqlalchemy.exc.IntegrityError: (pymysql.err.IntegrityError) (1062, "Duplicate entry '180.201.163.246:6800' for key 'device.PRIMARY'")
+[SQL: UPDATE device SET server_id=%(server_id)s, ip=%(ip)s, username=%(username)s, password=%(password)s, address=%(address)s, port=%(port)s, valid=%(valid)s WHERE device.ip = %(ip_1)s]
+[parameters: {'server_id': '180.201.163.246:6800', 'ip': '180.201.163.246', 'username': 'chase', 'password': '10126081371076653502505836788550728819719046053600984957441832909316876977652055351344150836895090759481904372468195840864450910949268478593545904465 ... (11 characters truncated) ... 00588721549085383249367418024986779591640223356580053745273771613704159890507455493431277256290984284677433620597811009509450805470416110392555159328', 'address': '/home/users/CT/pycharmproject/spiders/', 'port': 6800, 'valid': 1, 'ip_1': '180.201.163.246'}]
+(Background on this error at: https://sqlalche.me/e/14/gkpj)
+2022-05-13 18:13:22.321 | ERROR    | base.db.mysql:update:390 - 【mysql更新数据出错】
+Traceback (most recent call last):
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1771, in _execute_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x7f31f38f75e0>
+    │    └ <sqlalchemy.dialects.mysql.pymysql.MySQLDialect_pymysql object at 0x7f3103ffde20>
+    └ <sqlalchemy.engine.base.Connection object at 0x7f31021f01c0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 717, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ {'server_id': '180.201.163.246:6800', 'ip': '180.201.163.246', 'username': 'chase', 'password': '8043668894339600453377072698...
+    │      │       └ 'UPDATE device SET server_id=%(server_id)s, ip=%(ip)s, username=%(username)s, password=%(password)s, address=%(address)s, por...
+    │      └ <function Cursor.execute at 0x7f31f354cdc0>
+    └ <pymysql.cursors.Cursor object at 0x7f309859bac0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 148, in execute
+    result = self._query(query)
+             │    │      └ "UPDATE device SET server_id='180.201.163.246:6800', ip='180.201.163.246', username='chase', password='8043668894339600453377...
+             │    └ <function Cursor._query at 0x7f31f34d7280>
+             └ <pymysql.cursors.Cursor object at 0x7f309859bac0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 310, in _query
+    conn.query(q)
+    │    │     └ "UPDATE device SET server_id='180.201.163.246:6800', ip='180.201.163.246', username='chase', password='8043668894339600453377...
+    │    └ <function Connection.query at 0x7f31f34e5670>
+    └ <pymysql.connections.Connection object at 0x7f30986ab8b0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+    │    │                │    │                             └ False
+    │    │                │    └ <function Connection._read_query_result at 0x7f31f34e5ca0>
+    │    │                └ <pymysql.connections.Connection object at 0x7f30986ab8b0>
+    │    └ 1
+    └ <pymysql.connections.Connection object at 0x7f30986ab8b0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 775, in _read_query_result
+    result.read()
+    │      └ <function MySQLResult.read at 0x7f31f34e64c0>
+    └ <pymysql.connections.MySQLResult object at 0x7f3100037070>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+                   │    └ None
+                   └ <pymysql.connections.MySQLResult object at 0x7f3100037070>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+    │      └ <function MysqlPacket.raise_for_error at 0x7f31f34ddee0>
+    └ <pymysql.protocol.MysqlPacket object at 0x7f30986121f0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    │   │                     │    └ <member '_data' of 'MysqlPacket' objects>
+    │   │                     └ <pymysql.protocol.MysqlPacket object at 0x7f30986121f0>
+    │   └ <function raise_mysql_exception at 0x7f31f358c670>
+    └ <module 'pymysql.err' from '/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+          │          │      └ "Duplicate entry '180.201.163.246:6800' for key 'device.PRIMARY'"
+          │          └ 1062
+          └ <class 'pymysql.err.IntegrityError'>
+
+pymysql.err.IntegrityError: (1062, "Duplicate entry '180.201.163.246:6800' for key 'device.PRIMARY'")
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f321bf29a60>
+    └ <Thread(Thread-1084, started daemon 139840326211328)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f321bf29790>
+    └ <Thread(Thread-1084, started daemon 139840326211328)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-1084, started daemon 139840326211328)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-1084, started daemon 139840326211328)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f31042e52e0>>
+    └ <Thread(Thread-1084, started daemon 139840326211328)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 799, in get_request_from_keywords_hot
+    self.start_finished_spider_every_interval(project_names)
+    │    │                                    └ ['default', 'test']
+    │    └ <function ProjectManager.start_finished_spider_every_interval at 0x7f3104005280>
+    └ <monitor.projectManager.ProjectManager object at 0x7f31042e52e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 784, in start_finished_spider_every_interval
+    self[name].start_spider()
+    │    └ 'default'
+    └ <monitor.projectManager.ProjectManager object at 0x7f31042e52e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 366, in start_spider
+    self.update_device_valid(device)
+    │    │                   └ <monitor.deviceManager.DeviceC object at 0x7f3104029220>
+    │    └ <function Project.update_device_valid at 0x7f3104003280>
+    └ <monitor.projectManager.Project object at 0x7f3104029460>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 421, in update_device_valid
+    self.database_manager.mysql.update(Device(**device.to_item()))
+    │    │                │     │      │        │      └ <function DeviceC.to_item at 0x7f31f34ed310>
+    │    │                │     │      │        └ <monitor.deviceManager.DeviceC object at 0x7f3104029220>
+    │    │                │     │      └ <class 'base.db.mysql.Device'>
+    │    │                │     └ <function Mysql.update at 0x7f31f35f4790>
+    │    │                └ <base.db.mysql.Mysql object at 0x7f3103ffdfd0>
+    │    └ <base.db.dbSlot.Slot object at 0x7f3103ffdf10>
+    └ <monitor.projectManager.Project object at 0x7f3104029460>
+
+> File "/home/users/Scy/yuqing/spider/base/db/mysql.py", line 375, in update
+    row.update(new)
+    │   │      └ {'server_id': '180.201.163.246:6800', 'ip': '180.201.163.246', 'username': 'chase', 'password': '8043668894339600453377072698...
+    │   └ <function Query.update at 0x7f31f37333a0>
+    └ <sqlalchemy.orm.query.Query object at 0x7f31002455e0>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3221, in update
+    result = self.session.execute(
+             │    │       └ <function Session.execute at 0x7f31f370faf0>
+             │    └ <sqlalchemy.orm.session.Session object at 0x7f30d82b96a0>
+             └ <sqlalchemy.orm.query.Query object at 0x7f31002455e0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1689, in execute
+    result = conn._execute_20(statement, params or {}, execution_options)
+             │    │           │          │             └ immutabledict({'synchronize_session': 'evaluate', '_sa_orm_update_options': default_update_options(_matched_objects=[], _reso...
+             │    │           │          └ immutabledict({})
+             │    │           └ <sqlalchemy.sql.annotation.AnnotatedUpdate object at 0x7f3101bf53d0>
+             │    └ <function Connection._execute_20 at 0x7f31f39bc790>
+             └ <sqlalchemy.engine.base.Connection object at 0x7f31021f01c0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1583, in _execute_20
+    return meth(self, args_10style, kwargs_10style, execution_options)
+           │    │     │             │               └ immutabledict({'synchronize_session': 'evaluate', '_sa_orm_update_options': default_update_options(_matched_objects=[], _reso...
+           │    │     │             └ immutabledict({})
+           │    │     └ ({},)
+           │    └ <sqlalchemy.engine.base.Connection object at 0x7f31021f01c0>
+           └ <bound method ClauseElement._execute_on_connection of <sqlalchemy.sql.annotation.AnnotatedUpdate object at 0x7f3101bf53d0>>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 323, in _execute_on_connection
+    return connection._execute_clauseelement(
+           │          └ <function Connection._execute_clauseelement at 0x7f31f39bc5e0>
+           └ <sqlalchemy.engine.base.Connection object at 0x7f31021f01c0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1452, in _execute_clauseelement
+    ret = self._execute_context(
+          │    └ <function Connection._execute_context at 0x7f31f39bc8b0>
+          └ <sqlalchemy.engine.base.Connection object at 0x7f31021f01c0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1814, in _execute_context
+    self._handle_dbapi_exception(
+    │    └ <function Connection._handle_dbapi_exception at 0x7f31f39bca60>
+    └ <sqlalchemy.engine.base.Connection object at 0x7f31021f01c0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1995, in _handle_dbapi_exception
+    util.raise_(
+    │    └ <function raise_ at 0x7f31f3d7ea60>
+    └ <module 'sqlalchemy.util' from '/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/util/__init__.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 207, in raise_
+    raise exception
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1771, in _execute_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x7f31f38f75e0>
+    │    └ <sqlalchemy.dialects.mysql.pymysql.MySQLDialect_pymysql object at 0x7f3103ffde20>
+    └ <sqlalchemy.engine.base.Connection object at 0x7f31021f01c0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 717, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ {'server_id': '180.201.163.246:6800', 'ip': '180.201.163.246', 'username': 'chase', 'password': '8043668894339600453377072698...
+    │      │       └ 'UPDATE device SET server_id=%(server_id)s, ip=%(ip)s, username=%(username)s, password=%(password)s, address=%(address)s, por...
+    │      └ <function Cursor.execute at 0x7f31f354cdc0>
+    └ <pymysql.cursors.Cursor object at 0x7f309859bac0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 148, in execute
+    result = self._query(query)
+             │    │      └ "UPDATE device SET server_id='180.201.163.246:6800', ip='180.201.163.246', username='chase', password='8043668894339600453377...
+             │    └ <function Cursor._query at 0x7f31f34d7280>
+             └ <pymysql.cursors.Cursor object at 0x7f309859bac0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 310, in _query
+    conn.query(q)
+    │    │     └ "UPDATE device SET server_id='180.201.163.246:6800', ip='180.201.163.246', username='chase', password='8043668894339600453377...
+    │    └ <function Connection.query at 0x7f31f34e5670>
+    └ <pymysql.connections.Connection object at 0x7f30986ab8b0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+    │    │                │    │                             └ False
+    │    │                │    └ <function Connection._read_query_result at 0x7f31f34e5ca0>
+    │    │                └ <pymysql.connections.Connection object at 0x7f30986ab8b0>
+    │    └ 1
+    └ <pymysql.connections.Connection object at 0x7f30986ab8b0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 775, in _read_query_result
+    result.read()
+    │      └ <function MySQLResult.read at 0x7f31f34e64c0>
+    └ <pymysql.connections.MySQLResult object at 0x7f3100037070>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+                   │    └ None
+                   └ <pymysql.connections.MySQLResult object at 0x7f3100037070>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+    │      └ <function MysqlPacket.raise_for_error at 0x7f31f34ddee0>
+    └ <pymysql.protocol.MysqlPacket object at 0x7f30986121f0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    │   │                     │    └ <member '_data' of 'MysqlPacket' objects>
+    │   │                     └ <pymysql.protocol.MysqlPacket object at 0x7f30986121f0>
+    │   └ <function raise_mysql_exception at 0x7f31f358c670>
+    └ <module 'pymysql.err' from '/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+          │          │      └ "Duplicate entry '180.201.163.246:6800' for key 'device.PRIMARY'"
+          │          └ 1062
+          └ <class 'pymysql.err.IntegrityError'>
+
+sqlalchemy.exc.IntegrityError: (pymysql.err.IntegrityError) (1062, "Duplicate entry '180.201.163.246:6800' for key 'device.PRIMARY'")
+[SQL: UPDATE device SET server_id=%(server_id)s, ip=%(ip)s, username=%(username)s, password=%(password)s, address=%(address)s, port=%(port)s, valid=%(valid)s WHERE device.ip = %(ip_1)s]
+[parameters: {'server_id': '180.201.163.246:6800', 'ip': '180.201.163.246', 'username': 'chase', 'password': '80436688943396004533770726981307752900357841114493867759856662819583824219100969873646411822892043698315173390650802716357379399610907290037001329088 ... (10 characters truncated) ... 62298824018120059366594666767613056569629503185447936482876561362877771725964923623093246086721015968158604928960595205309892830316983958193793280690', 'address': '/home/users/CT/pycharmproject/spiders/', 'port': 6800, 'valid': 1, 'ip_1': '180.201.163.246'}]
+(Background on this error at: https://sqlalche.me/e/14/gkpj)
+2022-05-13 18:13:40.122 | ERROR    | base.db.mysql:update:390 - 【mysql更新数据出错】
+Traceback (most recent call last):
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1771, in _execute_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x7f31f38f75e0>
+    │    └ <sqlalchemy.dialects.mysql.pymysql.MySQLDialect_pymysql object at 0x7f3103ffde20>
+    └ <sqlalchemy.engine.base.Connection object at 0x7f30b8095730>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 717, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ {'server_id': '180.201.163.246:6800', 'ip': '180.201.163.246', 'username': 'chase', 'password': '8986907043739954725139441228...
+    │      │       └ 'UPDATE device SET server_id=%(server_id)s, ip=%(ip)s, username=%(username)s, password=%(password)s, address=%(address)s, por...
+    │      └ <function Cursor.execute at 0x7f31f354cdc0>
+    └ <pymysql.cursors.Cursor object at 0x7f30b854a9a0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 148, in execute
+    result = self._query(query)
+             │    │      └ "UPDATE device SET server_id='180.201.163.246:6800', ip='180.201.163.246', username='chase', password='8986907043739954725139...
+             │    └ <function Cursor._query at 0x7f31f34d7280>
+             └ <pymysql.cursors.Cursor object at 0x7f30b854a9a0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 310, in _query
+    conn.query(q)
+    │    │     └ "UPDATE device SET server_id='180.201.163.246:6800', ip='180.201.163.246', username='chase', password='8986907043739954725139...
+    │    └ <function Connection.query at 0x7f31f34e5670>
+    └ <pymysql.connections.Connection object at 0x7f30d8197310>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+    │    │                │    │                             └ False
+    │    │                │    └ <function Connection._read_query_result at 0x7f31f34e5ca0>
+    │    │                └ <pymysql.connections.Connection object at 0x7f30d8197310>
+    │    └ 1
+    └ <pymysql.connections.Connection object at 0x7f30d8197310>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 775, in _read_query_result
+    result.read()
+    │      └ <function MySQLResult.read at 0x7f31f34e64c0>
+    └ <pymysql.connections.MySQLResult object at 0x7f30b877f2e0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+                   │    └ None
+                   └ <pymysql.connections.MySQLResult object at 0x7f30b877f2e0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+    │      └ <function MysqlPacket.raise_for_error at 0x7f31f34ddee0>
+    └ <pymysql.protocol.MysqlPacket object at 0x7f30b8537f40>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    │   │                     │    └ <member '_data' of 'MysqlPacket' objects>
+    │   │                     └ <pymysql.protocol.MysqlPacket object at 0x7f30b8537f40>
+    │   └ <function raise_mysql_exception at 0x7f31f358c670>
+    └ <module 'pymysql.err' from '/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+          │          │      └ "Duplicate entry '180.201.163.246:6800' for key 'device.PRIMARY'"
+          │          └ 1062
+          └ <class 'pymysql.err.IntegrityError'>
+
+pymysql.err.IntegrityError: (1062, "Duplicate entry '180.201.163.246:6800' for key 'device.PRIMARY'")
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f321bf29a60>
+    └ <Thread(Thread-1089, started daemon 139840309425920)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f321bf29790>
+    └ <Thread(Thread-1089, started daemon 139840309425920)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-1089, started daemon 139840309425920)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-1089, started daemon 139840309425920)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f31042e52e0>>
+    └ <Thread(Thread-1089, started daemon 139840309425920)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 799, in get_request_from_keywords_hot
+    self.start_finished_spider_every_interval(project_names)
+    │    │                                    └ ['default', 'test']
+    │    └ <function ProjectManager.start_finished_spider_every_interval at 0x7f3104005280>
+    └ <monitor.projectManager.ProjectManager object at 0x7f31042e52e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 784, in start_finished_spider_every_interval
+    self[name].start_spider()
+    │    └ 'default'
+    └ <monitor.projectManager.ProjectManager object at 0x7f31042e52e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 366, in start_spider
+    self.update_device_valid(device)
+    │    │                   └ <monitor.deviceManager.DeviceC object at 0x7f3104029220>
+    │    └ <function Project.update_device_valid at 0x7f3104003280>
+    └ <monitor.projectManager.Project object at 0x7f3104029460>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 421, in update_device_valid
+    self.database_manager.mysql.update(Device(**device.to_item()))
+    │    │                │     │      │        │      └ <function DeviceC.to_item at 0x7f31f34ed310>
+    │    │                │     │      │        └ <monitor.deviceManager.DeviceC object at 0x7f3104029220>
+    │    │                │     │      └ <class 'base.db.mysql.Device'>
+    │    │                │     └ <function Mysql.update at 0x7f31f35f4790>
+    │    │                └ <base.db.mysql.Mysql object at 0x7f3103ffdfd0>
+    │    └ <base.db.dbSlot.Slot object at 0x7f3103ffdf10>
+    └ <monitor.projectManager.Project object at 0x7f3104029460>
+
+> File "/home/users/Scy/yuqing/spider/base/db/mysql.py", line 375, in update
+    row.update(new)
+    │   │      └ {'server_id': '180.201.163.246:6800', 'ip': '180.201.163.246', 'username': 'chase', 'password': '8986907043739954725139441228...
+    │   └ <function Query.update at 0x7f31f37333a0>
+    └ <sqlalchemy.orm.query.Query object at 0x7f30985d3100>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3221, in update
+    result = self.session.execute(
+             │    │       └ <function Session.execute at 0x7f31f370faf0>
+             │    └ <sqlalchemy.orm.session.Session object at 0x7f30985aed60>
+             └ <sqlalchemy.orm.query.Query object at 0x7f30985d3100>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1689, in execute
+    result = conn._execute_20(statement, params or {}, execution_options)
+             │    │           │          │             └ immutabledict({'synchronize_session': 'evaluate', '_sa_orm_update_options': default_update_options(_matched_objects=[], _reso...
+             │    │           │          └ immutabledict({})
+             │    │           └ <sqlalchemy.sql.annotation.AnnotatedUpdate object at 0x7f30d81e9490>
+             │    └ <function Connection._execute_20 at 0x7f31f39bc790>
+             └ <sqlalchemy.engine.base.Connection object at 0x7f30b8095730>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1583, in _execute_20
+    return meth(self, args_10style, kwargs_10style, execution_options)
+           │    │     │             │               └ immutabledict({'synchronize_session': 'evaluate', '_sa_orm_update_options': default_update_options(_matched_objects=[], _reso...
+           │    │     │             └ immutabledict({})
+           │    │     └ ({},)
+           │    └ <sqlalchemy.engine.base.Connection object at 0x7f30b8095730>
+           └ <bound method ClauseElement._execute_on_connection of <sqlalchemy.sql.annotation.AnnotatedUpdate object at 0x7f30d81e9490>>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 323, in _execute_on_connection
+    return connection._execute_clauseelement(
+           │          └ <function Connection._execute_clauseelement at 0x7f31f39bc5e0>
+           └ <sqlalchemy.engine.base.Connection object at 0x7f30b8095730>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1452, in _execute_clauseelement
+    ret = self._execute_context(
+          │    └ <function Connection._execute_context at 0x7f31f39bc8b0>
+          └ <sqlalchemy.engine.base.Connection object at 0x7f30b8095730>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1814, in _execute_context
+    self._handle_dbapi_exception(
+    │    └ <function Connection._handle_dbapi_exception at 0x7f31f39bca60>
+    └ <sqlalchemy.engine.base.Connection object at 0x7f30b8095730>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1995, in _handle_dbapi_exception
+    util.raise_(
+    │    └ <function raise_ at 0x7f31f3d7ea60>
+    └ <module 'sqlalchemy.util' from '/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/util/__init__.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 207, in raise_
+    raise exception
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1771, in _execute_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x7f31f38f75e0>
+    │    └ <sqlalchemy.dialects.mysql.pymysql.MySQLDialect_pymysql object at 0x7f3103ffde20>
+    └ <sqlalchemy.engine.base.Connection object at 0x7f30b8095730>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 717, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ {'server_id': '180.201.163.246:6800', 'ip': '180.201.163.246', 'username': 'chase', 'password': '8986907043739954725139441228...
+    │      │       └ 'UPDATE device SET server_id=%(server_id)s, ip=%(ip)s, username=%(username)s, password=%(password)s, address=%(address)s, por...
+    │      └ <function Cursor.execute at 0x7f31f354cdc0>
+    └ <pymysql.cursors.Cursor object at 0x7f30b854a9a0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 148, in execute
+    result = self._query(query)
+             │    │      └ "UPDATE device SET server_id='180.201.163.246:6800', ip='180.201.163.246', username='chase', password='8986907043739954725139...
+             │    └ <function Cursor._query at 0x7f31f34d7280>
+             └ <pymysql.cursors.Cursor object at 0x7f30b854a9a0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 310, in _query
+    conn.query(q)
+    │    │     └ "UPDATE device SET server_id='180.201.163.246:6800', ip='180.201.163.246', username='chase', password='8986907043739954725139...
+    │    └ <function Connection.query at 0x7f31f34e5670>
+    └ <pymysql.connections.Connection object at 0x7f30d8197310>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+    │    │                │    │                             └ False
+    │    │                │    └ <function Connection._read_query_result at 0x7f31f34e5ca0>
+    │    │                └ <pymysql.connections.Connection object at 0x7f30d8197310>
+    │    └ 1
+    └ <pymysql.connections.Connection object at 0x7f30d8197310>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 775, in _read_query_result
+    result.read()
+    │      └ <function MySQLResult.read at 0x7f31f34e64c0>
+    └ <pymysql.connections.MySQLResult object at 0x7f30b877f2e0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+                   │    └ None
+                   └ <pymysql.connections.MySQLResult object at 0x7f30b877f2e0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+    │      └ <function MysqlPacket.raise_for_error at 0x7f31f34ddee0>
+    └ <pymysql.protocol.MysqlPacket object at 0x7f30b8537f40>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    │   │                     │    └ <member '_data' of 'MysqlPacket' objects>
+    │   │                     └ <pymysql.protocol.MysqlPacket object at 0x7f30b8537f40>
+    │   └ <function raise_mysql_exception at 0x7f31f358c670>
+    └ <module 'pymysql.err' from '/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+          │          │      └ "Duplicate entry '180.201.163.246:6800' for key 'device.PRIMARY'"
+          │          └ 1062
+          └ <class 'pymysql.err.IntegrityError'>
+
+sqlalchemy.exc.IntegrityError: (pymysql.err.IntegrityError) (1062, "Duplicate entry '180.201.163.246:6800' for key 'device.PRIMARY'")
+[SQL: UPDATE device SET server_id=%(server_id)s, ip=%(ip)s, username=%(username)s, password=%(password)s, address=%(address)s, port=%(port)s, valid=%(valid)s WHERE device.ip = %(ip_1)s]
+[parameters: {'server_id': '180.201.163.246:6800', 'ip': '180.201.163.246', 'username': 'chase', 'password': '89869070437399547251394412282611913358083258506855748222977698929085187332709135024417077010278627375180744343811491222202899674355592295172445609886 ... (10 characters truncated) ... 48124370306655084788900390562603685470513246166003763134335764354490217501320930120039852516531064731684994136571943094858878337363582168029545354844', 'address': '/home/users/CT/pycharmproject/spiders/', 'port': 6800, 'valid': 1, 'ip_1': '180.201.163.246'}]
+(Background on this error at: https://sqlalche.me/e/14/gkpj)
+2022-05-13 18:13:58.223 | ERROR    | base.db.mysql:update:390 - 【mysql更新数据出错】
+Traceback (most recent call last):
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1771, in _execute_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x7f31f38f75e0>
+    │    └ <sqlalchemy.dialects.mysql.pymysql.MySQLDialect_pymysql object at 0x7f3103ffde20>
+    └ <sqlalchemy.engine.base.Connection object at 0x7f309877f280>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 717, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ {'server_id': '180.201.163.246:6800', 'ip': '180.201.163.246', 'username': 'chase', 'password': '7618439411003580025161373153...
+    │      │       └ 'UPDATE device SET server_id=%(server_id)s, ip=%(ip)s, username=%(username)s, password=%(password)s, address=%(address)s, por...
+    │      └ <function Cursor.execute at 0x7f31f354cdc0>
+    └ <pymysql.cursors.Cursor object at 0x7f3100156f70>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 148, in execute
+    result = self._query(query)
+             │    │      └ "UPDATE device SET server_id='180.201.163.246:6800', ip='180.201.163.246', username='chase', password='7618439411003580025161...
+             │    └ <function Cursor._query at 0x7f31f34d7280>
+             └ <pymysql.cursors.Cursor object at 0x7f3100156f70>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 310, in _query
+    conn.query(q)
+    │    │     └ "UPDATE device SET server_id='180.201.163.246:6800', ip='180.201.163.246', username='chase', password='7618439411003580025161...
+    │    └ <function Connection.query at 0x7f31f34e5670>
+    └ <pymysql.connections.Connection object at 0x7f3100037c10>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+    │    │                │    │                             └ False
+    │    │                │    └ <function Connection._read_query_result at 0x7f31f34e5ca0>
+    │    │                └ <pymysql.connections.Connection object at 0x7f3100037c10>
+    │    └ 1
+    └ <pymysql.connections.Connection object at 0x7f3100037c10>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 775, in _read_query_result
+    result.read()
+    │      └ <function MySQLResult.read at 0x7f31f34e64c0>
+    └ <pymysql.connections.MySQLResult object at 0x7f3100b67670>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+                   │    └ None
+                   └ <pymysql.connections.MySQLResult object at 0x7f3100b67670>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+    │      └ <function MysqlPacket.raise_for_error at 0x7f31f34ddee0>
+    └ <pymysql.protocol.MysqlPacket object at 0x7f3101bf13a0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    │   │                     │    └ <member '_data' of 'MysqlPacket' objects>
+    │   │                     └ <pymysql.protocol.MysqlPacket object at 0x7f3101bf13a0>
+    │   └ <function raise_mysql_exception at 0x7f31f358c670>
+    └ <module 'pymysql.err' from '/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+          │          │      └ "Duplicate entry '180.201.163.246:6800' for key 'device.PRIMARY'"
+          │          └ 1062
+          └ <class 'pymysql.err.IntegrityError'>
+
+pymysql.err.IntegrityError: (1062, "Duplicate entry '180.201.163.246:6800' for key 'device.PRIMARY'")
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f321bf29a60>
+    └ <Thread(Thread-1094, started daemon 139840301033216)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f321bf29790>
+    └ <Thread(Thread-1094, started daemon 139840301033216)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-1094, started daemon 139840301033216)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-1094, started daemon 139840301033216)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f31042e52e0>>
+    └ <Thread(Thread-1094, started daemon 139840301033216)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 799, in get_request_from_keywords_hot
+    self.start_finished_spider_every_interval(project_names)
+    │    │                                    └ ['default', 'test']
+    │    └ <function ProjectManager.start_finished_spider_every_interval at 0x7f3104005280>
+    └ <monitor.projectManager.ProjectManager object at 0x7f31042e52e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 784, in start_finished_spider_every_interval
+    self[name].start_spider()
+    │    └ 'default'
+    └ <monitor.projectManager.ProjectManager object at 0x7f31042e52e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 366, in start_spider
+    self.update_device_valid(device)
+    │    │                   └ <monitor.deviceManager.DeviceC object at 0x7f3104029220>
+    │    └ <function Project.update_device_valid at 0x7f3104003280>
+    └ <monitor.projectManager.Project object at 0x7f3104029460>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 421, in update_device_valid
+    self.database_manager.mysql.update(Device(**device.to_item()))
+    │    │                │     │      │        │      └ <function DeviceC.to_item at 0x7f31f34ed310>
+    │    │                │     │      │        └ <monitor.deviceManager.DeviceC object at 0x7f3104029220>
+    │    │                │     │      └ <class 'base.db.mysql.Device'>
+    │    │                │     └ <function Mysql.update at 0x7f31f35f4790>
+    │    │                └ <base.db.mysql.Mysql object at 0x7f3103ffdfd0>
+    │    └ <base.db.dbSlot.Slot object at 0x7f3103ffdf10>
+    └ <monitor.projectManager.Project object at 0x7f3104029460>
+
+> File "/home/users/Scy/yuqing/spider/base/db/mysql.py", line 375, in update
+    row.update(new)
+    │   │      └ {'server_id': '180.201.163.246:6800', 'ip': '180.201.163.246', 'username': 'chase', 'password': '7618439411003580025161373153...
+    │   └ <function Query.update at 0x7f31f37333a0>
+    └ <sqlalchemy.orm.query.Query object at 0x7f3102207f10>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3221, in update
+    result = self.session.execute(
+             │    │       └ <function Session.execute at 0x7f31f370faf0>
+             │    └ <sqlalchemy.orm.session.Session object at 0x7f30d8091190>
+             └ <sqlalchemy.orm.query.Query object at 0x7f3102207f10>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1689, in execute
+    result = conn._execute_20(statement, params or {}, execution_options)
+             │    │           │          │             └ immutabledict({'synchronize_session': 'evaluate', '_sa_orm_update_options': default_update_options(_matched_objects=[], _reso...
+             │    │           │          └ immutabledict({})
+             │    │           └ <sqlalchemy.sql.annotation.AnnotatedUpdate object at 0x7f30b827be80>
+             │    └ <function Connection._execute_20 at 0x7f31f39bc790>
+             └ <sqlalchemy.engine.base.Connection object at 0x7f309877f280>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1583, in _execute_20
+    return meth(self, args_10style, kwargs_10style, execution_options)
+           │    │     │             │               └ immutabledict({'synchronize_session': 'evaluate', '_sa_orm_update_options': default_update_options(_matched_objects=[], _reso...
+           │    │     │             └ immutabledict({})
+           │    │     └ ({},)
+           │    └ <sqlalchemy.engine.base.Connection object at 0x7f309877f280>
+           └ <bound method ClauseElement._execute_on_connection of <sqlalchemy.sql.annotation.AnnotatedUpdate object at 0x7f30b827be80>>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 323, in _execute_on_connection
+    return connection._execute_clauseelement(
+           │          └ <function Connection._execute_clauseelement at 0x7f31f39bc5e0>
+           └ <sqlalchemy.engine.base.Connection object at 0x7f309877f280>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1452, in _execute_clauseelement
+    ret = self._execute_context(
+          │    └ <function Connection._execute_context at 0x7f31f39bc8b0>
+          └ <sqlalchemy.engine.base.Connection object at 0x7f309877f280>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1814, in _execute_context
+    self._handle_dbapi_exception(
+    │    └ <function Connection._handle_dbapi_exception at 0x7f31f39bca60>
+    └ <sqlalchemy.engine.base.Connection object at 0x7f309877f280>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1995, in _handle_dbapi_exception
+    util.raise_(
+    │    └ <function raise_ at 0x7f31f3d7ea60>
+    └ <module 'sqlalchemy.util' from '/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/util/__init__.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 207, in raise_
+    raise exception
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1771, in _execute_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x7f31f38f75e0>
+    │    └ <sqlalchemy.dialects.mysql.pymysql.MySQLDialect_pymysql object at 0x7f3103ffde20>
+    └ <sqlalchemy.engine.base.Connection object at 0x7f309877f280>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 717, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ {'server_id': '180.201.163.246:6800', 'ip': '180.201.163.246', 'username': 'chase', 'password': '7618439411003580025161373153...
+    │      │       └ 'UPDATE device SET server_id=%(server_id)s, ip=%(ip)s, username=%(username)s, password=%(password)s, address=%(address)s, por...
+    │      └ <function Cursor.execute at 0x7f31f354cdc0>
+    └ <pymysql.cursors.Cursor object at 0x7f3100156f70>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 148, in execute
+    result = self._query(query)
+             │    │      └ "UPDATE device SET server_id='180.201.163.246:6800', ip='180.201.163.246', username='chase', password='7618439411003580025161...
+             │    └ <function Cursor._query at 0x7f31f34d7280>
+             └ <pymysql.cursors.Cursor object at 0x7f3100156f70>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 310, in _query
+    conn.query(q)
+    │    │     └ "UPDATE device SET server_id='180.201.163.246:6800', ip='180.201.163.246', username='chase', password='7618439411003580025161...
+    │    └ <function Connection.query at 0x7f31f34e5670>
+    └ <pymysql.connections.Connection object at 0x7f3100037c10>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+    │    │                │    │                             └ False
+    │    │                │    └ <function Connection._read_query_result at 0x7f31f34e5ca0>
+    │    │                └ <pymysql.connections.Connection object at 0x7f3100037c10>
+    │    └ 1
+    └ <pymysql.connections.Connection object at 0x7f3100037c10>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 775, in _read_query_result
+    result.read()
+    │      └ <function MySQLResult.read at 0x7f31f34e64c0>
+    └ <pymysql.connections.MySQLResult object at 0x7f3100b67670>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+                   │    └ None
+                   └ <pymysql.connections.MySQLResult object at 0x7f3100b67670>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+    │      └ <function MysqlPacket.raise_for_error at 0x7f31f34ddee0>
+    └ <pymysql.protocol.MysqlPacket object at 0x7f3101bf13a0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    │   │                     │    └ <member '_data' of 'MysqlPacket' objects>
+    │   │                     └ <pymysql.protocol.MysqlPacket object at 0x7f3101bf13a0>
+    │   └ <function raise_mysql_exception at 0x7f31f358c670>
+    └ <module 'pymysql.err' from '/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+          │          │      └ "Duplicate entry '180.201.163.246:6800' for key 'device.PRIMARY'"
+          │          └ 1062
+          └ <class 'pymysql.err.IntegrityError'>
+
+sqlalchemy.exc.IntegrityError: (pymysql.err.IntegrityError) (1062, "Duplicate entry '180.201.163.246:6800' for key 'device.PRIMARY'")
+[SQL: UPDATE device SET server_id=%(server_id)s, ip=%(ip)s, username=%(username)s, password=%(password)s, address=%(address)s, port=%(port)s, valid=%(valid)s WHERE device.ip = %(ip_1)s]
+[parameters: {'server_id': '180.201.163.246:6800', 'ip': '180.201.163.246', 'username': 'chase', 'password': '76184394110035800251613731537884457563408724684458220212442430906328165844530008449152300137088210024800874664148488235794925056732523112715881020759 ... (10 characters truncated) ... 11116147371876864093168986242248743507388699189866496635819665780204675950187612302387803958264912661205643397037318651371414747049837352333800174512', 'address': '/home/users/CT/pycharmproject/spiders/', 'port': 6800, 'valid': 1, 'ip_1': '180.201.163.246'}]
+(Background on this error at: https://sqlalche.me/e/14/gkpj)
+2022-05-13 18:14:16.274 | ERROR    | base.db.mysql:update:390 - 【mysql更新数据出错】
+Traceback (most recent call last):
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1771, in _execute_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x7f31f38f75e0>
+    │    └ <sqlalchemy.dialects.mysql.pymysql.MySQLDialect_pymysql object at 0x7f3103ffde20>
+    └ <sqlalchemy.engine.base.Connection object at 0x7f30d8427a90>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 717, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ {'server_id': '180.201.163.246:6800', 'ip': '180.201.163.246', 'username': 'chase', 'password': '2776225771330201334991064711...
+    │      │       └ 'UPDATE device SET server_id=%(server_id)s, ip=%(ip)s, username=%(username)s, password=%(password)s, address=%(address)s, por...
+    │      └ <function Cursor.execute at 0x7f31f354cdc0>
+    └ <pymysql.cursors.Cursor object at 0x7f30d8490670>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 148, in execute
+    result = self._query(query)
+             │    │      └ "UPDATE device SET server_id='180.201.163.246:6800', ip='180.201.163.246', username='chase', password='2776225771330201334991...
+             │    └ <function Cursor._query at 0x7f31f34d7280>
+             └ <pymysql.cursors.Cursor object at 0x7f30d8490670>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 310, in _query
+    conn.query(q)
+    │    │     └ "UPDATE device SET server_id='180.201.163.246:6800', ip='180.201.163.246', username='chase', password='2776225771330201334991...
+    │    └ <function Connection.query at 0x7f31f34e5670>
+    └ <pymysql.connections.Connection object at 0x7f3101c168e0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+    │    │                │    │                             └ False
+    │    │                │    └ <function Connection._read_query_result at 0x7f31f34e5ca0>
+    │    │                └ <pymysql.connections.Connection object at 0x7f3101c168e0>
+    │    └ 1
+    └ <pymysql.connections.Connection object at 0x7f3101c168e0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 775, in _read_query_result
+    result.read()
+    │      └ <function MySQLResult.read at 0x7f31f34e64c0>
+    └ <pymysql.connections.MySQLResult object at 0x7f3101c62f70>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+                   │    └ None
+                   └ <pymysql.connections.MySQLResult object at 0x7f3101c62f70>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+    │      └ <function MysqlPacket.raise_for_error at 0x7f31f34ddee0>
+    └ <pymysql.protocol.MysqlPacket object at 0x7f30b86fb6d0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    │   │                     │    └ <member '_data' of 'MysqlPacket' objects>
+    │   │                     └ <pymysql.protocol.MysqlPacket object at 0x7f30b86fb6d0>
+    │   └ <function raise_mysql_exception at 0x7f31f358c670>
+    └ <module 'pymysql.err' from '/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+          │          │      └ "Duplicate entry '180.201.163.246:6800' for key 'device.PRIMARY'"
+          │          └ 1062
+          └ <class 'pymysql.err.IntegrityError'>
+
+pymysql.err.IntegrityError: (1062, "Duplicate entry '180.201.163.246:6800' for key 'device.PRIMARY'")
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f321bf29a60>
+    └ <Thread(Thread-1099, started daemon 139840284247808)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f321bf29790>
+    └ <Thread(Thread-1099, started daemon 139840284247808)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-1099, started daemon 139840284247808)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-1099, started daemon 139840284247808)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f31042e52e0>>
+    └ <Thread(Thread-1099, started daemon 139840284247808)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 799, in get_request_from_keywords_hot
+    self.start_finished_spider_every_interval(project_names)
+    │    │                                    └ ['default', 'test']
+    │    └ <function ProjectManager.start_finished_spider_every_interval at 0x7f3104005280>
+    └ <monitor.projectManager.ProjectManager object at 0x7f31042e52e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 784, in start_finished_spider_every_interval
+    self[name].start_spider()
+    │    └ 'default'
+    └ <monitor.projectManager.ProjectManager object at 0x7f31042e52e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 366, in start_spider
+    self.update_device_valid(device)
+    │    │                   └ <monitor.deviceManager.DeviceC object at 0x7f3104029220>
+    │    └ <function Project.update_device_valid at 0x7f3104003280>
+    └ <monitor.projectManager.Project object at 0x7f3104029460>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 421, in update_device_valid
+    self.database_manager.mysql.update(Device(**device.to_item()))
+    │    │                │     │      │        │      └ <function DeviceC.to_item at 0x7f31f34ed310>
+    │    │                │     │      │        └ <monitor.deviceManager.DeviceC object at 0x7f3104029220>
+    │    │                │     │      └ <class 'base.db.mysql.Device'>
+    │    │                │     └ <function Mysql.update at 0x7f31f35f4790>
+    │    │                └ <base.db.mysql.Mysql object at 0x7f3103ffdfd0>
+    │    └ <base.db.dbSlot.Slot object at 0x7f3103ffdf10>
+    └ <monitor.projectManager.Project object at 0x7f3104029460>
+
+> File "/home/users/Scy/yuqing/spider/base/db/mysql.py", line 375, in update
+    row.update(new)
+    │   │      └ {'server_id': '180.201.163.246:6800', 'ip': '180.201.163.246', 'username': 'chase', 'password': '2776225771330201334991064711...
+    │   └ <function Query.update at 0x7f31f37333a0>
+    └ <sqlalchemy.orm.query.Query object at 0x7f3100b7c850>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3221, in update
+    result = self.session.execute(
+             │    │       └ <function Session.execute at 0x7f31f370faf0>
+             │    └ <sqlalchemy.orm.session.Session object at 0x7f3102172460>
+             └ <sqlalchemy.orm.query.Query object at 0x7f3100b7c850>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1689, in execute
+    result = conn._execute_20(statement, params or {}, execution_options)
+             │    │           │          │             └ immutabledict({'synchronize_session': 'evaluate', '_sa_orm_update_options': default_update_options(_matched_objects=[], _reso...
+             │    │           │          └ immutabledict({})
+             │    │           └ <sqlalchemy.sql.annotation.AnnotatedUpdate object at 0x7f3101d72d00>
+             │    └ <function Connection._execute_20 at 0x7f31f39bc790>
+             └ <sqlalchemy.engine.base.Connection object at 0x7f30d8427a90>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1583, in _execute_20
+    return meth(self, args_10style, kwargs_10style, execution_options)
+           │    │     │             │               └ immutabledict({'synchronize_session': 'evaluate', '_sa_orm_update_options': default_update_options(_matched_objects=[], _reso...
+           │    │     │             └ immutabledict({})
+           │    │     └ ({},)
+           │    └ <sqlalchemy.engine.base.Connection object at 0x7f30d8427a90>
+           └ <bound method ClauseElement._execute_on_connection of <sqlalchemy.sql.annotation.AnnotatedUpdate object at 0x7f3101d72d00>>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 323, in _execute_on_connection
+    return connection._execute_clauseelement(
+           │          └ <function Connection._execute_clauseelement at 0x7f31f39bc5e0>
+           └ <sqlalchemy.engine.base.Connection object at 0x7f30d8427a90>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1452, in _execute_clauseelement
+    ret = self._execute_context(
+          │    └ <function Connection._execute_context at 0x7f31f39bc8b0>
+          └ <sqlalchemy.engine.base.Connection object at 0x7f30d8427a90>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1814, in _execute_context
+    self._handle_dbapi_exception(
+    │    └ <function Connection._handle_dbapi_exception at 0x7f31f39bca60>
+    └ <sqlalchemy.engine.base.Connection object at 0x7f30d8427a90>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1995, in _handle_dbapi_exception
+    util.raise_(
+    │    └ <function raise_ at 0x7f31f3d7ea60>
+    └ <module 'sqlalchemy.util' from '/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/util/__init__.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 207, in raise_
+    raise exception
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1771, in _execute_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x7f31f38f75e0>
+    │    └ <sqlalchemy.dialects.mysql.pymysql.MySQLDialect_pymysql object at 0x7f3103ffde20>
+    └ <sqlalchemy.engine.base.Connection object at 0x7f30d8427a90>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 717, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ {'server_id': '180.201.163.246:6800', 'ip': '180.201.163.246', 'username': 'chase', 'password': '2776225771330201334991064711...
+    │      │       └ 'UPDATE device SET server_id=%(server_id)s, ip=%(ip)s, username=%(username)s, password=%(password)s, address=%(address)s, por...
+    │      └ <function Cursor.execute at 0x7f31f354cdc0>
+    └ <pymysql.cursors.Cursor object at 0x7f30d8490670>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 148, in execute
+    result = self._query(query)
+             │    │      └ "UPDATE device SET server_id='180.201.163.246:6800', ip='180.201.163.246', username='chase', password='2776225771330201334991...
+             │    └ <function Cursor._query at 0x7f31f34d7280>
+             └ <pymysql.cursors.Cursor object at 0x7f30d8490670>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 310, in _query
+    conn.query(q)
+    │    │     └ "UPDATE device SET server_id='180.201.163.246:6800', ip='180.201.163.246', username='chase', password='2776225771330201334991...
+    │    └ <function Connection.query at 0x7f31f34e5670>
+    └ <pymysql.connections.Connection object at 0x7f3101c168e0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+    │    │                │    │                             └ False
+    │    │                │    └ <function Connection._read_query_result at 0x7f31f34e5ca0>
+    │    │                └ <pymysql.connections.Connection object at 0x7f3101c168e0>
+    │    └ 1
+    └ <pymysql.connections.Connection object at 0x7f3101c168e0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 775, in _read_query_result
+    result.read()
+    │      └ <function MySQLResult.read at 0x7f31f34e64c0>
+    └ <pymysql.connections.MySQLResult object at 0x7f3101c62f70>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+                   │    └ None
+                   └ <pymysql.connections.MySQLResult object at 0x7f3101c62f70>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+    │      └ <function MysqlPacket.raise_for_error at 0x7f31f34ddee0>
+    └ <pymysql.protocol.MysqlPacket object at 0x7f30b86fb6d0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    │   │                     │    └ <member '_data' of 'MysqlPacket' objects>
+    │   │                     └ <pymysql.protocol.MysqlPacket object at 0x7f30b86fb6d0>
+    │   └ <function raise_mysql_exception at 0x7f31f358c670>
+    └ <module 'pymysql.err' from '/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+          │          │      └ "Duplicate entry '180.201.163.246:6800' for key 'device.PRIMARY'"
+          │          └ 1062
+          └ <class 'pymysql.err.IntegrityError'>
+
+sqlalchemy.exc.IntegrityError: (pymysql.err.IntegrityError) (1062, "Duplicate entry '180.201.163.246:6800' for key 'device.PRIMARY'")
+[SQL: UPDATE device SET server_id=%(server_id)s, ip=%(ip)s, username=%(username)s, password=%(password)s, address=%(address)s, port=%(port)s, valid=%(valid)s WHERE device.ip = %(ip_1)s]
+[parameters: {'server_id': '180.201.163.246:6800', 'ip': '180.201.163.246', 'username': 'chase', 'password': '27762257713302013349910647117812323911445962677913544438105268157944172455958097592382275440366700406734623797192499824358696447881833940568001129321 ... (10 characters truncated) ... 56423722912753327986935802989537556292673657697711855472064640958481265598151919078340914109028021036449641772963607424499178919454272364303347172090', 'address': '/home/users/CT/pycharmproject/spiders/', 'port': 6800, 'valid': 1, 'ip_1': '180.201.163.246'}]
+(Background on this error at: https://sqlalche.me/e/14/gkpj)
+2022-05-13 18:14:34.344 | ERROR    | base.db.mysql:update:390 - 【mysql更新数据出错】
+Traceback (most recent call last):
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1771, in _execute_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x7f31f38f75e0>
+    │    └ <sqlalchemy.dialects.mysql.pymysql.MySQLDialect_pymysql object at 0x7f3103ffde20>
+    └ <sqlalchemy.engine.base.Connection object at 0x7f30d860ba00>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 717, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ {'server_id': '180.201.163.246:6800', 'ip': '180.201.163.246', 'username': 'chase', 'password': '3453724614941507565891417286...
+    │      │       └ 'UPDATE device SET server_id=%(server_id)s, ip=%(ip)s, username=%(username)s, password=%(password)s, address=%(address)s, por...
+    │      └ <function Cursor.execute at 0x7f31f354cdc0>
+    └ <pymysql.cursors.Cursor object at 0x7f31f9308760>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 148, in execute
+    result = self._query(query)
+             │    │      └ "UPDATE device SET server_id='180.201.163.246:6800', ip='180.201.163.246', username='chase', password='3453724614941507565891...
+             │    └ <function Cursor._query at 0x7f31f34d7280>
+             └ <pymysql.cursors.Cursor object at 0x7f31f9308760>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 310, in _query
+    conn.query(q)
+    │    │     └ "UPDATE device SET server_id='180.201.163.246:6800', ip='180.201.163.246', username='chase', password='3453724614941507565891...
+    │    └ <function Connection.query at 0x7f31f34e5670>
+    └ <pymysql.connections.Connection object at 0x7f30d860bb50>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+    │    │                │    │                             └ False
+    │    │                │    └ <function Connection._read_query_result at 0x7f31f34e5ca0>
+    │    │                └ <pymysql.connections.Connection object at 0x7f30d860bb50>
+    │    └ 1
+    └ <pymysql.connections.Connection object at 0x7f30d860bb50>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 775, in _read_query_result
+    result.read()
+    │      └ <function MySQLResult.read at 0x7f31f34e64c0>
+    └ <pymysql.connections.MySQLResult object at 0x7f3098566af0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+                   │    └ None
+                   └ <pymysql.connections.MySQLResult object at 0x7f3098566af0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+    │      └ <function MysqlPacket.raise_for_error at 0x7f31f34ddee0>
+    └ <pymysql.protocol.MysqlPacket object at 0x7f30b8370c40>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    │   │                     │    └ <member '_data' of 'MysqlPacket' objects>
+    │   │                     └ <pymysql.protocol.MysqlPacket object at 0x7f30b8370c40>
+    │   └ <function raise_mysql_exception at 0x7f31f358c670>
+    └ <module 'pymysql.err' from '/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+          │          │      └ "Duplicate entry '180.201.163.246:6800' for key 'device.PRIMARY'"
+          │          └ 1062
+          └ <class 'pymysql.err.IntegrityError'>
+
+pymysql.err.IntegrityError: (1062, "Duplicate entry '180.201.163.246:6800' for key 'device.PRIMARY'")
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f321bf29a60>
+    └ <Thread(Thread-1103, started daemon 139840275855104)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f321bf29790>
+    └ <Thread(Thread-1103, started daemon 139840275855104)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-1103, started daemon 139840275855104)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-1103, started daemon 139840275855104)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f31042e52e0>>
+    └ <Thread(Thread-1103, started daemon 139840275855104)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 799, in get_request_from_keywords_hot
+    self.start_finished_spider_every_interval(project_names)
+    │    │                                    └ ['default', 'test']
+    │    └ <function ProjectManager.start_finished_spider_every_interval at 0x7f3104005280>
+    └ <monitor.projectManager.ProjectManager object at 0x7f31042e52e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 784, in start_finished_spider_every_interval
+    self[name].start_spider()
+    │    └ 'default'
+    └ <monitor.projectManager.ProjectManager object at 0x7f31042e52e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 366, in start_spider
+    self.update_device_valid(device)
+    │    │                   └ <monitor.deviceManager.DeviceC object at 0x7f3104029220>
+    │    └ <function Project.update_device_valid at 0x7f3104003280>
+    └ <monitor.projectManager.Project object at 0x7f3104029460>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 421, in update_device_valid
+    self.database_manager.mysql.update(Device(**device.to_item()))
+    │    │                │     │      │        │      └ <function DeviceC.to_item at 0x7f31f34ed310>
+    │    │                │     │      │        └ <monitor.deviceManager.DeviceC object at 0x7f3104029220>
+    │    │                │     │      └ <class 'base.db.mysql.Device'>
+    │    │                │     └ <function Mysql.update at 0x7f31f35f4790>
+    │    │                └ <base.db.mysql.Mysql object at 0x7f3103ffdfd0>
+    │    └ <base.db.dbSlot.Slot object at 0x7f3103ffdf10>
+    └ <monitor.projectManager.Project object at 0x7f3104029460>
+
+> File "/home/users/Scy/yuqing/spider/base/db/mysql.py", line 375, in update
+    row.update(new)
+    │   │      └ {'server_id': '180.201.163.246:6800', 'ip': '180.201.163.246', 'username': 'chase', 'password': '3453724614941507565891417286...
+    │   └ <function Query.update at 0x7f31f37333a0>
+    └ <sqlalchemy.orm.query.Query object at 0x7f31022ef640>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3221, in update
+    result = self.session.execute(
+             │    │       └ <function Session.execute at 0x7f31f370faf0>
+             │    └ <sqlalchemy.orm.session.Session object at 0x7f31022ef550>
+             └ <sqlalchemy.orm.query.Query object at 0x7f31022ef640>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1689, in execute
+    result = conn._execute_20(statement, params or {}, execution_options)
+             │    │           │          │             └ immutabledict({'synchronize_session': 'evaluate', '_sa_orm_update_options': default_update_options(_matched_objects=[], _reso...
+             │    │           │          └ immutabledict({})
+             │    │           └ <sqlalchemy.sql.annotation.AnnotatedUpdate object at 0x7f31f9308910>
+             │    └ <function Connection._execute_20 at 0x7f31f39bc790>
+             └ <sqlalchemy.engine.base.Connection object at 0x7f30d860ba00>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1583, in _execute_20
+    return meth(self, args_10style, kwargs_10style, execution_options)
+           │    │     │             │               └ immutabledict({'synchronize_session': 'evaluate', '_sa_orm_update_options': default_update_options(_matched_objects=[], _reso...
+           │    │     │             └ immutabledict({})
+           │    │     └ ({},)
+           │    └ <sqlalchemy.engine.base.Connection object at 0x7f30d860ba00>
+           └ <bound method ClauseElement._execute_on_connection of <sqlalchemy.sql.annotation.AnnotatedUpdate object at 0x7f31f9308910>>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 323, in _execute_on_connection
+    return connection._execute_clauseelement(
+           │          └ <function Connection._execute_clauseelement at 0x7f31f39bc5e0>
+           └ <sqlalchemy.engine.base.Connection object at 0x7f30d860ba00>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1452, in _execute_clauseelement
+    ret = self._execute_context(
+          │    └ <function Connection._execute_context at 0x7f31f39bc8b0>
+          └ <sqlalchemy.engine.base.Connection object at 0x7f30d860ba00>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1814, in _execute_context
+    self._handle_dbapi_exception(
+    │    └ <function Connection._handle_dbapi_exception at 0x7f31f39bca60>
+    └ <sqlalchemy.engine.base.Connection object at 0x7f30d860ba00>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1995, in _handle_dbapi_exception
+    util.raise_(
+    │    └ <function raise_ at 0x7f31f3d7ea60>
+    └ <module 'sqlalchemy.util' from '/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/util/__init__.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 207, in raise_
+    raise exception
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1771, in _execute_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x7f31f38f75e0>
+    │    └ <sqlalchemy.dialects.mysql.pymysql.MySQLDialect_pymysql object at 0x7f3103ffde20>
+    └ <sqlalchemy.engine.base.Connection object at 0x7f30d860ba00>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 717, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ {'server_id': '180.201.163.246:6800', 'ip': '180.201.163.246', 'username': 'chase', 'password': '3453724614941507565891417286...
+    │      │       └ 'UPDATE device SET server_id=%(server_id)s, ip=%(ip)s, username=%(username)s, password=%(password)s, address=%(address)s, por...
+    │      └ <function Cursor.execute at 0x7f31f354cdc0>
+    └ <pymysql.cursors.Cursor object at 0x7f31f9308760>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 148, in execute
+    result = self._query(query)
+             │    │      └ "UPDATE device SET server_id='180.201.163.246:6800', ip='180.201.163.246', username='chase', password='3453724614941507565891...
+             │    └ <function Cursor._query at 0x7f31f34d7280>
+             └ <pymysql.cursors.Cursor object at 0x7f31f9308760>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 310, in _query
+    conn.query(q)
+    │    │     └ "UPDATE device SET server_id='180.201.163.246:6800', ip='180.201.163.246', username='chase', password='3453724614941507565891...
+    │    └ <function Connection.query at 0x7f31f34e5670>
+    └ <pymysql.connections.Connection object at 0x7f30d860bb50>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+    │    │                │    │                             └ False
+    │    │                │    └ <function Connection._read_query_result at 0x7f31f34e5ca0>
+    │    │                └ <pymysql.connections.Connection object at 0x7f30d860bb50>
+    │    └ 1
+    └ <pymysql.connections.Connection object at 0x7f30d860bb50>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 775, in _read_query_result
+    result.read()
+    │      └ <function MySQLResult.read at 0x7f31f34e64c0>
+    └ <pymysql.connections.MySQLResult object at 0x7f3098566af0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+                   │    └ None
+                   └ <pymysql.connections.MySQLResult object at 0x7f3098566af0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+    │      └ <function MysqlPacket.raise_for_error at 0x7f31f34ddee0>
+    └ <pymysql.protocol.MysqlPacket object at 0x7f30b8370c40>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    │   │                     │    └ <member '_data' of 'MysqlPacket' objects>
+    │   │                     └ <pymysql.protocol.MysqlPacket object at 0x7f30b8370c40>
+    │   └ <function raise_mysql_exception at 0x7f31f358c670>
+    └ <module 'pymysql.err' from '/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+          │          │      └ "Duplicate entry '180.201.163.246:6800' for key 'device.PRIMARY'"
+          │          └ 1062
+          └ <class 'pymysql.err.IntegrityError'>
+
+sqlalchemy.exc.IntegrityError: (pymysql.err.IntegrityError) (1062, "Duplicate entry '180.201.163.246:6800' for key 'device.PRIMARY'")
+[SQL: UPDATE device SET server_id=%(server_id)s, ip=%(ip)s, username=%(username)s, password=%(password)s, address=%(address)s, port=%(port)s, valid=%(valid)s WHERE device.ip = %(ip_1)s]
+[parameters: {'server_id': '180.201.163.246:6800', 'ip': '180.201.163.246', 'username': 'chase', 'password': '34537246149415075658914172864639713624572959582125856786655666106299859710103511547361314690496216013729141915611589967354705585886886852935896772713 ... (10 characters truncated) ... 45297048045574448335056077588200208034651225920854721303611326832144923403876413833854015237432464123685020456584631284870637435677462318631014580496', 'address': '/home/users/CT/pycharmproject/spiders/', 'port': 6800, 'valid': 1, 'ip_1': '180.201.163.246'}]
+(Background on this error at: https://sqlalche.me/e/14/gkpj)
+2022-05-13 18:14:52.097 | ERROR    | base.db.mysql:update:390 - 【mysql更新数据出错】
+Traceback (most recent call last):
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1771, in _execute_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x7f31f38f75e0>
+    │    └ <sqlalchemy.dialects.mysql.pymysql.MySQLDialect_pymysql object at 0x7f3103ffde20>
+    └ <sqlalchemy.engine.base.Connection object at 0x7f3098342f10>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 717, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ {'server_id': '180.201.163.246:6800', 'ip': '180.201.163.246', 'username': 'chase', 'password': '1014547981585533410927429455...
+    │      │       └ 'UPDATE device SET server_id=%(server_id)s, ip=%(ip)s, username=%(username)s, password=%(password)s, address=%(address)s, por...
+    │      └ <function Cursor.execute at 0x7f31f354cdc0>
+    └ <pymysql.cursors.Cursor object at 0x7f3098388220>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 148, in execute
+    result = self._query(query)
+             │    │      └ "UPDATE device SET server_id='180.201.163.246:6800', ip='180.201.163.246', username='chase', password='1014547981585533410927...
+             │    └ <function Cursor._query at 0x7f31f34d7280>
+             └ <pymysql.cursors.Cursor object at 0x7f3098388220>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 310, in _query
+    conn.query(q)
+    │    │     └ "UPDATE device SET server_id='180.201.163.246:6800', ip='180.201.163.246', username='chase', password='1014547981585533410927...
+    │    └ <function Connection.query at 0x7f31f34e5670>
+    └ <pymysql.connections.Connection object at 0x7f30b8552ca0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+    │    │                │    │                             └ False
+    │    │                │    └ <function Connection._read_query_result at 0x7f31f34e5ca0>
+    │    │                └ <pymysql.connections.Connection object at 0x7f30b8552ca0>
+    │    └ 1
+    └ <pymysql.connections.Connection object at 0x7f30b8552ca0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 775, in _read_query_result
+    result.read()
+    │      └ <function MySQLResult.read at 0x7f31f34e64c0>
+    └ <pymysql.connections.MySQLResult object at 0x7f31f91f9d90>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+                   │    └ None
+                   └ <pymysql.connections.MySQLResult object at 0x7f31f91f9d90>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+    │      └ <function MysqlPacket.raise_for_error at 0x7f31f34ddee0>
+    └ <pymysql.protocol.MysqlPacket object at 0x7f30d8482040>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    │   │                     │    └ <member '_data' of 'MysqlPacket' objects>
+    │   │                     └ <pymysql.protocol.MysqlPacket object at 0x7f30d8482040>
+    │   └ <function raise_mysql_exception at 0x7f31f358c670>
+    └ <module 'pymysql.err' from '/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+          │          │      └ "Duplicate entry '180.201.163.246:6800' for key 'device.PRIMARY'"
+          │          └ 1062
+          └ <class 'pymysql.err.IntegrityError'>
+
+pymysql.err.IntegrityError: (1062, "Duplicate entry '180.201.163.246:6800' for key 'device.PRIMARY'")
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f321bf29a60>
+    └ <Thread(Thread-1107, started daemon 139840292640512)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f321bf29790>
+    └ <Thread(Thread-1107, started daemon 139840292640512)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-1107, started daemon 139840292640512)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-1107, started daemon 139840292640512)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f31042e52e0>>
+    └ <Thread(Thread-1107, started daemon 139840292640512)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 799, in get_request_from_keywords_hot
+    self.start_finished_spider_every_interval(project_names)
+    │    │                                    └ ['default', 'test']
+    │    └ <function ProjectManager.start_finished_spider_every_interval at 0x7f3104005280>
+    └ <monitor.projectManager.ProjectManager object at 0x7f31042e52e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 784, in start_finished_spider_every_interval
+    self[name].start_spider()
+    │    └ 'default'
+    └ <monitor.projectManager.ProjectManager object at 0x7f31042e52e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 366, in start_spider
+    self.update_device_valid(device)
+    │    │                   └ <monitor.deviceManager.DeviceC object at 0x7f3104029220>
+    │    └ <function Project.update_device_valid at 0x7f3104003280>
+    └ <monitor.projectManager.Project object at 0x7f3104029460>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 421, in update_device_valid
+    self.database_manager.mysql.update(Device(**device.to_item()))
+    │    │                │     │      │        │      └ <function DeviceC.to_item at 0x7f31f34ed310>
+    │    │                │     │      │        └ <monitor.deviceManager.DeviceC object at 0x7f3104029220>
+    │    │                │     │      └ <class 'base.db.mysql.Device'>
+    │    │                │     └ <function Mysql.update at 0x7f31f35f4790>
+    │    │                └ <base.db.mysql.Mysql object at 0x7f3103ffdfd0>
+    │    └ <base.db.dbSlot.Slot object at 0x7f3103ffdf10>
+    └ <monitor.projectManager.Project object at 0x7f3104029460>
+
+> File "/home/users/Scy/yuqing/spider/base/db/mysql.py", line 375, in update
+    row.update(new)
+    │   │      └ {'server_id': '180.201.163.246:6800', 'ip': '180.201.163.246', 'username': 'chase', 'password': '1014547981585533410927429455...
+    │   └ <function Query.update at 0x7f31f37333a0>
+    └ <sqlalchemy.orm.query.Query object at 0x7f30986acd30>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3221, in update
+    result = self.session.execute(
+             │    │       └ <function Session.execute at 0x7f31f370faf0>
+             │    └ <sqlalchemy.orm.session.Session object at 0x7f30986ac100>
+             └ <sqlalchemy.orm.query.Query object at 0x7f30986acd30>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1689, in execute
+    result = conn._execute_20(statement, params or {}, execution_options)
+             │    │           │          │             └ immutabledict({'synchronize_session': 'evaluate', '_sa_orm_update_options': default_update_options(_matched_objects=[], _reso...
+             │    │           │          └ immutabledict({})
+             │    │           └ <sqlalchemy.sql.annotation.AnnotatedUpdate object at 0x7f30d84824c0>
+             │    └ <function Connection._execute_20 at 0x7f31f39bc790>
+             └ <sqlalchemy.engine.base.Connection object at 0x7f3098342f10>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1583, in _execute_20
+    return meth(self, args_10style, kwargs_10style, execution_options)
+           │    │     │             │               └ immutabledict({'synchronize_session': 'evaluate', '_sa_orm_update_options': default_update_options(_matched_objects=[], _reso...
+           │    │     │             └ immutabledict({})
+           │    │     └ ({},)
+           │    └ <sqlalchemy.engine.base.Connection object at 0x7f3098342f10>
+           └ <bound method ClauseElement._execute_on_connection of <sqlalchemy.sql.annotation.AnnotatedUpdate object at 0x7f30d84824c0>>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 323, in _execute_on_connection
+    return connection._execute_clauseelement(
+           │          └ <function Connection._execute_clauseelement at 0x7f31f39bc5e0>
+           └ <sqlalchemy.engine.base.Connection object at 0x7f3098342f10>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1452, in _execute_clauseelement
+    ret = self._execute_context(
+          │    └ <function Connection._execute_context at 0x7f31f39bc8b0>
+          └ <sqlalchemy.engine.base.Connection object at 0x7f3098342f10>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1814, in _execute_context
+    self._handle_dbapi_exception(
+    │    └ <function Connection._handle_dbapi_exception at 0x7f31f39bca60>
+    └ <sqlalchemy.engine.base.Connection object at 0x7f3098342f10>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1995, in _handle_dbapi_exception
+    util.raise_(
+    │    └ <function raise_ at 0x7f31f3d7ea60>
+    └ <module 'sqlalchemy.util' from '/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/util/__init__.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 207, in raise_
+    raise exception
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1771, in _execute_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x7f31f38f75e0>
+    │    └ <sqlalchemy.dialects.mysql.pymysql.MySQLDialect_pymysql object at 0x7f3103ffde20>
+    └ <sqlalchemy.engine.base.Connection object at 0x7f3098342f10>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 717, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ {'server_id': '180.201.163.246:6800', 'ip': '180.201.163.246', 'username': 'chase', 'password': '1014547981585533410927429455...
+    │      │       └ 'UPDATE device SET server_id=%(server_id)s, ip=%(ip)s, username=%(username)s, password=%(password)s, address=%(address)s, por...
+    │      └ <function Cursor.execute at 0x7f31f354cdc0>
+    └ <pymysql.cursors.Cursor object at 0x7f3098388220>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 148, in execute
+    result = self._query(query)
+             │    │      └ "UPDATE device SET server_id='180.201.163.246:6800', ip='180.201.163.246', username='chase', password='1014547981585533410927...
+             │    └ <function Cursor._query at 0x7f31f34d7280>
+             └ <pymysql.cursors.Cursor object at 0x7f3098388220>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 310, in _query
+    conn.query(q)
+    │    │     └ "UPDATE device SET server_id='180.201.163.246:6800', ip='180.201.163.246', username='chase', password='1014547981585533410927...
+    │    └ <function Connection.query at 0x7f31f34e5670>
+    └ <pymysql.connections.Connection object at 0x7f30b8552ca0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+    │    │                │    │                             └ False
+    │    │                │    └ <function Connection._read_query_result at 0x7f31f34e5ca0>
+    │    │                └ <pymysql.connections.Connection object at 0x7f30b8552ca0>
+    │    └ 1
+    └ <pymysql.connections.Connection object at 0x7f30b8552ca0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 775, in _read_query_result
+    result.read()
+    │      └ <function MySQLResult.read at 0x7f31f34e64c0>
+    └ <pymysql.connections.MySQLResult object at 0x7f31f91f9d90>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+                   │    └ None
+                   └ <pymysql.connections.MySQLResult object at 0x7f31f91f9d90>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+    │      └ <function MysqlPacket.raise_for_error at 0x7f31f34ddee0>
+    └ <pymysql.protocol.MysqlPacket object at 0x7f30d8482040>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    │   │                     │    └ <member '_data' of 'MysqlPacket' objects>
+    │   │                     └ <pymysql.protocol.MysqlPacket object at 0x7f30d8482040>
+    │   └ <function raise_mysql_exception at 0x7f31f358c670>
+    └ <module 'pymysql.err' from '/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+          │          │      └ "Duplicate entry '180.201.163.246:6800' for key 'device.PRIMARY'"
+          │          └ 1062
+          └ <class 'pymysql.err.IntegrityError'>
+
+sqlalchemy.exc.IntegrityError: (pymysql.err.IntegrityError) (1062, "Duplicate entry '180.201.163.246:6800' for key 'device.PRIMARY'")
+[SQL: UPDATE device SET server_id=%(server_id)s, ip=%(ip)s, username=%(username)s, password=%(password)s, address=%(address)s, port=%(port)s, valid=%(valid)s WHERE device.ip = %(ip_1)s]
+[parameters: {'server_id': '180.201.163.246:6800', 'ip': '180.201.163.246', 'username': 'chase', 'password': '10145479815855334109274294556713898976618271768873141576869974506323785463839381801933996995207428361896060541449117551521834784936261783956182140312 ... (10 characters truncated) ... 67495405854661754080154495575304970594881361148650495800127387150164257320671000308854750703330455594322844194321063860554083308214672021270059681481', 'address': '/home/users/CT/pycharmproject/spiders/', 'port': 6800, 'valid': 1, 'ip_1': '180.201.163.246'}]
+(Background on this error at: https://sqlalche.me/e/14/gkpj)
+2022-05-13 18:15:10.304 | ERROR    | base.db.mysql:update:390 - 【mysql更新数据出错】
+Traceback (most recent call last):
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1771, in _execute_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x7f31f38f75e0>
+    │    └ <sqlalchemy.dialects.mysql.pymysql.MySQLDialect_pymysql object at 0x7f3103ffde20>
+    └ <sqlalchemy.engine.base.Connection object at 0x7f3100340130>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 717, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ {'server_id': '180.201.163.246:6800', 'ip': '180.201.163.246', 'username': 'chase', 'password': '8541757270193543679569894512...
+    │      │       └ 'UPDATE device SET server_id=%(server_id)s, ip=%(ip)s, username=%(username)s, password=%(password)s, address=%(address)s, por...
+    │      └ <function Cursor.execute at 0x7f31f354cdc0>
+    └ <pymysql.cursors.Cursor object at 0x7f31022b28e0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 148, in execute
+    result = self._query(query)
+             │    │      └ "UPDATE device SET server_id='180.201.163.246:6800', ip='180.201.163.246', username='chase', password='8541757270193543679569...
+             │    └ <function Cursor._query at 0x7f31f34d7280>
+             └ <pymysql.cursors.Cursor object at 0x7f31022b28e0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 310, in _query
+    conn.query(q)
+    │    │     └ "UPDATE device SET server_id='180.201.163.246:6800', ip='180.201.163.246', username='chase', password='8541757270193543679569...
+    │    └ <function Connection.query at 0x7f31f34e5670>
+    └ <pymysql.connections.Connection object at 0x7f310024e4f0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+    │    │                │    │                             └ False
+    │    │                │    └ <function Connection._read_query_result at 0x7f31f34e5ca0>
+    │    │                └ <pymysql.connections.Connection object at 0x7f310024e4f0>
+    │    └ 1
+    └ <pymysql.connections.Connection object at 0x7f310024e4f0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 775, in _read_query_result
+    result.read()
+    │      └ <function MySQLResult.read at 0x7f31f34e64c0>
+    └ <pymysql.connections.MySQLResult object at 0x7f30b8370430>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+                   │    └ None
+                   └ <pymysql.connections.MySQLResult object at 0x7f30b8370430>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+    │      └ <function MysqlPacket.raise_for_error at 0x7f31f34ddee0>
+    └ <pymysql.protocol.MysqlPacket object at 0x7f30d82ce9d0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    │   │                     │    └ <member '_data' of 'MysqlPacket' objects>
+    │   │                     └ <pymysql.protocol.MysqlPacket object at 0x7f30d82ce9d0>
+    │   └ <function raise_mysql_exception at 0x7f31f358c670>
+    └ <module 'pymysql.err' from '/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+          │          │      └ "Duplicate entry '180.201.163.246:6800' for key 'device.PRIMARY'"
+          │          └ 1062
+          └ <class 'pymysql.err.IntegrityError'>
+
+pymysql.err.IntegrityError: (1062, "Duplicate entry '180.201.163.246:6800' for key 'device.PRIMARY'")
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f321bf29a60>
+    └ <Thread(Thread-1112, started daemon 139840342996736)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f321bf29790>
+    └ <Thread(Thread-1112, started daemon 139840342996736)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-1112, started daemon 139840342996736)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-1112, started daemon 139840342996736)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f31042e52e0>>
+    └ <Thread(Thread-1112, started daemon 139840342996736)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 799, in get_request_from_keywords_hot
+    self.start_finished_spider_every_interval(project_names)
+    │    │                                    └ ['default', 'test']
+    │    └ <function ProjectManager.start_finished_spider_every_interval at 0x7f3104005280>
+    └ <monitor.projectManager.ProjectManager object at 0x7f31042e52e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 784, in start_finished_spider_every_interval
+    self[name].start_spider()
+    │    └ 'default'
+    └ <monitor.projectManager.ProjectManager object at 0x7f31042e52e0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 366, in start_spider
+    self.update_device_valid(device)
+    │    │                   └ <monitor.deviceManager.DeviceC object at 0x7f3104029220>
+    │    └ <function Project.update_device_valid at 0x7f3104003280>
+    └ <monitor.projectManager.Project object at 0x7f3104029460>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 421, in update_device_valid
+    self.database_manager.mysql.update(Device(**device.to_item()))
+    │    │                │     │      │        │      └ <function DeviceC.to_item at 0x7f31f34ed310>
+    │    │                │     │      │        └ <monitor.deviceManager.DeviceC object at 0x7f3104029220>
+    │    │                │     │      └ <class 'base.db.mysql.Device'>
+    │    │                │     └ <function Mysql.update at 0x7f31f35f4790>
+    │    │                └ <base.db.mysql.Mysql object at 0x7f3103ffdfd0>
+    │    └ <base.db.dbSlot.Slot object at 0x7f3103ffdf10>
+    └ <monitor.projectManager.Project object at 0x7f3104029460>
+
+> File "/home/users/Scy/yuqing/spider/base/db/mysql.py", line 375, in update
+    row.update(new)
+    │   │      └ {'server_id': '180.201.163.246:6800', 'ip': '180.201.163.246', 'username': 'chase', 'password': '8541757270193543679569894512...
+    │   └ <function Query.update at 0x7f31f37333a0>
+    └ <sqlalchemy.orm.query.Query object at 0x7f310139db50>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3221, in update
+    result = self.session.execute(
+             │    │       └ <function Session.execute at 0x7f31f370faf0>
+             │    └ <sqlalchemy.orm.session.Session object at 0x7f31020ec220>
+             └ <sqlalchemy.orm.query.Query object at 0x7f310139db50>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1689, in execute
+    result = conn._execute_20(statement, params or {}, execution_options)
+             │    │           │          │             └ immutabledict({'synchronize_session': 'evaluate', '_sa_orm_update_options': default_update_options(_matched_objects=[], _reso...
+             │    │           │          └ immutabledict({})
+             │    │           └ <sqlalchemy.sql.annotation.AnnotatedUpdate object at 0x7f3101e9e6a0>
+             │    └ <function Connection._execute_20 at 0x7f31f39bc790>
+             └ <sqlalchemy.engine.base.Connection object at 0x7f3100340130>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1583, in _execute_20
+    return meth(self, args_10style, kwargs_10style, execution_options)
+           │    │     │             │               └ immutabledict({'synchronize_session': 'evaluate', '_sa_orm_update_options': default_update_options(_matched_objects=[], _reso...
+           │    │     │             └ immutabledict({})
+           │    │     └ ({},)
+           │    └ <sqlalchemy.engine.base.Connection object at 0x7f3100340130>
+           └ <bound method ClauseElement._execute_on_connection of <sqlalchemy.sql.annotation.AnnotatedUpdate object at 0x7f3101e9e6a0>>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 323, in _execute_on_connection
+    return connection._execute_clauseelement(
+           │          └ <function Connection._execute_clauseelement at 0x7f31f39bc5e0>
+           └ <sqlalchemy.engine.base.Connection object at 0x7f3100340130>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1452, in _execute_clauseelement
+    ret = self._execute_context(
+          │    └ <function Connection._execute_context at 0x7f31f39bc8b0>
+          └ <sqlalchemy.engine.base.Connection object at 0x7f3100340130>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1814, in _execute_context
+    self._handle_dbapi_exception(
+    │    └ <function Connection._handle_dbapi_exception at 0x7f31f39bca60>
+    └ <sqlalchemy.engine.base.Connection object at 0x7f3100340130>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1995, in _handle_dbapi_exception
+    util.raise_(
+    │    └ <function raise_ at 0x7f31f3d7ea60>
+    └ <module 'sqlalchemy.util' from '/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/util/__init__.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 207, in raise_
+    raise exception
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1771, in _execute_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x7f31f38f75e0>
+    │    └ <sqlalchemy.dialects.mysql.pymysql.MySQLDialect_pymysql object at 0x7f3103ffde20>
+    └ <sqlalchemy.engine.base.Connection object at 0x7f3100340130>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 717, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ {'server_id': '180.201.163.246:6800', 'ip': '180.201.163.246', 'username': 'chase', 'password': '8541757270193543679569894512...
+    │      │       └ 'UPDATE device SET server_id=%(server_id)s, ip=%(ip)s, username=%(username)s, password=%(password)s, address=%(address)s, por...
+    │      └ <function Cursor.execute at 0x7f31f354cdc0>
+    └ <pymysql.cursors.Cursor object at 0x7f31022b28e0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 148, in execute
+    result = self._query(query)
+             │    │      └ "UPDATE device SET server_id='180.201.163.246:6800', ip='180.201.163.246', username='chase', password='8541757270193543679569...
+             │    └ <function Cursor._query at 0x7f31f34d7280>
+             └ <pymysql.cursors.Cursor object at 0x7f31022b28e0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 310, in _query
+    conn.query(q)
+    │    │     └ "UPDATE device SET server_id='180.201.163.246:6800', ip='180.201.163.246', username='chase', password='8541757270193543679569...
+    │    └ <function Connection.query at 0x7f31f34e5670>
+    └ <pymysql.connections.Connection object at 0x7f310024e4f0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+    │    │                │    │                             └ False
+    │    │                │    └ <function Connection._read_query_result at 0x7f31f34e5ca0>
+    │    │                └ <pymysql.connections.Connection object at 0x7f310024e4f0>
+    │    └ 1
+    └ <pymysql.connections.Connection object at 0x7f310024e4f0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 775, in _read_query_result
+    result.read()
+    │      └ <function MySQLResult.read at 0x7f31f34e64c0>
+    └ <pymysql.connections.MySQLResult object at 0x7f30b8370430>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+                   │    └ None
+                   └ <pymysql.connections.MySQLResult object at 0x7f30b8370430>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+    │      └ <function MysqlPacket.raise_for_error at 0x7f31f34ddee0>
+    └ <pymysql.protocol.MysqlPacket object at 0x7f30d82ce9d0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    │   │                     │    └ <member '_data' of 'MysqlPacket' objects>
+    │   │                     └ <pymysql.protocol.MysqlPacket object at 0x7f30d82ce9d0>
+    │   └ <function raise_mysql_exception at 0x7f31f358c670>
+    └ <module 'pymysql.err' from '/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+          │          │      └ "Duplicate entry '180.201.163.246:6800' for key 'device.PRIMARY'"
+          │          └ 1062
+          └ <class 'pymysql.err.IntegrityError'>
+
+sqlalchemy.exc.IntegrityError: (pymysql.err.IntegrityError) (1062, "Duplicate entry '180.201.163.246:6800' for key 'device.PRIMARY'")
+[SQL: UPDATE device SET server_id=%(server_id)s, ip=%(ip)s, username=%(username)s, password=%(password)s, address=%(address)s, port=%(port)s, valid=%(valid)s WHERE device.ip = %(ip_1)s]
+[parameters: {'server_id': '180.201.163.246:6800', 'ip': '180.201.163.246', 'username': 'chase', 'password': '85417572701935436795698945120183215063912125063304815270550117661293775252478266747311825165464052017384240470891226952100923091630924977858498059295 ... (9 characters truncated) ... 99494651832681123025510519980027849444460958399676618331599771904491701018032502891764150663659003157901650968455645386592309511616071821578629416459', 'address': '/home/users/CT/pycharmproject/spiders/', 'port': 6800, 'valid': 1, 'ip_1': '180.201.163.246'}]
+(Background on this error at: https://sqlalche.me/e/14/gkpj)

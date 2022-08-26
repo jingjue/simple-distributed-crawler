@@ -1,0 +1,2706 @@
+2022-05-12 06:09:23.801 | ERROR    | base.db.mysql:update:389 - 【mysql更新数据出错】
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f4689341a60>
+    └ <Thread(Thread-10374, started daemon 139935059273472)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f4689341790>
+    └ <Thread(Thread-10374, started daemon 139935059273472)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-10374, started daemon 139935059273472)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-10374, started daemon 139935059273472)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f457182e160>>
+    └ <Thread(Thread-10374, started daemon 139935059273472)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 779, in get_request_from_keywords_hot
+    self.start_finished_spider_every_interval(project_names)
+    │    │                                    └ ['default']
+    │    └ <function ProjectManager.start_finished_spider_every_interval at 0x7f4571552160>
+    └ <monitor.projectManager.ProjectManager object at 0x7f457182e160>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 764, in start_finished_spider_every_interval
+    self[name].start_spider()
+    │    └ 'default'
+    └ <monitor.projectManager.ProjectManager object at 0x7f457182e160>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 352, in start_spider
+    self.update_device_valid(device)
+    │    │                   └ <monitor.deviceManager.DeviceC object at 0x7f4571558ee0>
+    │    └ <function Project.update_device_valid at 0x7f4571551160>
+    └ <monitor.projectManager.Project object at 0x7f4571558880>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 404, in update_device_valid
+    self.database_manager.mysql.update(Device(**device.to_item()))
+    │    │                │     │      │        │      └ <function DeviceC.to_item at 0x7f46621ac1f0>
+    │    │                │     │      │        └ <monitor.deviceManager.DeviceC object at 0x7f4571558ee0>
+    │    │                │     │      └ <class 'base.db.mysql.Device'>
+    │    │                │     └ <function Mysql.update at 0x7f46627c94c0>
+    │    │                └ <base.db.mysql.Mysql object at 0x7f4571549e80>
+    │    └ <base.db.dbSlot.Slot object at 0x7f4571549940>
+    └ <monitor.projectManager.Project object at 0x7f4571558880>
+
+> File "/home/users/Scy/yuqing/spider/base/db/mysql.py", line 372, in update
+    if row.all():
+       │   └ <function Query.all at 0x7f466290b430>
+       └ <sqlalchemy.orm.query.Query object at 0x7f4544f5c580>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2711, in all
+    return self._iter().all()
+           │    └ <function Query._iter at 0x7f466290bb80>
+           └ <sqlalchemy.orm.query.Query object at 0x7f4544f5c580>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2846, in _iter
+    result = self.session.execute(
+             │    │       └ <function Session.execute at 0x7f46628e4820>
+             │    └ <sqlalchemy.orm.session.Session object at 0x7f4544f5ceb0>
+             └ <sqlalchemy.orm.query.Query object at 0x7f4544f5c580>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1688, in execute
+    conn = self._connection_for_bind(bind)
+           │    │                    └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <function Session._connection_for_bind at 0x7f46628e4790>
+           └ <sqlalchemy.orm.session.Session object at 0x7f4544f5ceb0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1529, in _connection_for_bind
+    return self._transaction._connection_for_bind(
+           │    │            └ <function SessionTransaction._connection_for_bind at 0x7f46628e33a0>
+           │    └ <sqlalchemy.orm.session.SessionTransaction object at 0x7f4544f5c160>
+           └ <sqlalchemy.orm.session.Session object at 0x7f4544f5ceb0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 747, in _connection_for_bind
+    conn = bind.connect()
+           │    └ <function Engine.connect at 0x7f4662b91d30>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3166, in connect
+    return self._connection_cls(self, close_with_result=close_with_result)
+           │    │               │                       └ False
+           │    │               └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <class 'sqlalchemy.engine.base.Connection'>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 96, in __init__
+    else engine.raw_connection()
+         │      └ <function Engine.raw_connection at 0x7f4662b961f0>
+         └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3245, in raw_connection
+    return self._wrap_pool_connect(self.pool.connect, _connection)
+           │    │                  │    │    │        └ None
+           │    │                  │    │    └ <function Pool.connect at 0x7f4662bbd280>
+           │    │                  │    └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+           │    │                  └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <function Engine._wrap_pool_connect at 0x7f4662b91dc0>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3212, in _wrap_pool_connect
+    return fn()
+           └ <bound method Pool.connect of <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 307, in connect
+    return _ConnectionFairy._checkout(self)
+           │                │         └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+           │                └ <classmethod object at 0x7f4662bba490>
+           └ <class 'sqlalchemy.pool.base._ConnectionFairy'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 767, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            │                 │        └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+            │                 └ <classmethod object at 0x7f4662bba430>
+            └ <class 'sqlalchemy.pool.base._ConnectionRecord'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 425, in checkout
+    rec = pool._do_get()
+          │    └ <function QueuePool._do_get at 0x7f4662b52700>
+          └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 134, in _do_get
+    raise exc.TimeoutError(
+          │   └ <class 'sqlalchemy.exc.TimeoutError'>
+          └ <module 'sqlalchemy.exc' from '/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/exc.py'>
+
+sqlalchemy.exc.TimeoutError: QueuePool limit of size 5 overflow 10 reached, connection timed out, timeout 30.00 (Background on this error at: https://sqlalche.me/e/14/3o7r)
+2022-05-12 06:09:39.780 | ERROR    | base.db.mysql:update:389 - 【mysql更新数据出错】
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f4689341a60>
+    └ <Thread(Thread-10378, started daemon 139934178465536)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f4689341790>
+    └ <Thread(Thread-10378, started daemon 139934178465536)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-10378, started daemon 139934178465536)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-10378, started daemon 139934178465536)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f457182e160>>
+    └ <Thread(Thread-10378, started daemon 139934178465536)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 779, in get_request_from_keywords_hot
+    self.start_finished_spider_every_interval(project_names)
+    │    │                                    └ ['default']
+    │    └ <function ProjectManager.start_finished_spider_every_interval at 0x7f4571552160>
+    └ <monitor.projectManager.ProjectManager object at 0x7f457182e160>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 764, in start_finished_spider_every_interval
+    self[name].start_spider()
+    │    └ 'default'
+    └ <monitor.projectManager.ProjectManager object at 0x7f457182e160>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 352, in start_spider
+    self.update_device_valid(device)
+    │    │                   └ <monitor.deviceManager.DeviceC object at 0x7f4571558ee0>
+    │    └ <function Project.update_device_valid at 0x7f4571551160>
+    └ <monitor.projectManager.Project object at 0x7f4571558880>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 404, in update_device_valid
+    self.database_manager.mysql.update(Device(**device.to_item()))
+    │    │                │     │      │        │      └ <function DeviceC.to_item at 0x7f46621ac1f0>
+    │    │                │     │      │        └ <monitor.deviceManager.DeviceC object at 0x7f4571558ee0>
+    │    │                │     │      └ <class 'base.db.mysql.Device'>
+    │    │                │     └ <function Mysql.update at 0x7f46627c94c0>
+    │    │                └ <base.db.mysql.Mysql object at 0x7f4571549e80>
+    │    └ <base.db.dbSlot.Slot object at 0x7f4571549940>
+    └ <monitor.projectManager.Project object at 0x7f4571558880>
+
+> File "/home/users/Scy/yuqing/spider/base/db/mysql.py", line 372, in update
+    if row.all():
+       │   └ <function Query.all at 0x7f466290b430>
+       └ <sqlalchemy.orm.query.Query object at 0x7f42f1936400>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2711, in all
+    return self._iter().all()
+           │    └ <function Query._iter at 0x7f466290bb80>
+           └ <sqlalchemy.orm.query.Query object at 0x7f42f1936400>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2846, in _iter
+    result = self.session.execute(
+             │    │       └ <function Session.execute at 0x7f46628e4820>
+             │    └ <sqlalchemy.orm.session.Session object at 0x7f452a70dcd0>
+             └ <sqlalchemy.orm.query.Query object at 0x7f42f1936400>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1688, in execute
+    conn = self._connection_for_bind(bind)
+           │    │                    └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <function Session._connection_for_bind at 0x7f46628e4790>
+           └ <sqlalchemy.orm.session.Session object at 0x7f452a70dcd0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1529, in _connection_for_bind
+    return self._transaction._connection_for_bind(
+           │    │            └ <function SessionTransaction._connection_for_bind at 0x7f46628e33a0>
+           │    └ <sqlalchemy.orm.session.SessionTransaction object at 0x7f42f19360d0>
+           └ <sqlalchemy.orm.session.Session object at 0x7f452a70dcd0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 747, in _connection_for_bind
+    conn = bind.connect()
+           │    └ <function Engine.connect at 0x7f4662b91d30>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3166, in connect
+    return self._connection_cls(self, close_with_result=close_with_result)
+           │    │               │                       └ False
+           │    │               └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <class 'sqlalchemy.engine.base.Connection'>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 96, in __init__
+    else engine.raw_connection()
+         │      └ <function Engine.raw_connection at 0x7f4662b961f0>
+         └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3245, in raw_connection
+    return self._wrap_pool_connect(self.pool.connect, _connection)
+           │    │                  │    │    │        └ None
+           │    │                  │    │    └ <function Pool.connect at 0x7f4662bbd280>
+           │    │                  │    └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+           │    │                  └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <function Engine._wrap_pool_connect at 0x7f4662b91dc0>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3212, in _wrap_pool_connect
+    return fn()
+           └ <bound method Pool.connect of <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 307, in connect
+    return _ConnectionFairy._checkout(self)
+           │                │         └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+           │                └ <classmethod object at 0x7f4662bba490>
+           └ <class 'sqlalchemy.pool.base._ConnectionFairy'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 767, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            │                 │        └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+            │                 └ <classmethod object at 0x7f4662bba430>
+            └ <class 'sqlalchemy.pool.base._ConnectionRecord'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 425, in checkout
+    rec = pool._do_get()
+          │    └ <function QueuePool._do_get at 0x7f4662b52700>
+          └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 134, in _do_get
+    raise exc.TimeoutError(
+          │   └ <class 'sqlalchemy.exc.TimeoutError'>
+          └ <module 'sqlalchemy.exc' from '/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/exc.py'>
+
+sqlalchemy.exc.TimeoutError: QueuePool limit of size 5 overflow 10 reached, connection timed out, timeout 30.00 (Background on this error at: https://sqlalche.me/e/14/3o7r)
+2022-05-12 06:10:36.026 | ERROR    | base.db.mysql:update:389 - 【mysql更新数据出错】
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f4689341a60>
+    └ <Thread(Thread-10390, started daemon 139935998797568)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f4689341790>
+    └ <Thread(Thread-10390, started daemon 139935998797568)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-10390, started daemon 139935998797568)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-10390, started daemon 139935998797568)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f457182e160>>
+    └ <Thread(Thread-10390, started daemon 139935998797568)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 779, in get_request_from_keywords_hot
+    self.start_finished_spider_every_interval(project_names)
+    │    │                                    └ ['default']
+    │    └ <function ProjectManager.start_finished_spider_every_interval at 0x7f4571552160>
+    └ <monitor.projectManager.ProjectManager object at 0x7f457182e160>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 764, in start_finished_spider_every_interval
+    self[name].start_spider()
+    │    └ 'default'
+    └ <monitor.projectManager.ProjectManager object at 0x7f457182e160>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 352, in start_spider
+    self.update_device_valid(device)
+    │    │                   └ <monitor.deviceManager.DeviceC object at 0x7f4571558ee0>
+    │    └ <function Project.update_device_valid at 0x7f4571551160>
+    └ <monitor.projectManager.Project object at 0x7f4571558880>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 404, in update_device_valid
+    self.database_manager.mysql.update(Device(**device.to_item()))
+    │    │                │     │      │        │      └ <function DeviceC.to_item at 0x7f46621ac1f0>
+    │    │                │     │      │        └ <monitor.deviceManager.DeviceC object at 0x7f4571558ee0>
+    │    │                │     │      └ <class 'base.db.mysql.Device'>
+    │    │                │     └ <function Mysql.update at 0x7f46627c94c0>
+    │    │                └ <base.db.mysql.Mysql object at 0x7f4571549e80>
+    │    └ <base.db.dbSlot.Slot object at 0x7f4571549940>
+    └ <monitor.projectManager.Project object at 0x7f4571558880>
+
+> File "/home/users/Scy/yuqing/spider/base/db/mysql.py", line 372, in update
+    if row.all():
+       │   └ <function Query.all at 0x7f466290b430>
+       └ <sqlalchemy.orm.query.Query object at 0x7f4511316a00>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2711, in all
+    return self._iter().all()
+           │    └ <function Query._iter at 0x7f466290bb80>
+           └ <sqlalchemy.orm.query.Query object at 0x7f4511316a00>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2846, in _iter
+    result = self.session.execute(
+             │    │       └ <function Session.execute at 0x7f46628e4820>
+             │    └ <sqlalchemy.orm.session.Session object at 0x7f42d08f1310>
+             └ <sqlalchemy.orm.query.Query object at 0x7f4511316a00>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1688, in execute
+    conn = self._connection_for_bind(bind)
+           │    │                    └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <function Session._connection_for_bind at 0x7f46628e4790>
+           └ <sqlalchemy.orm.session.Session object at 0x7f42d08f1310>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1529, in _connection_for_bind
+    return self._transaction._connection_for_bind(
+           │    │            └ <function SessionTransaction._connection_for_bind at 0x7f46628e33a0>
+           │    └ <sqlalchemy.orm.session.SessionTransaction object at 0x7f45113160a0>
+           └ <sqlalchemy.orm.session.Session object at 0x7f42d08f1310>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 747, in _connection_for_bind
+    conn = bind.connect()
+           │    └ <function Engine.connect at 0x7f4662b91d30>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3166, in connect
+    return self._connection_cls(self, close_with_result=close_with_result)
+           │    │               │                       └ False
+           │    │               └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <class 'sqlalchemy.engine.base.Connection'>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 96, in __init__
+    else engine.raw_connection()
+         │      └ <function Engine.raw_connection at 0x7f4662b961f0>
+         └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3245, in raw_connection
+    return self._wrap_pool_connect(self.pool.connect, _connection)
+           │    │                  │    │    │        └ None
+           │    │                  │    │    └ <function Pool.connect at 0x7f4662bbd280>
+           │    │                  │    └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+           │    │                  └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <function Engine._wrap_pool_connect at 0x7f4662b91dc0>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3212, in _wrap_pool_connect
+    return fn()
+           └ <bound method Pool.connect of <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 307, in connect
+    return _ConnectionFairy._checkout(self)
+           │                │         └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+           │                └ <classmethod object at 0x7f4662bba490>
+           └ <class 'sqlalchemy.pool.base._ConnectionFairy'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 767, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            │                 │        └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+            │                 └ <classmethod object at 0x7f4662bba430>
+            └ <class 'sqlalchemy.pool.base._ConnectionRecord'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 425, in checkout
+    rec = pool._do_get()
+          │    └ <function QueuePool._do_get at 0x7f4662b52700>
+          └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 134, in _do_get
+    raise exc.TimeoutError(
+          │   └ <class 'sqlalchemy.exc.TimeoutError'>
+          └ <module 'sqlalchemy.exc' from '/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/exc.py'>
+
+sqlalchemy.exc.TimeoutError: QueuePool limit of size 5 overflow 10 reached, connection timed out, timeout 30.00 (Background on this error at: https://sqlalche.me/e/14/3o7r)
+2022-05-12 06:10:56.883 | ERROR    | base.db.mysql:update:389 - 【mysql更新数据出错】
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f4689341a60>
+    └ <Thread(Thread-10395, started daemon 139936229451520)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f4689341790>
+    └ <Thread(Thread-10395, started daemon 139936229451520)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-10395, started daemon 139936229451520)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-10395, started daemon 139936229451520)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f457182e160>>
+    └ <Thread(Thread-10395, started daemon 139936229451520)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 779, in get_request_from_keywords_hot
+    self.start_finished_spider_every_interval(project_names)
+    │    │                                    └ ['default']
+    │    └ <function ProjectManager.start_finished_spider_every_interval at 0x7f4571552160>
+    └ <monitor.projectManager.ProjectManager object at 0x7f457182e160>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 764, in start_finished_spider_every_interval
+    self[name].start_spider()
+    │    └ 'default'
+    └ <monitor.projectManager.ProjectManager object at 0x7f457182e160>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 352, in start_spider
+    self.update_device_valid(device)
+    │    │                   └ <monitor.deviceManager.DeviceC object at 0x7f4571558ee0>
+    │    └ <function Project.update_device_valid at 0x7f4571551160>
+    └ <monitor.projectManager.Project object at 0x7f4571558880>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 404, in update_device_valid
+    self.database_manager.mysql.update(Device(**device.to_item()))
+    │    │                │     │      │        │      └ <function DeviceC.to_item at 0x7f46621ac1f0>
+    │    │                │     │      │        └ <monitor.deviceManager.DeviceC object at 0x7f4571558ee0>
+    │    │                │     │      └ <class 'base.db.mysql.Device'>
+    │    │                │     └ <function Mysql.update at 0x7f46627c94c0>
+    │    │                └ <base.db.mysql.Mysql object at 0x7f4571549e80>
+    │    └ <base.db.dbSlot.Slot object at 0x7f4571549940>
+    └ <monitor.projectManager.Project object at 0x7f4571558880>
+
+> File "/home/users/Scy/yuqing/spider/base/db/mysql.py", line 372, in update
+    if row.all():
+       │   └ <function Query.all at 0x7f466290b430>
+       └ <sqlalchemy.orm.query.Query object at 0x7f43a5048a30>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2711, in all
+    return self._iter().all()
+           │    └ <function Query._iter at 0x7f466290bb80>
+           └ <sqlalchemy.orm.query.Query object at 0x7f43a5048a30>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2846, in _iter
+    result = self.session.execute(
+             │    │       └ <function Session.execute at 0x7f46628e4820>
+             │    └ <sqlalchemy.orm.session.Session object at 0x7f43a5048730>
+             └ <sqlalchemy.orm.query.Query object at 0x7f43a5048a30>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1688, in execute
+    conn = self._connection_for_bind(bind)
+           │    │                    └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <function Session._connection_for_bind at 0x7f46628e4790>
+           └ <sqlalchemy.orm.session.Session object at 0x7f43a5048730>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1529, in _connection_for_bind
+    return self._transaction._connection_for_bind(
+           │    │            └ <function SessionTransaction._connection_for_bind at 0x7f46628e33a0>
+           │    └ <sqlalchemy.orm.session.SessionTransaction object at 0x7f4388349580>
+           └ <sqlalchemy.orm.session.Session object at 0x7f43a5048730>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 747, in _connection_for_bind
+    conn = bind.connect()
+           │    └ <function Engine.connect at 0x7f4662b91d30>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3166, in connect
+    return self._connection_cls(self, close_with_result=close_with_result)
+           │    │               │                       └ False
+           │    │               └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <class 'sqlalchemy.engine.base.Connection'>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 96, in __init__
+    else engine.raw_connection()
+         │      └ <function Engine.raw_connection at 0x7f4662b961f0>
+         └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3245, in raw_connection
+    return self._wrap_pool_connect(self.pool.connect, _connection)
+           │    │                  │    │    │        └ None
+           │    │                  │    │    └ <function Pool.connect at 0x7f4662bbd280>
+           │    │                  │    └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+           │    │                  └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <function Engine._wrap_pool_connect at 0x7f4662b91dc0>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3212, in _wrap_pool_connect
+    return fn()
+           └ <bound method Pool.connect of <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 307, in connect
+    return _ConnectionFairy._checkout(self)
+           │                │         └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+           │                └ <classmethod object at 0x7f4662bba490>
+           └ <class 'sqlalchemy.pool.base._ConnectionFairy'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 767, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            │                 │        └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+            │                 └ <classmethod object at 0x7f4662bba430>
+            └ <class 'sqlalchemy.pool.base._ConnectionRecord'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 425, in checkout
+    rec = pool._do_get()
+          │    └ <function QueuePool._do_get at 0x7f4662b52700>
+          └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 134, in _do_get
+    raise exc.TimeoutError(
+          │   └ <class 'sqlalchemy.exc.TimeoutError'>
+          └ <module 'sqlalchemy.exc' from '/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/exc.py'>
+
+sqlalchemy.exc.TimeoutError: QueuePool limit of size 5 overflow 10 reached, connection timed out, timeout 30.00 (Background on this error at: https://sqlalche.me/e/14/3o7r)
+2022-05-12 06:12:29.232 | ERROR    | base.db.mysql:update:389 - 【mysql更新数据出错】
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f4689341a60>
+    └ <Thread(Thread-10418, started daemon 139934656620288)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f4689341790>
+    └ <Thread(Thread-10418, started daemon 139934656620288)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-10418, started daemon 139934656620288)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-10418, started daemon 139934656620288)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f457182e160>>
+    └ <Thread(Thread-10418, started daemon 139934656620288)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 779, in get_request_from_keywords_hot
+    self.start_finished_spider_every_interval(project_names)
+    │    │                                    └ ['default']
+    │    └ <function ProjectManager.start_finished_spider_every_interval at 0x7f4571552160>
+    └ <monitor.projectManager.ProjectManager object at 0x7f457182e160>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 764, in start_finished_spider_every_interval
+    self[name].start_spider()
+    │    └ 'default'
+    └ <monitor.projectManager.ProjectManager object at 0x7f457182e160>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 352, in start_spider
+    self.update_device_valid(device)
+    │    │                   └ <monitor.deviceManager.DeviceC object at 0x7f4571558ee0>
+    │    └ <function Project.update_device_valid at 0x7f4571551160>
+    └ <monitor.projectManager.Project object at 0x7f4571558880>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 404, in update_device_valid
+    self.database_manager.mysql.update(Device(**device.to_item()))
+    │    │                │     │      │        │      └ <function DeviceC.to_item at 0x7f46621ac1f0>
+    │    │                │     │      │        └ <monitor.deviceManager.DeviceC object at 0x7f4571558ee0>
+    │    │                │     │      └ <class 'base.db.mysql.Device'>
+    │    │                │     └ <function Mysql.update at 0x7f46627c94c0>
+    │    │                └ <base.db.mysql.Mysql object at 0x7f4571549e80>
+    │    └ <base.db.dbSlot.Slot object at 0x7f4571549940>
+    └ <monitor.projectManager.Project object at 0x7f4571558880>
+
+> File "/home/users/Scy/yuqing/spider/base/db/mysql.py", line 372, in update
+    if row.all():
+       │   └ <function Query.all at 0x7f466290b430>
+       └ <sqlalchemy.orm.query.Query object at 0x7f42d08f1ee0>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2711, in all
+    return self._iter().all()
+           │    └ <function Query._iter at 0x7f466290bb80>
+           └ <sqlalchemy.orm.query.Query object at 0x7f42d08f1ee0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2846, in _iter
+    result = self.session.execute(
+             │    │       └ <function Session.execute at 0x7f46628e4820>
+             │    └ <sqlalchemy.orm.session.Session object at 0x7f42f1936f40>
+             └ <sqlalchemy.orm.query.Query object at 0x7f42d08f1ee0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1688, in execute
+    conn = self._connection_for_bind(bind)
+           │    │                    └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <function Session._connection_for_bind at 0x7f46628e4790>
+           └ <sqlalchemy.orm.session.Session object at 0x7f42f1936f40>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1529, in _connection_for_bind
+    return self._transaction._connection_for_bind(
+           │    │            └ <function SessionTransaction._connection_for_bind at 0x7f46628e33a0>
+           │    └ <sqlalchemy.orm.session.SessionTransaction object at 0x7f43a5048340>
+           └ <sqlalchemy.orm.session.Session object at 0x7f42f1936f40>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 747, in _connection_for_bind
+    conn = bind.connect()
+           │    └ <function Engine.connect at 0x7f4662b91d30>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3166, in connect
+    return self._connection_cls(self, close_with_result=close_with_result)
+           │    │               │                       └ False
+           │    │               └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <class 'sqlalchemy.engine.base.Connection'>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 96, in __init__
+    else engine.raw_connection()
+         │      └ <function Engine.raw_connection at 0x7f4662b961f0>
+         └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3245, in raw_connection
+    return self._wrap_pool_connect(self.pool.connect, _connection)
+           │    │                  │    │    │        └ None
+           │    │                  │    │    └ <function Pool.connect at 0x7f4662bbd280>
+           │    │                  │    └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+           │    │                  └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <function Engine._wrap_pool_connect at 0x7f4662b91dc0>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3212, in _wrap_pool_connect
+    return fn()
+           └ <bound method Pool.connect of <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 307, in connect
+    return _ConnectionFairy._checkout(self)
+           │                │         └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+           │                └ <classmethod object at 0x7f4662bba490>
+           └ <class 'sqlalchemy.pool.base._ConnectionFairy'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 767, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            │                 │        └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+            │                 └ <classmethod object at 0x7f4662bba430>
+            └ <class 'sqlalchemy.pool.base._ConnectionRecord'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 425, in checkout
+    rec = pool._do_get()
+          │    └ <function QueuePool._do_get at 0x7f4662b52700>
+          └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 134, in _do_get
+    raise exc.TimeoutError(
+          │   └ <class 'sqlalchemy.exc.TimeoutError'>
+          └ <module 'sqlalchemy.exc' from '/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/exc.py'>
+
+sqlalchemy.exc.TimeoutError: QueuePool limit of size 5 overflow 10 reached, connection timed out, timeout 30.00 (Background on this error at: https://sqlalche.me/e/14/3o7r)
+2022-05-12 06:13:04.282 | ERROR    | base.db.mysql:update:389 - 【mysql更新数据出错】
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f4689341a60>
+    └ <Thread(Thread-10426, started daemon 139935998797568)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f4689341790>
+    └ <Thread(Thread-10426, started daemon 139935998797568)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-10426, started daemon 139935998797568)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-10426, started daemon 139935998797568)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f457182e160>>
+    └ <Thread(Thread-10426, started daemon 139935998797568)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 779, in get_request_from_keywords_hot
+    self.start_finished_spider_every_interval(project_names)
+    │    │                                    └ ['default']
+    │    └ <function ProjectManager.start_finished_spider_every_interval at 0x7f4571552160>
+    └ <monitor.projectManager.ProjectManager object at 0x7f457182e160>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 764, in start_finished_spider_every_interval
+    self[name].start_spider()
+    │    └ 'default'
+    └ <monitor.projectManager.ProjectManager object at 0x7f457182e160>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 352, in start_spider
+    self.update_device_valid(device)
+    │    │                   └ <monitor.deviceManager.DeviceC object at 0x7f4571558ee0>
+    │    └ <function Project.update_device_valid at 0x7f4571551160>
+    └ <monitor.projectManager.Project object at 0x7f4571558880>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 404, in update_device_valid
+    self.database_manager.mysql.update(Device(**device.to_item()))
+    │    │                │     │      │        │      └ <function DeviceC.to_item at 0x7f46621ac1f0>
+    │    │                │     │      │        └ <monitor.deviceManager.DeviceC object at 0x7f4571558ee0>
+    │    │                │     │      └ <class 'base.db.mysql.Device'>
+    │    │                │     └ <function Mysql.update at 0x7f46627c94c0>
+    │    │                └ <base.db.mysql.Mysql object at 0x7f4571549e80>
+    │    └ <base.db.dbSlot.Slot object at 0x7f4571549940>
+    └ <monitor.projectManager.Project object at 0x7f4571558880>
+
+> File "/home/users/Scy/yuqing/spider/base/db/mysql.py", line 372, in update
+    if row.all():
+       │   └ <function Query.all at 0x7f466290b430>
+       └ <sqlalchemy.orm.query.Query object at 0x7f4366403250>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2711, in all
+    return self._iter().all()
+           │    └ <function Query._iter at 0x7f466290bb80>
+           └ <sqlalchemy.orm.query.Query object at 0x7f4366403250>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2846, in _iter
+    result = self.session.execute(
+             │    │       └ <function Session.execute at 0x7f46628e4820>
+             │    └ <sqlalchemy.orm.session.Session object at 0x7f4388349790>
+             └ <sqlalchemy.orm.query.Query object at 0x7f4366403250>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1688, in execute
+    conn = self._connection_for_bind(bind)
+           │    │                    └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <function Session._connection_for_bind at 0x7f46628e4790>
+           └ <sqlalchemy.orm.session.Session object at 0x7f4388349790>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1529, in _connection_for_bind
+    return self._transaction._connection_for_bind(
+           │    │            └ <function SessionTransaction._connection_for_bind at 0x7f46628e33a0>
+           │    └ <sqlalchemy.orm.session.SessionTransaction object at 0x7f43664030d0>
+           └ <sqlalchemy.orm.session.Session object at 0x7f4388349790>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 747, in _connection_for_bind
+    conn = bind.connect()
+           │    └ <function Engine.connect at 0x7f4662b91d30>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3166, in connect
+    return self._connection_cls(self, close_with_result=close_with_result)
+           │    │               │                       └ False
+           │    │               └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <class 'sqlalchemy.engine.base.Connection'>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 96, in __init__
+    else engine.raw_connection()
+         │      └ <function Engine.raw_connection at 0x7f4662b961f0>
+         └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3245, in raw_connection
+    return self._wrap_pool_connect(self.pool.connect, _connection)
+           │    │                  │    │    │        └ None
+           │    │                  │    │    └ <function Pool.connect at 0x7f4662bbd280>
+           │    │                  │    └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+           │    │                  └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <function Engine._wrap_pool_connect at 0x7f4662b91dc0>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3212, in _wrap_pool_connect
+    return fn()
+           └ <bound method Pool.connect of <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 307, in connect
+    return _ConnectionFairy._checkout(self)
+           │                │         └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+           │                └ <classmethod object at 0x7f4662bba490>
+           └ <class 'sqlalchemy.pool.base._ConnectionFairy'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 767, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            │                 │        └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+            │                 └ <classmethod object at 0x7f4662bba430>
+            └ <class 'sqlalchemy.pool.base._ConnectionRecord'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 425, in checkout
+    rec = pool._do_get()
+          │    └ <function QueuePool._do_get at 0x7f4662b52700>
+          └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 134, in _do_get
+    raise exc.TimeoutError(
+          │   └ <class 'sqlalchemy.exc.TimeoutError'>
+          └ <module 'sqlalchemy.exc' from '/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/exc.py'>
+
+sqlalchemy.exc.TimeoutError: QueuePool limit of size 5 overflow 10 reached, connection timed out, timeout 30.00 (Background on this error at: https://sqlalche.me/e/14/3o7r)
+2022-05-12 06:13:34.796 | ERROR    | base.db.mysql:update:389 - 【mysql更新数据出错】
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f4689341a60>
+    └ <Thread(Thread-10436, started daemon 139935059273472)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f4689341790>
+    └ <Thread(Thread-10436, started daemon 139935059273472)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-10436, started daemon 139935059273472)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-10436, started daemon 139935059273472)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f457182e160>>
+    └ <Thread(Thread-10436, started daemon 139935059273472)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 779, in get_request_from_keywords_hot
+    self.start_finished_spider_every_interval(project_names)
+    │    │                                    └ ['default']
+    │    └ <function ProjectManager.start_finished_spider_every_interval at 0x7f4571552160>
+    └ <monitor.projectManager.ProjectManager object at 0x7f457182e160>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 764, in start_finished_spider_every_interval
+    self[name].start_spider()
+    │    └ 'default'
+    └ <monitor.projectManager.ProjectManager object at 0x7f457182e160>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 352, in start_spider
+    self.update_device_valid(device)
+    │    │                   └ <monitor.deviceManager.DeviceC object at 0x7f4571558ee0>
+    │    └ <function Project.update_device_valid at 0x7f4571551160>
+    └ <monitor.projectManager.Project object at 0x7f4571558880>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 404, in update_device_valid
+    self.database_manager.mysql.update(Device(**device.to_item()))
+    │    │                │     │      │        │      └ <function DeviceC.to_item at 0x7f46621ac1f0>
+    │    │                │     │      │        └ <monitor.deviceManager.DeviceC object at 0x7f4571558ee0>
+    │    │                │     │      └ <class 'base.db.mysql.Device'>
+    │    │                │     └ <function Mysql.update at 0x7f46627c94c0>
+    │    │                └ <base.db.mysql.Mysql object at 0x7f4571549e80>
+    │    └ <base.db.dbSlot.Slot object at 0x7f4571549940>
+    └ <monitor.projectManager.Project object at 0x7f4571558880>
+
+> File "/home/users/Scy/yuqing/spider/base/db/mysql.py", line 372, in update
+    if row.all():
+       │   └ <function Query.all at 0x7f466290b430>
+       └ <sqlalchemy.orm.query.Query object at 0x7f42d08f1be0>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2711, in all
+    return self._iter().all()
+           │    └ <function Query._iter at 0x7f466290bb80>
+           └ <sqlalchemy.orm.query.Query object at 0x7f42d08f1be0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2846, in _iter
+    result = self.session.execute(
+             │    │       └ <function Session.execute at 0x7f46628e4820>
+             │    └ <sqlalchemy.orm.session.Session object at 0x7f44d0eef2e0>
+             └ <sqlalchemy.orm.query.Query object at 0x7f42d08f1be0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1688, in execute
+    conn = self._connection_for_bind(bind)
+           │    │                    └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <function Session._connection_for_bind at 0x7f46628e4790>
+           └ <sqlalchemy.orm.session.Session object at 0x7f44d0eef2e0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1529, in _connection_for_bind
+    return self._transaction._connection_for_bind(
+           │    │            └ <function SessionTransaction._connection_for_bind at 0x7f46628e33a0>
+           │    └ <sqlalchemy.orm.session.SessionTransaction object at 0x7f42d08f1fa0>
+           └ <sqlalchemy.orm.session.Session object at 0x7f44d0eef2e0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 747, in _connection_for_bind
+    conn = bind.connect()
+           │    └ <function Engine.connect at 0x7f4662b91d30>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3166, in connect
+    return self._connection_cls(self, close_with_result=close_with_result)
+           │    │               │                       └ False
+           │    │               └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <class 'sqlalchemy.engine.base.Connection'>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 96, in __init__
+    else engine.raw_connection()
+         │      └ <function Engine.raw_connection at 0x7f4662b961f0>
+         └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3245, in raw_connection
+    return self._wrap_pool_connect(self.pool.connect, _connection)
+           │    │                  │    │    │        └ None
+           │    │                  │    │    └ <function Pool.connect at 0x7f4662bbd280>
+           │    │                  │    └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+           │    │                  └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <function Engine._wrap_pool_connect at 0x7f4662b91dc0>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3212, in _wrap_pool_connect
+    return fn()
+           └ <bound method Pool.connect of <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 307, in connect
+    return _ConnectionFairy._checkout(self)
+           │                │         └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+           │                └ <classmethod object at 0x7f4662bba490>
+           └ <class 'sqlalchemy.pool.base._ConnectionFairy'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 767, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            │                 │        └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+            │                 └ <classmethod object at 0x7f4662bba430>
+            └ <class 'sqlalchemy.pool.base._ConnectionRecord'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 425, in checkout
+    rec = pool._do_get()
+          │    └ <function QueuePool._do_get at 0x7f4662b52700>
+          └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 134, in _do_get
+    raise exc.TimeoutError(
+          │   └ <class 'sqlalchemy.exc.TimeoutError'>
+          └ <module 'sqlalchemy.exc' from '/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/exc.py'>
+
+sqlalchemy.exc.TimeoutError: QueuePool limit of size 5 overflow 10 reached, connection timed out, timeout 30.00 (Background on this error at: https://sqlalche.me/e/14/3o7r)
+2022-05-12 06:14:15.713 | ERROR    | base.db.mysql:update:389 - 【mysql更新数据出错】
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f4689341a60>
+    └ <Thread(Thread-10443, started daemon 139936229451520)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f4689341790>
+    └ <Thread(Thread-10443, started daemon 139936229451520)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-10443, started daemon 139936229451520)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-10443, started daemon 139936229451520)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f457182e160>>
+    └ <Thread(Thread-10443, started daemon 139936229451520)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 779, in get_request_from_keywords_hot
+    self.start_finished_spider_every_interval(project_names)
+    │    │                                    └ ['default']
+    │    └ <function ProjectManager.start_finished_spider_every_interval at 0x7f4571552160>
+    └ <monitor.projectManager.ProjectManager object at 0x7f457182e160>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 764, in start_finished_spider_every_interval
+    self[name].start_spider()
+    │    └ 'default'
+    └ <monitor.projectManager.ProjectManager object at 0x7f457182e160>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 352, in start_spider
+    self.update_device_valid(device)
+    │    │                   └ <monitor.deviceManager.DeviceC object at 0x7f4571558ee0>
+    │    └ <function Project.update_device_valid at 0x7f4571551160>
+    └ <monitor.projectManager.Project object at 0x7f4571558880>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 404, in update_device_valid
+    self.database_manager.mysql.update(Device(**device.to_item()))
+    │    │                │     │      │        │      └ <function DeviceC.to_item at 0x7f46621ac1f0>
+    │    │                │     │      │        └ <monitor.deviceManager.DeviceC object at 0x7f4571558ee0>
+    │    │                │     │      └ <class 'base.db.mysql.Device'>
+    │    │                │     └ <function Mysql.update at 0x7f46627c94c0>
+    │    │                └ <base.db.mysql.Mysql object at 0x7f4571549e80>
+    │    └ <base.db.dbSlot.Slot object at 0x7f4571549940>
+    └ <monitor.projectManager.Project object at 0x7f4571558880>
+
+> File "/home/users/Scy/yuqing/spider/base/db/mysql.py", line 372, in update
+    if row.all():
+       │   └ <function Query.all at 0x7f466290b430>
+       └ <sqlalchemy.orm.query.Query object at 0x7f436404b4c0>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2711, in all
+    return self._iter().all()
+           │    └ <function Query._iter at 0x7f466290bb80>
+           └ <sqlalchemy.orm.query.Query object at 0x7f436404b4c0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2846, in _iter
+    result = self.session.execute(
+             │    │       └ <function Session.execute at 0x7f46628e4820>
+             │    └ <sqlalchemy.orm.session.Session object at 0x7f4267c6e190>
+             └ <sqlalchemy.orm.query.Query object at 0x7f436404b4c0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1688, in execute
+    conn = self._connection_for_bind(bind)
+           │    │                    └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <function Session._connection_for_bind at 0x7f46628e4790>
+           └ <sqlalchemy.orm.session.Session object at 0x7f4267c6e190>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1529, in _connection_for_bind
+    return self._transaction._connection_for_bind(
+           │    │            └ <function SessionTransaction._connection_for_bind at 0x7f46628e33a0>
+           │    └ <sqlalchemy.orm.session.SessionTransaction object at 0x7f436404b910>
+           └ <sqlalchemy.orm.session.Session object at 0x7f4267c6e190>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 747, in _connection_for_bind
+    conn = bind.connect()
+           │    └ <function Engine.connect at 0x7f4662b91d30>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3166, in connect
+    return self._connection_cls(self, close_with_result=close_with_result)
+           │    │               │                       └ False
+           │    │               └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <class 'sqlalchemy.engine.base.Connection'>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 96, in __init__
+    else engine.raw_connection()
+         │      └ <function Engine.raw_connection at 0x7f4662b961f0>
+         └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3245, in raw_connection
+    return self._wrap_pool_connect(self.pool.connect, _connection)
+           │    │                  │    │    │        └ None
+           │    │                  │    │    └ <function Pool.connect at 0x7f4662bbd280>
+           │    │                  │    └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+           │    │                  └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <function Engine._wrap_pool_connect at 0x7f4662b91dc0>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3212, in _wrap_pool_connect
+    return fn()
+           └ <bound method Pool.connect of <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 307, in connect
+    return _ConnectionFairy._checkout(self)
+           │                │         └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+           │                └ <classmethod object at 0x7f4662bba490>
+           └ <class 'sqlalchemy.pool.base._ConnectionFairy'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 767, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            │                 │        └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+            │                 └ <classmethod object at 0x7f4662bba430>
+            └ <class 'sqlalchemy.pool.base._ConnectionRecord'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 425, in checkout
+    rec = pool._do_get()
+          │    └ <function QueuePool._do_get at 0x7f4662b52700>
+          └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 134, in _do_get
+    raise exc.TimeoutError(
+          │   └ <class 'sqlalchemy.exc.TimeoutError'>
+          └ <module 'sqlalchemy.exc' from '/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/exc.py'>
+
+sqlalchemy.exc.TimeoutError: QueuePool limit of size 5 overflow 10 reached, connection timed out, timeout 30.00 (Background on this error at: https://sqlalche.me/e/14/3o7r)
+2022-05-12 06:14:35.415 | ERROR    | base.db.mysql:update:389 - 【mysql更新数据出错】
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f4689341a60>
+    └ <Thread(Thread-10447, started daemon 139934656620288)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f4689341790>
+    └ <Thread(Thread-10447, started daemon 139934656620288)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-10447, started daemon 139934656620288)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-10447, started daemon 139934656620288)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f457182e160>>
+    └ <Thread(Thread-10447, started daemon 139934656620288)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 779, in get_request_from_keywords_hot
+    self.start_finished_spider_every_interval(project_names)
+    │    │                                    └ ['default']
+    │    └ <function ProjectManager.start_finished_spider_every_interval at 0x7f4571552160>
+    └ <monitor.projectManager.ProjectManager object at 0x7f457182e160>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 764, in start_finished_spider_every_interval
+    self[name].start_spider()
+    │    └ 'default'
+    └ <monitor.projectManager.ProjectManager object at 0x7f457182e160>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 352, in start_spider
+    self.update_device_valid(device)
+    │    │                   └ <monitor.deviceManager.DeviceC object at 0x7f4571558ee0>
+    │    └ <function Project.update_device_valid at 0x7f4571551160>
+    └ <monitor.projectManager.Project object at 0x7f4571558880>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 404, in update_device_valid
+    self.database_manager.mysql.update(Device(**device.to_item()))
+    │    │                │     │      │        │      └ <function DeviceC.to_item at 0x7f46621ac1f0>
+    │    │                │     │      │        └ <monitor.deviceManager.DeviceC object at 0x7f4571558ee0>
+    │    │                │     │      └ <class 'base.db.mysql.Device'>
+    │    │                │     └ <function Mysql.update at 0x7f46627c94c0>
+    │    │                └ <base.db.mysql.Mysql object at 0x7f4571549e80>
+    │    └ <base.db.dbSlot.Slot object at 0x7f4571549940>
+    └ <monitor.projectManager.Project object at 0x7f4571558880>
+
+> File "/home/users/Scy/yuqing/spider/base/db/mysql.py", line 372, in update
+    if row.all():
+       │   └ <function Query.all at 0x7f466290b430>
+       └ <sqlalchemy.orm.query.Query object at 0x7f4544f5cf70>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2711, in all
+    return self._iter().all()
+           │    └ <function Query._iter at 0x7f466290bb80>
+           └ <sqlalchemy.orm.query.Query object at 0x7f4544f5cf70>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2846, in _iter
+    result = self.session.execute(
+             │    │       └ <function Session.execute at 0x7f46628e4820>
+             │    └ <sqlalchemy.orm.session.Session object at 0x7f42c5d537c0>
+             └ <sqlalchemy.orm.query.Query object at 0x7f4544f5cf70>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1688, in execute
+    conn = self._connection_for_bind(bind)
+           │    │                    └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <function Session._connection_for_bind at 0x7f46628e4790>
+           └ <sqlalchemy.orm.session.Session object at 0x7f42c5d537c0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1529, in _connection_for_bind
+    return self._transaction._connection_for_bind(
+           │    │            └ <function SessionTransaction._connection_for_bind at 0x7f46628e33a0>
+           │    └ <sqlalchemy.orm.session.SessionTransaction object at 0x7f4544f5cfa0>
+           └ <sqlalchemy.orm.session.Session object at 0x7f42c5d537c0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 747, in _connection_for_bind
+    conn = bind.connect()
+           │    └ <function Engine.connect at 0x7f4662b91d30>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3166, in connect
+    return self._connection_cls(self, close_with_result=close_with_result)
+           │    │               │                       └ False
+           │    │               └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <class 'sqlalchemy.engine.base.Connection'>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 96, in __init__
+    else engine.raw_connection()
+         │      └ <function Engine.raw_connection at 0x7f4662b961f0>
+         └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3245, in raw_connection
+    return self._wrap_pool_connect(self.pool.connect, _connection)
+           │    │                  │    │    │        └ None
+           │    │                  │    │    └ <function Pool.connect at 0x7f4662bbd280>
+           │    │                  │    └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+           │    │                  └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <function Engine._wrap_pool_connect at 0x7f4662b91dc0>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3212, in _wrap_pool_connect
+    return fn()
+           └ <bound method Pool.connect of <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 307, in connect
+    return _ConnectionFairy._checkout(self)
+           │                │         └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+           │                └ <classmethod object at 0x7f4662bba490>
+           └ <class 'sqlalchemy.pool.base._ConnectionFairy'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 767, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            │                 │        └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+            │                 └ <classmethod object at 0x7f4662bba430>
+            └ <class 'sqlalchemy.pool.base._ConnectionRecord'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 425, in checkout
+    rec = pool._do_get()
+          │    └ <function QueuePool._do_get at 0x7f4662b52700>
+          └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 134, in _do_get
+    raise exc.TimeoutError(
+          │   └ <class 'sqlalchemy.exc.TimeoutError'>
+          └ <module 'sqlalchemy.exc' from '/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/exc.py'>
+
+sqlalchemy.exc.TimeoutError: QueuePool limit of size 5 overflow 10 reached, connection timed out, timeout 30.00 (Background on this error at: https://sqlalche.me/e/14/3o7r)
+2022-05-12 06:15:45.149 | ERROR    | base.db.mysql:update:389 - 【mysql更新数据出错】
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f4689341a60>
+    └ <Thread(Thread-10465, started daemon 139935967065856)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f4689341790>
+    └ <Thread(Thread-10465, started daemon 139935967065856)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-10465, started daemon 139935967065856)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-10465, started daemon 139935967065856)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f457182e160>>
+    └ <Thread(Thread-10465, started daemon 139935967065856)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 779, in get_request_from_keywords_hot
+    self.start_finished_spider_every_interval(project_names)
+    │    │                                    └ ['default']
+    │    └ <function ProjectManager.start_finished_spider_every_interval at 0x7f4571552160>
+    └ <monitor.projectManager.ProjectManager object at 0x7f457182e160>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 764, in start_finished_spider_every_interval
+    self[name].start_spider()
+    │    └ 'default'
+    └ <monitor.projectManager.ProjectManager object at 0x7f457182e160>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 352, in start_spider
+    self.update_device_valid(device)
+    │    │                   └ <monitor.deviceManager.DeviceC object at 0x7f4571558ee0>
+    │    └ <function Project.update_device_valid at 0x7f4571551160>
+    └ <monitor.projectManager.Project object at 0x7f4571558880>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 404, in update_device_valid
+    self.database_manager.mysql.update(Device(**device.to_item()))
+    │    │                │     │      │        │      └ <function DeviceC.to_item at 0x7f46621ac1f0>
+    │    │                │     │      │        └ <monitor.deviceManager.DeviceC object at 0x7f4571558ee0>
+    │    │                │     │      └ <class 'base.db.mysql.Device'>
+    │    │                │     └ <function Mysql.update at 0x7f46627c94c0>
+    │    │                └ <base.db.mysql.Mysql object at 0x7f4571549e80>
+    │    └ <base.db.dbSlot.Slot object at 0x7f4571549940>
+    └ <monitor.projectManager.Project object at 0x7f4571558880>
+
+> File "/home/users/Scy/yuqing/spider/base/db/mysql.py", line 372, in update
+    if row.all():
+       │   └ <function Query.all at 0x7f466290b430>
+       └ <sqlalchemy.orm.query.Query object at 0x7f4366403c70>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2711, in all
+    return self._iter().all()
+           │    └ <function Query._iter at 0x7f466290bb80>
+           └ <sqlalchemy.orm.query.Query object at 0x7f4366403c70>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2846, in _iter
+    result = self.session.execute(
+             │    │       └ <function Session.execute at 0x7f46628e4820>
+             │    └ <sqlalchemy.orm.session.Session object at 0x7f43883298b0>
+             └ <sqlalchemy.orm.query.Query object at 0x7f4366403c70>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1688, in execute
+    conn = self._connection_for_bind(bind)
+           │    │                    └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <function Session._connection_for_bind at 0x7f46628e4790>
+           └ <sqlalchemy.orm.session.Session object at 0x7f43883298b0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1529, in _connection_for_bind
+    return self._transaction._connection_for_bind(
+           │    │            └ <function SessionTransaction._connection_for_bind at 0x7f46628e33a0>
+           │    └ <sqlalchemy.orm.session.SessionTransaction object at 0x7f437dfb37c0>
+           └ <sqlalchemy.orm.session.Session object at 0x7f43883298b0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 747, in _connection_for_bind
+    conn = bind.connect()
+           │    └ <function Engine.connect at 0x7f4662b91d30>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3166, in connect
+    return self._connection_cls(self, close_with_result=close_with_result)
+           │    │               │                       └ False
+           │    │               └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <class 'sqlalchemy.engine.base.Connection'>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 96, in __init__
+    else engine.raw_connection()
+         │      └ <function Engine.raw_connection at 0x7f4662b961f0>
+         └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3245, in raw_connection
+    return self._wrap_pool_connect(self.pool.connect, _connection)
+           │    │                  │    │    │        └ None
+           │    │                  │    │    └ <function Pool.connect at 0x7f4662bbd280>
+           │    │                  │    └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+           │    │                  └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <function Engine._wrap_pool_connect at 0x7f4662b91dc0>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3212, in _wrap_pool_connect
+    return fn()
+           └ <bound method Pool.connect of <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 307, in connect
+    return _ConnectionFairy._checkout(self)
+           │                │         └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+           │                └ <classmethod object at 0x7f4662bba490>
+           └ <class 'sqlalchemy.pool.base._ConnectionFairy'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 767, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            │                 │        └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+            │                 └ <classmethod object at 0x7f4662bba430>
+            └ <class 'sqlalchemy.pool.base._ConnectionRecord'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 425, in checkout
+    rec = pool._do_get()
+          │    └ <function QueuePool._do_get at 0x7f4662b52700>
+          └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 134, in _do_get
+    raise exc.TimeoutError(
+          │   └ <class 'sqlalchemy.exc.TimeoutError'>
+          └ <module 'sqlalchemy.exc' from '/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/exc.py'>
+
+sqlalchemy.exc.TimeoutError: QueuePool limit of size 5 overflow 10 reached, connection timed out, timeout 30.00 (Background on this error at: https://sqlalche.me/e/14/3o7r)
+2022-05-12 06:16:01.637 | ERROR    | base.db.mysql:update:389 - 【mysql更新数据出错】
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f4689341a60>
+    └ <Thread(Thread-10469, started daemon 139935998797568)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f4689341790>
+    └ <Thread(Thread-10469, started daemon 139935998797568)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-10469, started daemon 139935998797568)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-10469, started daemon 139935998797568)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f457182e160>>
+    └ <Thread(Thread-10469, started daemon 139935998797568)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 779, in get_request_from_keywords_hot
+    self.start_finished_spider_every_interval(project_names)
+    │    │                                    └ ['default']
+    │    └ <function ProjectManager.start_finished_spider_every_interval at 0x7f4571552160>
+    └ <monitor.projectManager.ProjectManager object at 0x7f457182e160>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 764, in start_finished_spider_every_interval
+    self[name].start_spider()
+    │    └ 'default'
+    └ <monitor.projectManager.ProjectManager object at 0x7f457182e160>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 352, in start_spider
+    self.update_device_valid(device)
+    │    │                   └ <monitor.deviceManager.DeviceC object at 0x7f4571558ee0>
+    │    └ <function Project.update_device_valid at 0x7f4571551160>
+    └ <monitor.projectManager.Project object at 0x7f4571558880>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 404, in update_device_valid
+    self.database_manager.mysql.update(Device(**device.to_item()))
+    │    │                │     │      │        │      └ <function DeviceC.to_item at 0x7f46621ac1f0>
+    │    │                │     │      │        └ <monitor.deviceManager.DeviceC object at 0x7f4571558ee0>
+    │    │                │     │      └ <class 'base.db.mysql.Device'>
+    │    │                │     └ <function Mysql.update at 0x7f46627c94c0>
+    │    │                └ <base.db.mysql.Mysql object at 0x7f4571549e80>
+    │    └ <base.db.dbSlot.Slot object at 0x7f4571549940>
+    └ <monitor.projectManager.Project object at 0x7f4571558880>
+
+> File "/home/users/Scy/yuqing/spider/base/db/mysql.py", line 372, in update
+    if row.all():
+       │   └ <function Query.all at 0x7f466290b430>
+       └ <sqlalchemy.orm.query.Query object at 0x7f4343089cd0>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2711, in all
+    return self._iter().all()
+           │    └ <function Query._iter at 0x7f466290bb80>
+           └ <sqlalchemy.orm.query.Query object at 0x7f4343089cd0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2846, in _iter
+    result = self.session.execute(
+             │    │       └ <function Session.execute at 0x7f46628e4820>
+             │    └ <sqlalchemy.orm.session.Session object at 0x7f452a70d0a0>
+             └ <sqlalchemy.orm.query.Query object at 0x7f4343089cd0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1688, in execute
+    conn = self._connection_for_bind(bind)
+           │    │                    └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <function Session._connection_for_bind at 0x7f46628e4790>
+           └ <sqlalchemy.orm.session.Session object at 0x7f452a70d0a0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1529, in _connection_for_bind
+    return self._transaction._connection_for_bind(
+           │    │            └ <function SessionTransaction._connection_for_bind at 0x7f46628e33a0>
+           │    └ <sqlalchemy.orm.session.SessionTransaction object at 0x7f4343089730>
+           └ <sqlalchemy.orm.session.Session object at 0x7f452a70d0a0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 747, in _connection_for_bind
+    conn = bind.connect()
+           │    └ <function Engine.connect at 0x7f4662b91d30>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3166, in connect
+    return self._connection_cls(self, close_with_result=close_with_result)
+           │    │               │                       └ False
+           │    │               └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <class 'sqlalchemy.engine.base.Connection'>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 96, in __init__
+    else engine.raw_connection()
+         │      └ <function Engine.raw_connection at 0x7f4662b961f0>
+         └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3245, in raw_connection
+    return self._wrap_pool_connect(self.pool.connect, _connection)
+           │    │                  │    │    │        └ None
+           │    │                  │    │    └ <function Pool.connect at 0x7f4662bbd280>
+           │    │                  │    └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+           │    │                  └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <function Engine._wrap_pool_connect at 0x7f4662b91dc0>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3212, in _wrap_pool_connect
+    return fn()
+           └ <bound method Pool.connect of <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 307, in connect
+    return _ConnectionFairy._checkout(self)
+           │                │         └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+           │                └ <classmethod object at 0x7f4662bba490>
+           └ <class 'sqlalchemy.pool.base._ConnectionFairy'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 767, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            │                 │        └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+            │                 └ <classmethod object at 0x7f4662bba430>
+            └ <class 'sqlalchemy.pool.base._ConnectionRecord'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 425, in checkout
+    rec = pool._do_get()
+          │    └ <function QueuePool._do_get at 0x7f4662b52700>
+          └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 134, in _do_get
+    raise exc.TimeoutError(
+          │   └ <class 'sqlalchemy.exc.TimeoutError'>
+          └ <module 'sqlalchemy.exc' from '/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/exc.py'>
+
+sqlalchemy.exc.TimeoutError: QueuePool limit of size 5 overflow 10 reached, connection timed out, timeout 30.00 (Background on this error at: https://sqlalche.me/e/14/3o7r)
+2022-05-12 06:18:22.078 | ERROR    | base.db.mysql:update:389 - 【mysql更新数据出错】
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f4689341a60>
+    └ <Thread(Thread-10504, started daemon 139935067666176)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f4689341790>
+    └ <Thread(Thread-10504, started daemon 139935067666176)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-10504, started daemon 139935067666176)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-10504, started daemon 139935067666176)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f457182e160>>
+    └ <Thread(Thread-10504, started daemon 139935067666176)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 779, in get_request_from_keywords_hot
+    self.start_finished_spider_every_interval(project_names)
+    │    │                                    └ ['default']
+    │    └ <function ProjectManager.start_finished_spider_every_interval at 0x7f4571552160>
+    └ <monitor.projectManager.ProjectManager object at 0x7f457182e160>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 764, in start_finished_spider_every_interval
+    self[name].start_spider()
+    │    └ 'default'
+    └ <monitor.projectManager.ProjectManager object at 0x7f457182e160>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 352, in start_spider
+    self.update_device_valid(device)
+    │    │                   └ <monitor.deviceManager.DeviceC object at 0x7f4571558ee0>
+    │    └ <function Project.update_device_valid at 0x7f4571551160>
+    └ <monitor.projectManager.Project object at 0x7f4571558880>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 404, in update_device_valid
+    self.database_manager.mysql.update(Device(**device.to_item()))
+    │    │                │     │      │        │      └ <function DeviceC.to_item at 0x7f46621ac1f0>
+    │    │                │     │      │        └ <monitor.deviceManager.DeviceC object at 0x7f4571558ee0>
+    │    │                │     │      └ <class 'base.db.mysql.Device'>
+    │    │                │     └ <function Mysql.update at 0x7f46627c94c0>
+    │    │                └ <base.db.mysql.Mysql object at 0x7f4571549e80>
+    │    └ <base.db.dbSlot.Slot object at 0x7f4571549940>
+    └ <monitor.projectManager.Project object at 0x7f4571558880>
+
+> File "/home/users/Scy/yuqing/spider/base/db/mysql.py", line 372, in update
+    if row.all():
+       │   └ <function Query.all at 0x7f466290b430>
+       └ <sqlalchemy.orm.query.Query object at 0x7f44f49c8460>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2711, in all
+    return self._iter().all()
+           │    └ <function Query._iter at 0x7f466290bb80>
+           └ <sqlalchemy.orm.query.Query object at 0x7f44f49c8460>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2846, in _iter
+    result = self.session.execute(
+             │    │       └ <function Session.execute at 0x7f46628e4820>
+             │    └ <sqlalchemy.orm.session.Session object at 0x7f433f46ab80>
+             └ <sqlalchemy.orm.query.Query object at 0x7f44f49c8460>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1688, in execute
+    conn = self._connection_for_bind(bind)
+           │    │                    └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <function Session._connection_for_bind at 0x7f46628e4790>
+           └ <sqlalchemy.orm.session.Session object at 0x7f433f46ab80>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1529, in _connection_for_bind
+    return self._transaction._connection_for_bind(
+           │    │            └ <function SessionTransaction._connection_for_bind at 0x7f46628e33a0>
+           │    └ <sqlalchemy.orm.session.SessionTransaction object at 0x7f4362080c70>
+           └ <sqlalchemy.orm.session.Session object at 0x7f433f46ab80>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 747, in _connection_for_bind
+    conn = bind.connect()
+           │    └ <function Engine.connect at 0x7f4662b91d30>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3166, in connect
+    return self._connection_cls(self, close_with_result=close_with_result)
+           │    │               │                       └ False
+           │    │               └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <class 'sqlalchemy.engine.base.Connection'>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 96, in __init__
+    else engine.raw_connection()
+         │      └ <function Engine.raw_connection at 0x7f4662b961f0>
+         └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3245, in raw_connection
+    return self._wrap_pool_connect(self.pool.connect, _connection)
+           │    │                  │    │    │        └ None
+           │    │                  │    │    └ <function Pool.connect at 0x7f4662bbd280>
+           │    │                  │    └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+           │    │                  └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <function Engine._wrap_pool_connect at 0x7f4662b91dc0>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3212, in _wrap_pool_connect
+    return fn()
+           └ <bound method Pool.connect of <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 307, in connect
+    return _ConnectionFairy._checkout(self)
+           │                │         └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+           │                └ <classmethod object at 0x7f4662bba490>
+           └ <class 'sqlalchemy.pool.base._ConnectionFairy'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 767, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            │                 │        └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+            │                 └ <classmethod object at 0x7f4662bba430>
+            └ <class 'sqlalchemy.pool.base._ConnectionRecord'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 425, in checkout
+    rec = pool._do_get()
+          │    └ <function QueuePool._do_get at 0x7f4662b52700>
+          └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 134, in _do_get
+    raise exc.TimeoutError(
+          │   └ <class 'sqlalchemy.exc.TimeoutError'>
+          └ <module 'sqlalchemy.exc' from '/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/exc.py'>
+
+sqlalchemy.exc.TimeoutError: QueuePool limit of size 5 overflow 10 reached, connection timed out, timeout 30.00 (Background on this error at: https://sqlalche.me/e/14/3o7r)
+2022-05-12 06:18:43.177 | ERROR    | base.db.mysql:update:389 - 【mysql更新数据出错】
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f4689341a60>
+    └ <Thread(Thread-10508, started daemon 139934617020160)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f4689341790>
+    └ <Thread(Thread-10508, started daemon 139934617020160)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-10508, started daemon 139934617020160)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-10508, started daemon 139934617020160)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f457182e160>>
+    └ <Thread(Thread-10508, started daemon 139934617020160)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 779, in get_request_from_keywords_hot
+    self.start_finished_spider_every_interval(project_names)
+    │    │                                    └ ['default']
+    │    └ <function ProjectManager.start_finished_spider_every_interval at 0x7f4571552160>
+    └ <monitor.projectManager.ProjectManager object at 0x7f457182e160>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 764, in start_finished_spider_every_interval
+    self[name].start_spider()
+    │    └ 'default'
+    └ <monitor.projectManager.ProjectManager object at 0x7f457182e160>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 352, in start_spider
+    self.update_device_valid(device)
+    │    │                   └ <monitor.deviceManager.DeviceC object at 0x7f4571558ee0>
+    │    └ <function Project.update_device_valid at 0x7f4571551160>
+    └ <monitor.projectManager.Project object at 0x7f4571558880>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 404, in update_device_valid
+    self.database_manager.mysql.update(Device(**device.to_item()))
+    │    │                │     │      │        │      └ <function DeviceC.to_item at 0x7f46621ac1f0>
+    │    │                │     │      │        └ <monitor.deviceManager.DeviceC object at 0x7f4571558ee0>
+    │    │                │     │      └ <class 'base.db.mysql.Device'>
+    │    │                │     └ <function Mysql.update at 0x7f46627c94c0>
+    │    │                └ <base.db.mysql.Mysql object at 0x7f4571549e80>
+    │    └ <base.db.dbSlot.Slot object at 0x7f4571549940>
+    └ <monitor.projectManager.Project object at 0x7f4571558880>
+
+> File "/home/users/Scy/yuqing/spider/base/db/mysql.py", line 372, in update
+    if row.all():
+       │   └ <function Query.all at 0x7f466290b430>
+       └ <sqlalchemy.orm.query.Query object at 0x7f4529ae58b0>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2711, in all
+    return self._iter().all()
+           │    └ <function Query._iter at 0x7f466290bb80>
+           └ <sqlalchemy.orm.query.Query object at 0x7f4529ae58b0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2846, in _iter
+    result = self.session.execute(
+             │    │       └ <function Session.execute at 0x7f46628e4820>
+             │    └ <sqlalchemy.orm.session.Session object at 0x7f4529ae5940>
+             └ <sqlalchemy.orm.query.Query object at 0x7f4529ae58b0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1688, in execute
+    conn = self._connection_for_bind(bind)
+           │    │                    └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <function Session._connection_for_bind at 0x7f46628e4790>
+           └ <sqlalchemy.orm.session.Session object at 0x7f4529ae5940>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1529, in _connection_for_bind
+    return self._transaction._connection_for_bind(
+           │    │            └ <function SessionTransaction._connection_for_bind at 0x7f46628e33a0>
+           │    └ <sqlalchemy.orm.session.SessionTransaction object at 0x7f4529ae5460>
+           └ <sqlalchemy.orm.session.Session object at 0x7f4529ae5940>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 747, in _connection_for_bind
+    conn = bind.connect()
+           │    └ <function Engine.connect at 0x7f4662b91d30>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3166, in connect
+    return self._connection_cls(self, close_with_result=close_with_result)
+           │    │               │                       └ False
+           │    │               └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <class 'sqlalchemy.engine.base.Connection'>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 96, in __init__
+    else engine.raw_connection()
+         │      └ <function Engine.raw_connection at 0x7f4662b961f0>
+         └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3245, in raw_connection
+    return self._wrap_pool_connect(self.pool.connect, _connection)
+           │    │                  │    │    │        └ None
+           │    │                  │    │    └ <function Pool.connect at 0x7f4662bbd280>
+           │    │                  │    └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+           │    │                  └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <function Engine._wrap_pool_connect at 0x7f4662b91dc0>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3212, in _wrap_pool_connect
+    return fn()
+           └ <bound method Pool.connect of <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 307, in connect
+    return _ConnectionFairy._checkout(self)
+           │                │         └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+           │                └ <classmethod object at 0x7f4662bba490>
+           └ <class 'sqlalchemy.pool.base._ConnectionFairy'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 767, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            │                 │        └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+            │                 └ <classmethod object at 0x7f4662bba430>
+            └ <class 'sqlalchemy.pool.base._ConnectionRecord'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 425, in checkout
+    rec = pool._do_get()
+          │    └ <function QueuePool._do_get at 0x7f4662b52700>
+          └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 134, in _do_get
+    raise exc.TimeoutError(
+          │   └ <class 'sqlalchemy.exc.TimeoutError'>
+          └ <module 'sqlalchemy.exc' from '/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/exc.py'>
+
+sqlalchemy.exc.TimeoutError: QueuePool limit of size 5 overflow 10 reached, connection timed out, timeout 30.00 (Background on this error at: https://sqlalche.me/e/14/3o7r)
+2022-05-12 06:20:35.706 | ERROR    | base.db.mysql:update:389 - 【mysql更新数据出错】
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f4689341a60>
+    └ <Thread(Thread-10533, started daemon 139935067666176)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f4689341790>
+    └ <Thread(Thread-10533, started daemon 139935067666176)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-10533, started daemon 139935067666176)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-10533, started daemon 139935067666176)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f457182e160>>
+    └ <Thread(Thread-10533, started daemon 139935067666176)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 779, in get_request_from_keywords_hot
+    self.start_finished_spider_every_interval(project_names)
+    │    │                                    └ ['default']
+    │    └ <function ProjectManager.start_finished_spider_every_interval at 0x7f4571552160>
+    └ <monitor.projectManager.ProjectManager object at 0x7f457182e160>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 764, in start_finished_spider_every_interval
+    self[name].start_spider()
+    │    └ 'default'
+    └ <monitor.projectManager.ProjectManager object at 0x7f457182e160>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 352, in start_spider
+    self.update_device_valid(device)
+    │    │                   └ <monitor.deviceManager.DeviceC object at 0x7f4571558ee0>
+    │    └ <function Project.update_device_valid at 0x7f4571551160>
+    └ <monitor.projectManager.Project object at 0x7f4571558880>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 404, in update_device_valid
+    self.database_manager.mysql.update(Device(**device.to_item()))
+    │    │                │     │      │        │      └ <function DeviceC.to_item at 0x7f46621ac1f0>
+    │    │                │     │      │        └ <monitor.deviceManager.DeviceC object at 0x7f4571558ee0>
+    │    │                │     │      └ <class 'base.db.mysql.Device'>
+    │    │                │     └ <function Mysql.update at 0x7f46627c94c0>
+    │    │                └ <base.db.mysql.Mysql object at 0x7f4571549e80>
+    │    └ <base.db.dbSlot.Slot object at 0x7f4571549940>
+    └ <monitor.projectManager.Project object at 0x7f4571558880>
+
+> File "/home/users/Scy/yuqing/spider/base/db/mysql.py", line 372, in update
+    if row.all():
+       │   └ <function Query.all at 0x7f466290b430>
+       └ <sqlalchemy.orm.query.Query object at 0x7f43766cf2e0>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2711, in all
+    return self._iter().all()
+           │    └ <function Query._iter at 0x7f466290bb80>
+           └ <sqlalchemy.orm.query.Query object at 0x7f43766cf2e0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2846, in _iter
+    result = self.session.execute(
+             │    │       └ <function Session.execute at 0x7f46628e4820>
+             │    └ <sqlalchemy.orm.session.Session object at 0x7f436404b610>
+             └ <sqlalchemy.orm.query.Query object at 0x7f43766cf2e0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1688, in execute
+    conn = self._connection_for_bind(bind)
+           │    │                    └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <function Session._connection_for_bind at 0x7f46628e4790>
+           └ <sqlalchemy.orm.session.Session object at 0x7f436404b610>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1529, in _connection_for_bind
+    return self._transaction._connection_for_bind(
+           │    │            └ <function SessionTransaction._connection_for_bind at 0x7f46628e33a0>
+           │    └ <sqlalchemy.orm.session.SessionTransaction object at 0x7f43766cf670>
+           └ <sqlalchemy.orm.session.Session object at 0x7f436404b610>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 747, in _connection_for_bind
+    conn = bind.connect()
+           │    └ <function Engine.connect at 0x7f4662b91d30>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3166, in connect
+    return self._connection_cls(self, close_with_result=close_with_result)
+           │    │               │                       └ False
+           │    │               └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <class 'sqlalchemy.engine.base.Connection'>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 96, in __init__
+    else engine.raw_connection()
+         │      └ <function Engine.raw_connection at 0x7f4662b961f0>
+         └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3245, in raw_connection
+    return self._wrap_pool_connect(self.pool.connect, _connection)
+           │    │                  │    │    │        └ None
+           │    │                  │    │    └ <function Pool.connect at 0x7f4662bbd280>
+           │    │                  │    └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+           │    │                  └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <function Engine._wrap_pool_connect at 0x7f4662b91dc0>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3212, in _wrap_pool_connect
+    return fn()
+           └ <bound method Pool.connect of <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 307, in connect
+    return _ConnectionFairy._checkout(self)
+           │                │         └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+           │                └ <classmethod object at 0x7f4662bba490>
+           └ <class 'sqlalchemy.pool.base._ConnectionFairy'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 767, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            │                 │        └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+            │                 └ <classmethod object at 0x7f4662bba430>
+            └ <class 'sqlalchemy.pool.base._ConnectionRecord'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 425, in checkout
+    rec = pool._do_get()
+          │    └ <function QueuePool._do_get at 0x7f4662b52700>
+          └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 134, in _do_get
+    raise exc.TimeoutError(
+          │   └ <class 'sqlalchemy.exc.TimeoutError'>
+          └ <module 'sqlalchemy.exc' from '/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/exc.py'>
+
+sqlalchemy.exc.TimeoutError: QueuePool limit of size 5 overflow 10 reached, connection timed out, timeout 30.00 (Background on this error at: https://sqlalche.me/e/14/3o7r)
+2022-05-12 06:21:59.443 | ERROR    | base.db.mysql:update:389 - 【mysql更新数据出错】
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f4689341a60>
+    └ <Thread(Thread-10552, started daemon 139935537428224)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f4689341790>
+    └ <Thread(Thread-10552, started daemon 139935537428224)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-10552, started daemon 139935537428224)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-10552, started daemon 139935537428224)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f457182e160>>
+    └ <Thread(Thread-10552, started daemon 139935537428224)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 779, in get_request_from_keywords_hot
+    self.start_finished_spider_every_interval(project_names)
+    │    │                                    └ ['default']
+    │    └ <function ProjectManager.start_finished_spider_every_interval at 0x7f4571552160>
+    └ <monitor.projectManager.ProjectManager object at 0x7f457182e160>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 764, in start_finished_spider_every_interval
+    self[name].start_spider()
+    │    └ 'default'
+    └ <monitor.projectManager.ProjectManager object at 0x7f457182e160>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 352, in start_spider
+    self.update_device_valid(device)
+    │    │                   └ <monitor.deviceManager.DeviceC object at 0x7f4571558ee0>
+    │    └ <function Project.update_device_valid at 0x7f4571551160>
+    └ <monitor.projectManager.Project object at 0x7f4571558880>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 404, in update_device_valid
+    self.database_manager.mysql.update(Device(**device.to_item()))
+    │    │                │     │      │        │      └ <function DeviceC.to_item at 0x7f46621ac1f0>
+    │    │                │     │      │        └ <monitor.deviceManager.DeviceC object at 0x7f4571558ee0>
+    │    │                │     │      └ <class 'base.db.mysql.Device'>
+    │    │                │     └ <function Mysql.update at 0x7f46627c94c0>
+    │    │                └ <base.db.mysql.Mysql object at 0x7f4571549e80>
+    │    └ <base.db.dbSlot.Slot object at 0x7f4571549940>
+    └ <monitor.projectManager.Project object at 0x7f4571558880>
+
+> File "/home/users/Scy/yuqing/spider/base/db/mysql.py", line 372, in update
+    if row.all():
+       │   └ <function Query.all at 0x7f466290b430>
+       └ <sqlalchemy.orm.query.Query object at 0x7f4393f930a0>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2711, in all
+    return self._iter().all()
+           │    └ <function Query._iter at 0x7f466290bb80>
+           └ <sqlalchemy.orm.query.Query object at 0x7f4393f930a0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2846, in _iter
+    result = self.session.execute(
+             │    │       └ <function Session.execute at 0x7f46628e4820>
+             │    └ <sqlalchemy.orm.session.Session object at 0x7f451123ed00>
+             └ <sqlalchemy.orm.query.Query object at 0x7f4393f930a0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1688, in execute
+    conn = self._connection_for_bind(bind)
+           │    │                    └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <function Session._connection_for_bind at 0x7f46628e4790>
+           └ <sqlalchemy.orm.session.Session object at 0x7f451123ed00>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1529, in _connection_for_bind
+    return self._transaction._connection_for_bind(
+           │    │            └ <function SessionTransaction._connection_for_bind at 0x7f46628e33a0>
+           │    └ <sqlalchemy.orm.session.SessionTransaction object at 0x7f4393f93310>
+           └ <sqlalchemy.orm.session.Session object at 0x7f451123ed00>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 747, in _connection_for_bind
+    conn = bind.connect()
+           │    └ <function Engine.connect at 0x7f4662b91d30>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3166, in connect
+    return self._connection_cls(self, close_with_result=close_with_result)
+           │    │               │                       └ False
+           │    │               └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <class 'sqlalchemy.engine.base.Connection'>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 96, in __init__
+    else engine.raw_connection()
+         │      └ <function Engine.raw_connection at 0x7f4662b961f0>
+         └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3245, in raw_connection
+    return self._wrap_pool_connect(self.pool.connect, _connection)
+           │    │                  │    │    │        └ None
+           │    │                  │    │    └ <function Pool.connect at 0x7f4662bbd280>
+           │    │                  │    └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+           │    │                  └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <function Engine._wrap_pool_connect at 0x7f4662b91dc0>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3212, in _wrap_pool_connect
+    return fn()
+           └ <bound method Pool.connect of <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 307, in connect
+    return _ConnectionFairy._checkout(self)
+           │                │         └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+           │                └ <classmethod object at 0x7f4662bba490>
+           └ <class 'sqlalchemy.pool.base._ConnectionFairy'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 767, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            │                 │        └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+            │                 └ <classmethod object at 0x7f4662bba430>
+            └ <class 'sqlalchemy.pool.base._ConnectionRecord'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 425, in checkout
+    rec = pool._do_get()
+          │    └ <function QueuePool._do_get at 0x7f4662b52700>
+          └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 134, in _do_get
+    raise exc.TimeoutError(
+          │   └ <class 'sqlalchemy.exc.TimeoutError'>
+          └ <module 'sqlalchemy.exc' from '/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/exc.py'>
+
+sqlalchemy.exc.TimeoutError: QueuePool limit of size 5 overflow 10 reached, connection timed out, timeout 30.00 (Background on this error at: https://sqlalche.me/e/14/3o7r)
+2022-05-12 06:22:16.892 | ERROR    | base.db.mysql:update:389 - 【mysql更新数据出错】
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f4689341a60>
+    └ <Thread(Thread-10557, started daemon 139935529035520)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f4689341790>
+    └ <Thread(Thread-10557, started daemon 139935529035520)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-10557, started daemon 139935529035520)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-10557, started daemon 139935529035520)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f457182e160>>
+    └ <Thread(Thread-10557, started daemon 139935529035520)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 779, in get_request_from_keywords_hot
+    self.start_finished_spider_every_interval(project_names)
+    │    │                                    └ ['default']
+    │    └ <function ProjectManager.start_finished_spider_every_interval at 0x7f4571552160>
+    └ <monitor.projectManager.ProjectManager object at 0x7f457182e160>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 764, in start_finished_spider_every_interval
+    self[name].start_spider()
+    │    └ 'default'
+    └ <monitor.projectManager.ProjectManager object at 0x7f457182e160>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 352, in start_spider
+    self.update_device_valid(device)
+    │    │                   └ <monitor.deviceManager.DeviceC object at 0x7f4571558ee0>
+    │    └ <function Project.update_device_valid at 0x7f4571551160>
+    └ <monitor.projectManager.Project object at 0x7f4571558880>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 404, in update_device_valid
+    self.database_manager.mysql.update(Device(**device.to_item()))
+    │    │                │     │      │        │      └ <function DeviceC.to_item at 0x7f46621ac1f0>
+    │    │                │     │      │        └ <monitor.deviceManager.DeviceC object at 0x7f4571558ee0>
+    │    │                │     │      └ <class 'base.db.mysql.Device'>
+    │    │                │     └ <function Mysql.update at 0x7f46627c94c0>
+    │    │                └ <base.db.mysql.Mysql object at 0x7f4571549e80>
+    │    └ <base.db.dbSlot.Slot object at 0x7f4571549940>
+    └ <monitor.projectManager.Project object at 0x7f4571558880>
+
+> File "/home/users/Scy/yuqing/spider/base/db/mysql.py", line 372, in update
+    if row.all():
+       │   └ <function Query.all at 0x7f466290b430>
+       └ <sqlalchemy.orm.query.Query object at 0x7f42f52cd880>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2711, in all
+    return self._iter().all()
+           │    └ <function Query._iter at 0x7f466290bb80>
+           └ <sqlalchemy.orm.query.Query object at 0x7f42f52cd880>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2846, in _iter
+    result = self.session.execute(
+             │    │       └ <function Session.execute at 0x7f46628e4820>
+             │    └ <sqlalchemy.orm.session.Session object at 0x7f42f52cdd00>
+             └ <sqlalchemy.orm.query.Query object at 0x7f42f52cd880>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1688, in execute
+    conn = self._connection_for_bind(bind)
+           │    │                    └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <function Session._connection_for_bind at 0x7f46628e4790>
+           └ <sqlalchemy.orm.session.Session object at 0x7f42f52cdd00>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1529, in _connection_for_bind
+    return self._transaction._connection_for_bind(
+           │    │            └ <function SessionTransaction._connection_for_bind at 0x7f46628e33a0>
+           │    └ <sqlalchemy.orm.session.SessionTransaction object at 0x7f42f52cde50>
+           └ <sqlalchemy.orm.session.Session object at 0x7f42f52cdd00>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 747, in _connection_for_bind
+    conn = bind.connect()
+           │    └ <function Engine.connect at 0x7f4662b91d30>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3166, in connect
+    return self._connection_cls(self, close_with_result=close_with_result)
+           │    │               │                       └ False
+           │    │               └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <class 'sqlalchemy.engine.base.Connection'>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 96, in __init__
+    else engine.raw_connection()
+         │      └ <function Engine.raw_connection at 0x7f4662b961f0>
+         └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3245, in raw_connection
+    return self._wrap_pool_connect(self.pool.connect, _connection)
+           │    │                  │    │    │        └ None
+           │    │                  │    │    └ <function Pool.connect at 0x7f4662bbd280>
+           │    │                  │    └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+           │    │                  └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <function Engine._wrap_pool_connect at 0x7f4662b91dc0>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3212, in _wrap_pool_connect
+    return fn()
+           └ <bound method Pool.connect of <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 307, in connect
+    return _ConnectionFairy._checkout(self)
+           │                │         └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+           │                └ <classmethod object at 0x7f4662bba490>
+           └ <class 'sqlalchemy.pool.base._ConnectionFairy'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 767, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            │                 │        └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+            │                 └ <classmethod object at 0x7f4662bba430>
+            └ <class 'sqlalchemy.pool.base._ConnectionRecord'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 425, in checkout
+    rec = pool._do_get()
+          │    └ <function QueuePool._do_get at 0x7f4662b52700>
+          └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 134, in _do_get
+    raise exc.TimeoutError(
+          │   └ <class 'sqlalchemy.exc.TimeoutError'>
+          └ <module 'sqlalchemy.exc' from '/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/exc.py'>
+
+sqlalchemy.exc.TimeoutError: QueuePool limit of size 5 overflow 10 reached, connection timed out, timeout 30.00 (Background on this error at: https://sqlalche.me/e/14/3o7r)
+2022-05-12 06:22:55.751 | ERROR    | base.db.mysql:update:389 - 【mysql更新数据出错】
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f4689341a60>
+    └ <Thread(Thread-10567, started daemon 139934138341120)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f4689341790>
+    └ <Thread(Thread-10567, started daemon 139934138341120)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-10567, started daemon 139934138341120)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-10567, started daemon 139934138341120)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f457182e160>>
+    └ <Thread(Thread-10567, started daemon 139934138341120)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 779, in get_request_from_keywords_hot
+    self.start_finished_spider_every_interval(project_names)
+    │    │                                    └ ['default']
+    │    └ <function ProjectManager.start_finished_spider_every_interval at 0x7f4571552160>
+    └ <monitor.projectManager.ProjectManager object at 0x7f457182e160>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 764, in start_finished_spider_every_interval
+    self[name].start_spider()
+    │    └ 'default'
+    └ <monitor.projectManager.ProjectManager object at 0x7f457182e160>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 352, in start_spider
+    self.update_device_valid(device)
+    │    │                   └ <monitor.deviceManager.DeviceC object at 0x7f4571558ee0>
+    │    └ <function Project.update_device_valid at 0x7f4571551160>
+    └ <monitor.projectManager.Project object at 0x7f4571558880>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 404, in update_device_valid
+    self.database_manager.mysql.update(Device(**device.to_item()))
+    │    │                │     │      │        │      └ <function DeviceC.to_item at 0x7f46621ac1f0>
+    │    │                │     │      │        └ <monitor.deviceManager.DeviceC object at 0x7f4571558ee0>
+    │    │                │     │      └ <class 'base.db.mysql.Device'>
+    │    │                │     └ <function Mysql.update at 0x7f46627c94c0>
+    │    │                └ <base.db.mysql.Mysql object at 0x7f4571549e80>
+    │    └ <base.db.dbSlot.Slot object at 0x7f4571549940>
+    └ <monitor.projectManager.Project object at 0x7f4571558880>
+
+> File "/home/users/Scy/yuqing/spider/base/db/mysql.py", line 372, in update
+    if row.all():
+       │   └ <function Query.all at 0x7f466290b430>
+       └ <sqlalchemy.orm.query.Query object at 0x7f4529ae50d0>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2711, in all
+    return self._iter().all()
+           │    └ <function Query._iter at 0x7f466290bb80>
+           └ <sqlalchemy.orm.query.Query object at 0x7f4529ae50d0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2846, in _iter
+    result = self.session.execute(
+             │    │       └ <function Session.execute at 0x7f46628e4820>
+             │    └ <sqlalchemy.orm.session.Session object at 0x7f4529ae5340>
+             └ <sqlalchemy.orm.query.Query object at 0x7f4529ae50d0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1688, in execute
+    conn = self._connection_for_bind(bind)
+           │    │                    └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <function Session._connection_for_bind at 0x7f46628e4790>
+           └ <sqlalchemy.orm.session.Session object at 0x7f4529ae5340>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1529, in _connection_for_bind
+    return self._transaction._connection_for_bind(
+           │    │            └ <function SessionTransaction._connection_for_bind at 0x7f46628e33a0>
+           │    └ <sqlalchemy.orm.session.SessionTransaction object at 0x7f4529ae5f40>
+           └ <sqlalchemy.orm.session.Session object at 0x7f4529ae5340>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 747, in _connection_for_bind
+    conn = bind.connect()
+           │    └ <function Engine.connect at 0x7f4662b91d30>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3166, in connect
+    return self._connection_cls(self, close_with_result=close_with_result)
+           │    │               │                       └ False
+           │    │               └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <class 'sqlalchemy.engine.base.Connection'>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 96, in __init__
+    else engine.raw_connection()
+         │      └ <function Engine.raw_connection at 0x7f4662b961f0>
+         └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3245, in raw_connection
+    return self._wrap_pool_connect(self.pool.connect, _connection)
+           │    │                  │    │    │        └ None
+           │    │                  │    │    └ <function Pool.connect at 0x7f4662bbd280>
+           │    │                  │    └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+           │    │                  └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <function Engine._wrap_pool_connect at 0x7f4662b91dc0>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3212, in _wrap_pool_connect
+    return fn()
+           └ <bound method Pool.connect of <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 307, in connect
+    return _ConnectionFairy._checkout(self)
+           │                │         └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+           │                └ <classmethod object at 0x7f4662bba490>
+           └ <class 'sqlalchemy.pool.base._ConnectionFairy'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 767, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            │                 │        └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+            │                 └ <classmethod object at 0x7f4662bba430>
+            └ <class 'sqlalchemy.pool.base._ConnectionRecord'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 425, in checkout
+    rec = pool._do_get()
+          │    └ <function QueuePool._do_get at 0x7f4662b52700>
+          └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 134, in _do_get
+    raise exc.TimeoutError(
+          │   └ <class 'sqlalchemy.exc.TimeoutError'>
+          └ <module 'sqlalchemy.exc' from '/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/exc.py'>
+
+sqlalchemy.exc.TimeoutError: QueuePool limit of size 5 overflow 10 reached, connection timed out, timeout 30.00 (Background on this error at: https://sqlalche.me/e/14/3o7r)
+2022-05-12 06:25:39.669 | ERROR    | base.db.mysql:update:389 - 【mysql更新数据出错】
+Traceback (most recent call last):
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1771, in _execute_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x7f4662aca310>
+    │    └ <sqlalchemy.dialects.mysql.pymysql.MySQLDialect_pymysql object at 0x7f4571549cd0>
+    └ <sqlalchemy.engine.base.Connection object at 0x7f45700b3970>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 717, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ {'ip': '180.201.163.246', 'username': 'chase', 'password': '73144041233941900224132655230406797559121135797814841850479465073...
+    │      │       └ 'UPDATE device SET ip=%(ip)s, username=%(username)s, password=%(password)s, address=%(address)s, port=%(port)s, valid=%(valid...
+    │      └ <function Cursor.execute at 0x7f466218bdc0>
+    └ <pymysql.cursors.Cursor object at 0x7f451123e9a0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 148, in execute
+    result = self._query(query)
+             │    │      └ "UPDATE device SET ip='180.201.163.246', username='chase', password='73144041233941900224132655230406797559121135797814841850...
+             │    └ <function Cursor._query at 0x7f4662194280>
+             └ <pymysql.cursors.Cursor object at 0x7f451123e9a0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 310, in _query
+    conn.query(q)
+    │    │     └ "UPDATE device SET ip='180.201.163.246', username='chase', password='73144041233941900224132655230406797559121135797814841850...
+    │    └ <function Connection.query at 0x7f46621a85e0>
+    └ <pymysql.connections.Connection object at 0x7f424c437550>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+    │    │                │    │                             └ False
+    │    │                │    └ <function Connection._read_query_result at 0x7f46621a8c10>
+    │    │                └ <pymysql.connections.Connection object at 0x7f424c437550>
+    │    └ 1
+    └ <pymysql.connections.Connection object at 0x7f424c437550>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 775, in _read_query_result
+    result.read()
+    │      └ <function MySQLResult.read at 0x7f46621a9430>
+    └ <pymysql.connections.MySQLResult object at 0x7f43a5048400>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+                   │    └ None
+                   └ <pymysql.connections.MySQLResult object at 0x7f43a5048400>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+    │      └ <function MysqlPacket.raise_for_error at 0x7f466219dee0>
+    └ <pymysql.protocol.MysqlPacket object at 0x7f43766cf1f0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    │   │                     │    └ <member '_data' of 'MysqlPacket' objects>
+    │   │                     └ <pymysql.protocol.MysqlPacket object at 0x7f43766cf1f0>
+    │   └ <function raise_mysql_exception at 0x7f46626e0e50>
+    └ <module 'pymysql.err' from '/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+          │          │      └ 'Lock wait timeout exceeded; try restarting transaction'
+          │          └ 1205
+          └ <class 'pymysql.err.OperationalError'>
+
+pymysql.err.OperationalError: (1205, 'Lock wait timeout exceeded; try restarting transaction')
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f4689341a60>
+    └ <Thread(Thread-10587, started daemon 139934186858240)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f4689341790>
+    └ <Thread(Thread-10587, started daemon 139934186858240)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-10587, started daemon 139934186858240)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-10587, started daemon 139934186858240)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f457182e160>>
+    └ <Thread(Thread-10587, started daemon 139934186858240)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 779, in get_request_from_keywords_hot
+    self.start_finished_spider_every_interval(project_names)
+    │    │                                    └ ['default']
+    │    └ <function ProjectManager.start_finished_spider_every_interval at 0x7f4571552160>
+    └ <monitor.projectManager.ProjectManager object at 0x7f457182e160>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 764, in start_finished_spider_every_interval
+    self[name].start_spider()
+    │    └ 'default'
+    └ <monitor.projectManager.ProjectManager object at 0x7f457182e160>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 352, in start_spider
+    self.update_device_valid(device)
+    │    │                   └ <monitor.deviceManager.DeviceC object at 0x7f4571558ee0>
+    │    └ <function Project.update_device_valid at 0x7f4571551160>
+    └ <monitor.projectManager.Project object at 0x7f4571558880>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 404, in update_device_valid
+    self.database_manager.mysql.update(Device(**device.to_item()))
+    │    │                │     │      │        │      └ <function DeviceC.to_item at 0x7f46621ac1f0>
+    │    │                │     │      │        └ <monitor.deviceManager.DeviceC object at 0x7f4571558ee0>
+    │    │                │     │      └ <class 'base.db.mysql.Device'>
+    │    │                │     └ <function Mysql.update at 0x7f46627c94c0>
+    │    │                └ <base.db.mysql.Mysql object at 0x7f4571549e80>
+    │    └ <base.db.dbSlot.Slot object at 0x7f4571549940>
+    └ <monitor.projectManager.Project object at 0x7f4571558880>
+
+> File "/home/users/Scy/yuqing/spider/base/db/mysql.py", line 374, in update
+    row.update(new)
+    │   │      └ {'ip': '180.201.163.246', 'username': 'chase', 'password': '73144041233941900224132655230406797559121135797814841850479465073...
+    │   └ <function Query.update at 0x7f466290e0d0>
+    └ <sqlalchemy.orm.query.Query object at 0x7f42f1936190>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3221, in update
+    result = self.session.execute(
+             │    │       └ <function Session.execute at 0x7f46628e4820>
+             │    └ <sqlalchemy.orm.session.Session object at 0x7f42f1936910>
+             └ <sqlalchemy.orm.query.Query object at 0x7f42f1936190>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1689, in execute
+    result = conn._execute_20(statement, params or {}, execution_options)
+             │    │           │          │             └ immutabledict({'synchronize_session': 'evaluate', '_sa_orm_update_options': default_update_options(_matched_objects=[], _reso...
+             │    │           │          └ immutabledict({})
+             │    │           └ <sqlalchemy.sql.annotation.AnnotatedUpdate object at 0x7f451123e520>
+             │    └ <function Connection._execute_20 at 0x7f4662b8c4c0>
+             └ <sqlalchemy.engine.base.Connection object at 0x7f45700b3970>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1583, in _execute_20
+    return meth(self, args_10style, kwargs_10style, execution_options)
+           │    │     │             │               └ immutabledict({'synchronize_session': 'evaluate', '_sa_orm_update_options': default_update_options(_matched_objects=[], _reso...
+           │    │     │             └ immutabledict({})
+           │    │     └ ({},)
+           │    └ <sqlalchemy.engine.base.Connection object at 0x7f45700b3970>
+           └ <bound method ClauseElement._execute_on_connection of <sqlalchemy.sql.annotation.AnnotatedUpdate object at 0x7f451123e520>>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 323, in _execute_on_connection
+    return connection._execute_clauseelement(
+           │          └ <function Connection._execute_clauseelement at 0x7f4662b8c310>
+           └ <sqlalchemy.engine.base.Connection object at 0x7f45700b3970>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1452, in _execute_clauseelement
+    ret = self._execute_context(
+          │    └ <function Connection._execute_context at 0x7f4662b8c5e0>
+          └ <sqlalchemy.engine.base.Connection object at 0x7f45700b3970>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1814, in _execute_context
+    self._handle_dbapi_exception(
+    │    └ <function Connection._handle_dbapi_exception at 0x7f4662b8c790>
+    └ <sqlalchemy.engine.base.Connection object at 0x7f45700b3970>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1995, in _handle_dbapi_exception
+    util.raise_(
+    │    └ <function raise_ at 0x7f466308c820>
+    └ <module 'sqlalchemy.util' from '/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/util/__init__.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 207, in raise_
+    raise exception
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1771, in _execute_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x7f4662aca310>
+    │    └ <sqlalchemy.dialects.mysql.pymysql.MySQLDialect_pymysql object at 0x7f4571549cd0>
+    └ <sqlalchemy.engine.base.Connection object at 0x7f45700b3970>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 717, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ {'ip': '180.201.163.246', 'username': 'chase', 'password': '73144041233941900224132655230406797559121135797814841850479465073...
+    │      │       └ 'UPDATE device SET ip=%(ip)s, username=%(username)s, password=%(password)s, address=%(address)s, port=%(port)s, valid=%(valid...
+    │      └ <function Cursor.execute at 0x7f466218bdc0>
+    └ <pymysql.cursors.Cursor object at 0x7f451123e9a0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 148, in execute
+    result = self._query(query)
+             │    │      └ "UPDATE device SET ip='180.201.163.246', username='chase', password='73144041233941900224132655230406797559121135797814841850...
+             │    └ <function Cursor._query at 0x7f4662194280>
+             └ <pymysql.cursors.Cursor object at 0x7f451123e9a0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 310, in _query
+    conn.query(q)
+    │    │     └ "UPDATE device SET ip='180.201.163.246', username='chase', password='73144041233941900224132655230406797559121135797814841850...
+    │    └ <function Connection.query at 0x7f46621a85e0>
+    └ <pymysql.connections.Connection object at 0x7f424c437550>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+    │    │                │    │                             └ False
+    │    │                │    └ <function Connection._read_query_result at 0x7f46621a8c10>
+    │    │                └ <pymysql.connections.Connection object at 0x7f424c437550>
+    │    └ 1
+    └ <pymysql.connections.Connection object at 0x7f424c437550>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 775, in _read_query_result
+    result.read()
+    │      └ <function MySQLResult.read at 0x7f46621a9430>
+    └ <pymysql.connections.MySQLResult object at 0x7f43a5048400>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+                   │    └ None
+                   └ <pymysql.connections.MySQLResult object at 0x7f43a5048400>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+    │      └ <function MysqlPacket.raise_for_error at 0x7f466219dee0>
+    └ <pymysql.protocol.MysqlPacket object at 0x7f43766cf1f0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    │   │                     │    └ <member '_data' of 'MysqlPacket' objects>
+    │   │                     └ <pymysql.protocol.MysqlPacket object at 0x7f43766cf1f0>
+    │   └ <function raise_mysql_exception at 0x7f46626e0e50>
+    └ <module 'pymysql.err' from '/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+          │          │      └ 'Lock wait timeout exceeded; try restarting transaction'
+          │          └ 1205
+          └ <class 'pymysql.err.OperationalError'>
+
+sqlalchemy.exc.OperationalError: (pymysql.err.OperationalError) (1205, 'Lock wait timeout exceeded; try restarting transaction')
+[SQL: UPDATE device SET ip=%(ip)s, username=%(username)s, password=%(password)s, address=%(address)s, port=%(port)s, valid=%(valid)s WHERE device.ip = %(ip_1)s]
+[parameters: {'ip': '180.201.163.246', 'username': 'chase', 'password': '73144041233941900224132655230406797559121135797814841850479465073245686270918968453592442903851255305870924863429218836533181568635359906930003056154 ... (10 characters truncated) ... 70549381855046437821825574778096981185091534856967890467141985872629003368137785417705370896692727424802840824888214266518288911043205136298791721388', 'address': '/home/users/CT/pycharmproject/spiders/', 'port': 6800, 'valid': 1, 'ip_1': '180.201.163.246'}]
+(Background on this error at: https://sqlalche.me/e/14/e3q8)
+2022-05-12 06:26:20.309 | ERROR    | base.db.mysql:update:389 - 【mysql更新数据出错】
+Traceback (most recent call last):
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1771, in _execute_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x7f4662aca310>
+    │    └ <sqlalchemy.dialects.mysql.pymysql.MySQLDialect_pymysql object at 0x7f4571549cd0>
+    └ <sqlalchemy.engine.base.Connection object at 0x7f43a179a070>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 717, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ {'ip': '180.201.163.246', 'username': 'chase', 'password': '10138895938293079262013200629485171330673600535031924454441706522...
+    │      │       └ 'UPDATE device SET ip=%(ip)s, username=%(username)s, password=%(password)s, address=%(address)s, port=%(port)s, valid=%(valid...
+    │      └ <function Cursor.execute at 0x7f466218bdc0>
+    └ <pymysql.cursors.Cursor object at 0x7f4371c94880>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 148, in execute
+    result = self._query(query)
+             │    │      └ "UPDATE device SET ip='180.201.163.246', username='chase', password='10138895938293079262013200629485171330673600535031924454...
+             │    └ <function Cursor._query at 0x7f4662194280>
+             └ <pymysql.cursors.Cursor object at 0x7f4371c94880>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 310, in _query
+    conn.query(q)
+    │    │     └ "UPDATE device SET ip='180.201.163.246', username='chase', password='10138895938293079262013200629485171330673600535031924454...
+    │    └ <function Connection.query at 0x7f46621a85e0>
+    └ <pymysql.connections.Connection object at 0x7f44d027ea90>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+    │    │                │    │                             └ False
+    │    │                │    └ <function Connection._read_query_result at 0x7f46621a8c10>
+    │    │                └ <pymysql.connections.Connection object at 0x7f44d027ea90>
+    │    └ 1
+    └ <pymysql.connections.Connection object at 0x7f44d027ea90>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 775, in _read_query_result
+    result.read()
+    │      └ <function MySQLResult.read at 0x7f46621a9430>
+    └ <pymysql.connections.MySQLResult object at 0x7f436404b9a0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+                   │    └ None
+                   └ <pymysql.connections.MySQLResult object at 0x7f436404b9a0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+    │      └ <function MysqlPacket.raise_for_error at 0x7f466219dee0>
+    └ <pymysql.protocol.MysqlPacket object at 0x7f42f96c67f0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    │   │                     │    └ <member '_data' of 'MysqlPacket' objects>
+    │   │                     └ <pymysql.protocol.MysqlPacket object at 0x7f42f96c67f0>
+    │   └ <function raise_mysql_exception at 0x7f46626e0e50>
+    └ <module 'pymysql.err' from '/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+          │          │      └ 'Lock wait timeout exceeded; try restarting transaction'
+          │          └ 1205
+          └ <class 'pymysql.err.OperationalError'>
+
+pymysql.err.OperationalError: (1205, 'Lock wait timeout exceeded; try restarting transaction')
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f4689341a60>
+    └ <Thread(Thread-10595, started daemon 139934639572736)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f4689341790>
+    └ <Thread(Thread-10595, started daemon 139934639572736)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-10595, started daemon 139934639572736)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-10595, started daemon 139934639572736)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f457182e160>>
+    └ <Thread(Thread-10595, started daemon 139934639572736)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 779, in get_request_from_keywords_hot
+    self.start_finished_spider_every_interval(project_names)
+    │    │                                    └ ['default']
+    │    └ <function ProjectManager.start_finished_spider_every_interval at 0x7f4571552160>
+    └ <monitor.projectManager.ProjectManager object at 0x7f457182e160>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 764, in start_finished_spider_every_interval
+    self[name].start_spider()
+    │    └ 'default'
+    └ <monitor.projectManager.ProjectManager object at 0x7f457182e160>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 352, in start_spider
+    self.update_device_valid(device)
+    │    │                   └ <monitor.deviceManager.DeviceC object at 0x7f4571558ee0>
+    │    └ <function Project.update_device_valid at 0x7f4571551160>
+    └ <monitor.projectManager.Project object at 0x7f4571558880>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 404, in update_device_valid
+    self.database_manager.mysql.update(Device(**device.to_item()))
+    │    │                │     │      │        │      └ <function DeviceC.to_item at 0x7f46621ac1f0>
+    │    │                │     │      │        └ <monitor.deviceManager.DeviceC object at 0x7f4571558ee0>
+    │    │                │     │      └ <class 'base.db.mysql.Device'>
+    │    │                │     └ <function Mysql.update at 0x7f46627c94c0>
+    │    │                └ <base.db.mysql.Mysql object at 0x7f4571549e80>
+    │    └ <base.db.dbSlot.Slot object at 0x7f4571549940>
+    └ <monitor.projectManager.Project object at 0x7f4571558880>
+
+> File "/home/users/Scy/yuqing/spider/base/db/mysql.py", line 374, in update
+    row.update(new)
+    │   │      └ {'ip': '180.201.163.246', 'username': 'chase', 'password': '10138895938293079262013200629485171330673600535031924454441706522...
+    │   └ <function Query.update at 0x7f466290e0d0>
+    └ <sqlalchemy.orm.query.Query object at 0x7f433f46a340>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3221, in update
+    result = self.session.execute(
+             │    │       └ <function Session.execute at 0x7f46628e4820>
+             │    └ <sqlalchemy.orm.session.Session object at 0x7f43766cf5e0>
+             └ <sqlalchemy.orm.query.Query object at 0x7f433f46a340>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1689, in execute
+    result = conn._execute_20(statement, params or {}, execution_options)
+             │    │           │          │             └ immutabledict({'synchronize_session': 'evaluate', '_sa_orm_update_options': default_update_options(_matched_objects=[], _reso...
+             │    │           │          └ immutabledict({})
+             │    │           └ <sqlalchemy.sql.annotation.AnnotatedUpdate object at 0x7f4371c94f10>
+             │    └ <function Connection._execute_20 at 0x7f4662b8c4c0>
+             └ <sqlalchemy.engine.base.Connection object at 0x7f43a179a070>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1583, in _execute_20
+    return meth(self, args_10style, kwargs_10style, execution_options)
+           │    │     │             │               └ immutabledict({'synchronize_session': 'evaluate', '_sa_orm_update_options': default_update_options(_matched_objects=[], _reso...
+           │    │     │             └ immutabledict({})
+           │    │     └ ({},)
+           │    └ <sqlalchemy.engine.base.Connection object at 0x7f43a179a070>
+           └ <bound method ClauseElement._execute_on_connection of <sqlalchemy.sql.annotation.AnnotatedUpdate object at 0x7f4371c94f10>>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 323, in _execute_on_connection
+    return connection._execute_clauseelement(
+           │          └ <function Connection._execute_clauseelement at 0x7f4662b8c310>
+           └ <sqlalchemy.engine.base.Connection object at 0x7f43a179a070>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1452, in _execute_clauseelement
+    ret = self._execute_context(
+          │    └ <function Connection._execute_context at 0x7f4662b8c5e0>
+          └ <sqlalchemy.engine.base.Connection object at 0x7f43a179a070>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1814, in _execute_context
+    self._handle_dbapi_exception(
+    │    └ <function Connection._handle_dbapi_exception at 0x7f4662b8c790>
+    └ <sqlalchemy.engine.base.Connection object at 0x7f43a179a070>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1995, in _handle_dbapi_exception
+    util.raise_(
+    │    └ <function raise_ at 0x7f466308c820>
+    └ <module 'sqlalchemy.util' from '/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/util/__init__.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 207, in raise_
+    raise exception
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1771, in _execute_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x7f4662aca310>
+    │    └ <sqlalchemy.dialects.mysql.pymysql.MySQLDialect_pymysql object at 0x7f4571549cd0>
+    └ <sqlalchemy.engine.base.Connection object at 0x7f43a179a070>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 717, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ {'ip': '180.201.163.246', 'username': 'chase', 'password': '10138895938293079262013200629485171330673600535031924454441706522...
+    │      │       └ 'UPDATE device SET ip=%(ip)s, username=%(username)s, password=%(password)s, address=%(address)s, port=%(port)s, valid=%(valid...
+    │      └ <function Cursor.execute at 0x7f466218bdc0>
+    └ <pymysql.cursors.Cursor object at 0x7f4371c94880>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 148, in execute
+    result = self._query(query)
+             │    │      └ "UPDATE device SET ip='180.201.163.246', username='chase', password='10138895938293079262013200629485171330673600535031924454...
+             │    └ <function Cursor._query at 0x7f4662194280>
+             └ <pymysql.cursors.Cursor object at 0x7f4371c94880>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 310, in _query
+    conn.query(q)
+    │    │     └ "UPDATE device SET ip='180.201.163.246', username='chase', password='10138895938293079262013200629485171330673600535031924454...
+    │    └ <function Connection.query at 0x7f46621a85e0>
+    └ <pymysql.connections.Connection object at 0x7f44d027ea90>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+    │    │                │    │                             └ False
+    │    │                │    └ <function Connection._read_query_result at 0x7f46621a8c10>
+    │    │                └ <pymysql.connections.Connection object at 0x7f44d027ea90>
+    │    └ 1
+    └ <pymysql.connections.Connection object at 0x7f44d027ea90>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 775, in _read_query_result
+    result.read()
+    │      └ <function MySQLResult.read at 0x7f46621a9430>
+    └ <pymysql.connections.MySQLResult object at 0x7f436404b9a0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+                   │    └ None
+                   └ <pymysql.connections.MySQLResult object at 0x7f436404b9a0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+    │      └ <function MysqlPacket.raise_for_error at 0x7f466219dee0>
+    └ <pymysql.protocol.MysqlPacket object at 0x7f42f96c67f0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    │   │                     │    └ <member '_data' of 'MysqlPacket' objects>
+    │   │                     └ <pymysql.protocol.MysqlPacket object at 0x7f42f96c67f0>
+    │   └ <function raise_mysql_exception at 0x7f46626e0e50>
+    └ <module 'pymysql.err' from '/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+          │          │      └ 'Lock wait timeout exceeded; try restarting transaction'
+          │          └ 1205
+          └ <class 'pymysql.err.OperationalError'>
+
+sqlalchemy.exc.OperationalError: (pymysql.err.OperationalError) (1205, 'Lock wait timeout exceeded; try restarting transaction')
+[SQL: UPDATE device SET ip=%(ip)s, username=%(username)s, password=%(password)s, address=%(address)s, port=%(port)s, valid=%(valid)s WHERE device.ip = %(ip_1)s]
+[parameters: {'ip': '180.201.163.246', 'username': 'chase', 'password': '10138895938293079262013200629485171330673600535031924454441706522175433504181050253797043572713594409426699594250538889820649794847151316213595908096 ... (11 characters truncated) ... 01632939821442940130137494542003314200284546076351459784031674931453067587073794821939422731976884323220728562121320698234881106976714361967956266448', 'address': '/home/users/CT/pycharmproject/spiders/', 'port': 6800, 'valid': 1, 'ip_1': '180.201.163.246'}]
+(Background on this error at: https://sqlalche.me/e/14/e3q8)
+2022-05-12 06:26:40.806 | ERROR    | base.db.mysql:update:389 - 【mysql更新数据出错】
+Traceback (most recent call last):
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1771, in _execute_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x7f4662aca310>
+    │    └ <sqlalchemy.dialects.mysql.pymysql.MySQLDialect_pymysql object at 0x7f4571549cd0>
+    └ <sqlalchemy.engine.base.Connection object at 0x7f43797ee5e0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 717, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ {'ip': '180.201.163.246', 'username': 'chase', 'password': '69029054316298514373284816165235063450670976367584636043505768160...
+    │      │       └ 'UPDATE device SET ip=%(ip)s, username=%(username)s, password=%(password)s, address=%(address)s, port=%(port)s, valid=%(valid...
+    │      └ <function Cursor.execute at 0x7f466218bdc0>
+    └ <pymysql.cursors.Cursor object at 0x7f44d0eefac0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 148, in execute
+    result = self._query(query)
+             │    │      └ "UPDATE device SET ip='180.201.163.246', username='chase', password='69029054316298514373284816165235063450670976367584636043...
+             │    └ <function Cursor._query at 0x7f4662194280>
+             └ <pymysql.cursors.Cursor object at 0x7f44d0eefac0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 310, in _query
+    conn.query(q)
+    │    │     └ "UPDATE device SET ip='180.201.163.246', username='chase', password='69029054316298514373284816165235063450670976367584636043...
+    │    └ <function Connection.query at 0x7f46621a85e0>
+    └ <pymysql.connections.Connection object at 0x7f425694efa0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+    │    │                │    │                             └ False
+    │    │                │    └ <function Connection._read_query_result at 0x7f46621a8c10>
+    │    │                └ <pymysql.connections.Connection object at 0x7f425694efa0>
+    │    └ 1
+    └ <pymysql.connections.Connection object at 0x7f425694efa0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 775, in _read_query_result
+    result.read()
+    │      └ <function MySQLResult.read at 0x7f46621a9430>
+    └ <pymysql.connections.MySQLResult object at 0x7f44f49c81c0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+                   │    └ None
+                   └ <pymysql.connections.MySQLResult object at 0x7f44f49c81c0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+    │      └ <function MysqlPacket.raise_for_error at 0x7f466219dee0>
+    └ <pymysql.protocol.MysqlPacket object at 0x7f43220deb80>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    │   │                     │    └ <member '_data' of 'MysqlPacket' objects>
+    │   │                     └ <pymysql.protocol.MysqlPacket object at 0x7f43220deb80>
+    │   └ <function raise_mysql_exception at 0x7f46626e0e50>
+    └ <module 'pymysql.err' from '/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+          │          │      └ 'Lock wait timeout exceeded; try restarting transaction'
+          │          └ 1205
+          └ <class 'pymysql.err.OperationalError'>
+
+pymysql.err.OperationalError: (1205, 'Lock wait timeout exceeded; try restarting transaction')
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f4689341a60>
+    └ <Thread(Thread-10600, started daemon 139935998797568)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f4689341790>
+    └ <Thread(Thread-10600, started daemon 139935998797568)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-10600, started daemon 139935998797568)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-10600, started daemon 139935998797568)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f457182e160>>
+    └ <Thread(Thread-10600, started daemon 139935998797568)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 779, in get_request_from_keywords_hot
+    self.start_finished_spider_every_interval(project_names)
+    │    │                                    └ ['default']
+    │    └ <function ProjectManager.start_finished_spider_every_interval at 0x7f4571552160>
+    └ <monitor.projectManager.ProjectManager object at 0x7f457182e160>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 764, in start_finished_spider_every_interval
+    self[name].start_spider()
+    │    └ 'default'
+    └ <monitor.projectManager.ProjectManager object at 0x7f457182e160>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 352, in start_spider
+    self.update_device_valid(device)
+    │    │                   └ <monitor.deviceManager.DeviceC object at 0x7f4571558ee0>
+    │    └ <function Project.update_device_valid at 0x7f4571551160>
+    └ <monitor.projectManager.Project object at 0x7f4571558880>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 404, in update_device_valid
+    self.database_manager.mysql.update(Device(**device.to_item()))
+    │    │                │     │      │        │      └ <function DeviceC.to_item at 0x7f46621ac1f0>
+    │    │                │     │      │        └ <monitor.deviceManager.DeviceC object at 0x7f4571558ee0>
+    │    │                │     │      └ <class 'base.db.mysql.Device'>
+    │    │                │     └ <function Mysql.update at 0x7f46627c94c0>
+    │    │                └ <base.db.mysql.Mysql object at 0x7f4571549e80>
+    │    └ <base.db.dbSlot.Slot object at 0x7f4571549940>
+    └ <monitor.projectManager.Project object at 0x7f4571558880>
+
+> File "/home/users/Scy/yuqing/spider/base/db/mysql.py", line 374, in update
+    row.update(new)
+    │   │      └ {'ip': '180.201.163.246', 'username': 'chase', 'password': '69029054316298514373284816165235063450670976367584636043505768160...
+    │   └ <function Query.update at 0x7f466290e0d0>
+    └ <sqlalchemy.orm.query.Query object at 0x7f4342f61bb0>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3221, in update
+    result = self.session.execute(
+             │    │       └ <function Session.execute at 0x7f46628e4820>
+             │    └ <sqlalchemy.orm.session.Session object at 0x7f44f49c86a0>
+             └ <sqlalchemy.orm.query.Query object at 0x7f4342f61bb0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1689, in execute
+    result = conn._execute_20(statement, params or {}, execution_options)
+             │    │           │          │             └ immutabledict({'synchronize_session': 'evaluate', '_sa_orm_update_options': default_update_options(_matched_objects=[], _reso...
+             │    │           │          └ immutabledict({})
+             │    │           └ <sqlalchemy.sql.annotation.AnnotatedUpdate object at 0x7f44d0eefa60>
+             │    └ <function Connection._execute_20 at 0x7f4662b8c4c0>
+             └ <sqlalchemy.engine.base.Connection object at 0x7f43797ee5e0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1583, in _execute_20
+    return meth(self, args_10style, kwargs_10style, execution_options)
+           │    │     │             │               └ immutabledict({'synchronize_session': 'evaluate', '_sa_orm_update_options': default_update_options(_matched_objects=[], _reso...
+           │    │     │             └ immutabledict({})
+           │    │     └ ({},)
+           │    └ <sqlalchemy.engine.base.Connection object at 0x7f43797ee5e0>
+           └ <bound method ClauseElement._execute_on_connection of <sqlalchemy.sql.annotation.AnnotatedUpdate object at 0x7f44d0eefa60>>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 323, in _execute_on_connection
+    return connection._execute_clauseelement(
+           │          └ <function Connection._execute_clauseelement at 0x7f4662b8c310>
+           └ <sqlalchemy.engine.base.Connection object at 0x7f43797ee5e0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1452, in _execute_clauseelement
+    ret = self._execute_context(
+          │    └ <function Connection._execute_context at 0x7f4662b8c5e0>
+          └ <sqlalchemy.engine.base.Connection object at 0x7f43797ee5e0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1814, in _execute_context
+    self._handle_dbapi_exception(
+    │    └ <function Connection._handle_dbapi_exception at 0x7f4662b8c790>
+    └ <sqlalchemy.engine.base.Connection object at 0x7f43797ee5e0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1995, in _handle_dbapi_exception
+    util.raise_(
+    │    └ <function raise_ at 0x7f466308c820>
+    └ <module 'sqlalchemy.util' from '/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/util/__init__.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 207, in raise_
+    raise exception
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1771, in _execute_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x7f4662aca310>
+    │    └ <sqlalchemy.dialects.mysql.pymysql.MySQLDialect_pymysql object at 0x7f4571549cd0>
+    └ <sqlalchemy.engine.base.Connection object at 0x7f43797ee5e0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 717, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ {'ip': '180.201.163.246', 'username': 'chase', 'password': '69029054316298514373284816165235063450670976367584636043505768160...
+    │      │       └ 'UPDATE device SET ip=%(ip)s, username=%(username)s, password=%(password)s, address=%(address)s, port=%(port)s, valid=%(valid...
+    │      └ <function Cursor.execute at 0x7f466218bdc0>
+    └ <pymysql.cursors.Cursor object at 0x7f44d0eefac0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 148, in execute
+    result = self._query(query)
+             │    │      └ "UPDATE device SET ip='180.201.163.246', username='chase', password='69029054316298514373284816165235063450670976367584636043...
+             │    └ <function Cursor._query at 0x7f4662194280>
+             └ <pymysql.cursors.Cursor object at 0x7f44d0eefac0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/cursors.py", line 310, in _query
+    conn.query(q)
+    │    │     └ "UPDATE device SET ip='180.201.163.246', username='chase', password='69029054316298514373284816165235063450670976367584636043...
+    │    └ <function Connection.query at 0x7f46621a85e0>
+    └ <pymysql.connections.Connection object at 0x7f425694efa0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+    │    │                │    │                             └ False
+    │    │                │    └ <function Connection._read_query_result at 0x7f46621a8c10>
+    │    │                └ <pymysql.connections.Connection object at 0x7f425694efa0>
+    │    └ 1
+    └ <pymysql.connections.Connection object at 0x7f425694efa0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 775, in _read_query_result
+    result.read()
+    │      └ <function MySQLResult.read at 0x7f46621a9430>
+    └ <pymysql.connections.MySQLResult object at 0x7f44f49c81c0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+                   │    └ None
+                   └ <pymysql.connections.MySQLResult object at 0x7f44f49c81c0>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+    │      └ <function MysqlPacket.raise_for_error at 0x7f466219dee0>
+    └ <pymysql.protocol.MysqlPacket object at 0x7f43220deb80>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    │   │                     │    └ <member '_data' of 'MysqlPacket' objects>
+    │   │                     └ <pymysql.protocol.MysqlPacket object at 0x7f43220deb80>
+    │   └ <function raise_mysql_exception at 0x7f46626e0e50>
+    └ <module 'pymysql.err' from '/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py'>
+  File "/home/chase/.local/lib/python3.8/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+          │          │      └ 'Lock wait timeout exceeded; try restarting transaction'
+          │          └ 1205
+          └ <class 'pymysql.err.OperationalError'>
+
+sqlalchemy.exc.OperationalError: (pymysql.err.OperationalError) (1205, 'Lock wait timeout exceeded; try restarting transaction')
+[SQL: UPDATE device SET ip=%(ip)s, username=%(username)s, password=%(password)s, address=%(address)s, port=%(port)s, valid=%(valid)s WHERE device.ip = %(ip_1)s]
+[parameters: {'ip': '180.201.163.246', 'username': 'chase', 'password': '69029054316298514373284816165235063450670976367584636043505768160145214632013306615929225658337872940375727964666747849737353692990307938662407018169 ... (10 characters truncated) ... 42640454030056786326606504761966991172793549355230808020514723033083531938841727695240834072442573524644881093104480549346935812307900304767229527373', 'address': '/home/users/CT/pycharmproject/spiders/', 'port': 6800, 'valid': 1, 'ip_1': '180.201.163.246'}]
+(Background on this error at: https://sqlalche.me/e/14/e3q8)
+2022-05-12 06:27:21.168 | ERROR    | base.db.mysql:update:389 - 【mysql更新数据出错】
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f4689341a60>
+    └ <Thread(Thread-10627, started daemon 139935537428224)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f4689341790>
+    └ <Thread(Thread-10627, started daemon 139935537428224)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-10627, started daemon 139935537428224)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-10627, started daemon 139935537428224)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f457182e160>>
+    └ <Thread(Thread-10627, started daemon 139935537428224)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 779, in get_request_from_keywords_hot
+    self.start_finished_spider_every_interval(project_names)
+    │    │                                    └ ['default']
+    │    └ <function ProjectManager.start_finished_spider_every_interval at 0x7f4571552160>
+    └ <monitor.projectManager.ProjectManager object at 0x7f457182e160>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 764, in start_finished_spider_every_interval
+    self[name].start_spider()
+    │    └ 'default'
+    └ <monitor.projectManager.ProjectManager object at 0x7f457182e160>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 352, in start_spider
+    self.update_device_valid(device)
+    │    │                   └ <monitor.deviceManager.DeviceC object at 0x7f4571558ee0>
+    │    └ <function Project.update_device_valid at 0x7f4571551160>
+    └ <monitor.projectManager.Project object at 0x7f4571558880>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 404, in update_device_valid
+    self.database_manager.mysql.update(Device(**device.to_item()))
+    │    │                │     │      │        │      └ <function DeviceC.to_item at 0x7f46621ac1f0>
+    │    │                │     │      │        └ <monitor.deviceManager.DeviceC object at 0x7f4571558ee0>
+    │    │                │     │      └ <class 'base.db.mysql.Device'>
+    │    │                │     └ <function Mysql.update at 0x7f46627c94c0>
+    │    │                └ <base.db.mysql.Mysql object at 0x7f4571549e80>
+    │    └ <base.db.dbSlot.Slot object at 0x7f4571549940>
+    └ <monitor.projectManager.Project object at 0x7f4571558880>
+
+> File "/home/users/Scy/yuqing/spider/base/db/mysql.py", line 372, in update
+    if row.all():
+       │   └ <function Query.all at 0x7f466290b430>
+       └ <sqlalchemy.orm.query.Query object at 0x7f42f1936850>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2711, in all
+    return self._iter().all()
+           │    └ <function Query._iter at 0x7f466290bb80>
+           └ <sqlalchemy.orm.query.Query object at 0x7f42f1936850>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2846, in _iter
+    result = self.session.execute(
+             │    │       └ <function Session.execute at 0x7f46628e4820>
+             │    └ <sqlalchemy.orm.session.Session object at 0x7f43766cff70>
+             └ <sqlalchemy.orm.query.Query object at 0x7f42f1936850>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1688, in execute
+    conn = self._connection_for_bind(bind)
+           │    │                    └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <function Session._connection_for_bind at 0x7f46628e4790>
+           └ <sqlalchemy.orm.session.Session object at 0x7f43766cff70>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1529, in _connection_for_bind
+    return self._transaction._connection_for_bind(
+           │    │            └ <function SessionTransaction._connection_for_bind at 0x7f46628e33a0>
+           │    └ <sqlalchemy.orm.session.SessionTransaction object at 0x7f42f1936640>
+           └ <sqlalchemy.orm.session.Session object at 0x7f43766cff70>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 747, in _connection_for_bind
+    conn = bind.connect()
+           │    └ <function Engine.connect at 0x7f4662b91d30>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3166, in connect
+    return self._connection_cls(self, close_with_result=close_with_result)
+           │    │               │                       └ False
+           │    │               └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <class 'sqlalchemy.engine.base.Connection'>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 96, in __init__
+    else engine.raw_connection()
+         │      └ <function Engine.raw_connection at 0x7f4662b961f0>
+         └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3245, in raw_connection
+    return self._wrap_pool_connect(self.pool.connect, _connection)
+           │    │                  │    │    │        └ None
+           │    │                  │    │    └ <function Pool.connect at 0x7f4662bbd280>
+           │    │                  │    └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+           │    │                  └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <function Engine._wrap_pool_connect at 0x7f4662b91dc0>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3212, in _wrap_pool_connect
+    return fn()
+           └ <bound method Pool.connect of <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 307, in connect
+    return _ConnectionFairy._checkout(self)
+           │                │         └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+           │                └ <classmethod object at 0x7f4662bba490>
+           └ <class 'sqlalchemy.pool.base._ConnectionFairy'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 767, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            │                 │        └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+            │                 └ <classmethod object at 0x7f4662bba430>
+            └ <class 'sqlalchemy.pool.base._ConnectionRecord'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 425, in checkout
+    rec = pool._do_get()
+          │    └ <function QueuePool._do_get at 0x7f4662b52700>
+          └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 134, in _do_get
+    raise exc.TimeoutError(
+          │   └ <class 'sqlalchemy.exc.TimeoutError'>
+          └ <module 'sqlalchemy.exc' from '/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/exc.py'>
+
+sqlalchemy.exc.TimeoutError: QueuePool limit of size 5 overflow 10 reached, connection timed out, timeout 30.00 (Background on this error at: https://sqlalche.me/e/14/3o7r)

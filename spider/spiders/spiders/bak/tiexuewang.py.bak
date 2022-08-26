@@ -1,0 +1,94 @@
+# -*-coding:utf-8-*- 、
+# Team : upcedu.nlp
+# Author：dongshou
+# Date ：2021/10/15 下午2:52
+# Describe ：
+
+import requests
+import scrapy
+from scrapy import Selector
+from loguru import logger
+
+from base.utils import get_uid_by_name
+from base.utils.time import get_date
+from conf.default import Default_father, Default_num, Default_list, Default_hot
+from spiders.items import WeiboItem
+from spiders.spiders import BaseSpider
+
+
+class TieXue(BaseSpider):
+    name = "铁血网"
+
+    def __init__(self):
+        super(TieXue, self).__init__()
+
+    # def _open(self, dbslot):
+    #     cookie = dbslot.mysql.query_cookie(table="Cookie", key="platform", value="weibo")
+    #     if not cookie:
+    #         raise Exception("【没有cookie】数据库中缺少Cookie信息")
+    #     index = random.randint(0, len(cookie) - 1)
+    #     if cookie[index].valid:
+    #         self.headers["cookie"] = cookie[index].cookie
+    #         self.cookie = cookie[index]
+    #     else:
+    #         CookieError(cookie[index])
+    #         cookie[index].valid = False
+    #         dbslot.mysql.commit()
+
+    def get_request_from_keyword(self, keyword=None):
+        try:
+            meta = {"name": "tiexue", "callback": "parse_page"}
+            yield scrapy.Request(self.url, headers=self.headers, meta=meta)
+        except:
+            yield
+
+    def parse_page(self, response=None, **kwargs):
+        try:
+            response.encoding = "gb2312"
+            resp = Selector(response)
+            meta = {"name": "tiexue", "callback": "parse_content"}
+            # 今日推荐
+            info = resp.xpath('//div[@class="today"]//a')
+            for labela in info:
+                url = labela.xpath("./@href").get()
+                if 'cpost' not in url:  # 不需要论坛
+                    continue
+                yield scrapy.Request(url, headers=self.headers, meta=meta)
+
+        except:
+            logger.exception(f"【铁血网】首页解析出错 {response.text[0:100]}")
+            return
+
+    def parse_content(self, response, **kwargs):
+        try:
+            resp = Selector(response)
+            tiexue = WeiboItem()
+            title = resp.xpath('//*[@id="main"]/div/div[1]/h1/text()').get()
+            tiexue["account"] = "铁血网"
+            tiexue["weibo_id"] = get_uid_by_name(title)
+            tiexue["mid"] = tiexue["weibo_id"]
+            tiexue["uid"] = get_uid_by_name("铁血网")
+            tiexue["content"] = resp.xpath('//*[@id="js_content"]').xpath("string(.)").get().replace("\r\n",
+                                                                                                     "").replace("\xa0",
+                                                                                                                 "")
+            tiexue["father"] = Default_father
+            tiexue["likes"] = Default_num
+            tiexue["retweet"] = Default_num
+            tiexue["comment"] = Default_num
+            tiexue["retweet_list"] = Default_list
+            tiexue["comment_list"] = Default_list
+            tiexue["title"] = title
+            tiexue["hot"] = Default_hot
+            tiexue["date"] = resp.xpath('//*[@id="main"]/div/div[1]/div/div/span[2]/text()').get().replace("/", "-")
+            tiexue["now_date"] = get_date()
+            tiexue["platform"] = "铁血网"
+            return tiexue
+        except:
+            logger.exception(f"【铁血网】具体内容解析出错 {response.text[0:1000]}")
+            return
+
+
+if __name__ == '__main__':
+    tt = TieXue()
+    response = requests.get("https://topic.tiexue.net/cpost_9248180.html", headers=tt.headers)
+    print(tt.parse_content(response))

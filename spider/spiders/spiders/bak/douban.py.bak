@@ -1,0 +1,92 @@
+# encoding: utf-8
+'''
+  @author: Suncy
+  @contact: scyuige@163.com
+  @team: UPC.nlp
+  @file: douban.py
+  @time: 2021/10/18 21:04
+  @desc:
+'''
+import scrapy
+from scrapy import Selector
+import requests
+import json
+from spiders.spiders import BaseSpider
+from loguru import logger
+
+
+class douban(BaseSpider):
+    name = "豆瓣"
+    cookie = {"platform": "tieba.hotsearch"}
+
+    def __init__(self,one_project_name):
+        super(douban, self).__init__(one_project_name,logger)
+        self.flag_search = False
+        self.name = 'douban'
+        self.hot_url = ''
+        self.search_url = 'https://movie.douban.com/j/new_search_subjects?sort=U&range=0,10&tags=%E4%B8%BB%E6%97%8B%E5%BE%8B&start={}'
+        self.cookies = {
+            'll': '118221',
+            'bid': 'HuaMQQZPVUM',
+            '__utmz': '30149280.1634561748.1.1.utmcsr=baidu|utmccn=(organic)|utmcmd=organic',
+            '__gads': 'ID=414a1ace64a00ad7-222a93cdaecc00f4:T=1634561835:RT=1634561835:S=ALNI_MZybWyH8sCY6FAk-KkSyXeEnYP9QA',
+            '_vwo_uuid_v2': 'D410BC2D8DA7C7051D2B358C9B930F641|86eb454f75dff4e6b635431edd7881bf',
+            '__yadk_uid': 'ChYpMS36V8a9CCRWogNMIJ4zeJrehOJi',
+            '__utma': '30149280.1868363159.1634561748.1634561748.1634604806.2',
+            'dbcl2': '238439889:3b+xNYB3nns',
+            'push_noty_num': '0',
+            'push_doumail_num': '0',
+            '__utmv': '30149280.23843',
+            'ck': 'XjVV',
+            '_pk_ref.100001.4cf6': '%5B%22%22%2C%22%22%2C1634628157%2C%22https%3A%2F%2Fwww.baidu.com%2Flink%3Furl%3D3hXyNuD2hU4ZV-yAKFIphiY5NzYHOHx1f_HHvDa1v8sesGbDtIdYnekuZAu0rzvD%26wd%3D%26eqid%3De8a639e9000112c700000003616d6ebb%22%5D',
+            '_pk_ses.100001.4cf6': '*',
+            'douban-fav-remind': '1',
+            '_pk_id.100001.4cf6': '3a1a8fff5b68e8c1.1634561748.3.1634629113.1634606857.',
+        }
+        self.headers = {
+            'Connection': 'keep-alive',
+            'Cache-Control': 'max-age=0',
+            'sec-ch-ua': '"Chromium";v="92", " Not A;Brand";v="99", "Google Chrome";v="92"',
+            'sec-ch-ua-mobile': '?0',
+            'Upgrade-Insecure-Requests': '1',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+            'Sec-Fetch-Site': 'same-origin',
+            'Sec-Fetch-Mode': 'navigate',
+            'Sec-Fetch-User': '?1',
+            'Sec-Fetch-Dest': 'document',
+            'Referer': 'https://movie.douban.com/',
+            'Accept-Language': 'zh,en-GB;q=0.9,en-US;q=0.8,en;q=0.7,zh-CN;q=0.6',
+        }
+
+    def hot_search(self) -> list:
+        return []
+
+    def get_request_from_keyword(self, keyword):
+        try:
+            for i in range(0, 800, 20):
+                url = self.search_url.format(i)  # 电影列表
+                response = requests.get(url, headers=self.headers, cookies=self.cookies, timeout=50)
+                json_response = json.loads(response.text)
+                json_response = json_response['data']
+                for data in json_response:
+                    url = data['url'] + 'comments?sort=new_score&status=P'  # 每一个电影的url
+                    meta = {"url": url, "name": "douban", "platform": "douban", "keyword": keyword,
+                            "callback": "page_parse"}
+                    yield scrapy.Request(url=url, headers=self.headers, meta=meta, cookies=self.cookies,
+                                         dont_filter=False,
+                                         callback=self.page_parse)
+        except:
+            logger.exception(f"【豆瓣】搜索关键词出错")
+            yield
+
+    def page_parse(self, response, **kwargs):
+        html = Selector(text=response.text)
+
+
+if __name__ == '__main__':
+    douban = douban_hotSearch()
+    douban.get_request_from_keyword('主旋律')
+    # response=requests.get('https://movie.douban.com/subject/25845392/comments?sort=new_score&status=P'
+    #                       ,headers=douban.headers,cookies=douban.cookies,timeout=50)
+    # douban.page_parse(response)

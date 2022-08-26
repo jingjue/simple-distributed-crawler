@@ -1,0 +1,560 @@
+# -*-coding:utf-8-*- 、
+# Team : upcedu.nlp
+# Author：dongshou
+# Date ：2021/9/18 上午11:13
+# Describe ：微博爬虫，爬取的策略包括根据关键词爬取，
+import os.path
+import random
+import datetime
+from urllib import parse
+
+import pycookiecheat
+import scrapy
+
+from base.Exception import RespError, CookieError, NoHeaderError
+from base.db.mysql import Cookie
+from base.hot_search_logger import meta_hotsearch
+from base.logger import lg
+import requests
+from base.utils.time import get_time, gelin_time_change, get_date
+from conf.default import *
+from spiders.items import WeiboItem, CommentItem, UserItem
+from spiders.spiders import BaseSpider
+from scrapy.http.cookies import CookieJar
+
+logger = lg.logger("weibo")
+root = os.path.dirname(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
+
+
+class weibo_hotSearch(BaseSpider, metaclass=meta_hotsearch):
+    name = "weibo"
+
+    def __init__(self):
+        super(weibo_hotSearch, self).__init__()
+        self.name = 'weibo'
+        self.hot_urls = 'https://s.weibo.com/top/summary?cate=realtimehot'
+        self.weibo_url = "https://weibo.com/ajax/statuses/show?id={}"
+        self.search_urls = 'https://weibo.com/ajax/search/all?containerid=100103type%3D60%26q%3D{}&page={}&count=20'
+        self.user_url = "https://weibo.com/ajax/profile/info?uid={}"
+        self.user_detail_url = "https://weibo.com/ajax/profile/detail?uid={}"
+        self.user_history_url = "https://weibo.com/ajax/statuses/mymblog?uid={}&page={}&feature=0"
+        self.follows_url = "https://weibo.com/ajax/friendships/friends?page={}&uid={}"
+        self.fans_url = "https://weibo.com/ajax/friendships/friends?relate=fans&page={}&uid={}&type=fans&newFollowerCount=0"
+        self.like_url = "https://weibo.com/ajax/statuses/likeShow?id={}&attitude_type=0&attitude_enable=1&page={}&count=20"
+        self.headers = {
+            "accept": "application/json, text/plain, */*",
+            "accept-encoding": "gzip, deflate, br", "accept-language": "zh-CN,zh;q=0.9",
+            "cookie": "'SINAGLOBAL=9799284069437.23.1632574449347; UOR=,,www.baidu.com; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9Wh7KBKaeHAZnm-HHBzVH5H-5JpX5KMhUgL.FoMNehMN1hqReoM2dJLoIpnLxK-L1hqLB-eLxK-L1h-LB.xke0qX1h-t; ALF=1665887894; SSOLoginState=1634351894; SCF=AuNgJvnLTVwnuZ9uO6iasjhdOpM7dKqO-Fp-JtPuPjkIl3JJgm8lFpdbPzyz-3A-8ok-HKIIHcbQ9vKm3Lq1BC4.; SUB=_2A25MbktGDeRhGeFJ61UW-CjEyTuIHXVvGjuOrDV8PUNbmtAKLVfVkW9NfLnItoBnGttYi6N8il5PPhamGaQ6otJn; XSRF-TOKEN=CJRQ5TGUYQRjppJVpSKq1I0D; WBPSESS=OvqoS8Zk4JL50oaa6BV2KzRrB0l2ZoeAF9CuApqPBTqYOni_ExGC8agpRAbhi_X8D8O96byWiZc7cM6WyMj3gbgRAOCUNvObl2FKPnZ-T6kZ7ldYspsrTlgeHDhdlgkA; _s_tentry=weibo.com; Apache=2044028948218.3726.1634352021749; ULV=1634352021780:15:10:5:2044028948218.3726.1634352021749:1634125056691'",
+            # "referer": "https://weibo.com/search?containerid=100103type%3D1%26q%3D%E5%85%B1%E5%90%8C%E6%9E%84%E5%BB%BA%E5%9C%B0%E7%90%83%E7%94%9F%E5%91%BD%E5%85%B1%E5%90%8C%E4%BD%93%26t%3D0&q=%E5%85%B1%E5%90%8C%E6%9E%84%E5%BB%BA%E5%9C%B0%E7%90%83%E7%94%9F%E5%91%BD%E5%85%B1%E5%90%8C%E4%BD%93",
+            "sec-ch-ua": "\"Google Chrome\";v=\"93\", \" Not;A Brand\";v=\"99\", \"Chromium\";v=\"93\"",
+            "sec-ch-ua-mobile": "?0", "sec-ch-ua-platform": "\"Linux\"", "sec-fetch-dest": "empty",
+            "sec-fetch-mode": "cors", "sec-fetch-site": "same-origin",
+            "traceparent": "00-39d0fa273a05b60f3e91ad85ffa0fcc0-b3b5744face2fcff-00",
+            "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36",
+            "x-requested-with": "XMLHttpRequest", "x-xsrf-token": "8-sppY1kKRpY2ifthSuvTEe_"
+        }
+
+        self.event = None
+        self.account = None
+        self.endtime = get_time().strftime('%Y-%m-%d') + '-23'
+        self.starttime = (get_time() - datetime.timedelta(days=7)).strftime('%Y-%m-%d') + '-0'
+
+    def start_requests(self):
+        # uid = "1699432410"
+        # yield self.reqest_user(uid)
+        url = self.weibo_url.format("L0WPQyu8P")
+        meta = {"platform": "weibo", "keyword": "test", "callback": "parse_signal_page", "uid": "2803301701",
+                "mid": "4702261668219019", "spider_name": self.name}
+        yield scrapy.Request(url=url, callback=self.parse_signal_page, meta=meta)
+
+    def make_requests_from_url(self, data):
+        """
+        从redis中取出数据，并重新封装成request
+        :param data:{url,keyword,callback,platform}
+        :return:
+        """
+        method = data.get("method", 'GET')
+
+        meta = data.get("meta", "None")
+        dont_filter = data.get("dont_filter", "False")
+        callback_func_name = meta["name"] + "_" + meta["callback"]
+        headers = data.get("headers")
+        if not headers or not callback_func_name:
+            raise NoHeaderError(data)
+
+        return scrapy.Request(url=data["url"], callback=getattr(self, callback_func_name), method=method, meta=meta,
+                              headers=headers, dont_filter=dont_filter)
+
+    def _open(self, slot, that):
+        """
+        初始化爬虫
+        :param slot:
+        :return:
+        """
+        self.dbslot = slot  # 不完美，不统一
+        self.params = eval(that.params["weibo"])
+        if self.isMaster() and that:
+            for user, file in eval(that.params["weibo"]).items():
+                cookie = self.get_cookie_from_sqlite(file)
+                self.dbslot.mysql.update(
+                    Cookie(cookie=cookie, user=user, password='None', platform='微博', date=get_date(), valid=True))
+        self.refresh_cookie()
+
+    def hot_search(self) -> list:
+        """
+        获取热搜事件
+        :return:返回事件的关键词
+        """
+        url = "https://weibo.com/ajax/side/hotSearch"
+        title = []
+        response = requests.get(url, headers=self.headers, timeout=10)
+        resp = response.json()["data"]
+        title.append(resp["hotgov"]["name"])
+        for item in resp["realtime"]:
+            title.append(item["word"])
+        return title
+
+    def get_request_from_keyword(self, keyword):
+        """
+        根据关键词获取url
+        :param keyword:
+        :return:
+        """
+        # do something
+        try:
+            page = 1
+            while page < Default_hot_search_page:
+                meta = {"platform": "weibo", "keyword": keyword, "callback": "parse_signal_page",
+                        "spider_name": self.name}
+                url = "https://weibo.com/ajax/search/all?containerid=100103type" + parse.quote(
+                    f"=1&q={keyword}&t=0") + f"&page={page}&count=20"
+                self.refresh_cookie()
+                response = requests.get(url, headers=self.headers, timeout=10)
+                self.check_cookie(response)
+                news = response.json()["data"]["cards"]
+                for result in news:
+                    try:
+                        if result["card_type"] == 11:
+                            result = result["card_group"][0]
+                        elif result["card_type"] != 9:
+                            continue
+                        uid = result["mblog"]["user"]["id"]
+                        weibo_id = result["mblog"]["mblogid"]
+                        surl = self.weibo_url.format(weibo_id)
+                        meta["uid"] = uid
+                        meta["weibo_id"] = weibo_id
+                        meta["father"] = 0
+                        logger.info(f"【hotserach】微博 开始爬取微博热点信息 url:{surl},keyword:{keyword}")
+                        self.refresh_cookie()
+                        yield scrapy.Request(surl, headers=self.headers, callback=self.parse_signal_page, meta=meta,
+                                             dont_filter=True)
+                    except:
+                        logger.exception(f"{result}")
+                page += 1
+        except:
+            logger.exception(f"【微博】搜索关键词出错 {response.text[0:100]}")
+            yield
+
+    def parse_signal_page(self, response, **kwargs):
+        """
+        包括微博本身，转发，评论三个大部分，其中还嵌套了用户信息爬取
+        """
+        # self.get_cookie_from_response(response)
+        logger.info(f"【微博】开始解析微博 url:{response._get_url()}")
+        # 微博本身
+        weibo_result = response.json()
+        weibo = WeiboItem()
+        weibo_id = response.meta.get("weibo_id")
+        uid = response.meta.get("uid")
+        keyword = response.meta.get("keyword")
+        logger.info(f"【微博】开始解析微博信息 weibo_id:{weibo_id}, keyword:{keyword} uid:{uid}")
+
+        weibo["account"] = weibo_result["user"]["screen_name"]
+        weibo["weibo_id"] = weibo_id
+        weibo["mid"] = weibo_result["id"]
+        # weibo["positive_recom_pos"] = "-1"  # 表示未知
+        weibo["uid"] = uid
+        weibo["content"] = weibo_result["text_raw"]
+        weibo["likes"] = weibo_result["attitudes_count"]
+        weibo["retweet"] = weibo_result["reposts_count"]
+        weibo["comment"] = weibo_result["comments_count"]
+        weibo["father"] = response.meta.get("father")
+        weibo["retweet_list"] = []
+        weibo["comment_list"] = []
+        weibo["title"] = keyword
+        weibo["hot"] = 0
+        weibo["date"] = gelin_time_change(weibo_result["created_at"])
+        weibo["now_date"] = get_date()
+        weibo["platform"] = "微博"
+
+        father_weibo_id = str(weibo["uid"]) + "@" + str(weibo["weibo_id"])
+
+        yield self.reqest_user(uid)  # 爬取账户信息
+
+        # 处理点赞数据
+        likes = []
+        like_page, like_count = 1, 0
+        logger.info(f"【微博点赞】开始爬取微博点赞 weibo_id:{father_weibo_id}")
+        while like_page < Default_like_page and like_count < weibo["likes"]:
+            url = self.like_url.format(weibo["mid"], like_page)
+            result = True
+            for result in self.request_like(url):
+                if not result:
+                    break
+                if isinstance(result, int):
+                    weibo["likes"] = result
+                elif isinstance(result, str):
+                    likes.append(result)
+                else:
+                    yield result
+                like_count += 1
+            if not result:
+                break
+            like_page += 1
+        weibo["like_list"] = "/".join(likes)
+
+        # 处理评论
+        comment_page, comment_count = 1, 0
+        max_id = 0
+        logger.info(f"【微博评论】开始爬取微博评论 weibo_id:{father_weibo_id}")
+        while comment_count < weibo["comment"] and comment_page < Default_comment_page:
+            if max_id == 0:
+                url = f"https://weibo.com/ajax/statuses/buildComments?is_reload=1&id={weibo['mid']}&is_show_bulletin=2&is_mix=0&count=20&uid={uid}"
+            else:
+                url = f"https://weibo.com/ajax/statuses/buildComments?flow=0&is_reload=1&id={weibo['mid']}&is_show_bulletin=2&is_mix=0&max_id={max_id}&count=20&uid={uid}"
+            for item, max_id in self.request_comment(url, father_weibo_id):
+                if isinstance(item, CommentItem):
+                    weibo["comment_list"].append(item["uid"])
+                yield item
+                comment_count += 1
+            if max_id == 0:
+                logger.info("【微博评论】跳出微博评论循环")
+                break
+            comment_page += 1
+
+        # 处理转发数据
+        repost_page = 1
+        repost_count = 0
+        logger.info(f"【微博转发】开始爬取微博转发 weibo_id:{father_weibo_id}")
+        while repost_count < weibo["retweet"] and repost_page < Default_repost_page:
+            repost_url = f"https://weibo.com/ajax/statuses/repostTimeline?id={weibo['mid']}&page={repost_page}&moduleID=feed"
+            self.refresh_cookie()
+            for repost_uid, repost_weibo_id in self.request_repost(repost_url):
+                if isinstance(repost_uid, scrapy.Request):
+                    yield repost_uid  # 此时为用户爬虫请求
+                    continue
+                weibo["retweet_list"].append(repost_uid)
+                # 主要考虑多级转发
+                url = self.weibo_url.format(repost_weibo_id)
+                meta = {"platform": "weibo", "keyword": keyword, "callback": "parse_signal_page", "uid": repost_uid,
+                        "weibo_id": repost_weibo_id, "father": father_weibo_id, "name": self.name}
+                yield scrapy.Request(url, headers=self.headers, callback=self.parse_signal_page, meta=meta)
+                repost_count += 1
+            repost_page += 1
+
+        yield weibo
+
+    def request_like(self, url):
+        """
+        请求点赞数据
+        :param url:
+        :return:
+        """
+        response = requests.get(url=url, headers=self.headers, timeout=10)
+        likes = []
+        try:
+            data_list = response.json()["data"]
+            if len(data_list) != 0:
+                yield int(response.json()["total_number"])
+            for data in data_list:
+                uid = data["user"]["idstr"]
+                likes.append(uid)
+                yield uid
+                yield self.reqest_user(uid)
+        except:
+            self.check_cookie(response)
+            logger.exception(f"[用户点赞数据出错] {response.text}")
+            yield False
+
+    def request_repost(self, url):
+        """
+        获取转发,考虑多级转发吗？
+        """
+        response = requests.get(url, headers=self.headers, timeout=10)
+        resposts = response.json()["data"]
+        for result in resposts:
+            uid = result["user"]["id"]
+            weibo_id = result["mblogid"]
+            yield uid, weibo_id
+            yield self.reqest_user(uid), 0
+
+    def request_comment(self, url, weibo_id):
+        response = requests.get(url, headers=self.headers, timeout=10)
+        info = response.json()
+        comments = info["data"]
+        for result in comments:
+            comment = CommentItem()
+            comment["date"] = gelin_time_change(result["created_at"])
+            comment["now_date"] = get_date()
+            comment["weibo_id"] = weibo_id
+            comment["content"] = result["text_raw"]
+            comment["account"] = result["user"]["screen_name"]
+            comment["uid"] = result["user"]["id"]
+            comment["mid"] = str(result["id"])
+            comment["likes"] = result["like_counts"]
+            max_id = result["max_id"]
+            yield comment, max_id
+            yield self.reqest_user(comment["uid"]), info["max_id"]
+
+    def reqest_user(self, uid):
+        """
+        解析用户相关数据
+        """
+        url = self.user_url.format(uid)
+        meta = {"platform": "weibo", "keyword": 'None', "callback": "parse_user", "uid": uid, "name": self.name}
+        logger.info(f"【微博用户】开始爬取微博用户 uid:{uid}, url:{url}")
+        self.refresh_cookie()
+        return scrapy.Request(url, headers=self.headers, callback=self.parse_user, meta=meta)
+
+    def parse_user(self, response, **kwargs):
+        # self.get_cookie_from_response(response)
+        try:
+            result = response.json()["data"]["user"]
+            uid = response.meta.get("uid")
+            user = UserItem()
+            user["account"] = result["screen_name"]
+            user["uid"] = result["id"]
+            user["location"] = result["location"]
+            user["follows"] = result["friends_count"]  # 关注
+            user["fans"] = result["followers_count"]  # 粉丝
+            user["gender"] = result["gender"]
+            user["brief"] = result["description"]
+            # user["labels"] = result["verified_reason"]
+            user["verified"] = result["verified_type"]
+            user["user_friend"] = result["friends_count"]
+            user["all_content"] = result["statuses_count"]
+
+            detail_url = self.user_detail_url.format(uid)
+            detail_response = requests.get(detail_url, headers=self.headers, timeout=10)
+            try:
+                detail_result = detail_response.json()["data"]
+                user["credit"] = detail_result["sunshine_credit"]["level"]
+                career = detail_result.get("company", False)
+                if not career:
+                    career = detail_result.get("career", Default_career)
+                    if isinstance(career, dict):
+                        career = career.get("company", Default_career)
+                user["career"] = career
+                user["education"] = detail_result["education"]["school"] if detail_result.get("education",
+                                                                                              False) else Default_school
+                user["age"] = detail_result["birthday"]
+                user["create_at"] = detail_result["created_at"]
+
+                user_label = []
+                for label in detail_result["label_desc"]:
+                    user_label.append(label["name"])
+                user["label"] = '/'.join(user_label)
+            except:
+                user["credit"] = "None"
+                user["career"] = "None"
+                user["education"] = "None"
+                user["age"] = "None"
+                user["create_at"] = "None"
+                logger.exception(f"【用户详细信息解析出错】{detail_response.text}")
+
+            # 查找关注列表
+            for follows in self.request_list(user["uid"], self.follows_url, Default_user_follow_page):
+                if isinstance(follows, UserItem):
+                    yield follows
+                else:
+                    user["follow_list"] = follows
+            self.refresh_cookie()
+            # 粉丝列表
+            for fans in self.request_list(user["uid"], self.fans_url, Default_user_fans_page):
+                if isinstance(fans, UserItem):
+                    yield fans
+                else:
+                    user["fan_list"] = fans
+
+            history_weibo = []
+            # 查找历史博文，经分析，已经不需要历史博文了；2021.11.8 又需要了
+
+            count, page = 0, 1
+            while count < Default_history_weibo_count and page < Default_history_weibo_page:
+                url = self.user_history_url.format(uid, page)
+                response_ = requests.get(url, headers=self.headers, timeout=10)
+                try:
+                    result = response_.json()["data"]["list"]
+                    if not self.refresh_cookie():
+                        continue
+                    for history in result:
+                        weibo = WeiboItem()
+                        weibo["account"] = user["account"]
+                        weibo["weibo_id"] = history["idstr"]
+                        weibo["mid"] = history["mid"]
+                        weibo["uid"] = user["uid"]
+                        weibo["content"] = history["text_raw"]
+                        weibo["father"] = "None"
+                        weibo["likes"] = history["attitudes_count"]
+                        weibo["retweet"] = history["reposts_count"]
+                        weibo["comment"] = history["comments_count"]
+                        weibo["retweet_list"] = "None"
+                        weibo["comment_list"] = "None"
+                        weibo["like_list"] = "None"
+                        weibo["title"] = ""
+                        weibo["hot"] = 0
+                        weibo["date"] = gelin_time_change(history["created_at"])
+                        weibo["now_date"] = get_date()
+                        weibo["platform"] = "微博"
+                        history_weibo.append(weibo["weibo_id"])
+                        yield weibo
+                        count += 1
+                except:
+                    logger.exception(f"【用户历史博文解析出错】{response_.url} {response_.text}")
+                page += 1
+            user["history_weibo"] = "/".join(history_weibo)
+            yield user
+        except:
+            logger.exception(f"【微博用户解析出错】{response.text}")
+            return
+
+    def request_list(self, uid, format_url, page_num):
+        """
+        爬取用户关注或者粉丝列表
+        :param uid:
+        :return:
+        """
+
+        page = 1
+        follows = []
+        while page < page_num:
+            url = format_url.format(page, uid)
+            response = requests.get(url, headers=self.headers)
+            self.check_cookie(response)
+            try:
+                for resp in response.json()["users"]:
+                    resp = dict(resp)
+                    try:
+                        item = UserItem()
+                        item["account"] = resp["screen_name"]
+                        item["uid"] = resp["idstr"]
+                        item["location"] = resp["location"]
+                        item["follows"] = 0  # 返回的信息中没有该条
+                        item["follow_list"] = 'None'
+                        item["fans"] = resp["followers_count"]
+                        item["fan_list"] = 'None'
+                        item["gender"] = resp["gender"]
+                        item["brief"] = resp["description"]
+                        item["label"] = resp.get("ability_tags", "")
+                        item["verified"] = resp["verified"]
+                        item["user_friend"] = resp["friends_count"]
+                        item["all_content"] = 0  # 没有该项数据
+                        item["history_weibo"] = 'None'
+                        item["credit"] = str(resp["credit_score"])
+                        item["career"] = "None"
+                        item["education"] = "None"
+                        item["age"] = "None"
+                        item["create_at"] = gelin_time_change(resp["created_at"])
+                        follows.append(item["uid"])
+                        yield item
+                    except:
+                        logger.exception(f"【单个微博用户粉丝或关注列表解析】{resp}")
+            except:
+                logger.exception(f"【微博用户粉丝或关注列表解析】{response.text}")
+                self.check_cookie(response)
+            page += 1
+        yield '/'.join(follows)
+
+    def refresh_cookie(self):
+        """
+        更新cookie信息，一般位于每次发送请求前
+        :return:
+        """
+        cookie = self.dbslot.mysql.query_cookie(table="Cookie", key="platform", value="微博")
+        if not cookie:
+            if self.isMaster():
+                for user, file in self.params.items():
+                    cookie = self.get_cookie_from_sqlite(file)
+                    self.dbslot.mysql.update(
+                        Cookie(cookie=cookie, user=user, password='None', platform='微博', date=get_date(), valid=True))
+                cookie = self.dbslot.mysql.query_cookie(table="Cookie", key="platform", value="微博")
+            if not cookie:
+                raise Exception("【没有cookie】数据库中缺少Cookie信息")
+        index = random.randint(0, len(cookie) - 1)
+        if cookie[index].valid:
+            self.headers["cookie"] = cookie[index].cookie
+            self.cookie = cookie[index]
+            return self.cookie.cookie
+        else:
+            cookie[index].valid = False
+            self.dbslot.mysql.commit()
+            return None
+
+    def get_cookie_from_sqlite(self, name='Default'):
+        """
+        从chrome的数据库sqlite中获取cookie
+        :return:
+        """
+        url = "https://weibo.com"
+        file = f"/home/chase/.config/google-chrome/{name}/Cookies"
+        cookie_d = pycookiecheat.chrome_cookies(url, file)
+        cookie = ''
+        for index, key in enumerate(cookie_d.keys()):
+            cookie += key + "=" + cookie_d[key] + "; "
+        return cookie[:-2]
+
+    def check_cookie(self, response):
+        """
+        检查cookie的有效性
+        :return:
+        """
+        if 'login' in response.text:
+            # CookieError(self.cookie)
+            if self.isMaster():
+                cookie = self.get_cookie_from_sqlite(self.params[self.cookie.user])
+                if cookie and cookie != self.cookie.cookie:
+                    self.cookie.cookie = cookie
+                    self.cookie.date = get_time()
+                    self.headers["cookie"] = self.cookie.cookie
+                    logger.error(f"【更新cookie信息】{self.name}")
+                else:
+                    self.cookie.valid = False
+                    logger.error(f"【cookie失效】")
+                    self.dbslot.mysql.commit()
+            else:
+                self.cookie.valid = False
+                logger.error(f"【cookie失效】")
+                self.dbslot.mysql.commit()
+                logger.error("【cookie失效】等待Master端更新cookie")
+            return False
+        return True
+
+
+
+if __name__ == '__main__':
+    # url = "https://weibo.com/ajax/statuses/mymblog?uid=2514846743&page=1&feature=0"
+    # meta = {"platform": "weibo", "keyword": 'None', "callback": "parse_user", "uid": 1298073802, "name": "weibo"}
+    # weibo = weibo_hotSearch()
+    # weibo._open(dbslot)
+    # response = requests.get(url, headers=weibo.headers)
+    # print(response.json())
+
+    # for item in weibo.parse_user(response):
+    #     print(item)
+
+    # for request in weibo.get_request_from_keyword("孟晚舟律师称她没有认罪"):
+    #     print(request)
+    #
+    keyword1 = "北京冬奥会"
+    keyword2 = "孟晚舟律师称她没有认罪"
+    page = 1
+    url = "https://weibo.com/ajax/search/all?containerid=100103type" + parse.quote(
+        f"=1&q={keyword1}&t=0") + f"&page={page}&count=20"
+    ur2 = "https://weibo.com/ajax/search/all?containerid=100103type" + parse.quote(
+        f"=1&q={keyword2}&t=0") + f"&page={page}&count=20"
+    print(url)
+    print(ur2)
+    print(parse.quote("=1&q="))
+    print(parse.quote("&t=0"))
+    print(parse.quote(keyword1))
+    print(parse.quote(keyword2))

@@ -1,0 +1,2445 @@
+2022-05-12 08:43:18.340 | ERROR    | base.db.mysql:update:389 - 【mysql更新数据出错】
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f4689341a60>
+    └ <Thread(Thread-12451, started daemon 139935040390912)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f4689341790>
+    └ <Thread(Thread-12451, started daemon 139935040390912)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-12451, started daemon 139935040390912)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-12451, started daemon 139935040390912)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f457182e160>>
+    └ <Thread(Thread-12451, started daemon 139935040390912)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 779, in get_request_from_keywords_hot
+    self.start_finished_spider_every_interval(project_names)
+    │    │                                    └ ['default']
+    │    └ <function ProjectManager.start_finished_spider_every_interval at 0x7f4571552160>
+    └ <monitor.projectManager.ProjectManager object at 0x7f457182e160>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 764, in start_finished_spider_every_interval
+    self[name].start_spider()
+    │    └ 'default'
+    └ <monitor.projectManager.ProjectManager object at 0x7f457182e160>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 352, in start_spider
+    self.update_device_valid(device)
+    │    │                   └ <monitor.deviceManager.DeviceC object at 0x7f4571558ee0>
+    │    └ <function Project.update_device_valid at 0x7f4571551160>
+    └ <monitor.projectManager.Project object at 0x7f4571558880>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 404, in update_device_valid
+    self.database_manager.mysql.update(Device(**device.to_item()))
+    │    │                │     │      │        │      └ <function DeviceC.to_item at 0x7f46621ac1f0>
+    │    │                │     │      │        └ <monitor.deviceManager.DeviceC object at 0x7f4571558ee0>
+    │    │                │     │      └ <class 'base.db.mysql.Device'>
+    │    │                │     └ <function Mysql.update at 0x7f46627c94c0>
+    │    │                └ <base.db.mysql.Mysql object at 0x7f4571549e80>
+    │    └ <base.db.dbSlot.Slot object at 0x7f4571549940>
+    └ <monitor.projectManager.Project object at 0x7f4571558880>
+
+> File "/home/users/Scy/yuqing/spider/base/db/mysql.py", line 372, in update
+    if row.all():
+       │   └ <function Query.all at 0x7f466290b430>
+       └ <sqlalchemy.orm.query.Query object at 0x7f42f395a340>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2711, in all
+    return self._iter().all()
+           │    └ <function Query._iter at 0x7f466290bb80>
+           └ <sqlalchemy.orm.query.Query object at 0x7f42f395a340>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2846, in _iter
+    result = self.session.execute(
+             │    │       └ <function Session.execute at 0x7f46628e4820>
+             │    └ <sqlalchemy.orm.session.Session object at 0x7f42a65ae370>
+             └ <sqlalchemy.orm.query.Query object at 0x7f42f395a340>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1688, in execute
+    conn = self._connection_for_bind(bind)
+           │    │                    └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <function Session._connection_for_bind at 0x7f46628e4790>
+           └ <sqlalchemy.orm.session.Session object at 0x7f42a65ae370>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1529, in _connection_for_bind
+    return self._transaction._connection_for_bind(
+           │    │            └ <function SessionTransaction._connection_for_bind at 0x7f46628e33a0>
+           │    └ <sqlalchemy.orm.session.SessionTransaction object at 0x7f42f395af70>
+           └ <sqlalchemy.orm.session.Session object at 0x7f42a65ae370>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 747, in _connection_for_bind
+    conn = bind.connect()
+           │    └ <function Engine.connect at 0x7f4662b91d30>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3166, in connect
+    return self._connection_cls(self, close_with_result=close_with_result)
+           │    │               │                       └ False
+           │    │               └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <class 'sqlalchemy.engine.base.Connection'>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 96, in __init__
+    else engine.raw_connection()
+         │      └ <function Engine.raw_connection at 0x7f4662b961f0>
+         └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3245, in raw_connection
+    return self._wrap_pool_connect(self.pool.connect, _connection)
+           │    │                  │    │    │        └ None
+           │    │                  │    │    └ <function Pool.connect at 0x7f4662bbd280>
+           │    │                  │    └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+           │    │                  └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <function Engine._wrap_pool_connect at 0x7f4662b91dc0>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3212, in _wrap_pool_connect
+    return fn()
+           └ <bound method Pool.connect of <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 307, in connect
+    return _ConnectionFairy._checkout(self)
+           │                │         └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+           │                └ <classmethod object at 0x7f4662bba490>
+           └ <class 'sqlalchemy.pool.base._ConnectionFairy'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 767, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            │                 │        └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+            │                 └ <classmethod object at 0x7f4662bba430>
+            └ <class 'sqlalchemy.pool.base._ConnectionRecord'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 425, in checkout
+    rec = pool._do_get()
+          │    └ <function QueuePool._do_get at 0x7f4662b52700>
+          └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 134, in _do_get
+    raise exc.TimeoutError(
+          │   └ <class 'sqlalchemy.exc.TimeoutError'>
+          └ <module 'sqlalchemy.exc' from '/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/exc.py'>
+
+sqlalchemy.exc.TimeoutError: QueuePool limit of size 5 overflow 10 reached, connection timed out, timeout 30.00 (Background on this error at: https://sqlalche.me/e/14/3o7r)
+2022-05-12 08:44:19.131 | ERROR    | base.db.mysql:update:389 - 【mysql更新数据出错】
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f4689341a60>
+    └ <Thread(Thread-12456, started daemon 139934170072832)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f4689341790>
+    └ <Thread(Thread-12456, started daemon 139934170072832)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-12456, started daemon 139934170072832)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-12456, started daemon 139934170072832)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f457182e160>>
+    └ <Thread(Thread-12456, started daemon 139934170072832)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 779, in get_request_from_keywords_hot
+    self.start_finished_spider_every_interval(project_names)
+    │    │                                    └ ['default']
+    │    └ <function ProjectManager.start_finished_spider_every_interval at 0x7f4571552160>
+    └ <monitor.projectManager.ProjectManager object at 0x7f457182e160>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 764, in start_finished_spider_every_interval
+    self[name].start_spider()
+    │    └ 'default'
+    └ <monitor.projectManager.ProjectManager object at 0x7f457182e160>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 352, in start_spider
+    self.update_device_valid(device)
+    │    │                   └ <monitor.deviceManager.DeviceC object at 0x7f4571558ee0>
+    │    └ <function Project.update_device_valid at 0x7f4571551160>
+    └ <monitor.projectManager.Project object at 0x7f4571558880>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 404, in update_device_valid
+    self.database_manager.mysql.update(Device(**device.to_item()))
+    │    │                │     │      │        │      └ <function DeviceC.to_item at 0x7f46621ac1f0>
+    │    │                │     │      │        └ <monitor.deviceManager.DeviceC object at 0x7f4571558ee0>
+    │    │                │     │      └ <class 'base.db.mysql.Device'>
+    │    │                │     └ <function Mysql.update at 0x7f46627c94c0>
+    │    │                └ <base.db.mysql.Mysql object at 0x7f4571549e80>
+    │    └ <base.db.dbSlot.Slot object at 0x7f4571549940>
+    └ <monitor.projectManager.Project object at 0x7f4571558880>
+
+> File "/home/users/Scy/yuqing/spider/base/db/mysql.py", line 372, in update
+    if row.all():
+       │   └ <function Query.all at 0x7f466290b430>
+       └ <sqlalchemy.orm.query.Query object at 0x7f4544cc6df0>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2711, in all
+    return self._iter().all()
+           │    └ <function Query._iter at 0x7f466290bb80>
+           └ <sqlalchemy.orm.query.Query object at 0x7f4544cc6df0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2846, in _iter
+    result = self.session.execute(
+             │    │       └ <function Session.execute at 0x7f46628e4820>
+             │    └ <sqlalchemy.orm.session.Session object at 0x7f4544d2de20>
+             └ <sqlalchemy.orm.query.Query object at 0x7f4544cc6df0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1688, in execute
+    conn = self._connection_for_bind(bind)
+           │    │                    └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <function Session._connection_for_bind at 0x7f46628e4790>
+           └ <sqlalchemy.orm.session.Session object at 0x7f4544d2de20>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1529, in _connection_for_bind
+    return self._transaction._connection_for_bind(
+           │    │            └ <function SessionTransaction._connection_for_bind at 0x7f46628e33a0>
+           │    └ <sqlalchemy.orm.session.SessionTransaction object at 0x7f4544cc6d30>
+           └ <sqlalchemy.orm.session.Session object at 0x7f4544d2de20>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 747, in _connection_for_bind
+    conn = bind.connect()
+           │    └ <function Engine.connect at 0x7f4662b91d30>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3166, in connect
+    return self._connection_cls(self, close_with_result=close_with_result)
+           │    │               │                       └ False
+           │    │               └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <class 'sqlalchemy.engine.base.Connection'>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 96, in __init__
+    else engine.raw_connection()
+         │      └ <function Engine.raw_connection at 0x7f4662b961f0>
+         └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3245, in raw_connection
+    return self._wrap_pool_connect(self.pool.connect, _connection)
+           │    │                  │    │    │        └ None
+           │    │                  │    │    └ <function Pool.connect at 0x7f4662bbd280>
+           │    │                  │    └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+           │    │                  └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <function Engine._wrap_pool_connect at 0x7f4662b91dc0>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3212, in _wrap_pool_connect
+    return fn()
+           └ <bound method Pool.connect of <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 307, in connect
+    return _ConnectionFairy._checkout(self)
+           │                │         └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+           │                └ <classmethod object at 0x7f4662bba490>
+           └ <class 'sqlalchemy.pool.base._ConnectionFairy'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 767, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            │                 │        └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+            │                 └ <classmethod object at 0x7f4662bba430>
+            └ <class 'sqlalchemy.pool.base._ConnectionRecord'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 425, in checkout
+    rec = pool._do_get()
+          │    └ <function QueuePool._do_get at 0x7f4662b52700>
+          └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 134, in _do_get
+    raise exc.TimeoutError(
+          │   └ <class 'sqlalchemy.exc.TimeoutError'>
+          └ <module 'sqlalchemy.exc' from '/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/exc.py'>
+
+sqlalchemy.exc.TimeoutError: QueuePool limit of size 5 overflow 10 reached, connection timed out, timeout 30.00 (Background on this error at: https://sqlalche.me/e/14/3o7r)
+2022-05-12 08:45:10.473 | ERROR    | base.db.mysql:update:389 - 【mysql更新数据出错】
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f4689341a60>
+    └ <Thread(Thread-12462, started daemon 139935956576000)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f4689341790>
+    └ <Thread(Thread-12462, started daemon 139935956576000)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-12462, started daemon 139935956576000)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-12462, started daemon 139935956576000)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f457182e160>>
+    └ <Thread(Thread-12462, started daemon 139935956576000)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 779, in get_request_from_keywords_hot
+    self.start_finished_spider_every_interval(project_names)
+    │    │                                    └ ['default']
+    │    └ <function ProjectManager.start_finished_spider_every_interval at 0x7f4571552160>
+    └ <monitor.projectManager.ProjectManager object at 0x7f457182e160>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 764, in start_finished_spider_every_interval
+    self[name].start_spider()
+    │    └ 'default'
+    └ <monitor.projectManager.ProjectManager object at 0x7f457182e160>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 352, in start_spider
+    self.update_device_valid(device)
+    │    │                   └ <monitor.deviceManager.DeviceC object at 0x7f4571558ee0>
+    │    └ <function Project.update_device_valid at 0x7f4571551160>
+    └ <monitor.projectManager.Project object at 0x7f4571558880>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 404, in update_device_valid
+    self.database_manager.mysql.update(Device(**device.to_item()))
+    │    │                │     │      │        │      └ <function DeviceC.to_item at 0x7f46621ac1f0>
+    │    │                │     │      │        └ <monitor.deviceManager.DeviceC object at 0x7f4571558ee0>
+    │    │                │     │      └ <class 'base.db.mysql.Device'>
+    │    │                │     └ <function Mysql.update at 0x7f46627c94c0>
+    │    │                └ <base.db.mysql.Mysql object at 0x7f4571549e80>
+    │    └ <base.db.dbSlot.Slot object at 0x7f4571549940>
+    └ <monitor.projectManager.Project object at 0x7f4571558880>
+
+> File "/home/users/Scy/yuqing/spider/base/db/mysql.py", line 372, in update
+    if row.all():
+       │   └ <function Query.all at 0x7f466290b430>
+       └ <sqlalchemy.orm.query.Query object at 0x7f4561b9e3d0>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2711, in all
+    return self._iter().all()
+           │    └ <function Query._iter at 0x7f466290bb80>
+           └ <sqlalchemy.orm.query.Query object at 0x7f4561b9e3d0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2846, in _iter
+    result = self.session.execute(
+             │    │       └ <function Session.execute at 0x7f46628e4820>
+             │    └ <sqlalchemy.orm.session.Session object at 0x7f4561b9e0a0>
+             └ <sqlalchemy.orm.query.Query object at 0x7f4561b9e3d0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1688, in execute
+    conn = self._connection_for_bind(bind)
+           │    │                    └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <function Session._connection_for_bind at 0x7f46628e4790>
+           └ <sqlalchemy.orm.session.Session object at 0x7f4561b9e0a0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1529, in _connection_for_bind
+    return self._transaction._connection_for_bind(
+           │    │            └ <function SessionTransaction._connection_for_bind at 0x7f46628e33a0>
+           │    └ <sqlalchemy.orm.session.SessionTransaction object at 0x7f4561b9ec40>
+           └ <sqlalchemy.orm.session.Session object at 0x7f4561b9e0a0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 747, in _connection_for_bind
+    conn = bind.connect()
+           │    └ <function Engine.connect at 0x7f4662b91d30>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3166, in connect
+    return self._connection_cls(self, close_with_result=close_with_result)
+           │    │               │                       └ False
+           │    │               └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <class 'sqlalchemy.engine.base.Connection'>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 96, in __init__
+    else engine.raw_connection()
+         │      └ <function Engine.raw_connection at 0x7f4662b961f0>
+         └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3245, in raw_connection
+    return self._wrap_pool_connect(self.pool.connect, _connection)
+           │    │                  │    │    │        └ None
+           │    │                  │    │    └ <function Pool.connect at 0x7f4662bbd280>
+           │    │                  │    └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+           │    │                  └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <function Engine._wrap_pool_connect at 0x7f4662b91dc0>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3212, in _wrap_pool_connect
+    return fn()
+           └ <bound method Pool.connect of <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 307, in connect
+    return _ConnectionFairy._checkout(self)
+           │                │         └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+           │                └ <classmethod object at 0x7f4662bba490>
+           └ <class 'sqlalchemy.pool.base._ConnectionFairy'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 767, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            │                 │        └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+            │                 └ <classmethod object at 0x7f4662bba430>
+            └ <class 'sqlalchemy.pool.base._ConnectionRecord'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 425, in checkout
+    rec = pool._do_get()
+          │    └ <function QueuePool._do_get at 0x7f4662b52700>
+          └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 134, in _do_get
+    raise exc.TimeoutError(
+          │   └ <class 'sqlalchemy.exc.TimeoutError'>
+          └ <module 'sqlalchemy.exc' from '/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/exc.py'>
+
+sqlalchemy.exc.TimeoutError: QueuePool limit of size 5 overflow 10 reached, connection timed out, timeout 30.00 (Background on this error at: https://sqlalche.me/e/14/3o7r)
+2022-05-12 08:45:46.491 | ERROR    | base.db.mysql:update:389 - 【mysql更新数据出错】
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f4689341a60>
+    └ <Thread(Thread-12472, started daemon 139935990404864)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f4689341790>
+    └ <Thread(Thread-12472, started daemon 139935990404864)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-12472, started daemon 139935990404864)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-12472, started daemon 139935990404864)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f457182e160>>
+    └ <Thread(Thread-12472, started daemon 139935990404864)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 779, in get_request_from_keywords_hot
+    self.start_finished_spider_every_interval(project_names)
+    │    │                                    └ ['default']
+    │    └ <function ProjectManager.start_finished_spider_every_interval at 0x7f4571552160>
+    └ <monitor.projectManager.ProjectManager object at 0x7f457182e160>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 764, in start_finished_spider_every_interval
+    self[name].start_spider()
+    │    └ 'default'
+    └ <monitor.projectManager.ProjectManager object at 0x7f457182e160>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 352, in start_spider
+    self.update_device_valid(device)
+    │    │                   └ <monitor.deviceManager.DeviceC object at 0x7f4571558ee0>
+    │    └ <function Project.update_device_valid at 0x7f4571551160>
+    └ <monitor.projectManager.Project object at 0x7f4571558880>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 404, in update_device_valid
+    self.database_manager.mysql.update(Device(**device.to_item()))
+    │    │                │     │      │        │      └ <function DeviceC.to_item at 0x7f46621ac1f0>
+    │    │                │     │      │        └ <monitor.deviceManager.DeviceC object at 0x7f4571558ee0>
+    │    │                │     │      └ <class 'base.db.mysql.Device'>
+    │    │                │     └ <function Mysql.update at 0x7f46627c94c0>
+    │    │                └ <base.db.mysql.Mysql object at 0x7f4571549e80>
+    │    └ <base.db.dbSlot.Slot object at 0x7f4571549940>
+    └ <monitor.projectManager.Project object at 0x7f4571558880>
+
+> File "/home/users/Scy/yuqing/spider/base/db/mysql.py", line 372, in update
+    if row.all():
+       │   └ <function Query.all at 0x7f466290b430>
+       └ <sqlalchemy.orm.query.Query object at 0x7f4544d2de20>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2711, in all
+    return self._iter().all()
+           │    └ <function Query._iter at 0x7f466290bb80>
+           └ <sqlalchemy.orm.query.Query object at 0x7f4544d2de20>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2846, in _iter
+    result = self.session.execute(
+             │    │       └ <function Session.execute at 0x7f46628e4820>
+             │    └ <sqlalchemy.orm.session.Session object at 0x7f430ef60af0>
+             └ <sqlalchemy.orm.query.Query object at 0x7f4544d2de20>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1688, in execute
+    conn = self._connection_for_bind(bind)
+           │    │                    └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <function Session._connection_for_bind at 0x7f46628e4790>
+           └ <sqlalchemy.orm.session.Session object at 0x7f430ef60af0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1529, in _connection_for_bind
+    return self._transaction._connection_for_bind(
+           │    │            └ <function SessionTransaction._connection_for_bind at 0x7f46628e33a0>
+           │    └ <sqlalchemy.orm.session.SessionTransaction object at 0x7f4544d2d0a0>
+           └ <sqlalchemy.orm.session.Session object at 0x7f430ef60af0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 747, in _connection_for_bind
+    conn = bind.connect()
+           │    └ <function Engine.connect at 0x7f4662b91d30>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3166, in connect
+    return self._connection_cls(self, close_with_result=close_with_result)
+           │    │               │                       └ False
+           │    │               └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <class 'sqlalchemy.engine.base.Connection'>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 96, in __init__
+    else engine.raw_connection()
+         │      └ <function Engine.raw_connection at 0x7f4662b961f0>
+         └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3245, in raw_connection
+    return self._wrap_pool_connect(self.pool.connect, _connection)
+           │    │                  │    │    │        └ None
+           │    │                  │    │    └ <function Pool.connect at 0x7f4662bbd280>
+           │    │                  │    └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+           │    │                  └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <function Engine._wrap_pool_connect at 0x7f4662b91dc0>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3212, in _wrap_pool_connect
+    return fn()
+           └ <bound method Pool.connect of <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 307, in connect
+    return _ConnectionFairy._checkout(self)
+           │                │         └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+           │                └ <classmethod object at 0x7f4662bba490>
+           └ <class 'sqlalchemy.pool.base._ConnectionFairy'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 767, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            │                 │        └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+            │                 └ <classmethod object at 0x7f4662bba430>
+            └ <class 'sqlalchemy.pool.base._ConnectionRecord'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 425, in checkout
+    rec = pool._do_get()
+          │    └ <function QueuePool._do_get at 0x7f4662b52700>
+          └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 134, in _do_get
+    raise exc.TimeoutError(
+          │   └ <class 'sqlalchemy.exc.TimeoutError'>
+          └ <module 'sqlalchemy.exc' from '/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/exc.py'>
+
+sqlalchemy.exc.TimeoutError: QueuePool limit of size 5 overflow 10 reached, connection timed out, timeout 30.00 (Background on this error at: https://sqlalche.me/e/14/3o7r)
+2022-05-12 08:46:16.222 | ERROR    | base.db.mysql:update:389 - 【mysql更新数据出错】
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f4689341a60>
+    └ <Thread(Thread-12481, started daemon 139934138341120)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f4689341790>
+    └ <Thread(Thread-12481, started daemon 139934138341120)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-12481, started daemon 139934138341120)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-12481, started daemon 139934138341120)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f457182e160>>
+    └ <Thread(Thread-12481, started daemon 139934138341120)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 779, in get_request_from_keywords_hot
+    self.start_finished_spider_every_interval(project_names)
+    │    │                                    └ ['default']
+    │    └ <function ProjectManager.start_finished_spider_every_interval at 0x7f4571552160>
+    └ <monitor.projectManager.ProjectManager object at 0x7f457182e160>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 764, in start_finished_spider_every_interval
+    self[name].start_spider()
+    │    └ 'default'
+    └ <monitor.projectManager.ProjectManager object at 0x7f457182e160>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 352, in start_spider
+    self.update_device_valid(device)
+    │    │                   └ <monitor.deviceManager.DeviceC object at 0x7f4571558ee0>
+    │    └ <function Project.update_device_valid at 0x7f4571551160>
+    └ <monitor.projectManager.Project object at 0x7f4571558880>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 404, in update_device_valid
+    self.database_manager.mysql.update(Device(**device.to_item()))
+    │    │                │     │      │        │      └ <function DeviceC.to_item at 0x7f46621ac1f0>
+    │    │                │     │      │        └ <monitor.deviceManager.DeviceC object at 0x7f4571558ee0>
+    │    │                │     │      └ <class 'base.db.mysql.Device'>
+    │    │                │     └ <function Mysql.update at 0x7f46627c94c0>
+    │    │                └ <base.db.mysql.Mysql object at 0x7f4571549e80>
+    │    └ <base.db.dbSlot.Slot object at 0x7f4571549940>
+    └ <monitor.projectManager.Project object at 0x7f4571558880>
+
+> File "/home/users/Scy/yuqing/spider/base/db/mysql.py", line 372, in update
+    if row.all():
+       │   └ <function Query.all at 0x7f466290b430>
+       └ <sqlalchemy.orm.query.Query object at 0x7f42ffe543a0>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2711, in all
+    return self._iter().all()
+           │    └ <function Query._iter at 0x7f466290bb80>
+           └ <sqlalchemy.orm.query.Query object at 0x7f42ffe543a0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2846, in _iter
+    result = self.session.execute(
+             │    │       └ <function Session.execute at 0x7f46628e4820>
+             │    └ <sqlalchemy.orm.session.Session object at 0x7f430ef60eb0>
+             └ <sqlalchemy.orm.query.Query object at 0x7f42ffe543a0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1688, in execute
+    conn = self._connection_for_bind(bind)
+           │    │                    └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <function Session._connection_for_bind at 0x7f46628e4790>
+           └ <sqlalchemy.orm.session.Session object at 0x7f430ef60eb0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1529, in _connection_for_bind
+    return self._transaction._connection_for_bind(
+           │    │            └ <function SessionTransaction._connection_for_bind at 0x7f46628e33a0>
+           │    └ <sqlalchemy.orm.session.SessionTransaction object at 0x7f42ffe54820>
+           └ <sqlalchemy.orm.session.Session object at 0x7f430ef60eb0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 747, in _connection_for_bind
+    conn = bind.connect()
+           │    └ <function Engine.connect at 0x7f4662b91d30>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3166, in connect
+    return self._connection_cls(self, close_with_result=close_with_result)
+           │    │               │                       └ False
+           │    │               └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <class 'sqlalchemy.engine.base.Connection'>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 96, in __init__
+    else engine.raw_connection()
+         │      └ <function Engine.raw_connection at 0x7f4662b961f0>
+         └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3245, in raw_connection
+    return self._wrap_pool_connect(self.pool.connect, _connection)
+           │    │                  │    │    │        └ None
+           │    │                  │    │    └ <function Pool.connect at 0x7f4662bbd280>
+           │    │                  │    └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+           │    │                  └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <function Engine._wrap_pool_connect at 0x7f4662b91dc0>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3212, in _wrap_pool_connect
+    return fn()
+           └ <bound method Pool.connect of <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 307, in connect
+    return _ConnectionFairy._checkout(self)
+           │                │         └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+           │                └ <classmethod object at 0x7f4662bba490>
+           └ <class 'sqlalchemy.pool.base._ConnectionFairy'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 767, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            │                 │        └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+            │                 └ <classmethod object at 0x7f4662bba430>
+            └ <class 'sqlalchemy.pool.base._ConnectionRecord'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 425, in checkout
+    rec = pool._do_get()
+          │    └ <function QueuePool._do_get at 0x7f4662b52700>
+          └ <sqlalchemy.pool.impl.QueuePool object at 0x7f4571549ee0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 134, in _do_get
+    raise exc.TimeoutError(
+          │   └ <class 'sqlalchemy.exc.TimeoutError'>
+          └ <module 'sqlalchemy.exc' from '/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/exc.py'>
+
+sqlalchemy.exc.TimeoutError: QueuePool limit of size 5 overflow 10 reached, connection timed out, timeout 30.00 (Background on this error at: https://sqlalche.me/e/14/3o7r)
+2022-05-12 08:47:58.145 | ERROR    | __main__:get_request_from_keyword:46 - E 人民网错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/people.py", line 62, in <module>
+    for i in a.get_request_from_keyword(headers, search_url, '石油'):
+             │ │                        │        └ <string.Template object at 0x7fc60ef93ca0>
+             │ │                        └ {'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/sign...
+             │ └ <function People_search.get_request_from_keyword at 0x7fc5e698e5e0>
+             └ <__main__.People_search object at 0x7fc60ef93df0>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/people.py", line 32, in get_request_from_keyword
+    all_search_page = data["pages"]
+                      └ None
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-12 08:54:32.264 | ERROR    | monitor.searchSpiders.qiushi:get_request_from_keyword:35 - E 求是错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f24d411ca60>
+    └ <Thread(Thread-41, started daemon 139790758430464)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f24d411c790>
+    └ <Thread(Thread-41, started daemon 139790758430464)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-41, started daemon 139790758430464)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-41, started daemon 139790758430464)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>>
+    └ <Thread(Thread-41, started daemon 139790758430464)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 795, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7f23bc633040>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+    └ <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7f23bc35afd0>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7f23b564c670>
+    │    │                                │              │         └ '北京4地升级为高风险地区'
+    │    │                                │              └ '求是'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7f23bc6330d0>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 134, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7f24b459e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7f23b564c670>
+               │    │                        │         └ '北京4地升级为高风险地区'
+               │    │                        └ '求是'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7f23bc6331f0>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 191, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+        │          │    │       │                                  │        │           │        └ <string.Template object at 0x7f23b56d1f10>
+        │          │    │       │                                  │        │           └ '北京4地升级为高风险地区'
+        │          │    │       │                                  │        └ <string.Template object at 0x7f23b56d1820>
+        │          │    │       │                                  └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Wind...
+        │          │    │       └ '求是'
+        │          │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7f23bc242970>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+        │          └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+        └ <GET http://www.qstheory.cn/qshyjx/2020-11/10/c_1126720789.htm>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/qiushi.py", line 28, in get_request_from_keyword
+    for res in json_response['results']:
+        │      └ None
+        └ {'des': '在波澜壮阔的抗美援朝战争中，英雄的中国人民志愿军锻造了伟大抗美援朝精神。在抗美援朝战争中，中国人民志愿军将士用血肉之躯谱写了一曲曲气壮山河的凯歌，涌现出杨根思、黄继光、邱少云等30多万名英雄功臣和近6000个功臣集体。', 'pub...
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-12 08:54:32.268 | ERROR    | monitor.searchSpiders.qiushi:get_request_from_keyword:35 - E 求是错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f24d411ca60>
+    └ <Thread(Thread-8, started daemon 139791370802944)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f24d411c790>
+    └ <Thread(Thread-8, started daemon 139791370802944)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-8, started daemon 139791370802944)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-8, started daemon 139791370802944)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>>
+    └ <Thread(Thread-8, started daemon 139791370802944)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 795, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7f23bc633040>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+    └ <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7f23bc35afd0>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7f23bc0d5fa0>
+    │    │                                │              │         └ '马拉喀什条约对我国生效'
+    │    │                                │              └ '求是'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7f23bc6330d0>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 134, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7f24b459e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7f23bc0d5fa0>
+               │    │                        │         └ '马拉喀什条约对我国生效'
+               │    │                        └ '求是'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7f23bc6331f0>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 191, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+        │          │    │       │                                  │        │           │        └ <string.Template object at 0x7f23b4c15880>
+        │          │    │       │                                  │        │           └ '马拉喀什条约对我国生效'
+        │          │    │       │                                  │        └ <string.Template object at 0x7f23b5716940>
+        │          │    │       │                                  └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Wind...
+        │          │    │       └ '求是'
+        │          │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7f23bc242970>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+        │          └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+        └ <GET http://www.qstheory.cn/qshyjx/2021-04/29/c_1127390837.htm>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/qiushi.py", line 28, in get_request_from_keyword
+    for res in json_response['results']:
+        │      └ None
+        └ {'des': "的自<font color='red'>我</font>革命其精髓要义，体现在以下几个方面：\u3000\u3000坚持马克思主义真理，修正偏离或违背马克思主义的错误思想。", 'pubtime': '2021-04-29 11:4...
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-12 08:56:17.087 | ERROR    | monitor.searchSpiders.qiushi:get_request_from_keyword:35 - E 求是错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f24d411ca60>
+    └ <Thread(Thread-13, started daemon 139791362410240)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f24d411c790>
+    └ <Thread(Thread-13, started daemon 139791362410240)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-13, started daemon 139791362410240)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-13, started daemon 139791362410240)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>>
+    └ <Thread(Thread-13, started daemon 139791362410240)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 795, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7f23bc633040>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+    └ <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7f23bc35afd0>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7f23b56597f0>
+    │    │                                │              │         └ '欧盟承诺今年向叙利亚提供15亿欧元人道主义援助'
+    │    │                                │              └ '求是'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7f23bc6330d0>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 134, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7f24b459e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7f23b56597f0>
+               │    │                        │         └ '欧盟承诺今年向叙利亚提供15亿欧元人道主义援助'
+               │    │                        └ '求是'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7f23bc6331f0>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 191, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+        │          │    │       │                                  │        │           │        └ <string.Template object at 0x7f2391433130>
+        │          │    │       │                                  │        │           └ '欧盟承诺今年向叙利亚提供15亿欧元人道主义援助'
+        │          │    │       │                                  │        └ <string.Template object at 0x7f23b437daf0>
+        │          │    │       │                                  └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Wind...
+        │          │    │       └ '求是'
+        │          │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7f23bc242970>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+        │          └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+        └ <GET http://www.qstheory.cn/qshyjx/2021-06/04/c_1127528603.htm>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/qiushi.py", line 28, in get_request_from_keyword
+    for res in json_response['results']:
+        │      └ None
+        └ {'des': '近日，中共中央印发了《中国共产党组织工作条例》（以下简称《条例》）。答：《条例》第六章明确了加强党委（党组）的领导、健全组织部门运行机制、提高组织工作质量、加强组织部门自身建设等方面的保障监督措施。', 'pubtime': '20...
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-12 08:59:49.610 | ERROR    | monitor.searchSpiders.qiushi:get_request_from_keyword:35 - E 求是错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f24d411ca60>
+    └ <Thread(Thread-138, started daemon 139789223319296)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f24d411c790>
+    └ <Thread(Thread-138, started daemon 139789223319296)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-138, started daemon 139789223319296)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-138, started daemon 139789223319296)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>>
+    └ <Thread(Thread-138, started daemon 139789223319296)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 795, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7f23bc633040>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+    └ <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7f23bc35afd0>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7f23bc0e0bb0>
+    │    │                                │              │         └ '礼赞劳动创造 矢志奋斗强军'
+    │    │                                │              └ '求是'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7f23bc6330d0>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 134, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7f24b459e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7f23bc0e0bb0>
+               │    │                        │         └ '礼赞劳动创造 矢志奋斗强军'
+               │    │                        └ '求是'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7f23bc6331f0>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 191, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+        │          │    │       │                                  │        │           │        └ <string.Template object at 0x7f23583b9760>
+        │          │    │       │                                  │        │           └ '礼赞劳动创造 矢志奋斗强军'
+        │          │    │       │                                  │        └ <string.Template object at 0x7f2359445dc0>
+        │          │    │       │                                  └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Wind...
+        │          │    │       └ '求是'
+        │          │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7f23bc242970>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+        │          └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+        └ <GET http://www.qstheory.cn/qshyjx/2021-04/30/c_1127396059.htm>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/qiushi.py", line 28, in get_request_from_keyword
+    for res in json_response['results']:
+        │      └ None
+        └ {'des': "习近平总书记指出：“中华民族是勤于<font color='red'>劳动</font>、善于<font color='red'>创造</font>的民族。<font color='red'>劳动</font>教育是国民教育体系的重...
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-12 08:59:49.616 | ERROR    | monitor.searchSpiders.qiushi:get_request_from_keyword:35 - E 求是错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f24d411ca60>
+    └ <Thread(Thread-59, started daemon 139790246737664)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f24d411c790>
+    └ <Thread(Thread-59, started daemon 139790246737664)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-59, started daemon 139790246737664)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-59, started daemon 139790246737664)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>>
+    └ <Thread(Thread-59, started daemon 139790246737664)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 795, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7f23bc633040>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+    └ <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7f23bc35afd0>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7f239140c490>
+    │    │                                │              │         └ '欧盟承诺今年向叙利亚提供15亿欧元人道主义援助'
+    │    │                                │              └ '求是'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7f23bc6330d0>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 134, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7f24b459e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7f239140c490>
+               │    │                        │         └ '欧盟承诺今年向叙利亚提供15亿欧元人道主义援助'
+               │    │                        └ '求是'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7f23bc6331f0>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 191, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+        │          │    │       │                                  │        │           │        └ <string.Template object at 0x7f2390a48070>
+        │          │    │       │                                  │        │           └ '欧盟承诺今年向叙利亚提供15亿欧元人道主义援助'
+        │          │    │       │                                  │        └ <string.Template object at 0x7f2370353040>
+        │          │    │       │                                  └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Wind...
+        │          │    │       └ '求是'
+        │          │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7f23bc242970>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+        │          └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+        └ <GET http://www.qstheory.cn/qshyjx/2020-11/13/c_1126733901.htm>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/qiushi.py", line 28, in get_request_from_keyword
+    for res in json_response['results']:
+        │      └ None
+        └ {'des': "在新冠肺炎疫情仍在全球蔓延肆虐，单边<font color='red'>主义</font>、保护<font color='red'>主义</font>明显上升之际，11月10日，习近平主席以视频方式", 'pubtime': '20...
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-12 09:00:50.440 | ERROR    | monitor.searchSpiders.qiushi:get_request_from_keyword:35 - E 求是错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f24d411ca60>
+    └ <Thread(Thread-138, started daemon 139789223319296)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f24d411c790>
+    └ <Thread(Thread-138, started daemon 139789223319296)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-138, started daemon 139789223319296)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-138, started daemon 139789223319296)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>>
+    └ <Thread(Thread-138, started daemon 139789223319296)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 795, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7f23bc633040>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+    └ <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7f23bc35afd0>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7f23bc0e0bb0>
+    │    │                                │              │         └ '北京4地升级为高风险地区'
+    │    │                                │              └ '求是'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7f23bc6330d0>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 134, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7f24b459e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7f23bc0e0bb0>
+               │    │                        │         └ '北京4地升级为高风险地区'
+               │    │                        └ '求是'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7f23bc6331f0>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 191, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+        │          │    │       │                                  │        │           │        └ <string.Template object at 0x7f23702133a0>
+        │          │    │       │                                  │        │           └ '北京4地升级为高风险地区'
+        │          │    │       │                                  │        └ <string.Template object at 0x7f23702130a0>
+        │          │    │       │                                  └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Wind...
+        │          │    │       └ '求是'
+        │          │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7f23bc242970>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+        │          └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+        └ <GET http://www.qstheory.cn/qshyjx/2022-02/17/c_1128384838.htm>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/qiushi.py", line 28, in get_request_from_keyword
+    for res in json_response['results']:
+        │      └ None
+        └ {'des': None, 'pubtime': '2022-02-17 11:52:02', 'author': '于秋阳', 'sitename': '人民日报 ', 'title': "<font color='red'>为</font>共建“...
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-12 09:02:31.496 | ERROR    | monitor.searchSpiders.qiushi:get_request_from_keyword:35 - E 求是错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f24d411ca60>
+    └ <Thread(Thread-18, started daemon 139791353493248)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f24d411c790>
+    └ <Thread(Thread-18, started daemon 139791353493248)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-18, started daemon 139791353493248)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-18, started daemon 139791353493248)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>>
+    └ <Thread(Thread-18, started daemon 139791353493248)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 795, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7f23bc633040>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+    └ <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7f23bc35afd0>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7f23b56ba850>
+    │    │                                │              │         └ '马拉喀什条约对我国生效 极大丰富阅读障碍者精神文化生活'
+    │    │                                │              └ '求是'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7f23bc6330d0>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 134, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7f24b459e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7f23b56ba850>
+               │    │                        │         └ '马拉喀什条约对我国生效 极大丰富阅读障碍者精神文化生活'
+               │    │                        └ '求是'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7f23bc6331f0>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 191, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+        │          │    │       │                                  │        │           │        └ <string.Template object at 0x7f23bc03e6a0>
+        │          │    │       │                                  │        │           └ '马拉喀什条约对我国生效 极大丰富阅读障碍者精神文化生活'
+        │          │    │       │                                  │        └ <string.Template object at 0x7f2372e8c9d0>
+        │          │    │       │                                  └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Wind...
+        │          │    │       └ '求是'
+        │          │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7f23bc242970>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+        │          └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+        └ <GET http://www.qstheory.cn/dukan/qs/2021-12/01/c_1128110774.htm>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/qiushi.py", line 28, in get_request_from_keyword
+    for res in json_response['results']:
+        │      └ None
+        └ {'des': None, 'pubtime': '2021-12-01 08:09:13', 'author': '信春鹰', 'sitename': '《求是》2021/23 ', 'title': "中国共产党与<font color='red...
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-12 09:02:31.505 | ERROR    | monitor.searchSpiders.qiushi:get_request_from_keyword:35 - E 求是错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f24d411ca60>
+    └ <Thread(Thread-22, started daemon 139790783608576)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f24d411c790>
+    └ <Thread(Thread-22, started daemon 139790783608576)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-22, started daemon 139790783608576)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-22, started daemon 139790783608576)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>>
+    └ <Thread(Thread-22, started daemon 139790783608576)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 795, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7f23bc633040>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+    └ <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7f23bc35afd0>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7f23b4c6fd30>
+    │    │                                │              │         └ '伊朗外交部：欧盟代表访问伊朗将使伊核谈判朝正确方向迈进'
+    │    │                                │              └ '求是'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7f23bc6330d0>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 134, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7f24b459e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7f23b4c6fd30>
+               │    │                        │         └ '伊朗外交部：欧盟代表访问伊朗将使伊核谈判朝正确方向迈进'
+               │    │                        └ '求是'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7f23bc6331f0>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 191, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+        │          │    │       │                                  │        │           │        └ <string.Template object at 0x7f23b5767ac0>
+        │          │    │       │                                  │        │           └ '伊朗外交部：欧盟代表访问伊朗将使伊核谈判朝正确方向迈进'
+        │          │    │       │                                  │        └ <string.Template object at 0x7f2370278730>
+        │          │    │       │                                  └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Wind...
+        │          │    │       └ '求是'
+        │          │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7f23bc242970>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+        │          └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+        └ <GET http://www.qstheory.cn/qshyjx/2021-12/07/c_1128138430.htm>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/qiushi.py", line 28, in get_request_from_keyword
+    for res in json_response['results']:
+        │      └ None
+        └ {'des': "思想指导地位不动摇，深入学习领会习近平<font color='red'>外交</font>思想核心要义，统一思想认识，明确前进<font color='red'>方向</font>，凝聚奋进力量。", 'pubtime': '20...
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-12 09:03:49.252 | ERROR    | monitor.searchSpiders.qiushi:get_request_from_keyword:35 - E 求是错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f24d411ca60>
+    └ <Thread(Thread-22, started daemon 139790783608576)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f24d411c790>
+    └ <Thread(Thread-22, started daemon 139790783608576)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-22, started daemon 139790783608576)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-22, started daemon 139790783608576)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>>
+    └ <Thread(Thread-22, started daemon 139790783608576)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 795, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7f23bc633040>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+    └ <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7f23bc35afd0>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7f23b4c6fd30>
+    │    │                                │              │         └ '马拉喀什条约对我国生效 极大丰富阅读障碍者精神文化生活'
+    │    │                                │              └ '求是'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7f23bc6330d0>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 134, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7f24b459e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7f23b4c6fd30>
+               │    │                        │         └ '马拉喀什条约对我国生效 极大丰富阅读障碍者精神文化生活'
+               │    │                        └ '求是'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7f23bc6331f0>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 191, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+        │          │    │       │                                  │        │           │        └ <string.Template object at 0x7f23b4c325e0>
+        │          │    │       │                                  │        │           └ '马拉喀什条约对我国生效 极大丰富阅读障碍者精神文化生活'
+        │          │    │       │                                  │        └ <string.Template object at 0x7f23b4c324c0>
+        │          │    │       │                                  └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Wind...
+        │          │    │       └ '求是'
+        │          │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7f23bc242970>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+        │          └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+        └ <GET http://www.qstheory.cn/zhuanqu/2021-12/23/c_1128193846.htm>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/qiushi.py", line 28, in get_request_from_keyword
+    for res in json_response['results']:
+        │      └ None
+        └ {'des': "，重申中央将继续坚定不移贯彻“一<font color='red'>国</font>两制”方针。2021年12月22日，国家主席习近平在中南海会见来京述职", 'pubtime': '2021-12-23 18:00:02', 'a...
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-12 09:03:49.261 | ERROR    | monitor.searchSpiders.qiushi:get_request_from_keyword:35 - E 求是错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f24d411ca60>
+    └ <Thread(Thread-156, started daemon 139789183981312)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f24d411c790>
+    └ <Thread(Thread-156, started daemon 139789183981312)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-156, started daemon 139789183981312)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-156, started daemon 139789183981312)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>>
+    └ <Thread(Thread-156, started daemon 139789183981312)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 795, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7f23bc633040>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+    └ <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7f23bc35afd0>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7f2335daa070>
+    │    │                                │              │         └ '防范电诈五大“利器”，你用了几项？'
+    │    │                                │              └ '求是'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7f23bc6330d0>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 134, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7f24b459e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7f2335daa070>
+               │    │                        │         └ '防范电诈五大“利器”，你用了几项？'
+               │    │                        └ '求是'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7f23bc6331f0>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 191, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+        │          │    │       │                                  │        │           │        └ <string.Template object at 0x7f237023a5b0>
+        │          │    │       │                                  │        │           └ '防范电诈五大“利器”，你用了几项？'
+        │          │    │       │                                  │        └ <string.Template object at 0x7f23b43ae760>
+        │          │    │       │                                  └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Wind...
+        │          │    │       └ '求是'
+        │          │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7f23bc242970>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+        │          └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+        └ <GET http://www.qstheory.cn/qshyjx/2020-12/24/c_1126901738.htm>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/qiushi.py", line 28, in get_request_from_keyword
+    for res in json_response['results']:
+        │      └ None
+        └ {'des': '联播+日前召开的中央经济工作会议提出，要巩固拓展脱贫攻坚成果，坚决防止发生规模性返贫现象。今年以来，在会议、国内考察等重要活动中，习近平总书记谈及乡村振兴，都会反复强调“有效衔接”这四个字。', 'pubtime': '2020-1...
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-12 09:05:06.595 | ERROR    | monitor.searchSpiders.qiushi:get_request_from_keyword:35 - E 求是错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f24d411ca60>
+    └ <Thread(Thread-31, started daemon 139790775215872)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f24d411c790>
+    └ <Thread(Thread-31, started daemon 139790775215872)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-31, started daemon 139790775215872)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-31, started daemon 139790775215872)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>>
+    └ <Thread(Thread-31, started daemon 139790775215872)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 795, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7f23bc633040>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+    └ <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7f23bc35afd0>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7f23bc128a00>
+    │    │                                │              │         └ '马拉喀什条约对我国生效 极大丰富阅读障碍者精神文化生活'
+    │    │                                │              └ '求是'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7f23bc6330d0>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 134, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7f24b459e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7f23bc128a00>
+               │    │                        │         └ '马拉喀什条约对我国生效 极大丰富阅读障碍者精神文化生活'
+               │    │                        └ '求是'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7f23bc6331f0>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 191, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+        │          │    │       │                                  │        │           │        └ <string.Template object at 0x7f22f75a4d30>
+        │          │    │       │                                  │        │           └ '马拉喀什条约对我国生效 极大丰富阅读障碍者精神文化生活'
+        │          │    │       │                                  │        └ <string.Template object at 0x7f235951cac0>
+        │          │    │       │                                  └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Wind...
+        │          │    │       └ '求是'
+        │          │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7f23bc242970>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+        │          └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+        └ <GET http://www.qstheory.cn/wp/2022-03/08/c_1128451543.htm>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/qiushi.py", line 28, in get_request_from_keyword
+    for res in json_response['results']:
+        │      └ None
+        └ {'des': None, 'pubtime': '2022-03-08 16:43:46', 'author': '\u200b求是网评论员', 'sitename': '\u200b求是网 ', 'title': "\u200b求是网评论员：把握...
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-12 09:05:06.609 | ERROR    | monitor.searchSpiders.qiushi:get_request_from_keyword:35 - E 求是错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f24d411ca60>
+    └ <Thread(Thread-212, started daemon 139788118898432)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f24d411c790>
+    └ <Thread(Thread-212, started daemon 139788118898432)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-212, started daemon 139788118898432)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-212, started daemon 139788118898432)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>>
+    └ <Thread(Thread-212, started daemon 139788118898432)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 795, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7f23bc633040>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+    └ <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7f23bc35afd0>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7f23b4c6ff70>
+    │    │                                │              │         └ '英欧双边贸易显著下滑'
+    │    │                                │              └ '求是'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7f23bc6330d0>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 134, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7f24b459e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7f23b4c6ff70>
+               │    │                        │         └ '英欧双边贸易显著下滑'
+               │    │                        └ '求是'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7f23bc6331f0>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 191, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+                   │    │       │                                  │        │           │        └ <string.Template object at 0x7f22f5d63b50>
+                   │    │       │                                  │        │           └ '英欧双边贸易显著下滑'
+                   │    │       │                                  │        └ <string.Template object at 0x7f2372e902e0>
+                   │    │       │                                  └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Wind...
+                   │    │       └ '求是'
+                   │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7f23bc242970>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+                   └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/qiushi.py", line 28, in get_request_from_keyword
+    for res in json_response['results']:
+               └ None
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-12 09:07:49.844 | ERROR    | monitor.searchSpiders.qiushi:get_request_from_keyword:35 - E 求是错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f24d411ca60>
+    └ <Thread(Thread-156, started daemon 139789183981312)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f24d411c790>
+    └ <Thread(Thread-156, started daemon 139789183981312)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-156, started daemon 139789183981312)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-156, started daemon 139789183981312)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>>
+    └ <Thread(Thread-156, started daemon 139789183981312)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 795, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7f23bc633040>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+    └ <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7f23bc35afd0>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7f2335daa070>
+    │    │                                │              │         └ '马拉喀什条约对我国生效'
+    │    │                                │              └ '求是'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7f23bc6330d0>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 134, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7f24b459e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7f2335daa070>
+               │    │                        │         └ '马拉喀什条约对我国生效'
+               │    │                        └ '求是'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7f23bc6331f0>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 191, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+        │          │    │       │                                  │        │           │        └ <string.Template object at 0x7f23912a83a0>
+        │          │    │       │                                  │        │           └ '马拉喀什条约对我国生效'
+        │          │    │       │                                  │        └ <string.Template object at 0x7f23b5585fa0>
+        │          │    │       │                                  └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Wind...
+        │          │    │       └ '求是'
+        │          │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7f23bc242970>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+        │          └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+        └ <GET http://www.qstheory.cn/qshyjx/2022-03/11/c_1128460497.htm>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/qiushi.py", line 28, in get_request_from_keyword
+    for res in json_response['results']:
+        │      └ None
+        └ {'des': None, 'pubtime': '2022-03-11 15:02:39', 'author': '人民日报记者', 'sitename': '人民日报 ', 'title': "贯彻新发展理念是新时代<font color='re...
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-12 09:08:04.498 | ERROR    | monitor.searchSpiders.qiushi:get_request_from_keyword:35 - E 求是错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f24d411ca60>
+    └ <Thread(Thread-45, started daemon 139790735877888)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f24d411c790>
+    └ <Thread(Thread-45, started daemon 139790735877888)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-45, started daemon 139790735877888)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-45, started daemon 139790735877888)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>>
+    └ <Thread(Thread-45, started daemon 139790735877888)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 795, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7f23bc633040>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+    └ <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7f23bc35afd0>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7f23b43a38e0>
+    │    │                                │              │         └ '马拉喀什条约对我国生效 极大丰富阅读障碍者精神文化生活'
+    │    │                                │              └ '求是'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7f23bc6330d0>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 134, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7f24b459e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7f23b43a38e0>
+               │    │                        │         └ '马拉喀什条约对我国生效 极大丰富阅读障碍者精神文化生活'
+               │    │                        └ '求是'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7f23bc6331f0>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 191, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+        │          │    │       │                                  │        │           │        └ <string.Template object at 0x7f2335c0eb80>
+        │          │    │       │                                  │        │           └ '马拉喀什条约对我国生效 极大丰富阅读障碍者精神文化生活'
+        │          │    │       │                                  │        └ <string.Template object at 0x7f2370103c10>
+        │          │    │       │                                  └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Wind...
+        │          │    │       └ '求是'
+        │          │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7f23bc242970>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+        │          └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+        └ <GET http://www.qstheory.cn/qshyjx/2022-03/03/c_1128432980.htm>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/qiushi.py", line 28, in get_request_from_keyword
+    for res in json_response['results']:
+        │      └ None
+        └ {'des': "整饬作风，<font color='red'>丰富</font>自<font color='red'>我</font>革命有效途径”。<font color='red'>我</font>们党来自人民、植根人民、服务人民，全面从严治党...
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-12 09:08:04.509 | ERROR    | monitor.searchSpiders.qiushi:get_request_from_keyword:35 - E 求是错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f24d411ca60>
+    └ <Thread(Thread-128, started daemon 139789789533952)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f24d411c790>
+    └ <Thread(Thread-128, started daemon 139789789533952)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-128, started daemon 139789789533952)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-128, started daemon 139789789533952)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>>
+    └ <Thread(Thread-128, started daemon 139789789533952)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 795, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7f23bc633040>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+    └ <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7f23bc35afd0>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7f23b5583640>
+    │    │                                │              │         └ '欧盟承诺今年向叙利亚提供15亿欧元人道主义援助'
+    │    │                                │              └ '求是'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7f23bc6330d0>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 134, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7f24b459e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7f23b5583640>
+               │    │                        │         └ '欧盟承诺今年向叙利亚提供15亿欧元人道主义援助'
+               │    │                        └ '求是'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7f23bc6331f0>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 191, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+        │          │    │       │                                  │        │           │        └ <string.Template object at 0x7f22dce8acd0>
+        │          │    │       │                                  │        │           └ '欧盟承诺今年向叙利亚提供15亿欧元人道主义援助'
+        │          │    │       │                                  │        └ <string.Template object at 0x7f237050cc40>
+        │          │    │       │                                  └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Wind...
+        │          │    │       └ '求是'
+        │          │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7f23bc242970>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+        │          └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+        └ <GET http://www.qstheory.cn/qshyjx/2022-02/24/c_1128410623.htm>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/qiushi.py", line 28, in get_request_from_keyword
+    for res in json_response['results']:
+        │      └ None
+        └ {'des': "习近平新时代中国特色社会<font color='red'>主义</font>思想是当代中国马克思<font color='red'>主义</font>、二十一世纪马克思<font color='red'>主义</font>，是中华...
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-12 09:09:26.080 | ERROR    | monitor.searchSpiders.qiushi:get_request_from_keyword:35 - E 求是错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f24d411ca60>
+    └ <Thread(Thread-110, started daemon 139789817595648)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f24d411c790>
+    └ <Thread(Thread-110, started daemon 139789817595648)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-110, started daemon 139789817595648)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-110, started daemon 139789817595648)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>>
+    └ <Thread(Thread-110, started daemon 139789817595648)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 795, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7f23bc633040>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+    └ <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7f23bc35afd0>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7f2359564e20>
+    │    │                                │              │         └ '宜昌中院：协同推进多元化纠纷解决机制'
+    │    │                                │              └ '求是'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7f23bc6330d0>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 134, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7f24b459e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7f2359564e20>
+               │    │                        │         └ '宜昌中院：协同推进多元化纠纷解决机制'
+               │    │                        └ '求是'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7f23bc6331f0>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 191, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+        │          │    │       │                                  │        │           │        └ <string.Template object at 0x7f23140e8430>
+        │          │    │       │                                  │        │           └ '宜昌中院：协同推进多元化纠纷解决机制'
+        │          │    │       │                                  │        └ <string.Template object at 0x7f237060d280>
+        │          │    │       │                                  └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Wind...
+        │          │    │       └ '求是'
+        │          │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7f23bc242970>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+        │          └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+        └ <GET http://www.qstheory.cn/dukan/qs/2022-02/16/c_1128368020.htm>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/qiushi.py", line 28, in get_request_from_keyword
+    for res in json_response['results']:
+        │      └ None
+        └ {'des': None, 'pubtime': '2022-02-16 08:08:02', 'author': '周 强', 'sitename': '《求是》2022/04 ', 'title': "在习近平法治思想指引下 奋力<font co...
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-12 09:18:20.312 | ERROR    | monitor.searchSpiders.qiushi:get_request_from_keyword:35 - E 求是错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f24d411ca60>
+    └ <Thread(Thread-312, started daemon 139786705147648)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f24d411c790>
+    └ <Thread(Thread-312, started daemon 139786705147648)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-312, started daemon 139786705147648)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-312, started daemon 139786705147648)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>>
+    └ <Thread(Thread-312, started daemon 139786705147648)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 795, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7f23bc633040>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+    └ <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7f23bc35afd0>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7f22b84f9160>
+    │    │                                │              │         └ '防范电诈五大“利器”，你用了几项？'
+    │    │                                │              └ '求是'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7f23bc6330d0>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 134, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7f24b459e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7f22b84f9160>
+               │    │                        │         └ '防范电诈五大“利器”，你用了几项？'
+               │    │                        └ '求是'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7f23bc6331f0>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 191, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+        │          │    │       │                                  │        │           │        └ <string.Template object at 0x7f223d868ca0>
+        │          │    │       │                                  │        │           └ '防范电诈五大“利器”，你用了几项？'
+        │          │    │       │                                  │        └ <string.Template object at 0x7f227df8d0d0>
+        │          │    │       │                                  └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Wind...
+        │          │    │       └ '求是'
+        │          │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7f23bc242970>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+        │          └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+        └ <GET http://www.qstheory.cn/wp/2022-01/20/c_1128282896.htm>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/qiushi.py", line 28, in get_request_from_keyword
+    for res in json_response['results']:
+        │      └ None
+        └ {'des': None, 'pubtime': '2022-01-20 16:27:03', 'author': '求是网评论员', 'sitename': '求是网 ', 'title': "求是网评论员：开辟百年<font color='red...
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-12 09:19:51.965 | ERROR    | monitor.searchSpiders.qiushi:get_request_from_keyword:35 - E 求是错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f24d411ca60>
+    └ <Thread(Thread-432, started daemon 139784274048768)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f24d411c790>
+    └ <Thread(Thread-432, started daemon 139784274048768)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-432, started daemon 139784274048768)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-432, started daemon 139784274048768)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>>
+    └ <Thread(Thread-432, started daemon 139784274048768)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 795, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7f23bc633040>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+    └ <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7f23bc35afd0>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7f223e56fd00>
+    │    │                                │              │         └ '礼赞劳动创造 矢志奋斗强军'
+    │    │                                │              └ '求是'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7f23bc6330d0>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 134, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7f24b459e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7f223e56fd00>
+               │    │                        │         └ '礼赞劳动创造 矢志奋斗强军'
+               │    │                        └ '求是'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7f23bc6331f0>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 191, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+        │          │    │       │                                  │        │           │        └ <string.Template object at 0x7f2334271730>
+        │          │    │       │                                  │        │           └ '礼赞劳动创造 矢志奋斗强军'
+        │          │    │       │                                  │        └ <string.Template object at 0x7f22b8cdee50>
+        │          │    │       │                                  └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Wind...
+        │          │    │       └ '求是'
+        │          │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7f23bc242970>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+        │          └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+        └ <GET http://www.qstheory.cn/qshyjx/2021-04/26/c_1127376276.htm>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/qiushi.py", line 28, in get_request_from_keyword
+    for res in json_response['results']:
+        │      └ None
+        └ {'des': '习近平总书记指出：“创新是引领发展的第一动力，保护知识产权就是保护创新。随着信息技术、基因技术等现代科技与产业发展日益融合，新领域新业态的知识产权保护问题逐步凸显。', 'pubtime': '2021-04-26 10:13:13...
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-12 09:19:51.971 | ERROR    | monitor.searchSpiders.qiushi:get_request_from_keyword:35 - E 求是错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f24d411ca60>
+    └ <Thread(Thread-193, started daemon 139788149581568)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f24d411c790>
+    └ <Thread(Thread-193, started daemon 139788149581568)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-193, started daemon 139788149581568)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-193, started daemon 139788149581568)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>>
+    └ <Thread(Thread-193, started daemon 139788149581568)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 795, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7f23bc633040>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+    └ <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7f23bc35afd0>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7f23340b0fd0>
+    │    │                                │              │         └ '欧盟承诺今年向叙利亚提供15亿欧元人道主义援助'
+    │    │                                │              └ '求是'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7f23bc6330d0>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 134, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7f24b459e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7f23340b0fd0>
+               │    │                        │         └ '欧盟承诺今年向叙利亚提供15亿欧元人道主义援助'
+               │    │                        └ '求是'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7f23bc6331f0>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 191, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+        │          │    │       │                                  │        │           │        └ <string.Template object at 0x7f2335cbc460>
+        │          │    │       │                                  │        │           └ '欧盟承诺今年向叙利亚提供15亿欧元人道主义援助'
+        │          │    │       │                                  │        └ <string.Template object at 0x7f2372bf7ee0>
+        │          │    │       │                                  └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Wind...
+        │          │    │       └ '求是'
+        │          │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7f23bc242970>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+        │          └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+        └ <GET http://www.qstheory.cn/qshyjx/2021-08/25/c_1127793446.htm>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/qiushi.py", line 28, in get_request_from_keyword
+    for res in json_response['results']:
+        │      └ None
+        └ {'des': '建立健全关键核心技术攻关的新型举国体制，是牢牢掌握创新主动权和发展主动权，实现科技自立自强的现实需要。我们要把握大势、抢占先机，直面问题、迎难而上，不断完善关键核心技术攻关的新型举国体制，努力把我国建设成为世界科技强国。', 'pu...
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-12 09:20:03.497 | ERROR    | monitor.searchSpiders.qiushi:get_request_from_keyword:35 - E 求是错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f24d411ca60>
+    └ <Thread(Thread-41, started daemon 139790758430464)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f24d411c790>
+    └ <Thread(Thread-41, started daemon 139790758430464)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-41, started daemon 139790758430464)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-41, started daemon 139790758430464)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>>
+    └ <Thread(Thread-41, started daemon 139790758430464)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 795, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7f23bc633040>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+    └ <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7f23bc35afd0>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7f23b564c670>
+    │    │                                │              │         └ '“道出人类可持续发展的奥秘”（大道之行）'
+    │    │                                │              └ '求是'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7f23bc6330d0>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 134, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7f24b459e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7f23b564c670>
+               │    │                        │         └ '“道出人类可持续发展的奥秘”（大道之行）'
+               │    │                        └ '求是'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7f23bc6331f0>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 191, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+        │          │    │       │                                  │        │           │        └ <string.Template object at 0x7f23342253d0>
+        │          │    │       │                                  │        │           └ '“道出人类可持续发展的奥秘”（大道之行）'
+        │          │    │       │                                  │        └ <string.Template object at 0x7f22dc559100>
+        │          │    │       │                                  └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Wind...
+        │          │    │       └ '求是'
+        │          │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7f23bc242970>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+        │          └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+        └ <GET http://www.qstheory.cn/qshyjx/2021-08/14/c_1127760292.htm>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/qiushi.py", line 28, in get_request_from_keyword
+    for res in json_response['results']:
+        │      └ None
+        └ {'des': "”\u3000\u3000中国全面建成小康社会，夯实了人权基础，丰富了人权内涵，拓宽了人权视野，意味着人权的全面<font color='red'>发展</font>和", 'pubtime': '2021-08-14 11:50:...
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-12 09:20:23.733 | ERROR    | monitor.searchSpiders.qiushi:get_request_from_keyword:35 - E 求是错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f24d411ca60>
+    └ <Thread(Thread-68, started daemon 139790212122368)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f24d411c790>
+    └ <Thread(Thread-68, started daemon 139790212122368)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-68, started daemon 139790212122368)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-68, started daemon 139790212122368)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>>
+    └ <Thread(Thread-68, started daemon 139790212122368)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 795, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7f23bc633040>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+    └ <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7f23bc35afd0>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7f23b4bd8ee0>
+    │    │                                │              │         └ '帮助226万名退役军人实现就业（新数据 新看点）'
+    │    │                                │              └ '求是'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7f23bc6330d0>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 134, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7f24b459e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7f23b4bd8ee0>
+               │    │                        │         └ '帮助226万名退役军人实现就业（新数据 新看点）'
+               │    │                        └ '求是'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7f23bc6331f0>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 191, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+        │          │    │       │                                  │        │           │        └ <string.Template object at 0x7f23721a0580>
+        │          │    │       │                                  │        │           └ '帮助226万名退役军人实现就业（新数据 新看点）'
+        │          │    │       │                                  │        └ <string.Template object at 0x7f23b42426d0>
+        │          │    │       │                                  └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Wind...
+        │          │    │       └ '求是'
+        │          │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7f23bc242970>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+        │          └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+        └ <GET http://www.qstheory.cn/qshyjx/2022-03/30/c_1128515199.htm>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/qiushi.py", line 28, in get_request_from_keyword
+    for res in json_response['results']:
+        │      └ None
+        └ {'des': None, 'pubtime': '2022-03-30 09:18:39', 'author': '姜友文', 'sitename': '光明日报 ', 'title': "以高质量<font color='red'>就业</fon...
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-12 09:21:13.462 | ERROR    | monitor.searchSpiders.qiushi:get_request_from_keyword:35 - E 求是错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f24d411ca60>
+    └ <Thread(Thread-170, started daemon 139788674647808)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f24d411c790>
+    └ <Thread(Thread-170, started daemon 139788674647808)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-170, started daemon 139788674647808)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-170, started daemon 139788674647808)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>>
+    └ <Thread(Thread-170, started daemon 139788674647808)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 795, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7f23bc633040>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+    └ <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7f23bc35afd0>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7f23913d7100>
+    │    │                                │              │         └ '宜昌中院：协同推进多元化纠纷解决机制'
+    │    │                                │              └ '求是'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7f23bc6330d0>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 134, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7f24b459e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7f23913d7100>
+               │    │                        │         └ '宜昌中院：协同推进多元化纠纷解决机制'
+               │    │                        └ '求是'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7f23bc6331f0>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 191, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+        │          │    │       │                                  │        │           │        └ <string.Template object at 0x7f23737a8e20>
+        │          │    │       │                                  │        │           └ '宜昌中院：协同推进多元化纠纷解决机制'
+        │          │    │       │                                  │        └ <string.Template object at 0x7f23900f5280>
+        │          │    │       │                                  └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Wind...
+        │          │    │       └ '求是'
+        │          │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7f23bc242970>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+        │          └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+        └ <GET http://www.qstheory.cn/qshyjx/2022-04/12/c_1128552351.htm>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/qiushi.py", line 28, in get_request_from_keyword
+    for res in json_response['results']:
+        │      └ None
+        └ {'des': '换一个角度看，我们党“加强党的长期执政能力建设、先进性和纯洁性建设”的主线逻辑，决定了必须发挥彻底的自我革命精神。 同时要看到，我们党的政治建设、思想建设、组织建设、作风建设、纪律建设，以及制度建设、反腐败斗争的总体布局，决定了必须...
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-12 09:21:13.466 | ERROR    | monitor.searchSpiders.qiushi:get_request_from_keyword:35 - E 求是错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f24d411ca60>
+    └ <Thread(Thread-327, started daemon 139786127918848)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f24d411c790>
+    └ <Thread(Thread-327, started daemon 139786127918848)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-327, started daemon 139786127918848)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-327, started daemon 139786127918848)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>>
+    └ <Thread(Thread-327, started daemon 139786127918848)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 795, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7f23bc633040>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+    └ <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7f23bc35afd0>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7f23367dc760>
+    │    │                                │              │         └ '北京检察机关依法对何兴祥涉嫌受贿、违规出具金融票证、违法发放贷款、隐瞒境外存款案提起公诉'
+    │    │                                │              └ '求是'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7f23bc6330d0>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 134, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7f24b459e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7f23367dc760>
+               │    │                        │         └ '北京检察机关依法对何兴祥涉嫌受贿、违规出具金融票证、违法发放贷款、隐瞒境外存款案提起公诉'
+               │    │                        └ '求是'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7f23bc6331f0>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 191, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+        │          │    │       │                                  │        │           │        └ <string.Template object at 0x7f2335b5a730>
+        │          │    │       │                                  │        │           └ '北京检察机关依法对何兴祥涉嫌受贿、违规出具金融票证、违法发放贷款、隐瞒境外存款案提起公诉'
+        │          │    │       │                                  │        └ <string.Template object at 0x7f223e3fbc40>
+        │          │    │       │                                  └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Wind...
+        │          │    │       └ '求是'
+        │          │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7f23bc242970>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+        │          └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+        └ <GET http://www.qstheory.cn/dt/2020-11/15/c_1126742880.htm>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/qiushi.py", line 28, in get_request_from_keyword
+    for res in json_response['results']:
+        │      └ None
+        └ {'des': None, 'pubtime': '2020-11-15 19:55:07', 'author': None, 'sitename': '央视网 ', 'title': "【新闻联播】《求是》杂志发表习近平总书记重要文章《推进全面<f...
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-12 09:21:32.346 | ERROR    | monitor.searchSpiders.qiushi:get_request_from_keyword:35 - E 求是错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f24d411ca60>
+    └ <Thread(Thread-93, started daemon 139789827299072)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f24d411c790>
+    └ <Thread(Thread-93, started daemon 139789827299072)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-93, started daemon 139789827299072)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-93, started daemon 139789827299072)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>>
+    └ <Thread(Thread-93, started daemon 139789827299072)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 795, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7f23bc633040>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+    └ <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7f23bc35afd0>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7f2370540760>
+    │    │                                │              │         └ '马拉喀什条约对我国生效 极大丰富阅读障碍者精神文化生活'
+    │    │                                │              └ '求是'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7f23bc6330d0>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 134, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7f24b459e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7f2370540760>
+               │    │                        │         └ '马拉喀什条约对我国生效 极大丰富阅读障碍者精神文化生活'
+               │    │                        └ '求是'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7f23bc6331f0>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 191, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+        │          │    │       │                                  │        │           │        └ <string.Template object at 0x7f22f7432820>
+        │          │    │       │                                  │        │           └ '马拉喀什条约对我国生效 极大丰富阅读障碍者精神文化生活'
+        │          │    │       │                                  │        └ <string.Template object at 0x7f227c2ec250>
+        │          │    │       │                                  └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Wind...
+        │          │    │       └ '求是'
+        │          │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7f23bc242970>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+        │          └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+        └ <GET http://www.qstheory.cn/dukan/hqwg/2021-03/11/c_1127197955.htm>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/qiushi.py", line 28, in get_request_from_keyword
+    for res in json_response['results']:
+        │      └ None
+        └ {'des': None, 'pubtime': '2021-03-11 11:06:38', 'author': '刘 伟', 'sitename': '《红旗文稿》2021/5 ', 'title': "如何看待<font color='red'...
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-12 09:21:32.350 | ERROR    | monitor.searchSpiders.qiushi:get_request_from_keyword:35 - E 求是错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f24d411ca60>
+    └ <Thread(Thread-404, started daemon 139784676701952)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f24d411c790>
+    └ <Thread(Thread-404, started daemon 139784676701952)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-404, started daemon 139784676701952)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-404, started daemon 139784676701952)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>>
+    └ <Thread(Thread-404, started daemon 139784676701952)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 795, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7f23bc633040>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+    └ <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7f23bc35afd0>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7f22f67d4be0>
+    │    │                                │              │         └ '北京4地升级为高风险地区'
+    │    │                                │              └ '求是'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7f23bc6330d0>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 134, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7f24b459e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7f22f67d4be0>
+               │    │                        │         └ '北京4地升级为高风险地区'
+               │    │                        └ '求是'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7f23bc6331f0>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 191, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+        │          │    │       │                                  │        │           │        └ <string.Template object at 0x7f22a0ff1fd0>
+        │          │    │       │                                  │        │           └ '北京4地升级为高风险地区'
+        │          │    │       │                                  │        └ <string.Template object at 0x7f22dc4ede50>
+        │          │    │       │                                  └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Wind...
+        │          │    │       └ '求是'
+        │          │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7f23bc242970>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+        │          └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+        └ <GET http://www.qstheory.cn/llwx/2020-10/19/c_1126628543.htm>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/qiushi.py", line 28, in get_request_from_keyword
+    for res in json_response['results']:
+        │      └ None
+        └ {'des': None, 'pubtime': '2020-10-19 13:24:01', 'author': '张耀军', 'sitename': '光明日报 ', 'title': "<font color='red'>为</font>健康丝...
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-12 09:24:17.252 | ERROR    | monitor.searchSpiders.qiushi:get_request_from_keyword:35 - E 求是错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f24d411ca60>
+    └ <Thread(Thread-82, started daemon 139790195336960)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f24d411c790>
+    └ <Thread(Thread-82, started daemon 139790195336960)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-82, started daemon 139790195336960)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-82, started daemon 139790195336960)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>>
+    └ <Thread(Thread-82, started daemon 139790195336960)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 795, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7f23bc633040>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+    └ <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7f23bc35afd0>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7f23703d4b20>
+    │    │                                │              │         └ '帮助226万名退役军人实现就业（新数据 新看点）'
+    │    │                                │              └ '求是'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7f23bc6330d0>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 134, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7f24b459e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7f23703d4b20>
+               │    │                        │         └ '帮助226万名退役军人实现就业（新数据 新看点）'
+               │    │                        └ '求是'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7f23bc6331f0>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 191, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+        │          │    │       │                                  │        │           │        └ <string.Template object at 0x7f2370316220>
+        │          │    │       │                                  │        │           └ '帮助226万名退役军人实现就业（新数据 新看点）'
+        │          │    │       │                                  │        └ <string.Template object at 0x7f225c27d1f0>
+        │          │    │       │                                  └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Wind...
+        │          │    │       └ '求是'
+        │          │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7f23bc242970>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+        │          └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+        └ <GET http://www.qstheory.cn/qshyjx/2020-10/30/c_1126677061.htm>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/qiushi.py", line 28, in get_request_from_keyword
+    for res in json_response['results']:
+        │      └ None
+        └ {'des': "“我爱亲人和祖国，更爱我的荣誉。荣誉，<font color='red'>军人</font>枪刺上的花朵；荣誉，<font color='red'>军人</font>肩膀上的勋章。面对战争和危险考验", 'pubtime': '20...
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-12 09:24:17.265 | ERROR    | monitor.searchSpiders.qiushi:get_request_from_keyword:35 - E 求是错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f24d411ca60>
+    └ <Thread(Thread-386, started daemon 139785048413952)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f24d411c790>
+    └ <Thread(Thread-386, started daemon 139785048413952)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-386, started daemon 139785048413952)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-386, started daemon 139785048413952)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>>
+    └ <Thread(Thread-386, started daemon 139785048413952)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 795, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7f23bc633040>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+    └ <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7f23bc35afd0>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7f22f738a880>
+    │    │                                │              │         └ '防范电诈五大“利器”，你用了几项？'
+    │    │                                │              └ '求是'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7f23bc6330d0>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 134, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7f24b459e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7f22f738a880>
+               │    │                        │         └ '防范电诈五大“利器”，你用了几项？'
+               │    │                        └ '求是'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7f23bc6331f0>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 191, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+        │          │    │       │                                  │        │           │        └ <string.Template object at 0x7f23b4c14220>
+        │          │    │       │                                  │        │           └ '防范电诈五大“利器”，你用了几项？'
+        │          │    │       │                                  │        └ <string.Template object at 0x7f22f7352850>
+        │          │    │       │                                  └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Wind...
+        │          │    │       └ '求是'
+        │          │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7f23bc242970>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+        │          └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+        └ <GET http://www.qstheory.cn/books/2021-05/11/c_1127431935.htm>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/qiushi.py", line 28, in get_request_from_keyword
+    for res in json_response['results']:
+        │      └ None
+        └ {'des': None, 'pubtime': '2021-05-11 11:48:35', 'author': '记者 汤宝兰', 'sitename': '求是网 ', 'title': "揭示百年<font color='red'>大</fo...
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-12 09:25:48.557 | ERROR    | monitor.searchSpiders.qiushi:get_request_from_keyword:35 - E 求是错误'NoneType' object is not subscriptable
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f24d411ca60>
+    └ <Thread(Thread-340, started daemon 139786100119296)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f24d411c790>
+    └ <Thread(Thread-340, started daemon 139786100119296)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-340, started daemon 139786100119296)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-340, started daemon 139786100119296)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>>
+    └ <Thread(Thread-340, started daemon 139786100119296)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 795, in get_request_from_keywords_hot
+    self.search_spider_manager.crawl_by_keyword(
+    │    │                     └ <function SearchSpidersManager.crawl_by_keyword at 0x7f23bc633040>
+    │    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+    └ <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 118, in crawl_by_keyword
+    self.crawl_by_keyword_signal_platform(project_names, platform, keyword, crawl_time, project_times)
+    │    │                                │              │         │        │           └ {'default': <monitor.TimeSection object at 0x7f23bc35afd0>}
+    │    │                                │              │         │        └ <monitor.TimeSection object at 0x7f22b8aaf7f0>
+    │    │                                │              │         └ '日本国会通过经济安全保障法'
+    │    │                                │              └ '求是'
+    │    │                                └ ['default']
+    │    └ <function SearchSpidersManager.crawl_by_keyword_signal_platform at 0x7f23bc6330d0>
+    └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 134, in crawl_by_keyword_signal_platform
+    requests = self.get_request_from_keyword(platform, keyword, **crawl_time.to_dict())
+               │    │                        │         │          │          └ <function TimeSection.to_dict at 0x7f24b459e550>
+               │    │                        │         │          └ <monitor.TimeSection object at 0x7f22b8aaf7f0>
+               │    │                        │         └ '日本国会通过经济安全保障法'
+               │    │                        └ '求是'
+               │    └ <function SearchSpidersManager.get_request_from_keyword at 0x7f23bc6331f0>
+               └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+
+  File "/home/users/Scy/yuqing/spider/monitor/spiderManager.py", line 191, in get_request_from_keyword
+    for request in self.spiders[platform].get_request_from_keyword(headers, search_url, keyword, content_url,
+        │          │    │       │                                  │        │           │        └ <string.Template object at 0x7f223c46dca0>
+        │          │    │       │                                  │        │           └ '日本国会通过经济安全保障法'
+        │          │    │       │                                  │        └ <string.Template object at 0x7f22b872cb20>
+        │          │    │       │                                  └ {'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Wind...
+        │          │    │       └ '求是'
+        │          │    └ {'凤凰网': <monitor.searchSpiders.ifeng.Ifeng object at 0x7f23bc242970>, '头条': <monitor.searchSpiders.toutiao.Toutiao object at ...
+        │          └ <monitor.spiderManager.SearchSpidersManager object at 0x7f23bc242400>
+        └ <GET http://www.qstheory.cn/qshyjx/2020-12/16/c_1126867769.htm>
+
+> File "/home/users/Scy/yuqing/spider/monitor/searchSpiders/qiushi.py", line 28, in get_request_from_keyword
+    for res in json_response['results']:
+        │      └ None
+        └ {'des': "、面向<font color='red'>经济</font>主战场、面向国家重大需求、面向人民生命健康，不断向科学技术广度和深度进军。", 'pubtime': '2020-12-16 14:08:47', 'author': '钱...
+
+TypeError: 'NoneType' object is not subscriptable
+2022-05-12 09:26:40.385 | ERROR    | base.db.mysql:update:389 - 【mysql更新数据出错】
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f24d411ca60>
+    └ <Thread(Thread-542, started daemon 139784057161472)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f24d411c790>
+    └ <Thread(Thread-542, started daemon 139784057161472)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-542, started daemon 139784057161472)>
+    │    │        │    └ ('ProjectManager.run_func_by_thread',)
+    │    │        └ <Thread(Thread-542, started daemon 139784057161472)>
+    │    └ <bound method ProjectManager.get_request_from_keywords_hot of <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>>
+    └ <Thread(Thread-542, started daemon 139784057161472)>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 779, in get_request_from_keywords_hot
+    self.start_finished_spider_every_interval(project_names)
+    │    │                                    └ ['default']
+    │    └ <function ProjectManager.start_finished_spider_every_interval at 0x7f23bc354160>
+    └ <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 764, in start_finished_spider_every_interval
+    self[name].start_spider()
+    │    └ 'default'
+    └ <monitor.projectManager.ProjectManager object at 0x7f24a74f4430>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 352, in start_spider
+    self.update_device_valid(device)
+    │    │                   └ <monitor.deviceManager.DeviceC object at 0x7f23bc35a8e0>
+    │    └ <function Project.update_device_valid at 0x7f23bc353160>
+    └ <monitor.projectManager.Project object at 0x7f23bc35a6a0>
+
+  File "/home/users/Scy/yuqing/spider/monitor/projectManager.py", line 404, in update_device_valid
+    self.database_manager.mysql.update(Device(**device.to_item()))
+    │    │                │     │      │        │      └ <function DeviceC.to_item at 0x7f24acf841f0>
+    │    │                │     │      │        └ <monitor.deviceManager.DeviceC object at 0x7f23bc35a8e0>
+    │    │                │     │      └ <class 'base.db.mysql.Device'>
+    │    │                │     └ <function Mysql.update at 0x7f24ad5a24c0>
+    │    │                └ <base.db.mysql.Mysql object at 0x7f23bc34bca0>
+    │    └ <base.db.dbSlot.Slot object at 0x7f23bc34b760>
+    └ <monitor.projectManager.Project object at 0x7f23bc35a6a0>
+
+> File "/home/users/Scy/yuqing/spider/base/db/mysql.py", line 372, in update
+    if row.all():
+       │   └ <function Query.all at 0x7f24ad6e4430>
+       └ <sqlalchemy.orm.query.Query object at 0x7f2209fcc1c0>
+
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2711, in all
+    return self._iter().all()
+           │    └ <function Query._iter at 0x7f24ad6e4b80>
+           └ <sqlalchemy.orm.query.Query object at 0x7f2209fcc1c0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2846, in _iter
+    result = self.session.execute(
+             │    │       └ <function Session.execute at 0x7f24ad6c3820>
+             │    └ <sqlalchemy.orm.session.Session object at 0x7f22242f74c0>
+             └ <sqlalchemy.orm.query.Query object at 0x7f2209fcc1c0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1688, in execute
+    conn = self._connection_for_bind(bind)
+           │    │                    └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <function Session._connection_for_bind at 0x7f24ad6c3790>
+           └ <sqlalchemy.orm.session.Session object at 0x7f22242f74c0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1529, in _connection_for_bind
+    return self._transaction._connection_for_bind(
+           │    │            └ <function SessionTransaction._connection_for_bind at 0x7f24ad6bb3a0>
+           │    └ <sqlalchemy.orm.session.SessionTransaction object at 0x7f227cd98340>
+           └ <sqlalchemy.orm.session.Session object at 0x7f22242f74c0>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 747, in _connection_for_bind
+    conn = bind.connect()
+           │    └ <function Engine.connect at 0x7f24ad969d30>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3166, in connect
+    return self._connection_cls(self, close_with_result=close_with_result)
+           │    │               │                       └ False
+           │    │               └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <class 'sqlalchemy.engine.base.Connection'>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 96, in __init__
+    else engine.raw_connection()
+         │      └ <function Engine.raw_connection at 0x7f24ad96e1f0>
+         └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3245, in raw_connection
+    return self._wrap_pool_connect(self.pool.connect, _connection)
+           │    │                  │    │    │        └ None
+           │    │                  │    │    └ <function Pool.connect at 0x7f24ad995280>
+           │    │                  │    └ <sqlalchemy.pool.impl.QueuePool object at 0x7f23bc34bd00>
+           │    │                  └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+           │    └ <function Engine._wrap_pool_connect at 0x7f24ad969dc0>
+           └ Engine(mysql+pymysql://root:***@180.201.163.246:33061/spider?autocommit=true&charset=utf8)
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3212, in _wrap_pool_connect
+    return fn()
+           └ <bound method Pool.connect of <sqlalchemy.pool.impl.QueuePool object at 0x7f23bc34bd00>>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 307, in connect
+    return _ConnectionFairy._checkout(self)
+           │                │         └ <sqlalchemy.pool.impl.QueuePool object at 0x7f23bc34bd00>
+           │                └ <classmethod object at 0x7f24ad993490>
+           └ <class 'sqlalchemy.pool.base._ConnectionFairy'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 767, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            │                 │        └ <sqlalchemy.pool.impl.QueuePool object at 0x7f23bc34bd00>
+            │                 └ <classmethod object at 0x7f24ad993430>
+            └ <class 'sqlalchemy.pool.base._ConnectionRecord'>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 425, in checkout
+    rec = pool._do_get()
+          │    └ <function QueuePool._do_get at 0x7f24ad92a700>
+          └ <sqlalchemy.pool.impl.QueuePool object at 0x7f23bc34bd00>
+  File "/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 134, in _do_get
+    raise exc.TimeoutError(
+          │   └ <class 'sqlalchemy.exc.TimeoutError'>
+          └ <module 'sqlalchemy.exc' from '/home/chase/.local/lib/python3.8/site-packages/sqlalchemy/exc.py'>
+
+sqlalchemy.exc.TimeoutError: QueuePool limit of size 5 overflow 10 reached, connection timed out, timeout 30.00 (Background on this error at: https://sqlalche.me/e/14/3o7r)
